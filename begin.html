@@ -24,6 +24,10 @@
   .back { position: absolute; top: 28px; left: 28px; font-family: "EB Garamond", serif;
     font-style: italic; font-size: 15px; color: var(--ochre); text-decoration: none; }
   .back:hover { color: var(--ink); }
+  .paste-link { position: absolute; top: 28px; right: 28px; font-family: "EB Garamond", serif;
+    font-style: italic; font-size: 15px; color: var(--ochre); text-decoration: none; line-height: 1; }
+  .paste-link:hover { color: var(--ink); }
+  @media (max-width: 640px) { .paste-link { top: 20px; right: 22px; font-size: 13px; } }
   .brand-floret { display: flex; justify-content: center; align-items: center; gap: 12px;
     padding-top: 36px; font-family: "Cormorant Garamond", serif; font-size: 22px;
     color: var(--ink); opacity: 0.85; }
@@ -75,6 +79,7 @@
 <body>
 
 <a href="index.html" class="back" rel="prev">← back</a>
+<a href="transform.html" class="paste-link"><em>have your line? paste it →</em></a>
 
 <div class="brand-floret" aria-hidden="true">
   <span>Elemental</span><span class="star">✶</span><span class="it">Sensemaking</span>
