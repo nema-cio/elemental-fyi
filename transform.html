@@ -354,7 +354,7 @@
   // stays null and the form confirms locally without losing the user's work.
   // Payload shape matches intake.py: { phi, translation, email, consent, ... }.
   // See system/FUNNEL_ARCHITECTURE_v2.md (Gate 2 + observation tier).
-  const ENDPOINT = null; // e.g. "https://forms.elemental.fyi/transform"
+  const ENDPOINT = "https://formspree.io/f/xykabwjz"; // Formspree → emails the submission to nema.durrant@gmail.com
 
   const form = document.getElementById('transform-form');
   const received = document.getElementById('received');
@@ -379,7 +379,7 @@
       if (ENDPOINT) {
         await fetch(ENDPOINT, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
           body: JSON.stringify(payload)
         });
       }
