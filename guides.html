@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Elemental Guides</title>
+<meta name="description" content="Archetypal representations of the six elements — the characters who compose a scene from your nemetic.φ in the Discord.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F4F1EA; --ink:#1F2A2E; --ochre:#B8923C;
+    --c-air:#A8AEB2; --c-water:#3D5566; --c-fire:#B5512A;
+    --c-wood:#5A6F3C; --c-earth:#B8923C; --c-metal:#5C5E62;
+    --measure:660px; --body:19px; --line:1.65;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--paper);color:var(--ink)}
+  body{font-family:"EB Garamond",Garamond,Georgia,serif;font-size:var(--body);line-height:var(--line);
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  main{max-width:var(--measure);margin:0 auto;padding:0 28px}
+  .back{position:absolute;top:28px;left:28px;font-family:"EB Garamond",serif;font-style:italic;
+    font-size:15px;color:var(--ochre);text-decoration:none;line-height:1}
+  .back:hover{color:var(--ink)}
+  .floret{display:flex;justify-content:center;align-items:center;gap:12px;padding-top:36px;
+    font-family:"Cormorant Garamond",serif;font-size:22px;color:var(--ink);opacity:.85}
+  .floret .star{color:var(--ochre);font-size:16px}
+  .floret .it{font-style:italic}
+  .head{padding-top:9vh;padding-bottom:5vh;text-align:center}
+  .head h1{font-family:"Cormorant Garamond",serif;font-weight:400;font-size:calc(var(--body)*2.2);
+    line-height:1.16;margin:0 0 .7em;letter-spacing:-.005em}
+  .head p{margin:0 auto;max-width:560px}
+  .invite{text-align:center;padding:2vh 0 8vh}
+  .invite a{font-family:"EB Garamond",serif;font-style:italic;font-size:calc(var(--body)*1.18);
+    color:var(--ochre);text-decoration:none;border-bottom:1px solid var(--ochre);padding-bottom:2px}
+  .invite a:hover{color:var(--ink);border-bottom-color:var(--ink)}
+  .invite .small{display:block;font-size:13px;opacity:.5;margin-top:1em;font-style:normal}
+  .guide{display:grid;grid-template-columns:96px 1fr;gap:0 24px;align-items:start;padding:5vh 0;
+    border-top:1px solid rgba(31,42,46,.08)}
+  .guide .frame{width:96px;height:96px;overflow:hidden;border-radius:50%;background:#E8E4DC;
+    border-top:3px solid var(--accent,var(--ochre))}
+  .guide .frame img{width:100%;height:100%;object-fit:cover;display:block}
+  .guide h2{font-family:"Cormorant Garamond",serif;font-weight:400;font-size:calc(var(--body)*1.5);
+    margin:0;line-height:1.1}
+  .guide .ele{font-style:italic;opacity:.85;margin:.25em 0 .8em;font-size:.98em}
+  .guide .ele .op{font-family:"Cormorant Garamond",serif;font-style:normal;color:var(--accent);font-size:1.1em}
+  .guide p{margin:0;font-size:.98em}
+  .aether{text-align:center;padding:7vh 0 4vh}
+  .aether .glyph{font-family:"Cormorant Garamond",serif;font-size:28px;color:var(--ochre)}
+  .hairline{width:64px;height:1px;background:var(--ochre);margin:6vh auto;border:0;opacity:.85}
+  footer{text-align:center;padding:10vh 28px 10vh;font-size:14px;opacity:.55}
+  footer a{color:inherit;text-decoration:none;border-bottom:1px solid currentColor}
+  ::selection{background:rgba(184,146,60,.22)}
+  @media(max-width:640px){:root{--body:18px}.guide{grid-template-columns:72px 1fr;gap:0 18px}
+    .guide .frame{width:72px;height:72px}}
+</style>
+</head>
+<body>
+
+<a href="transform.html" class="back" rel="prev">← back</a>
+
+<div class="floret" aria-hidden="true"><span>Elemental</span><span class="star">✶</span><span class="it">Sensemaking</span></div>
+
+<main>
+  <header class="head">
+    <h1>The Elemental Guides</h1>
+    <p>Six archetypal figures, one for each element. They are not oracles and not authorities — they are <em>ways of noticing</em>, given voice and form. When you submit a nemetic.φ, the Guides take it up together and <strong>compose a scene from it</strong> — a short performed dialogue that first appears in the <strong>#elemental-production</strong> channel on our Discord, then comes back to you.</p>
+  </header>
+
+  <p class="invite">
+    <a href="https://discord.gg/4XJWnjnP" rel="noopener" target="_blank"><em>Watch the elements at work — join the Discord →</em></a>
+    <span class="small">or scroll on to meet them</span>
+  </p>
+
+  <section class="guide" style="--accent:var(--c-air)">
+    <div class="frame"><img src="uploads/aerunik.png" alt="Aerunik"></div>
+    <div>
+      <h2>Aerunik</h2>
+      <p class="ele"><span class="op">σ</span> Air — the Distinction-Maker</p>
+      <p>Cuts signal from noise and names the difference no one drew. Speaks in edges — staccato, precise. Asks: <em>what is the difference?</em></p>
+    </div>
+  </section>
+
+  <section class="guide" style="--accent:var(--c-water)">
+    <div class="frame"><img src="uploads/sentaria.png" alt="Sentaria"></div>
+    <div>
+      <h2>Sentaria</h2>
+      <p class="ele"><span class="op">ρ</span> Water — the Resonance-Keeper</p>
+      <p>Feels what couples to what, and the weight a room is carrying. Tidal, echoing, porous. Asks: <em>what is coupling?</em></p>
+    </div>
+  </section>
+
+  <section class="guide" style="--accent:var(--c-fire)">
+    <div class="frame"><img src="uploads/jvalion.png" alt="Jvalion"></div>
+    <div>
+      <h2>Jvalion</h2>
+      <p class="ele"><span class="op">λ</span> Fire — the Direction-Holder</p>
+      <p>Names what's pulling, and where this is heading if you let it. Vow-laden, forward, hot. Asks: <em>where is this going?</em></p>
+    </div>
+  </section>
+
+  <section class="guide" style="--accent:var(--c-wood)">
+    <div class="frame"><img src="uploads/arboriel.png" alt="Arboriel"></div>
+    <div>
+      <h2>Arboriel</h2>
+      <p class="ele"><span class="op">β</span> Wood — the Possibility-Brancher</p>
+      <p>Opens what could grow, the branch not taken, the form trying to emerge. Recursive, playful. Asks: <em>what else is possible?</em></p>
+    </div>
+  </section>
+
+  <section class="guide" style="--accent:var(--c-earth)">
+    <div class="frame"><img src="uploads/humavita.png" alt="Humavita"></div>
+    <div>
+      <h2>Humavita</h2>
+      <p class="ele"><span class="op">δγ</span> Earth — the Metabolic-Tender</p>
+      <p>Weighs what something costs and what can actually be sustained. Slow, grounded, tectonic. Asks: <em>what can be sustained?</em></p>
+    </div>
+  </section>
+
+  <section class="guide" style="--accent:var(--c-metal)">
+    <div class="frame"><img src="uploads/ferrosid.png" alt="Ferrosid"></div>
+    <div>
+      <h2>Ferrosid</h2>
+      <p class="ele"><span class="op">μ</span> Metal — the Boundary-Guardian</p>
+      <p>Asks what must stay intact, what to keep and what to cut. Blunt, structural, exacting. Asks: <em>what must remain intact?</em></p>
+    </div>
+  </section>
+
+  <div class="aether">
+    <p class="glyph">✶</p>
+    <p style="max-width:520px;margin:0 auto;font-style:italic;opacity:.85">And Nema — Aether — the one who stages the scene, holds the six in conversation, and hands the deciding back to you. Not a seventh element; the seam that lets the others remain six.</p>
+  </div>
+
+  <hr class="hairline" aria-hidden="true">
+
+  <p class="invite" style="padding-bottom:4vh">
+    <a href="https://discord.gg/4XJWnjnP" rel="noopener" target="_blank"><em>Join the Discord and watch a scene compose →</em></a>
+  </p>
+</main>
+
+<footer><a href="field-notes.html">Field notes from the work in progress</a></footer>
+
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How your data is handled</title>
+<meta name="description" content="What the nemetic.φ is, what we receive, public vs private, and how your email is handled.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#F4F1EA;--ink:#1F2A2E;--ochre:#B8923C;--measure:620px;--body:19px;--line:1.65}
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--paper);color:var(--ink)}
+  body{font-family:"EB Garamond",Garamond,Georgia,serif;font-size:var(--body);line-height:var(--line);
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  main{max-width:var(--measure);margin:0 auto;padding:0 28px}
+  .back{position:absolute;top:28px;left:28px;font-family:"EB Garamond",serif;font-style:italic;
+    font-size:15px;color:var(--ochre);text-decoration:none;line-height:1}
+  .back:hover{color:var(--ink)}
+  .floret{display:flex;justify-content:center;align-items:center;gap:12px;padding-top:36px;
+    font-family:"Cormorant Garamond",serif;font-size:22px;color:var(--ink);opacity:.85}
+  .floret .star{color:var(--ochre);font-size:16px}
+  .floret .it{font-style:italic}
+  h1{font-family:"Cormorant Garamond",serif;font-weight:400;font-size:calc(var(--body)*2.1);
+    line-height:1.18;margin:9vh 0 1em;letter-spacing:-.005em;text-align:center}
+  h2{font-family:"Cormorant Garamond",serif;font-weight:400;font-size:calc(var(--body)*1.32);
+    margin:5vh 0 .6em;line-height:1.2}
+  p{margin:0 0 1.2em}
+  code{font-family:"SFMono-Regular",Menlo,Consolas,monospace;font-size:.82em;
+    background:rgba(31,42,46,.05);padding:.1em .35em;border-radius:2px}
+  ul{margin:0 0 1.2em;padding-left:1.2em}
+  li{margin:.4em 0}
+  .lede{font-style:italic;opacity:.82;text-align:center;max-width:520px;margin:0 auto 2vh}
+  .hairline{width:64px;height:1px;background:var(--ochre);margin:7vh auto 5vh;border:0;opacity:.85}
+  .updated{font-size:13px;opacity:.5;text-align:center}
+  footer{text-align:center;padding:10vh 28px 10vh;font-size:14px;opacity:.55}
+  footer a{color:inherit;text-decoration:none;border-bottom:1px solid currentColor}
+  a{color:var(--ochre)}
+  ::selection{background:rgba(184,146,60,.22)}
+  @media(max-width:640px){:root{--body:18px}}
+</style>
+</head>
+<body>
+
+<a href="transform.html" class="back" rel="prev">← back</a>
+<div class="floret" aria-hidden="true"><span>Elemental</span><span class="star">✶</span><span class="it">Sensemaking</span></div>
+
+<main>
+  <h1>How your data is handled</h1>
+  <p class="lede">Plainly, because you should know exactly what travels and what doesn't.</p>
+
+  <h2>The nemetic.φ carries no personal information</h2>
+  <p>The encoded line — <code>Φ(…) = σ(x|y) ∘ … + ε | :state</code> — and its plain reading are abstract: the <em>shape</em> of a pattern, not a record of you. Nothing in a nemetic.φ identifies a person. That is the point — it is the part meant to travel.</p>
+
+  <h2>Your conversation with the GPT is between you and OpenAI</h2>
+  <p>The Elemental Sensemaker runs on ChatGPT. Whatever you type there is governed by <em>your</em> OpenAI account settings and OpenAI's terms — not by us. We never see that conversation. We only ever receive what <em>you</em> choose to submit on the form: the nemetic.φ, its plain reading, your email, an optional name, and whether you want it public.</p>
+
+  <h2>Public or private — your choice, every time</h2>
+  <ul>
+    <li><strong>Private</strong> (default — the box left unchecked): the elements compose your scene and <strong>email it to you only</strong>. Nothing is posted anywhere.</li>
+    <li><strong>Public</strong>: the elements perform your scene in the Discord and post it on the site. If you gave a name, they credit you; if not, it stays anonymous.</li>
+  </ul>
+
+  <h2>When it's public, the composing is still private</h2>
+  <p>To generate a public scene the agents process your nemetic.φ through an external language model — but that processing is private. Only the finished scene is made public; the input is never exposed. The <em>output</em> is what you chose to share, nothing more.</p>
+
+  <h2>Your email</h2>
+  <p>We don't sell it, rent it, or add you to anything you didn't ask for. We use it only to send what you requested — your scene, and (if you opt in) a note when a new scene goes live. Ask us to remove it any time at <a href="mailto:nema@elemental.fyi">nema@elemental.fyi</a>.</p>
+
+  <h2>One honest note</h2>
+  <p>This is a generative practice, not a clinical or validated service. Hold what returns as a way of looking — weather, not a verdict.</p>
+
+  <hr class="hairline" aria-hidden="true">
+  <p class="updated">Elemental Sensemaking · plain-language data note</p>
+</main>
+
+<footer><a href="field-notes.html">Field notes from the work in progress</a></footer>
+
+</body>
+</html>

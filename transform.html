@@ -311,11 +311,19 @@
       <input type="email" id="email" name="email" required placeholder="you@somewhere">
     </div>
 
-    <div class="field" style="padding-bottom:5vh;">
+    <div class="field">
+      <label for="name">Your name <span style="opacity:0.55;">(optional)</span>
+        <span class="hint">If you'd like the scene to credit you. Leave blank to stay anonymous.</span>
+      </label>
+      <input type="text" id="name" name="name" placeholder="how you'd like to be credited">
+    </div>
+
+    <div class="field" style="padding-bottom:4vh;">
       <label for="consent" style="display:flex; gap:0.6em; align-items:flex-start; font-style:normal; cursor:pointer; margin:0;">
         <input type="checkbox" id="consent" style="margin-top:0.4em;">
-        <span style="font-size:0.9em; opacity:0.8;">The elements may compose a public piece from this — anonymized, no name or email shown. <em>Leave unchecked to keep it to your inbox only.</em></span>
+        <span style="font-size:0.9em; opacity:0.82;">Share my scene publicly — the elements perform it in <strong>#elemental-production</strong> on Discord and post it on the site (crediting your name, if you gave one). <em>Unchecked: they compose it privately and email it to you only — nothing posted.</em></span>
       </label>
+      <p style="font-size:0.78em; opacity:0.55; margin:0.9em 0 0;"><a href="data-policy.html" style="color:var(--ochre); text-decoration:none; border-bottom:1px solid currentColor;">How your φ, name &amp; email are handled →</a></p>
     </div>
 
     <div class="submit-row">
@@ -327,7 +335,7 @@
   <!-- Shown in place of the form after a successful submit -->
   <section class="received" id="received" aria-live="polite">
     <p>It's with the elements now.</p>
-    <p>They will take their time. What comes back is a reflection composed from six angles — read it as weather, not instruction. Watch your inbox.</p>
+    <p>They will take their time. What comes back is a scene composed from the elements — it appears in the Discord if you shared it, and lands in your inbox either way. Read it as weather, not instruction.</p>
     <div class="glyph-line" aria-hidden="true">
       <span style="background:var(--c-air)"></span>
       <span style="background:var(--c-water)"></span>
@@ -336,6 +344,7 @@
       <span style="background:var(--c-earth)"></span>
       <span style="background:var(--c-metal)"></span>
     </div>
+    <p style="margin-top:2.4em;"><a href="guides.html" style="font-family:'EB Garamond',serif; font-style:italic; font-size:calc(var(--body-size)*1.12); color:var(--ochre); text-decoration:none; border-bottom:1px solid var(--ochre); padding-bottom:2px;"><em>Meet the elements who'll compose your scene →</em></a></p>
   </section>
 
   <p class="honest">This is a way of looking, not a verdict. The framework is a generative practice, not a proven science — hold what returns lightly.</p>
@@ -373,7 +382,8 @@
     }
 
     const consent = document.getElementById('consent').checked;
-    const payload = { phi, translation, email, consent, submitted_at: new Date().toISOString() };
+    const name = document.getElementById('name').value.trim();
+    const payload = { phi, translation, email, name, consent, submitted_at: new Date().toISOString() };
 
     try {
       if (ENDPOINT) {
