@@ -56,7 +56,12 @@
   .seed { font-family: "Cormorant Garamond", serif; font-size: calc(var(--body-size) * 1.7);
     letter-spacing: 0.04em; color: var(--ink); margin: 0 0 0.2em; }
   .seed .sigil { color: var(--ochre); }
-  .seed-hint { font-size: 0.82em; opacity: 0.55; margin: 0 0 1.4em; }
+  .seed-hint { font-size: 0.82em; opacity: 0.55; margin: 0 0 1em; }
+  .concern-echo { font-size: 0.6em; opacity: 0.78; font-style: italic; }
+  .copybtn { font-family: inherit; font-style: italic; font-size: 0.9em; color: var(--ochre);
+    background: transparent; border: 1px solid var(--ochre); border-radius: 2px;
+    padding: 0.2em 1em; cursor: pointer; margin: 0 0 1.2em; }
+  .copybtn:hover { color: var(--ink); border-color: var(--ink); }
   .carry a { font-family: "EB Garamond", serif; font-style: italic;
     font-size: calc(var(--body-size) * 1.18); color: var(--ochre); text-decoration: none;
     border-bottom: 1px solid var(--ochre); padding-bottom: 2px; }
@@ -155,7 +160,8 @@
   <main>
     <p class="lead">Carry this to the elements:</p>
     <p class="seed" id="seedText"></p>
-    <p class="seed-hint">Paste it into the conversation to begin. It encodes where to start — the elements decode the rest.</p>
+    <p class="seed-hint">Copy it and paste it into the conversation. The glyph sets where to begin; the line in quotes is what you're bringing.</p>
+    <p><button id="copyBtn" class="copybtn" type="button">copy</button></p>
     <p class="carry"><a id="carryLink" href="https://chatgpt.com/g/g-6a2c0fe6d3b081918f80d27b775715f9-elemental-sensemaker" rel="noopener" target="_blank"><em>Sit with the elements →</em></a></p>
   </main>
 </div>
@@ -168,16 +174,35 @@
   var SCALE = "⟡"; // personal
   var panel = document.getElementById('seedPanel');
   var seedText = document.getElementById('seedText');
+  var copyBtn = document.getElementById('copyBtn');
+  var currentSeed = '';
   document.querySelectorAll('.concern').forEach(function (b) {
     b.addEventListener('click', function () {
       document.querySelectorAll('.concern.picked').forEach(function (p) { p.classList.remove('picked'); });
       b.classList.add('picked');
       var op = b.getAttribute('data-op');
       var beat = b.getAttribute('data-beat');
-      seedText.innerHTML = op + ' <span class="sigil">· ' + SCALE + BEAT_SIGIL[beat] + '</span>';
+      var concern = b.textContent.trim();
+      currentSeed = op + ' · ' + SCALE + BEAT_SIGIL[beat] + ' · "' + concern + '"';
+      seedText.innerHTML = op + ' <span class="sigil">· ' + SCALE + BEAT_SIGIL[beat] + '</span>' +
+        '<br><span class="concern-echo">"' + concern + '"</span>';
+      copyBtn.textContent = 'copy';
       panel.classList.add('show');
       panel.scrollIntoView({ behavior: 'smooth', block: 'end' });
     });
+  });
+  copyBtn.addEventListener('click', function () {
+    if (!currentSeed) return;
+    function done() { copyBtn.textContent = 'copied ✓'; }
+    function fallback() {
+      var ta = document.createElement('textarea'); ta.value = currentSeed;
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); done(); } catch (e) {}
+      document.body.removeChild(ta);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(currentSeed).then(done, fallback);
+    } else { fallback(); }
   });
 </script>
 
