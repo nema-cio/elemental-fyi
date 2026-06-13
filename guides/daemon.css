@@ -1,0 +1,254 @@
+/* Shared stylesheet for the six daemon pages. */
+
+:root {
+  --paper: #F4F1EA;
+  --ink: #1F2A2E;
+  --ochre: #B8923C;
+
+  --c-air:   #A8AEB2;
+  --c-water: #3D5566;
+  --c-fire:  #B5512A;
+  --c-wood:  #5A6F3C;
+  --c-earth: #B8923C;
+  --c-metal: #5C5E62;
+
+  --measure: 620px;
+  --body-size: 19px;
+  --line: 1.65;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+body {
+  font-family: "EB Garamond", Garamond, "Source Serif Pro", Georgia, serif;
+  font-size: var(--body-size);
+  line-height: var(--line);
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+main {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 0 28px;
+}
+
+.back {
+  position: absolute;
+  top: 28px;
+  left: 28px;
+  font-family: "EB Garamond", Garamond, serif;
+  font-style: italic;
+  font-size: 15px;
+  color: var(--ochre);
+  text-decoration: none;
+  line-height: 1;
+}
+.back:hover { color: var(--ink); }
+
+/* Header — daemon name + element line */
+.daemon-head {
+  padding-top: 14vh;
+  padding-bottom: 6vh;
+  text-align: left;
+}
+.daemon-head h1 {
+  font-family: "Cormorant Garamond", "EB Garamond", Garamond, serif;
+  font-weight: 400;
+  font-size: calc(var(--body-size) * 2.4);
+  line-height: 1.1;
+  margin: 0 0 0.55em;
+  letter-spacing: -0.005em;
+}
+.daemon-head .element-line {
+  font-style: italic;
+  margin: 0;
+  font-size: calc(var(--body-size) * 1.02);
+  color: var(--ink);
+  opacity: 0.85;
+}
+.daemon-head .element-line .glyph {
+  font-family: "Cormorant Garamond", serif;
+  font-style: normal;
+  font-size: 1.15em;
+  margin: 0 0.15em;
+  vertical-align: -0.03em;
+}
+
+/* Portrait — full-width within measure, ochre top hairline in elemental color */
+.portrait {
+  margin: 4vh 0 8vh;
+  position: relative;
+}
+.portrait .frame {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: #E8E4DC;
+  overflow: hidden;
+  border-top: 2px solid var(--accent, var(--ochre));
+  position: relative;
+}
+.portrait .frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Body sections */
+section {
+  padding-bottom: 7vh;
+}
+section h2 {
+  font-family: "Cormorant Garamond", "EB Garamond", Garamond, serif;
+  font-weight: 400;
+  font-size: calc(var(--body-size) * 1.32);
+  line-height: 1.2;
+  margin: 0 0 1.2em;
+  letter-spacing: -0.005em;
+}
+section p + p { margin-top: 1.3em; }
+
+/* Voice block — italic, ochre left rule */
+.voice {
+  font-style: italic;
+  margin: 0;
+  padding: 0 0 0 22px;
+  border-left: 2px solid var(--ochre);
+  max-width: 560px;
+  font-size: calc(var(--body-size) * 1.02);
+}
+
+/* Talk-to door */
+.door {
+  text-align: left;
+  padding-top: 0.6em;
+  padding-bottom: 2vh;
+}
+.door a {
+  font-family: "EB Garamond", Garamond, serif;
+  font-style: italic;
+  font-size: calc(var(--body-size) * 1.18);
+  color: var(--ochre);
+  text-decoration: none;
+  border-bottom: 1px solid var(--ochre);
+  padding-bottom: 2px;
+  line-height: 1;
+}
+.door a:hover {
+  color: var(--ink);
+  border-bottom-color: var(--ink);
+}
+
+/* Hairline between "what this is not" and the sibling grid */
+.hairline {
+  width: 64px;
+  height: 1px;
+  background: var(--ochre);
+  margin: 8vh auto;
+  border: 0;
+  opacity: 0.85;
+}
+
+/* Sibling-daemons grid — names + elements, no portraits */
+.siblings {
+  padding-bottom: 6vh;
+}
+.siblings h2 {
+  font-family: "Cormorant Garamond", "EB Garamond", Garamond, serif;
+  font-weight: 400;
+  font-style: italic;
+  font-size: calc(var(--body-size) * 1.1);
+  margin: 0 0 1.6em;
+  text-align: center;
+  opacity: 0.85;
+}
+.siblings ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.siblings li {
+  padding: 0.55em 0;
+  border-bottom: 1px solid rgba(31, 42, 46, 0.08);
+}
+.siblings li:last-child {
+  border-bottom: none;
+}
+.siblings a {
+  display: grid;
+  grid-template-columns: 6.5em 1.4em 1fr;
+  align-items: baseline;
+  gap: 0 0.85em;
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 0.98em;
+  line-height: 1.45;
+  padding: 0.25em 0;
+}
+.siblings a:hover { color: var(--ochre); }
+.siblings .name {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.18em;
+}
+.siblings .ele {
+  font-style: italic;
+  opacity: 0.78;
+}
+.siblings .glyph {
+  font-family: "Cormorant Garamond", serif;
+  text-align: center;
+}
+.siblings .descriptor {
+  font-style: italic;
+  opacity: 0.78;
+  grid-column: 1 / -1;
+  padding-left: 0;
+  font-size: 0.92em;
+  margin-top: -0.1em;
+}
+
+footer {
+  text-align: center;
+  padding: 10vh 28px 10vh;
+  font-size: 14px;
+  color: var(--ink);
+  opacity: 0.55;
+}
+footer a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 1px;
+}
+footer a:hover {
+  opacity: 1;
+  color: var(--ochre);
+  border-bottom-color: var(--ochre);
+}
+
+::selection {
+  background: rgba(184, 146, 60, 0.22);
+  color: var(--ink);
+}
+
+@media (max-width: 640px) {
+  :root { --body-size: 18px; }
+  main { padding: 0 22px; }
+  .back { top: 20px; left: 22px; }
+  .daemon-head { padding-top: 12vh; }
+  .daemon-head h1 { font-size: calc(var(--body-size) * 2.05); }
+  .siblings a {
+    grid-template-columns: 5em 1.2em 1fr;
+    gap: 0 0.6em;
+  }
+}

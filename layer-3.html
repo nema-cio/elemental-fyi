@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Where these patterns live</title>
+<meta name="description" content="The habitats: nested environments inside which patterns form, hold, propagate, and sometimes seal.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F4F1EA;
+    --ink: #1F2A2E;
+    --ochre: #B8923C;
+    --measure: 620px;
+    --body-size: 19px;
+    --line: 1.65;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--paper);
+    color: var(--ink);
+  }
+
+  body {
+    font-family: "EB Garamond", Garamond, "Source Serif Pro", Georgia, serif;
+    font-size: var(--body-size);
+    line-height: var(--line);
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  main {
+    max-width: var(--measure);
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  /* Back link */
+  .back {
+    position: absolute;
+    top: 28px;
+    left: 28px;
+    font-family: "EB Garamond", Garamond, serif;
+    font-style: italic;
+    font-size: 15px;
+    color: var(--ochre);
+    text-decoration: none;
+    line-height: 1;
+  }
+  .back:hover { color: var(--ink); }
+
+  /* Top mark — seven nested circles, ochre, 30% */
+  .mark {
+    display: flex;
+    justify-content: center;
+    padding-top: 80px;
+  }
+  .mark svg { opacity: 0.3; display: block; }
+
+  /* Title + orientation */
+  .head {
+    padding-top: 9vh;
+    padding-bottom: 18vh;
+  }
+  .head h1 {
+    font-family: "Cormorant Garamond", "EB Garamond", Garamond, serif;
+    font-weight: 400;
+    font-size: calc(var(--body-size) * 2.1);
+    line-height: 1.18;
+    margin: 0 0 1.2em;
+    letter-spacing: -0.005em;
+  }
+  .head .orientation { margin: 0; }
+
+  /* Habitat block — same four-part rhythm as Layer 2 */
+  .habitat {
+    padding-bottom: 22vh;
+  }
+  .habitat .name {
+    font-family: "Cormorant Garamond", "EB Garamond", Garamond, serif;
+    font-weight: 400;
+    font-size: calc(var(--body-size) * 1.8);
+    line-height: 1.18;
+    margin: 0;
+    letter-spacing: -0.005em;
+    color: var(--ink);
+  }
+  .habitat .framework {
+    font-style: italic;
+    margin: 0.35em 0 1.6em;
+    font-size: calc(var(--body-size) * 0.95);
+    color: var(--ink);
+    opacity: 0.78;
+  }
+  .habitat p + p { margin-top: 1.4em; }
+  .habitat .wrong {
+    margin-top: 1.8em;
+  }
+  .habitat .question {
+    font-style: italic;
+    margin: 2.2em 0 0;
+    padding-left: 1.6em;
+    border-left: 1px solid rgba(31, 42, 46, 0.18);
+    line-height: 1.45;
+  }
+
+  /* Diagnostic center — more breathing room around it */
+  .twoways {
+    padding-top: 6vh;
+    padding-bottom: 24vh;
+  }
+  .twoways .label {
+    font-style: italic;
+    font-size: calc(var(--body-size) * 1.18);
+    line-height: 1.3;
+    margin: 0 0 2.2em;
+    color: var(--ink);
+  }
+  .twoways p + p { margin-top: 1.4em; }
+  .twoways .final {
+    margin-top: 2.2em;
+  }
+
+  /* Closing scale-note */
+  .note {
+    padding-bottom: 14vh;
+  }
+  .note h2 {
+    font-family: "Cormorant Garamond", "EB Garamond", Garamond, serif;
+    font-weight: 400;
+    font-size: calc(var(--body-size) * 1.35);
+    line-height: 1.2;
+    margin: 0 0 1em;
+    color: var(--ink);
+  }
+
+  .hairline {
+    width: 64px;
+    height: 1px;
+    background: var(--ochre);
+    margin: 0 auto 14vh;
+    border: 0;
+    opacity: 0.85;
+  }
+
+  .door {
+    text-align: center;
+    padding-bottom: 4vh;
+  }
+  .door a {
+    font-family: "EB Garamond", Garamond, serif;
+    font-style: italic;
+    font-size: calc(var(--body-size) * 1.18);
+    color: var(--ochre);
+    text-decoration: none;
+    border-bottom: 1px solid var(--ochre);
+    padding-bottom: 2px;
+    line-height: 1;
+  }
+  .door a:hover {
+    color: var(--ink);
+    border-bottom-color: var(--ink);
+  }
+
+  footer {
+    text-align: center;
+    padding: 10vh 28px 10vh;
+    font-size: 14px;
+    color: var(--ink);
+    opacity: 0.55;
+  }
+  footer a {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 1px;
+  }
+  footer a:hover {
+    opacity: 1;
+    color: var(--ochre);
+    border-bottom-color: var(--ochre);
+  }
+
+  ::selection {
+    background: rgba(184, 146, 60, 0.22);
+    color: var(--ink);
+  }
+
+  @media (max-width: 640px) {
+    :root { --body-size: 18px; }
+    main { padding: 0 22px; }
+    .back { top: 20px; left: 22px; }
+    .mark { padding-top: 60px; }
+    .head { padding-top: 7vh; padding-bottom: 14vh; }
+    .head h1 { font-size: calc(var(--body-size) * 1.85); }
+    .habitat { padding-bottom: 18vh; }
+    .habitat .name { font-size: calc(var(--body-size) * 1.65); }
+    .habitat .question { padding-left: 1.1em; }
+    .twoways { padding-bottom: 20vh; }
+  }
+</style>
+</head>
+<body>
+
+<a href="layer-2.html" class="back" rel="prev">← back</a>
+
+<!-- Seven nested concentric circles, prefiguring the nested-habitat structure -->
+<div class="mark" aria-hidden="true">
+  <svg viewBox="0 0 100 100" width="76" height="76">
+    <g fill="none" stroke="#B8923C" stroke-width="0.55">
+      <circle cx="50" cy="50" r="6"></circle>
+      <circle cx="50" cy="50" r="12"></circle>
+      <circle cx="50" cy="50" r="19"></circle>
+      <circle cx="50" cy="50" r="26"></circle>
+      <circle cx="50" cy="50" r="33"></circle>
+      <circle cx="50" cy="50" r="40"></circle>
+      <circle cx="50" cy="50" r="47"></circle>
+    </g>
+  </svg>
+</div>
+
+<main>
+
+  <header class="head">
+    <h1>Where these patterns live</h1>
+    <p class="orientation">Patterns don't float free. They live in particular places — in the gap between perception and what is actually there, in the story you tell about yourself, in the room when others arrive, in the groups you belong to, in what came before any of you. Each of these is a habitat. You are always inside several at once.</p>
+  </header>
+
+  <!-- 1. IT-FIELD -->
+  <section class="habitat">
+    <p class="name">The given world</p>
+    <p class="framework"><em>It-Field (Ω)</em></p>
+
+    <p>The It-Field is the world before anyone has said anything about it. The rain that is falling whether you call it rain or not. The other person who is already a person before you decide what kind of person they are. Most of the time we don't notice this habitat at all, because noticing it requires stepping back from the names we have already given to the room.</p>
+
+    <p>It is the layer everything else rests on. Every story, every channel, every shared room is built out of pieces taken from here. When you do notice it — usually in a moment that surprises you, a fact that refuses to fit the story you had — you feel something steady underneath. Not friendly, not hostile. Just there.</p>
+
+    <p class="wrong">The failure of the given world is forgetting it is there. You mistake your model of the world for the world, and stop checking back. The map becomes the territory — not because anyone decided to swap them, but because no one is looking at the territory anymore.</p>
+
+    <p class="question">What am I taking as given, that isn't?</p>
+  </section>
+
+  <!-- 2. I-TUBE -->
+  <section class="habitat">
+    <p class="name">The personal channel</p>
+    <p class="framework"><em>I-Tube</em></p>
+
+    <p>The I-Tube is your particular intake. Two people stand in the same rain and one of them is mostly noticing the cold; the other is mostly noticing how the light has changed on the wet road. Same rain. Different rain. The channel is what your attention picks up, what it dampens, and what it routes straight to feeling without you ever quite having seen it.</p>
+
+    <p>This is the most private of the habitats. You can usually only see your own channel by its outputs — what surprised you, what bored you, what you found yourself thinking about an hour after the conversation ended. The channel is shaped by everything: by your morning, by your history, by the language you happen to have for what is in front of you.</p>
+
+    <p class="wrong">The failure of the personal channel is the narrowing. The channel begins to let in only what confirms what it already carries. The same kind of moment, the same kind of person, the same kind of news. The world outside seems to be saying the same thing over and over, when in fact you are sampling it the same way over and over.</p>
+
+    <p class="question">What is my attention letting in, and what is it filtering out?</p>
+  </section>
+
+  <!-- 3. MY-STREAM -->
+  <section class="habitat">
+    <p class="name">The inner story</p>
+    <p class="framework"><em>My-Stream</em></p>
+
+    <p>The My-Stream is the running narrative you carry about yourself. Not your beliefs — your beliefs are downstream of it. The story is the shape your life seems to have when you describe it to a friend: this is who I am, this is what I am doing, this is why. It is partly true, partly inherited, partly improvised on the spot.</p>
+
+    <p>You notice the story most clearly when someone tells a different version of the same events back to you, and you feel a small flare of resistance. That flare is the edge of the stream, defending its shape. The stream is not a problem. Stories are how anything stays itself long enough to act. But the same shape that gives you continuity can also be the thing keeping you from learning what is actually happening now.</p>
+
+    <p class="wrong">The failure of the inner story is the story closing around itself. It stops being revisable. New evidence gets folded into the existing shape rather than allowed to change it. People who knew you ten years ago notice. You don't.</p>
+
+    <p class="question">What story am I inside, and is it still revisable?</p>
+  </section>
+
+  <!-- 4. WE-SPHERE -->
+  <section class="habitat">
+    <p class="name">The shared room</p>
+    <p class="framework"><em>We-Sphere</em></p>
+
+    <p>The We-Sphere is whatever room you are in with other people. A meeting. A dinner. A couple sitting on a porch. The room has its own atmosphere — it shifts when someone enters, narrows when a particular topic appears, opens when someone laughs at the right moment. The room is the smallest social habitat that isn't just you.</p>
+
+    <p>Rooms agree to things before anyone says them. What can be talked about. What gets passed over. What kind of jokes work here. What gets met with a hum of assent instead of a real reply. Most of the texture of social life lives at this scale — not in the sentences spoken, but in what the room had already decided was sayable.</p>
+
+    <p class="wrong">The failure of the shared room is the agreement that produces no friction. The room agrees too quickly, or agrees to disagree in a way that means no one's position can actually change. The room feels warm. Everyone leaves still holding what they came in with. Nothing was risked. Nothing moved.</p>
+
+    <p class="question">What is this room agreeing to, before anyone says it?</p>
+  </section>
+
+  <!-- 5. THREADPLEX -->
+  <section class="habitat">
+    <p class="name">The braided field</p>
+    <p class="framework"><em>Threadplex</em></p>
+
+    <p>The Threadplex is what happens when many rooms braid together over time. A long friendship. A workplace culture. A family across decades. A comment section that has been running long enough to have its own gravity. The braided field has a shape no single conversation inside it would explain. It is the pattern that survives between meetings.</p>
+
+    <p>You feel the field as a pull. There are things easier to say inside it and things harder to say. There are jokes that only work here. There are old fights still half-alive in the room, even when the room is full of new people. The field carries memory the individuals don't always carry, and it teaches new arrivals what tone to take without ever stating the lesson.</p>
+
+    <p class="wrong">The failure of the braided field is becoming a grid. The pattern hardens, reproduces itself, and begins to treat new patterns as threats. New arrivals are absorbed or pushed out. The field stops braiding and starts copying. From the inside it can feel like loyalty or tradition. From the outside it begins to look like something that has stopped breathing.</p>
+
+    <p class="question">What pattern is this group reproducing, that no one chose?</p>
+  </section>
+
+  <!-- 6. OTHER-SPHERE -->
+  <section class="habitat">
+    <p class="name">The wider weather</p>
+    <p class="framework"><em>Other-Sphere</em></p>
+
+    <p>The Other-Sphere is the weather you didn't choose and didn't notice you were inside. The cultural air a generation breathes without deciding to. The assumptions that don't need to be stated because everyone within range of them already shares them. What counts as embarrassing. What counts as obvious. Which questions sound serious, and which ones sound naive.</p>
+
+    <p>You notice the wider weather mainly when you leave it. Travel will do it. So will a long conversation with someone from a different decade or a different language. So will reading something old enough that its certainties no longer feel like certainties. Until then, the weather feels like clarity. Like sense itself.</p>
+
+    <p class="wrong">The failure of the wider weather is taking it for the only weather. Or taking it for nature. The assumptions of a particular era and place become the way things are, and anything outside them sounds confused or wrong. The error is invisible from inside; that is what makes it the error.</p>
+
+    <p class="question">What weather am I inside that I think is just the world?</p>
+  </section>
+
+  <!-- 7. LATTICE -->
+  <section class="habitat">
+    <p class="name">The deep ground</p>
+    <p class="framework"><em>Lattice</em></p>
+
+    <p>The Lattice is older than the rest. Inherited structures — through family, language, body, lineage. Patterns laid down before you arrived, in rooms you were never in, by people you never met. They show up as preferences that feel like preferences but are also positions. Tastes that are also inheritances. Fears that came with the house.</p>
+
+    <p>The deep ground is felt rather than thought. You notice it in moments when you react before you can say why. Sometimes the reaction is wise; the lattice has held things worth holding. Sometimes the reaction is simply old; the lattice is repeating a defense that no longer matches the threat. Both can be happening at once, and the same gesture is both.</p>
+
+    <p class="wrong">The failure of the deep ground is treating it as fate. What was inherited becomes what must be. The lattice gets mistaken for nature, or for character, or for the way you simply are. Inside that mistake, things that could shift over decades quietly stop being available to shift.</p>
+
+    <p class="question">What is moving in me that is older than this life?</p>
+  </section>
+
+  <!-- DIAGNOSTIC CENTER — Two ways a habitat can be -->
+  <section class="twoways">
+    <p class="label">Two ways a habitat can be</p>
+
+    <p>A habitat that breathes lets new patterns in, lets old patterns leave, and notices the difference. People inside it can disagree without the disagreement becoming a threat to the habitat itself. Surprise is welcome. New distinctions can emerge. This is what the framework calls a <em>Co-Sphere</em> — a shared environment that stays porous to what is outside it.</p>
+
+    <p>A habitat that has sealed treats new patterns as noise, treats disagreement as betrayal, and reproduces itself even as the world around it shifts. People inside it often feel certain, agreeable, and slightly trapped — though the trap may be hard to name. This is what the framework calls a <em>MemeGrid</em> — a habitat that has closed against the very surprise that would let it breathe again.</p>
+
+    <p class="final">Most habitats live somewhere between. Few are pure Co-Sphere; few are pure MemeGrid. The diagnostic question is not <em>which one is this</em> but <em>which way is it moving?</em></p>
+  </section>
+
+  <!-- Closing note -->
+  <section class="note">
+    <h2>A note on scale</h2>
+    <p>The same habitat can be inside another habitat. A relationship can be a shared room inside a braided field inside a wider weather. A meeting can be a shared room with its own inner stories braided through it. The diagnostic works at every scale. You can ask the same questions of a conversation, a marriage, a workplace, a country, an era.</p>
+  </section>
+
+  <hr class="hairline" aria-hidden="true">
+
+  <nav class="door" aria-label="Continue">
+    <a href="layer-4.html"><em>How to use them as a practice →</em></a>
+  </nav>
+
+</main>
+
+<footer>
+  <a href="field-notes.html">Field notes from the work in progress</a>
+</footer>
+
+</body>
+</html>

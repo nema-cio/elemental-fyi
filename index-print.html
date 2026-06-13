@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Elemental</title>
+<meta name="description" content="A way of looking. A set of instruments for noticing what is moving through you, and what is moving you.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F4F1EA;
+    --ink: #1F2A2E;
+    --ochre: #B8923C;
+    --measure: 620px;
+    --body-size: 19px;
+    --line: 1.65;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--paper);
+    color: var(--ink);
+  }
+
+  body {
+    font-family: "EB Garamond", Garamond, "Source Serif Pro", Georgia, serif;
+    font-size: var(--body-size);
+    line-height: var(--line);
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  main {
+    max-width: var(--measure);
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  /* The faint prefiguring marks */
+  .marks {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    padding-top: 88px;
+    padding-bottom: 0;
+    opacity: 0.3;
+  }
+  .marks span {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--ochre);
+  }
+
+  /* Block rhythm: each block has its own top spacing roughly 1.5x its mass.
+     We use generous, varied vertical space rather than uniform margins. */
+  .block {
+    /* default — overridden per-block */
+  }
+
+  /* Block 1 — Opening line */
+  .opening {
+    padding-top: 22vh;
+    padding-bottom: 28vh;
+  }
+  .opening p {
+    font-family: "Cormorant Garamond", "EB Garamond", Garamond, serif;
+    font-weight: 400;
+    font-size: calc(var(--body-size) * 2.5);
+    line-height: 1.22;
+    letter-spacing: -0.005em;
+    margin: 0;
+    opacity: 0;
+    animation: settle 600ms ease-out forwards;
+    animation-delay: 120ms;
+  }
+  .opening p .terminal {
+    color: var(--ochre);
+  }
+
+  @keyframes settle {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .opening p { animation: none; opacity: 1; }
+  }
+
+  /* Block 2 — The observation */
+  .observation {
+    padding-bottom: 24vh;
+  }
+  .observation p + p {
+    margin-top: 1.4em;
+  }
+
+  /* Block 3 — Why it matters */
+  .stakes {
+    padding-bottom: 24vh;
+  }
+
+  /* Block 4 — What this site is */
+  .is {
+    padding-bottom: 22vh;
+  }
+
+  /* Block 5 — What this site is not */
+  .isnot {
+    padding-bottom: 18vh;
+  }
+  .isnot .borrowed {
+    font-style: italic;
+  }
+
+  /* Hairline between blocks 5 and 6 */
+  .hairline {
+    width: 64px;
+    height: 1px;
+    background: var(--ochre);
+    margin: 0 auto 18vh;
+    border: 0;
+    opacity: 0.85;
+  }
+
+  /* Block 6 — The door */
+  .door {
+    text-align: center;
+    padding-bottom: 12vh;
+  }
+  .door a {
+    font-family: "EB Garamond", Garamond, serif;
+    font-style: italic;
+    font-size: calc(var(--body-size) * 1.18);
+    color: var(--ochre);
+    text-decoration: none;
+    border-bottom: 1px solid var(--ochre);
+    padding-bottom: 2px;
+    line-height: 1;
+  }
+  .door a:hover {
+    color: var(--ink);
+    border-bottom-color: var(--ink);
+  }
+
+  /* Footer — Substack line */
+  footer {
+    text-align: center;
+    padding: 14vh 28px 10vh;
+    font-size: 14px;
+    color: var(--ink);
+    opacity: 0.55;
+  }
+  footer a {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 1px;
+  }
+  footer a:hover {
+    opacity: 1;
+    color: var(--ochre);
+    border-bottom-color: var(--ochre);
+  }
+
+  /* Mobile: tighten the opening, loosen nothing else */
+  @media (max-width: 640px) {
+    :root { --body-size: 18px; }
+    main { padding: 0 22px; }
+    .marks { padding-top: 64px; }
+    .opening {
+      padding-top: 16vh;
+      padding-bottom: 22vh;
+    }
+    .opening p {
+      font-size: calc(var(--body-size) * 2.05);
+    }
+  }
+
+  /* Selection — quiet */
+  ::selection {
+    background: rgba(184, 146, 60, 0.22);
+    color: var(--ink);
+  }
+
+  /* ---- Print ---- */
+  @page {
+    size: A4 portrait;
+    margin: 22mm 18mm;
+  }
+
+  @media print {
+    :root {
+      --body-size: 12pt;
+      --line: 1.55;
+      --measure: 120mm;
+    }
+
+    html, body {
+      background: #F4F1EA !important;
+      color: #1F2A2E !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    main {
+      max-width: var(--measure);
+      padding: 0;
+    }
+
+    .marks {
+      padding-top: 0;
+      padding-bottom: 14mm;
+      gap: 10px;
+      opacity: 0.3;
+    }
+    .marks span {
+      width: 3px;
+      height: 3px;
+      background: #B8923C !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* Collapse vh-based rhythm into print-appropriate spacing.
+       Keep generous, varied space; don't compress to a wall of text. */
+    .opening {
+      padding-top: 8mm;
+      padding-bottom: 26mm;
+      break-inside: avoid;
+    }
+    .opening p {
+      font-size: 28pt;
+      line-height: 1.22;
+      opacity: 1 !important;
+      animation: none !important;
+    }
+    .opening p .terminal {
+      color: #B8923C !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .observation { padding-bottom: 22mm; }
+    .stakes      { padding-bottom: 22mm; }
+    .is          { padding-bottom: 20mm; }
+    .isnot       { padding-bottom: 14mm; }
+
+    .block { break-inside: avoid; }
+
+    .hairline {
+      width: 18mm;
+      margin: 0 auto 16mm;
+      background: #B8923C !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      opacity: 0.85;
+    }
+
+    .door {
+      padding-bottom: 10mm;
+      break-inside: avoid;
+    }
+    .door a {
+      color: #B8923C !important;
+      border-bottom-color: #B8923C !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      font-size: 13.5pt;
+    }
+
+    footer {
+      padding: 14mm 0 0;
+      font-size: 9pt;
+      opacity: 0.55;
+    }
+    footer a {
+      color: #1F2A2E !important;
+      border-bottom-color: #1F2A2E !important;
+    }
+
+    /* Hide nothing — but suppress any hover/transition artifacts */
+    a, a:hover { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- A whisper, not a sign. Six small marks in the ochre accent, 30% opacity. -->
+<div class="marks" aria-hidden="true">
+  <span></span><span></span><span></span><span></span><span></span><span></span>
+</div>
+
+<main>
+
+  <!-- Block 1 — Opening line -->
+  <section class="block opening">
+    <p>Patterns are alive. They move through us, shape what we notice, and decide what we pass on<span class="terminal">.</span></p>
+  </section>
+
+  <!-- Block 2 — The observation -->
+  <section class="block observation">
+    <p>Ideas, beliefs, moods, ways of seeing — they behave like living things. They find hosts. They compete for room. They borrow our voices and our attention to make more of themselves.</p>
+    <p>Some of them help us breathe. Some quietly close us in. The trouble is they rarely announce which is which. By the time we notice the shape of one, we are usually already inside it, already speaking from inside it, already passing it on.</p>
+    <p>Think of the difference between a conversation that opens you up and one that subtly traps you — even when both feel agreeable in the moment. Both can be warm. Both can be polite. Only one of them leaves you with more room than you came in with.</p>
+  </section>
+
+  <!-- Block 3 — Why it matters -->
+  <section class="block stakes">
+    <p>We live inside these patterns whether we name them or not. Naming them is not control. It is just the difference between weather you notice and weather you don't.</p>
+  </section>
+
+  <!-- Block 4 — What this site is -->
+  <section class="block is">
+    <p>This is a way of looking. A set of instruments for noticing what is moving through you, and what is moving you.</p>
+  </section>
+
+  <!-- Block 5 — What this site is not -->
+  <section class="block isnot">
+    <p>It is not a belief system. It is not a path.</p>
+    <p class="borrowed">The map knows it is a map.</p>
+  </section>
+
+  <!-- Hairline -->
+  <hr class="hairline" aria-hidden="true">
+
+  <!-- Block 6 — The door -->
+  <section class="block door">
+    <a href="layer-2.html" rel="next"><em>Six ways of noticing →</em></a>
+  </section>
+
+</main>
+
+<footer>
+  <a href="https://elemental.substack.com" rel="noopener">Field notes from the work in progress</a>
+</footer>
+
+<script>
+  (async () => {
+    try {
+      if (document.fonts && document.fonts.ready) {
+        await document.fonts.ready;
+      }
+    } catch (e) {}
+    await new Promise((r) => {
+      if (document.readyState === "complete") r();
+      else window.addEventListener("load", r, { once: true });
+    });
+    setTimeout(() => window.print(), 500);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Elemental Sensemaking — Logo options</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F4F1EA;
+    --ink: #1F2A2E;
+    --ochre: #B8923C;
+    --c-air:   #A8AEB2;
+    --c-water: #3D5566;
+    --c-fire:  #B5512A;
+    --c-wood:  #5A6F3C;
+    --c-earth: #B8923C;
+    --c-metal: #5C5E62;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #E8E4DC;
+    color: var(--ink);
+    font-family: "EB Garamond", Garamond, Georgia, serif;
+  }
+
+  .doc {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 28px 80px;
+  }
+
+  .doc-head {
+    text-align: center;
+    padding: 24px 0 48px;
+  }
+  .doc-head h1 {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 400;
+    font-size: 36px;
+    margin: 0 0 0.4em;
+    letter-spacing: -0.005em;
+  }
+  .doc-head p {
+    font-style: italic;
+    color: var(--ink);
+    opacity: 0.7;
+    margin: 0;
+  }
+
+  .page {
+    background: var(--paper);
+    padding: 56px 48px 40px;
+    margin-bottom: 28px;
+    position: relative;
+    min-height: 540px;
+    display: flex;
+    flex-direction: column;
+  }
+  .page .label {
+    position: absolute;
+    top: 22px;
+    left: 28px;
+    font-variant: small-caps;
+    letter-spacing: 0.12em;
+    font-size: 11px;
+    color: var(--ink);
+    opacity: 0.55;
+  }
+  .page .stage {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 0 50px;
+  }
+  .page .mono {
+    position: absolute;
+    bottom: 24px;
+    right: 28px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .page .mono-label {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink);
+    opacity: 0.5;
+    font-variant: small-caps;
+  }
+
+  /* Reusable atoms */
+  .dot {
+    display: inline-block;
+    border-radius: 50%;
+    background: currentColor;
+  }
+  .wordmark {
+    font-family: "Cormorant Garamond", "EB Garamond", serif;
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1.05;
+    letter-spacing: 0.005em;
+  }
+
+  /* ── 1. Signature ── */
+  .sig-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+  }
+  .sig-dots {
+    display: flex;
+    gap: 18px;
+  }
+  .sig-dots .dot { width: 12px; height: 12px; }
+  .sig-wordmark { font-size: 42px; }
+  .mono-sig {
+    display: flex;
+    gap: 5px;
+  }
+  .mono-sig .dot { width: 5px; height: 5px; }
+
+  /* ── 2. Constellation (hex) ── */
+  .hex-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+  }
+  .hex {
+    position: relative;
+    width: 170px;
+    height: 170px;
+  }
+  .hex .dot {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+  }
+  .hex .aether {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -52%);
+    color: var(--ochre);
+    font-family: "Cormorant Garamond", serif;
+    font-size: 38px;
+    line-height: 1;
+  }
+  .hex-wordmark { font-size: 32px; }
+  .mono-hex { position: relative; width: 36px; height: 36px; }
+  .mono-hex .dot { position: absolute; width: 4px; height: 4px; }
+  .mono-hex .aether {
+    position: absolute; left: 50%; top: 50%;
+    transform: translate(-50%, -52%);
+    color: var(--ochre);
+    font-family: "Cormorant Garamond", serif;
+    font-size: 9px;
+  }
+
+  /* ── 3. Ring ── */
+  .ring-lock {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+  .ring {
+    position: relative;
+    width: 140px;
+    height: 140px;
+  }
+  .ring svg { position: absolute; inset: 0; }
+  .ring .dot {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+  }
+  .ring-wordmark { font-size: 38px; line-height: 1.05; letter-spacing: -0.01em; }
+  .mono-ring { position: relative; width: 36px; height: 36px; }
+  .mono-ring svg { position: absolute; inset: 0; }
+  .mono-ring .dot { position: absolute; width: 4px; height: 4px; }
+
+  /* ── 4. Operators ── */
+  .op-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 22px;
+  }
+  .op-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 56px;
+    line-height: 1;
+  }
+  .op-row span { display: inline-block; }
+  .op-wordmark {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 1;
+    font-variant: small-caps;
+    letter-spacing: 0.16em;
+    color: var(--ink);
+  }
+  .mono-op {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 16px;
+    line-height: 1;
+  }
+
+  /* ── 5. Chord ── */
+  .chord-lock {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+  }
+  .chord {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+  }
+  .chord .bar {
+    width: 5px;
+    display: block;
+  }
+  .chord-wordmark {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .chord-wordmark .line {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 34px;
+    line-height: 1;
+  }
+  .chord-wordmark .line.it {
+    font-style: italic;
+    color: var(--ochre);
+  }
+  .mono-chord {
+    display: flex;
+    align-items: flex-end;
+    gap: 4.5px;
+  }
+  .mono-chord .bar { width: 2.2px; display: block; }
+
+  /* ── 6. Floret ── */
+  .floret-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+  .floret-line {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 44px;
+    line-height: 1.1;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+  .floret-line .star {
+    color: var(--ochre);
+    font-size: 30px;
+    line-height: 1;
+    transform: translateY(-1px);
+  }
+  .floret-line .it { font-style: italic; }
+  .floret-tag {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 14px;
+    opacity: 0.7;
+    letter-spacing: 0.04em;
+  }
+  .mono-floret {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 22px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .mono-floret .star { color: var(--ochre); font-size: 16px; }
+  .mono-floret .it { font-style: italic; }
+
+  /* ────────── Print ────────── */
+  @page {
+    size: A4 landscape;
+    margin: 12mm;
+  }
+  @media print {
+    html, body {
+      background: #ffffff !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .doc {
+      max-width: none;
+      padding: 0;
+      margin: 0;
+    }
+    .doc-head { display: none; }
+    .page {
+      background: #F4F1EA !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      margin: 0;
+      padding: 24mm 22mm 18mm;
+      width: 100%;
+      min-height: calc(100vh - 24mm);
+      break-after: page;
+      break-inside: avoid;
+      display: flex;
+      flex-direction: column;
+    }
+    .page:last-child { break-after: auto; }
+    .page .label {
+      top: 12mm;
+      left: 14mm;
+    }
+    .page .mono {
+      bottom: 12mm;
+      right: 14mm;
+    }
+    .dot, .aether, .star, svg circle, .chord .bar, .mono-chord .bar {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="doc">
+
+  <header class="doc-head">
+    <h1>Elemental Sensemaking — Logo options</h1>
+    <p>Six explorations. Same paper, same ochre, same restraint.</p>
+  </header>
+
+  <!-- ── 1. Signature ── -->
+  <section class="page">
+    <div class="label">01 · The signature</div>
+    <div class="stage">
+      <div class="sig-stack">
+        <div class="sig-dots">
+          <span class="dot" style="color:var(--c-air)"></span>
+          <span class="dot" style="color:var(--c-water)"></span>
+          <span class="dot" style="color:var(--c-fire)"></span>
+          <span class="dot" style="color:var(--c-wood)"></span>
+          <span class="dot" style="color:var(--c-earth)"></span>
+          <span class="dot" style="color:var(--c-metal)"></span>
+        </div>
+        <div class="wordmark sig-wordmark">Elemental Sensemaking</div>
+      </div>
+    </div>
+    <div class="mono">
+      <div class="mono-label">at icon size</div>
+      <div class="mono-sig">
+        <span class="dot" style="color:var(--c-air)"></span>
+        <span class="dot" style="color:var(--c-water)"></span>
+        <span class="dot" style="color:var(--c-fire)"></span>
+        <span class="dot" style="color:var(--c-wood)"></span>
+        <span class="dot" style="color:var(--c-earth)"></span>
+        <span class="dot" style="color:var(--c-metal)"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 2. Constellation ── -->
+  <section class="page">
+    <div class="label">02 · The constellation</div>
+    <div class="stage">
+      <div class="hex-wrap">
+        <div class="hex" id="hex-main"></div>
+        <div class="wordmark hex-wordmark">Elemental Sensemaking</div>
+      </div>
+    </div>
+    <div class="mono">
+      <div class="mono-label">at icon size</div>
+      <div class="mono-hex" id="hex-mini"></div>
+    </div>
+  </section>
+
+  <!-- ── 3. Ring ── -->
+  <section class="page">
+    <div class="label">03 · The ring</div>
+    <div class="stage">
+      <div class="ring-lock">
+        <div class="ring" id="ring-main"></div>
+        <div class="wordmark ring-wordmark">Elemental<br>Sensemaking</div>
+      </div>
+    </div>
+    <div class="mono">
+      <div class="mono-label">at icon size</div>
+      <div class="mono-ring" id="ring-mini"></div>
+    </div>
+  </section>
+
+  <!-- ── 4. Operators ── -->
+  <section class="page">
+    <div class="label">04 · The operators</div>
+    <div class="stage">
+      <div class="op-stack">
+        <div class="op-row">
+          <span style="color:var(--c-air)">∴</span>
+          <span style="color:var(--c-water)">≈</span>
+          <span style="color:var(--c-fire)">▲</span>
+          <span style="color:var(--c-wood)">𐂷</span>
+          <span style="color:var(--c-earth)">☷</span>
+          <span style="color:var(--c-metal)">⛨</span>
+        </div>
+        <div class="op-wordmark">elemental sensemaking</div>
+      </div>
+    </div>
+    <div class="mono">
+      <div class="mono-label">at icon size</div>
+      <div class="mono-op">
+        <span style="color:var(--c-air)">∴</span>
+        <span style="color:var(--c-water)">≈</span>
+        <span style="color:var(--c-fire)">▲</span>
+        <span style="color:var(--c-wood)">𐂷</span>
+        <span style="color:var(--c-earth)">☷</span>
+        <span style="color:var(--c-metal)">⛨</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 5. Chord ── -->
+  <section class="page">
+    <div class="label">05 · The chord</div>
+    <div class="stage">
+      <div class="chord-lock">
+        <div class="chord">
+          <span class="bar" style="background:var(--c-air);   height:32px"></span>
+          <span class="bar" style="background:var(--c-water); height:56px"></span>
+          <span class="bar" style="background:var(--c-fire);  height:44px"></span>
+          <span class="bar" style="background:var(--c-wood);  height:68px"></span>
+          <span class="bar" style="background:var(--c-earth); height:38px"></span>
+          <span class="bar" style="background:var(--c-metal); height:52px"></span>
+        </div>
+        <div class="chord-wordmark">
+          <span class="line">Elemental</span>
+          <span class="line it">Sensemaking</span>
+        </div>
+      </div>
+    </div>
+    <div class="mono">
+      <div class="mono-label">at icon size</div>
+      <div class="mono-chord">
+        <span class="bar" style="background:var(--c-air);   height:14.4px"></span>
+        <span class="bar" style="background:var(--c-water); height:25.2px"></span>
+        <span class="bar" style="background:var(--c-fire);  height:19.8px"></span>
+        <span class="bar" style="background:var(--c-wood);  height:30.6px"></span>
+        <span class="bar" style="background:var(--c-earth); height:17.1px"></span>
+        <span class="bar" style="background:var(--c-metal); height:23.4px"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 6. Floret ── -->
+  <section class="page">
+    <div class="label">06 · The floret</div>
+    <div class="stage">
+      <div class="floret-stack">
+        <div class="floret-line">
+          <span>Elemental</span>
+          <span class="star">✶</span>
+          <span class="it">Sensemaking</span>
+        </div>
+        <div class="floret-tag">six instruments. one coordination.</div>
+      </div>
+    </div>
+    <div class="mono">
+      <div class="mono-label">at icon size</div>
+      <div class="mono-floret">
+        <span>E</span>
+        <span class="star">✶</span>
+        <span class="it">S</span>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  // ── Build hex + ring SVG content via JS so the math stays in one place ──
+
+  const PALETTE = [
+    'var(--c-air)',
+    'var(--c-water)',
+    'var(--c-fire)',
+    'var(--c-wood)',
+    'var(--c-earth)',
+    'var(--c-metal)',
+  ];
+
+  function buildHex(el, size, dotSize, withAether) {
+    const r = size / 2;
+    const radius = r - dotSize / 2 - 4;
+    let inner = '';
+    for (let i = 0; i < 6; i++) {
+      const angle = (Math.PI / 3) * i - Math.PI / 2;
+      const x = r + Math.cos(angle) * radius;
+      const y = r + Math.sin(angle) * radius;
+      inner += `<span class="dot" style="background:${PALETTE[i]}; left:${x - dotSize/2}px; top:${y - dotSize/2}px; width:${dotSize}px; height:${dotSize}px;"></span>`;
+    }
+    if (withAether) {
+      inner += `<span class="aether">✶</span>`;
+    }
+    el.innerHTML = inner;
+  }
+
+  function buildRing(el, size, dotSize, stroke) {
+    const r = size / 2;
+    const ringR = r - dotSize / 2 - 2;
+    let svg = `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">
+      <circle cx="${r}" cy="${r}" r="${ringR}" fill="none" stroke="#B8923C" stroke-width="${stroke}" opacity="0.85" />
+    </svg>`;
+    let dots = '';
+    for (let i = 0; i < 6; i++) {
+      const angle = (Math.PI / 3) * i - Math.PI / 2;
+      const x = r + Math.cos(angle) * ringR;
+      const y = r + Math.sin(angle) * ringR;
+      dots += `<span class="dot" style="background:${PALETTE[i]}; left:${x - dotSize/2}px; top:${y - dotSize/2}px; width:${dotSize}px; height:${dotSize}px;"></span>`;
+    }
+    el.innerHTML = svg + dots;
+  }
+
+  buildHex(document.getElementById('hex-main'), 170, 16, true);
+  buildHex(document.getElementById('hex-mini'), 36, 4.2, true);
+  buildRing(document.getElementById('ring-main'), 140, 14, 1);
+  buildRing(document.getElementById('ring-mini'), 36, 4.2, 0.8);
+
+  // ── Auto-print after fonts settle ──
+  (async () => {
+    try {
+      if (document.fonts && document.fonts.ready) {
+        await document.fonts.ready;
+      }
+    } catch (e) {}
+    await new Promise((r) => {
+      if (document.readyState === "complete") r();
+      else window.addEventListener("load", r, { once: true });
+    });
+    setTimeout(() => window.print(), 700);
+  })();
+</script>
+
+</body>
+</html>

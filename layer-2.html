@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Six ways of noticing</title>
+<meta name="description" content="Six questions you can ask of anything moving through you, or anything you find yourself inside.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F4F1EA;
+    --ink: #1F2A2E;
+    --ochre: #B8923C;
+
+    --c-air:   #A8AEB2;
+    --c-water: #3D5566;
+    --c-fire:  #B5512A;
+    --c-wood:  #5A6F3C;
+    --c-earth: #B8923C;
+    --c-metal: #5C5E62;
+
+    --measure: 620px;
+    --body-size: 19px;
+    --line: 1.65;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--paper);
+    color: var(--ink);
+  }
+
+  body {
+    font-family: "EB Garamond", Garamond, "Source Serif Pro", Georgia, serif;
+    font-size: var(--body-size);
+    line-height: var(--line);
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  main {
+    max-width: var(--measure);
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  /* Back link, top-left. Small, quiet. */
+  .back {
+    position: absolute;
+    top: 28px;
+    left: 28px;
+    font-family: "EB Garamond", Garamond, serif;
+    font-style: italic;
+    font-size: 15px;
+    color: var(--ochre);
+    text-decoration: none;
+    line-height: 1;
+  }
+  .back:hover { color: var(--ink); }
+
+  /* Brand floret — quiet wordmark at the top of the page */
+  .brand-floret {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    padding-top: 36px;
+    font-family: "Cormorant Garamond", "EB Garamond", serif;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 1;
+    color: var(--ink);
+    opacity: 0.85;
+    letter-spacing: 0.005em;
+  }
+  .brand-floret .star {
+    color: var(--ochre);
+    font-size: 16px;
+    line-height: 1;
+    transform: translateY(-1px);
+  }
+  .brand-floret .it { font-style: italic; }
+
+  /* Header dots — same six marks, now colored, slightly more present (~55%). */
+  .marks {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    padding-top: 48px;
+    opacity: 0.55;
+  }
+  .marks span {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .marks .d-air   { background: var(--c-air); }
+  .marks .d-water { background: var(--c-water); }
+  .marks .d-fire  { background: var(--c-fire); }
+  .marks .d-wood  { background: var(--c-wood); }
+  .marks .d-earth { background: var(--c-earth); }
+  .marks .d-metal { background: var(--c-metal); }
+
+  /* Page title + orientation */
+  .head {
+    padding-top: 9vh;
+    padding-bottom: 18vh;
+  }
+  .head h1 {
+    font-family: "Cormorant Garamond", "EB Garamond", Garamond, serif;
+    font-weight: 400;
+    font-size: calc(var(--body-size) * 2.1);
+    line-height: 1.18;
+    margin: 0 0 1.2em;
+    letter-spacing: -0.005em;
+  }
+  .head .orientation {
+    margin: 0;
+    color: var(--ink);
+  }
+
+  /* Element block — the four-part pattern.
+     Larger pause BETWEEN blocks than between paragraphs within. */
+  .element {
+    padding-bottom: 22vh;
+  }
+  .element .name {
+    font-family: "Cormorant Garamond", "EB Garamond", Garamond, serif;
+    font-weight: 400;
+    font-size: calc(var(--body-size) * 1.8);
+    line-height: 1.18;
+    margin: 0;
+    letter-spacing: -0.005em;
+  }
+  .element .descriptor {
+    font-style: italic;
+    margin: 0.35em 0 1.6em;
+    color: var(--ink);
+  }
+  .element p + p {
+    margin-top: 1.4em;
+  }
+  .element .metaphor {
+    margin-top: 1.4em;
+  }
+  .element .question {
+    font-style: italic;
+    margin: 2.2em 0 0;
+    padding-left: 1.6em;
+    border-left: 1px solid rgba(31, 42, 46, 0.18);
+    line-height: 1.45;
+  }
+
+  /* Per-element color, only on the name. */
+  .el-air   .name { color: var(--c-air); }
+  .el-water .name { color: var(--c-water); }
+  .el-fire  .name { color: var(--c-fire); }
+  .el-wood  .name { color: var(--c-wood); }
+  .el-earth .name { color: var(--c-earth); }
+  .el-metal .name { color: var(--c-metal); }
+
+  /* Closing note */
+  .note {
+    padding-bottom: 14vh;
+  }
+  .note h2 {
+    font-family: "Cormorant Garamond", "EB Garamond", Garamond, serif;
+    font-weight: 400;
+    font-size: calc(var(--body-size) * 1.35);
+    line-height: 1.2;
+    margin: 0 0 1em;
+    color: var(--ink);
+  }
+
+  /* Hairline */
+  .hairline {
+    width: 64px;
+    height: 1px;
+    background: var(--ochre);
+    margin: 0 auto 14vh;
+    border: 0;
+    opacity: 0.85;
+  }
+
+  /* Two doors */
+  .doors {
+    text-align: center;
+    padding-bottom: 4vh;
+    display: flex;
+    flex-direction: column;
+    gap: 1.6em;
+  }
+  .doors a {
+    font-family: "EB Garamond", Garamond, serif;
+    font-style: italic;
+    font-size: calc(var(--body-size) * 1.12);
+    color: var(--ochre);
+    text-decoration: none;
+    border-bottom: 1px solid var(--ochre);
+    padding-bottom: 2px;
+    line-height: 1;
+    display: inline-block;
+    align-self: center;
+  }
+  .doors a:hover {
+    color: var(--ink);
+    border-bottom-color: var(--ink);
+  }
+
+  /* Footer — Substack line */
+  footer {
+    text-align: center;
+    padding: 10vh 28px 10vh;
+    font-size: 14px;
+    color: var(--ink);
+    opacity: 0.55;
+  }
+  footer a {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 1px;
+  }
+  footer a:hover {
+    opacity: 1;
+    color: var(--ochre);
+    border-bottom-color: var(--ochre);
+  }
+
+  ::selection {
+    background: rgba(184, 146, 60, 0.22);
+    color: var(--ink);
+  }
+
+  @media (max-width: 640px) {
+    :root { --body-size: 18px; }
+    main { padding: 0 22px; }
+    .back { top: 20px; left: 22px; }
+    .brand-floret { padding-top: 24px; font-size: 19px; }
+    .brand-floret .star { font-size: 14px; }
+    .marks { padding-top: 36px; }
+    .head { padding-top: 7vh; padding-bottom: 14vh; }
+    .head h1 { font-size: calc(var(--body-size) * 1.85); }
+    .element { padding-bottom: 18vh; }
+    .element .name { font-size: calc(var(--body-size) * 1.65); }
+    .element .question { padding-left: 1.1em; }
+  }
+</style>
+</head>
+<body>
+
+<a href="index.html" class="back" rel="prev">← back</a>
+
+<div class="brand-floret" aria-hidden="true">
+  <span>Elemental</span>
+  <span class="star">✶</span>
+  <span class="it">Sensemaking</span>
+</div>
+
+<div class="marks" aria-hidden="true">
+  <span class="d-air"></span>
+  <span class="d-water"></span>
+  <span class="d-fire"></span>
+  <span class="d-wood"></span>
+  <span class="d-earth"></span>
+  <span class="d-metal"></span>
+</div>
+
+<main>
+
+  <!-- Page title + orientation -->
+  <header class="head">
+    <h1>Six ways of noticing</h1>
+    <p class="orientation">Six questions you can ask of anything moving through you, or anything you find yourself inside. They are not categories. They are angles.</p>
+  </header>
+
+  <!-- AIR -->
+  <section class="element el-air">
+    <p class="name">Air</p>
+    <p class="descriptor">what is actually here</p>
+
+    <p>Air is the question that comes before the question. Before you decide whether you like something, before you have a position on it, before you know what to do — what is actually present, in this moment, separate from the story you've already started telling about it?</p>
+
+    <p>When Air is missing, everything runs together. You can name that something bothered you in a conversation, but not what. When Air is too loud, you cut a moment into so many distinctions that nothing breathes; you've named everything and felt none of it.</p>
+
+    <p class="metaphor">Air is the weather you walk into when you open the door — already there, already its own thing, regardless of what you came outside expecting.</p>
+
+    <p class="question">What is actually here, before I name it?</p>
+  </section>
+
+  <!-- WATER -->
+  <section class="element el-water">
+    <p class="name">Water</p>
+    <p class="descriptor">what does this touch</p>
+
+    <p>Water is the question of context. What else is in the room when this happens? Whose mood shifted at the same time as yours? What memory flickered just before you spoke, even if you can't say what it was, and is it shaping what you are about to say next?</p>
+
+    <p>When Water is silent, things appear to come out of nowhere — your reaction, their reaction, the sudden cold across a table. When it is too loud, every thread connects to every other thread, and you can't move without feeling like you are pulling on something.</p>
+
+    <p class="metaphor">Water is the temperature of a room when someone walks in — not a fact about them, not a fact about the room, but the thing that has just changed between them.</p>
+
+    <p class="question">What is this touching, that I am not yet saying?</p>
+  </section>
+
+  <!-- FIRE -->
+  <section class="element el-fire">
+    <p class="name">Fire</p>
+    <p class="descriptor">what spreads from this</p>
+
+    <p>Fire is the question of transmission. What is jumping from this conversation into the next one? What tone leaves your body and lands in someone else's, and then in someone else's after that? Some things travel because they ring true. Some things travel because they are easy to repeat. The two can look alike in the moment.</p>
+
+    <p>When Fire is silent, you don't notice that you are passing something along, only that other people seem to be saying it now too. When Fire is loud, every exchange feels like a contagion you might catch, and you start to flinch from contact that was never going to harm you.</p>
+
+    <p class="metaphor">Fire is the spark that passes from one cigarette to another, lit by touch, gone in a second, but the second one is now burning.</p>
+
+    <p class="question">What is spreading from this, and where?</p>
+  </section>
+
+  <!-- WOOD -->
+  <section class="element el-wood">
+    <p class="name">Wood</p>
+    <p class="descriptor">what is this becoming</p>
+
+    <p>Wood is the question of direction. If you let this continue, what does it grow into? Not what you'd like it to be, not what you fear it might be — what is the tendency of the thing itself, given time and a little light? Most situations are already on their way somewhere before anyone admits it out loud.</p>
+
+    <p>When Wood is silent, you mistake a season for a permanence and a phase for a personality. When Wood is loud, you rush a seedling and ask of a single moment what only a year of moments could answer.</p>
+
+    <p class="metaphor">Wood is the slow turning of a houseplant toward the window — not a decision, not a posture, just the direction the living thing keeps choosing while no one is watching.</p>
+
+    <p class="question">What is this becoming, if I let it grow?</p>
+  </section>
+
+  <!-- EARTH -->
+  <section class="element el-earth">
+    <p class="name">Earth</p>
+    <p class="descriptor">what gets digested, what remains</p>
+
+    <p>Earth is the question of metabolism. What from this moment is actually being taken in? What of it will be part of you tomorrow, and what will pass through without changing anything? Not all experience becomes substance. Some of it simply moves through and is gone, and that is also fine.</p>
+
+    <p>When Earth is silent, you accumulate without digesting — your hours stack up, but none of them become you. When Earth is loud, you hold every encounter as if it were nutrition, and the holding itself becomes a weight you can feel in your shoulders by evening.</p>
+
+    <p class="metaphor">Earth is digestion. Most of what we eat does not stay. The body keeps what it can use and lets the rest go, without ceremony, without judgment.</p>
+
+    <p class="question">What is this digesting, and what is it leaving behind?</p>
+  </section>
+
+  <!-- METAL -->
+  <section class="element el-metal">
+    <p class="name">Metal</p>
+    <p class="descriptor">what stays, what falls away</p>
+
+    <p>Metal is the question of refinement. Of what is here, what is worth carrying forward, and what was the cost of carrying it in the first place? This is the quiet edge — the one that decides, without speech, that this gets kept and this does not.</p>
+
+    <p>When Metal is silent, you keep everything and call it loyalty, and the keeping crowds out anything new. When Metal is loud, you cut so cleanly that you mistake the cut for the truth, and lose the parts of a thing you didn't yet know you needed.</p>
+
+    <p class="metaphor">Metal is the knife on the cutting board, deciding what stays whole, what is set aside, and what goes into the compost — three different fates, one steady hand.</p>
+
+    <p class="question">What is being kept, and what is being cut away?</p>
+  </section>
+
+  <!-- Closing note -->
+  <section class="note">
+    <h2>A note on using them</h2>
+    <p>No single question captures the whole. The instruments work best when more than one is asked of the same moment. If only one feels true and the others go silent, that silence is its own signal. Notice which questions you reach for, and which you avoid.</p>
+  </section>
+
+  <!-- Hairline -->
+  <hr class="hairline" aria-hidden="true">
+
+  <!-- Two doors -->
+  <nav class="doors" aria-label="Continue">
+    <a href="layer-3.html"><em>Where these patterns live →</em></a>
+    <a href="layer-4.html"><em>How to use them as a practice →</em></a>
+  </nav>
+
+</main>
+
+<footer>
+  <a href="field-notes.html">Field notes from the work in progress</a>
+</footer>
+
+</body>
+</html>

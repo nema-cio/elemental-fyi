@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The architecture beneath</title>
+<meta name="description" content="Operators, formalism, SIML. The technical room beneath the Elementals.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F4F1EA;
+    --ink: #1F2A2E;
+    --ochre: #B8923C;
+
+    --c-air:   #A8AEB2;
+    --c-water: #3D5566;
+    --c-fire:  #B5512A;
+    --c-wood:  #5A6F3C;
+    --c-earth: #B8923C;
+    --c-metal: #5C5E62;
+
+    --measure: 680px;
+    --body-size: 18px;
+    --line: 1.62;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--paper);
+    color: var(--ink);
+  }
+
+  body {
+    font-family: "EB Garamond", Garamond, "Source Serif Pro", Georgia, serif;
+    font-size: var(--body-size);
+    line-height: var(--line);
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  main {
+    max-width: var(--measure);
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  /* Back link */
+  .back {
+    position: absolute;
+    top: 28px;
+    left: 28px;
+    font-family: "EB Garamond", Garamond, serif;
+    font-style: italic;
+    font-size: 15px;
+    color: var(--ochre);
+    text-decoration: none;
+    line-height: 1;
+    z-index: 5;
+  }
+  .back:hover { color: var(--ink); }
+
+  /* Top mark — six dots at full opacity, in the muted elemental palette */
+  .marks {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    padding-top: 84px;
+  }
+  .marks span {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+  }
+  .marks .d-air   { background: var(--c-air); }
+  .marks .d-water { background: var(--c-water); }
+  .marks .d-fire  { background: var(--c-fire); }
+  .marks .d-wood  { background: var(--c-wood); }
+  .marks .d-earth { background: var(--c-earth); }
+  .marks .d-metal { background: var(--c-metal); }
+
+  /* Header */
+  .head {
+    padding-top: 9vh;
+    padding-bottom: 14vh;
+  }
+  .head h1 {
+    font-family: "Cormorant Garamond", "EB Garamond", Garamond, serif;
+    font-weight: 400;
+    font-size: calc(var(--body-size) * 2.1);
+    line-height: 1.18;
+    margin: 0 0 1.2em;
+    letter-spacing: -0.005em;
+  }
+  .head p { margin: 0 0 1.4em; }
+  .head p:last-child { margin-bottom: 0; }
+
+  /* Section spine */
+  section.layer {
+    padding: 7vh 0 9vh;
+    scroll-margin-top: 28px;
+  }
+  section.layer .section-num {
+    font-variant: small-caps;
+    letter-spacing: 0.08em;
+    color: var(--ochre);
+    font-size: 0.78em;
+    font-weight: 400;
+    display: block;
+    margin-bottom: 0.6em;
+    opacity: 0.85;
+  }
+  section.layer h2 {
+    font-family: "Cormorant Garamond", "EB Garamond", Garamond, serif;
+    font-weight: 400;
+    font-size: calc(var(--body-size) * 1.65);
+    line-height: 1.2;
+    margin: 0 0 1.4em;
+    letter-spacing: -0.005em;
+  }
+  section.layer h3 {
+    font-family: "EB Garamond", Garamond, serif;
+    font-weight: 500;
+    font-size: calc(var(--body-size) * 1.05);
+    line-height: 1.3;
+    margin: 2.2em 0 0.6em;
+    letter-spacing: 0.005em;
+  }
+  section.layer h3 .sym {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--ochre);
+    margin-right: 0.4em;
+  }
+  section.layer p + p { margin-top: 1.1em; }
+
+  /* Operator table */
+  table.ops {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.6em 0 0;
+    font-size: 0.97em;
+  }
+  table.ops thead th {
+    text-align: left;
+    font-family: "EB Garamond", serif;
+    font-weight: 500;
+    font-variant: small-caps;
+    letter-spacing: 0.08em;
+    font-size: 0.82em;
+    color: var(--ink);
+    padding: 0.65em 0.7em;
+    border-top: 1px solid var(--ochre);
+    border-bottom: 1px solid var(--ochre);
+    opacity: 0.85;
+  }
+  table.ops tbody td {
+    padding: 0.85em 0.7em;
+    vertical-align: top;
+    border-bottom: 1px solid rgba(31, 42, 46, 0.08);
+  }
+  table.ops tbody tr:last-child td {
+    border-bottom: none;
+  }
+  table.ops .glyph {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.5em;
+    line-height: 1;
+    width: 1.5em;
+  }
+  table.ops .op-name {
+    width: 9em;
+    white-space: nowrap;
+  }
+  table.ops .op-name .greek {
+    font-style: italic;
+    color: var(--ink);
+    opacity: 0.75;
+    margin-left: 0.35em;
+  }
+  /* Per-row glyph color */
+  table.ops tr.air   .glyph { color: var(--c-air); }
+  table.ops tr.water .glyph { color: var(--c-water); }
+  table.ops tr.fire  .glyph { color: var(--c-fire); }
+  table.ops tr.wood  .glyph { color: var(--c-wood); }
+  table.ops tr.earth .glyph { color: var(--c-earth); }
+  table.ops tr.metal .glyph { color: var(--c-metal); }
+
+  .aether {
+    margin-top: 1.6em;
+  }
+  .aether .glyph {
+    color: var(--ochre);
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.4em;
+    line-height: 1;
+    margin-right: 0.2em;
+    vertical-align: -0.05em;
+  }
+
+  /* Reference line */
+  .ref-line {
+    font-style: italic;
+    margin-top: 2em;
+    color: var(--ink);
+    opacity: 0.85;
+  }
+
+  /* Inset blocks (italic, ochre rule) */
+  .inset {
+    font-style: italic;
+    margin: 2em 0 0;
+    padding: 0 0 0 22px;
+    border-left: 2px solid var(--ochre);
+    max-width: 580px;
+  }
+
+  /* References list (links inline in prose) */
+  .inline-refs {
+    margin-top: 1.4em;
+    font-size: 0.95em;
+  }
+  .inline-refs a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(31, 42, 46, 0.35);
+    padding-bottom: 1px;
+  }
+  .inline-refs a:hover {
+    color: var(--ochre);
+    border-bottom-color: var(--ochre);
+  }
+  .inline-refs .sep {
+    color: var(--ink);
+    opacity: 0.4;
+    margin: 0 0.55em;
+  }
+
+  /* Elemental grid */
+  .daemon-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4em 2.6em;
+    margin-top: 3em;
+  }
+  .daemon-cell .portrait {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: #E8E4DC;
+    overflow: hidden;
+    border-top: 2px solid var(--accent, var(--ochre));
+    margin-bottom: 1.1em;
+  }
+  .daemon-cell .portrait img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .daemon-cell.air   { --accent: var(--c-air); }
+  .daemon-cell.water { --accent: var(--c-water); }
+  .daemon-cell.fire  { --accent: var(--c-fire); }
+  .daemon-cell.wood  { --accent: var(--c-wood); }
+  .daemon-cell.earth { --accent: var(--c-earth); }
+  .daemon-cell.metal { --accent: var(--c-metal); }
+
+  .daemon-cell h3 {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 400;
+    font-size: calc(var(--body-size) * 1.45);
+    line-height: 1.15;
+    margin: 0 0 0.25em;
+    letter-spacing: -0.005em;
+    color: var(--ink);
+  }
+  .daemon-cell .element-line {
+    font-style: italic;
+    margin: 0 0 0.6em;
+    font-size: 0.95em;
+    opacity: 0.85;
+  }
+  .daemon-cell .element-line .glyph {
+    font-family: "Cormorant Garamond", serif;
+    font-style: normal;
+    font-size: 1.15em;
+    margin: 0 0.15em;
+    vertical-align: -0.03em;
+  }
+  .daemon-cell .descriptor {
+    font-style: italic;
+    margin: 0 0 1em;
+    font-size: 0.96em;
+    color: var(--ink);
+  }
+  .daemon-cell .meet {
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    color: var(--ochre);
+    text-decoration: none;
+    border-bottom: 1px solid var(--ochre);
+    padding-bottom: 1px;
+    font-size: 0.98em;
+  }
+  .daemon-cell .meet:hover {
+    color: var(--ink);
+    border-bottom-color: var(--ink);
+  }
+
+  /* Closing reading-note */
+  .reading h2 {
+    font-family: "Cormorant Garamond", "EB Garamond", Garamond, serif;
+    font-weight: 400;
+    font-size: calc(var(--body-size) * 1.4);
+    line-height: 1.2;
+    margin: 0 0 1.2em;
+  }
+  .reading p + p { margin-top: 1.2em; }
+
+  /* Hairline + doors */
+  .hairline {
+    width: 64px;
+    height: 1px;
+    background: var(--ochre);
+    margin: 14vh auto;
+    border: 0;
+    opacity: 0.85;
+  }
+  .doors {
+    text-align: center;
+    padding-bottom: 4vh;
+    display: flex;
+    flex-direction: column;
+    gap: 1.4em;
+    align-items: center;
+  }
+  .doors a {
+    font-family: "EB Garamond", Garamond, serif;
+    font-style: italic;
+    font-size: calc(var(--body-size) * 1.15);
+    color: var(--ochre);
+    text-decoration: none;
+    border-bottom: 1px solid var(--ochre);
+    padding-bottom: 2px;
+  }
+  .doors a:hover {
+    color: var(--ink);
+    border-bottom-color: var(--ink);
+  }
+  .doors .pending {
+    font-style: italic;
+    color: var(--ink);
+    opacity: 0.55;
+    border: none;
+    cursor: default;
+  }
+  .doors .pending:hover { color: var(--ink); border: none; }
+
+  footer {
+    text-align: center;
+    padding: 8vh 28px 10vh;
+    font-size: 14px;
+    color: var(--ink);
+    opacity: 0.55;
+  }
+  footer a {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 1px;
+  }
+  footer a:hover {
+    opacity: 1;
+    color: var(--ochre);
+    border-bottom-color: var(--ochre);
+  }
+
+  ::selection {
+    background: rgba(184, 146, 60, 0.22);
+    color: var(--ink);
+  }
+
+  /* TOC — desktop. Fades in after the head section scrolls past. */
+  .toc {
+    position: fixed;
+    top: 22vh;
+    left: 28px;
+    width: 140px;
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: var(--ink);
+    opacity: 0;
+    transition: opacity 700ms ease;
+    pointer-events: none;
+    z-index: 4;
+  }
+  .toc.visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .toc ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .toc li {
+    margin: 0 0 0.7em;
+  }
+  .toc a {
+    color: var(--ink);
+    opacity: 0.6;
+    text-decoration: none;
+    display: block;
+    padding-left: 0;
+    transition: color 200ms, opacity 200ms, padding-left 200ms;
+  }
+  .toc a:hover { opacity: 1; color: var(--ink); }
+  .toc a.active {
+    color: var(--ochre);
+    opacity: 1;
+    padding-left: 4px;
+  }
+  .toc .num {
+    font-variant: small-caps;
+    letter-spacing: 0.08em;
+    font-style: normal;
+    margin-right: 0.4em;
+    font-size: 0.85em;
+    opacity: 0.65;
+  }
+
+  /* Mobile TOC — collapses to a small fixed pill at bottom */
+  .toc-toggle {
+    display: none;
+    position: fixed;
+    bottom: 18px;
+    right: 18px;
+    background: var(--paper);
+    border: 1px solid rgba(31, 42, 46, 0.18);
+    color: var(--ink);
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 13px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    box-shadow: none;
+    z-index: 6;
+    cursor: pointer;
+  }
+
+  @media (max-width: 980px) {
+    .toc {
+      position: fixed;
+      top: auto;
+      bottom: 18px;
+      left: 18px;
+      right: 64px;
+      width: auto;
+      background: var(--paper);
+      border: 1px solid rgba(31, 42, 46, 0.18);
+      padding: 14px 16px;
+      border-radius: 6px;
+      transform: translateY(120%);
+      opacity: 0;
+      transition: transform 280ms ease, opacity 280ms ease;
+    }
+    .toc.open {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .toc.visible:not(.open) {
+      /* keep hidden until user opens */
+    }
+    .toc-toggle { display: block; }
+    .toc-toggle.hidden { display: none; }
+  }
+
+  @media (max-width: 640px) {
+    :root { --body-size: 17px; }
+    main { padding: 0 22px; }
+    .back { top: 20px; left: 22px; }
+    .marks { padding-top: 60px; }
+    .head { padding-top: 7vh; padding-bottom: 10vh; }
+    .head h1 { font-size: calc(var(--body-size) * 1.9); }
+    section.layer { padding: 6vh 0 7vh; }
+    section.layer h2 { font-size: calc(var(--body-size) * 1.5); }
+
+    table.ops .glyph { font-size: 1.3em; width: 1.2em; }
+    table.ops .op-name { width: auto; white-space: normal; }
+    table.ops tbody td { padding: 0.7em 0.5em; }
+
+    .daemon-grid {
+      grid-template-columns: 1fr;
+      gap: 3em;
+    }
+  }
+</style>
+</head>
+<body>
+
+<a href="layer-5.html" class="back" rel="prev">← back</a>
+
+<!-- Six dots, full saturation, in the muted elemental palette. The signature. -->
+<div class="marks" aria-hidden="true">
+  <span class="d-air"></span>
+  <span class="d-water"></span>
+  <span class="d-fire"></span>
+  <span class="d-wood"></span>
+  <span class="d-earth"></span>
+  <span class="d-metal"></span>
+</div>
+
+<!-- TOC -->
+<nav class="toc" id="toc" aria-label="Sections">
+  <ol>
+    <li><a href="#operators"><span class="num">I.</span>The operators</a></li>
+    <li><a href="#formalism"><span class="num">II.</span>The formalism</a></li>
+    <li><a href="#siml"><span class="num">III.</span>SIML</a></li>
+    <li><a href="#reading"><span class="num">IV.</span>How to read it</a></li>
+  </ol>
+</nav>
+<button class="toc-toggle" id="tocToggle" aria-label="Toggle table of contents">Contents</button>
+
+<main>
+
+  <header class="head" id="top">
+    <h1>The architecture beneath</h1>
+    <p>The Elementals are the visible surface of something more formal underneath. What follows is the architecture — the operators, the formal grammar, the encoding that lets the framework cross substrates. This is the technical room.</p>
+    <p>The language gets denser here. The page assumes you have already met the Elementals; the soft-mode work is upstairs. Where definitions are needed, they appear. Where they don't, the architecture's own working documents carry them.</p>
+    <p>What follows is provisional. It is load-bearing enough to build on and revisable enough to question. That is the framework's stance toward its own architecture, and it is the stance the reader is invited to take.</p>
+  </header>
+
+  <!-- §I — OPERATORS -->
+  <section class="layer" id="operators">
+    <span class="section-num">§ I — Operators</span>
+    <h2>The six operators</h2>
+
+    <p>Six operators run the diagnostic. They are the formal cousins of the six ways of noticing. Each names an operation — a thing the substrate is doing — rather than a category of content. They are written with their canonical glyphs and Greek letters.</p>
+
+    <table class="ops">
+      <thead>
+        <tr>
+          <th>Glyph</th>
+          <th>Operator</th>
+          <th>Operation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="air">
+          <td class="glyph">∴</td>
+          <td class="op-name">Air <span class="greek">σ</span></td>
+          <td>Distinction-making, separation, the cut that names.</td>
+        </tr>
+        <tr class="water">
+          <td class="glyph">≈</td>
+          <td class="op-name">Water <span class="greek">ρ</span></td>
+          <td>Relational binding, resonance, what touches what.</td>
+        </tr>
+        <tr class="fire">
+          <td class="glyph">▲</td>
+          <td class="op-name">Fire <span class="greek">λ</span></td>
+          <td>Propagation, what spreads, the lambda of transmission.</td>
+        </tr>
+        <tr class="wood">
+          <td class="glyph">𐂷</td>
+          <td class="op-name">Wood <span class="greek">β</span></td>
+          <td>Growth structure, becoming, the bend of development.</td>
+        </tr>
+        <tr class="earth">
+          <td class="glyph">☷</td>
+          <td class="op-name">Earth <span class="greek">δγ</span></td>
+          <td>Metabolism, integration, what is digested and what stays.</td>
+        </tr>
+        <tr class="metal">
+          <td class="glyph">⛨</td>
+          <td class="op-name">Metal <span class="greek">μ</span></td>
+          <td>Refinement, the cut that keeps, what falls away.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p class="aether">Together, these six operators cover the basic moves any pattern-substrate can make. A seventh layer — Aether <span class="glyph">✶</span> — names what emerges when the six operate together. Aether is not a seventh operator. It is the integrative field the others produce. It belongs in the formalism rather than the operator set.</p>
+  </section>
+
+  <!-- §II — FORMALISM -->
+  <section class="layer" id="formalism">
+    <span class="section-num">§ II — Formalism</span>
+    <h2>The formalism</h2>
+
+    <h3><span class="sym">Φ(t)</span> the manifold</h3>
+    <p>The framework models substrate dynamics as trajectories on an information-geometric manifold. Patterns are not objects; they are configurations of state. Movement on the manifold is governed by the operators. The framework draws on Fisher-Rao information geometry and on the Free Energy Principle as adjacent fields, and develops its own formalism in conversation with them rather than as a derivation from them. The working papers carry the formal details.</p>
+
+    <h3><span class="sym">ε ≠ 0</span> productive incompleteness</h3>
+    <p>No assessment is fully precise. No diagnostic closes completely. The framework treats this as structurally necessary, not as an apology. Each of the six operators carries ε differently, and each fails differently when ε is suppressed. The full ε-distribution document and the six element-specific ε papers live in the references below.</p>
+
+    <h3><span class="sym">Ω-reentry</span> the test of aliveness</h3>
+    <p>The diagnostic test the framework returns to most often: does a trajectory preserve the capacity for future encounter with configurations outside the current model? A system that loses Ω-permeability has sealed. A system that maintains it can still be surprised. This is the framework's working definition of alive.</p>
+
+    <p class="ref-line">The formalism is developed in working papers that remain in active revision. They are the framework's internal architecture, not its public reference. What appears on this site is the architecture as it is meant to be encountered by readers and practitioners.</p>
+  </section>
+
+  <!-- §III — SIML -->
+  <section class="layer" id="siml">
+    <span class="section-num">§ III — SIML</span>
+    <h2>SIML</h2>
+
+    <p>SIML — <em>Substrate-Independent Memetic Language</em> when machines help humans coordinate; <em>Swarm Intelligence Meta-Language</em> when humans coordinate among themselves. The same notation, two substrates. SIML provides the grammar — Objects, Relations, Verbs — for encoding patterns in a form transmissible across cognitive and computational systems. It is the framework's working notation, and it is what makes cross-substrate work (humans, LLMs, multi-AI swarms) coherent rather than ad hoc.</p>
+
+    <p>SIMLHEX is the encoded form — compressed hex strings that carry pattern signatures across contexts. Thread encoding and decoding specs define how complex pattern structures can be serialized and reconstructed.</p>
+
+    <p class="ref-line">SIML is the working notation. Like the formalism, it is developed in versioned documents that live with the framework's working materials. What matters at this layer is the recognition that the framework has a transmissible grammar — that the patterns it describes can be encoded in a form that crosses substrates.</p>
+  </section>
+
+  <!-- §V — READING -->
+  <section class="layer reading" id="reading">
+    <span class="section-num">§ IV — Reading</span>
+    <h2>A note on reading the architecture</h2>
+
+    <p>The architecture is provisional. It is strong enough to build on and revisable enough to question. Versions move. Some moves will be replaced, some composted, new ones will appear.</p>
+
+    <p>The framework is vulnerable to the same capture patterns it diagnoses. Recursive self-application is the primary quality standard. When something here begins to feel like doctrine, it has probably sealed. The honest response to that is not loyalty but diagnosis.</p>
+
+    <p>The architecture is a diagnostic ecology, not a construction manual. It describes curvature, not direction. It names patterns; it does not prescribe correct ones.</p>
+
+    <p>The map knows it is a map.</p>
+  </section>
+
+  <hr class="hairline" aria-hidden="true">
+
+  <nav class="doors" aria-label="Outbound">
+    <a href="field-notes.html"><em>Field notes from the work in progress →</em></a>
+  </nav>
+
+</main>
+
+<footer>
+  <a href="index.html">return to the surface</a>
+</footer>
+
+<script>
+  (function () {
+    var toc = document.getElementById('toc');
+    var tocToggle = document.getElementById('tocToggle');
+    var head = document.querySelector('.head');
+    var sections = Array.prototype.slice.call(document.querySelectorAll('section.layer'));
+    var tocLinks = Array.prototype.slice.call(toc.querySelectorAll('a'));
+
+    // Fade in TOC once head scrolls past
+    var revealObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.target === head) {
+          if (entry.isIntersecting) {
+            toc.classList.remove('visible');
+          } else {
+            toc.classList.add('visible');
+          }
+        }
+      });
+    }, { rootMargin: '-30% 0px 0px 0px' });
+    revealObserver.observe(head);
+
+    // Active section
+    function setActive(id) {
+      tocLinks.forEach(function (a) {
+        if (a.getAttribute('href') === '#' + id) a.classList.add('active');
+        else a.classList.remove('active');
+      });
+    }
+    var sectionObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) setActive(entry.target.id);
+      });
+    }, { rootMargin: '-25% 0px -65% 0px', threshold: 0 });
+    sections.forEach(function (s) { sectionObserver.observe(s); });
+
+    // Mobile open/close
+    tocToggle.addEventListener('click', function () {
+      toc.classList.toggle('open');
+    });
+    toc.addEventListener('click', function (e) {
+      if (e.target.tagName === 'A') {
+        toc.classList.remove('open');
+      }
+    });
+  })();
+</script>
+
+</body>
+</html>

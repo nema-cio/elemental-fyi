@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to use them as a practice</title>
+<meta name="description" content="The practice has four phases: Notice, Engage, Metabolize, Act. None of them is optional. The order matters.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F4F1EA;
+    --ink: #1F2A2E;
+    --ochre: #B8923C;
+
+    --c-air:   #A8AEB2;
+    --c-water: #3D5566;
+    --c-fire:  #B5512A;
+    --c-wood:  #5A6F3C;
+    --c-earth: #B8923C;
+    --c-metal: #5C5E62;
+
+    --measure: 620px;
+    --body-size: 19px;
+    --line: 1.65;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--paper);
+    color: var(--ink);
+  }
+
+  body {
+    font-family: "EB Garamond", Garamond, "Source Serif Pro", Georgia, serif;
+    font-size: var(--body-size);
+    line-height: var(--line);
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  main {
+    max-width: var(--measure);
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  /* Back link cluster — primary to Layer 3, secondary to Layer 2 */
+  .back-cluster {
+    position: absolute;
+    top: 28px;
+    left: 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    line-height: 1;
+  }
+  .back-cluster a {
+    font-family: "EB Garamond", Garamond, serif;
+    font-style: italic;
+    color: var(--ochre);
+    text-decoration: none;
+    line-height: 1;
+  }
+  .back-cluster .primary   { font-size: 15px; }
+  .back-cluster .secondary {
+    font-size: 12.5px;
+    opacity: 0.65;
+    padding-left: 0.95em;
+  }
+  .back-cluster a:hover { color: var(--ink); }
+
+  /* Top mark — four stacked lines, increasing length, ochre 30% */
+  .mark {
+    display: flex;
+    justify-content: center;
+    padding-top: 84px;
+  }
+  .mark svg { display: block; }
+
+  /* Header */
+  .head {
+    padding-top: 9vh;
+    padding-bottom: 18vh;
+  }
+  .head h1 {
+    font-family: "Cormorant Garamond", "EB Garamond", Garamond, serif;
+    font-weight: 400;
+    font-size: calc(var(--body-size) * 2.1);
+    line-height: 1.18;
+    margin: 0 0 1.2em;
+    letter-spacing: -0.005em;
+  }
+  .head .orientation { margin: 0; }
+
+  /* Phase block — name, descriptor, felt, metaphor, what-this-is-not, question */
+  .phase {
+    padding-bottom: 22vh;
+  }
+  .phase .name {
+    font-family: "Cormorant Garamond", "EB Garamond", Garamond, serif;
+    font-weight: 400;
+    font-size: calc(var(--body-size) * 1.8);
+    line-height: 1.18;
+    margin: 0;
+    letter-spacing: -0.005em;
+    color: var(--ink);
+  }
+  .phase .descriptor {
+    font-style: italic;
+    margin: 0.35em 0 1.6em;
+  }
+  .phase p + p { margin-top: 1.4em; }
+  .phase .metaphor { margin-top: 1.4em; }
+  .phase .notthis  { margin-top: 1.4em; }
+  .phase .notthis .lead { font-style: italic; }
+  .phase .question {
+    font-style: italic;
+    margin: 2.2em 0 0;
+    padding-left: 1.6em;
+    border-left: 1px solid rgba(31, 42, 46, 0.18);
+    line-height: 1.45;
+  }
+
+  /* "The order is the practice" */
+  .order {
+    padding-bottom: 18vh;
+  }
+  .order h2 {
+    font-family: "Cormorant Garamond", "EB Garamond", Garamond, serif;
+    font-weight: 400;
+    font-size: calc(var(--body-size) * 1.35);
+    line-height: 1.2;
+    margin: 0 0 1em;
+  }
+
+  /* Worked example — italic, narrower, ochre rule on the left */
+  .example {
+    padding-bottom: 20vh;
+  }
+  .example h2 {
+    font-family: "Cormorant Garamond", "EB Garamond", Garamond, serif;
+    font-weight: 400;
+    font-size: calc(var(--body-size) * 1.35);
+    line-height: 1.2;
+    margin: 0 0 1.6em;
+  }
+  .example .worked {
+    font-style: italic;
+    max-width: 540px;
+    margin: 0 auto;
+    padding: 0 0 0 22px;
+    border-left: 2px solid var(--ochre);
+    color: var(--ink);
+  }
+  .example .worked p + p { margin-top: 1.2em; }
+  .example .worked .step-label {
+    font-style: normal;
+    font-variant: small-caps;
+    letter-spacing: 0.04em;
+    font-size: 0.92em;
+    color: var(--ink);
+    opacity: 0.8;
+    margin-right: 0.35em;
+  }
+
+  /* Elemental colors — only inside the worked example */
+  .el-air   { color: var(--c-air);   font-style: normal; }
+  .el-water { color: var(--c-water); font-style: normal; }
+  .el-fire  { color: var(--c-fire);  font-style: normal; }
+  .el-wood  { color: var(--c-wood);  font-style: normal; }
+  .el-earth { color: var(--c-earth); font-style: normal; }
+  .el-metal { color: var(--c-metal); font-style: normal; }
+
+  /* Closing starting-note */
+  .note {
+    padding-bottom: 14vh;
+  }
+  .note h2 {
+    font-family: "Cormorant Garamond", "EB Garamond", Garamond, serif;
+    font-weight: 400;
+    font-size: calc(var(--body-size) * 1.35);
+    line-height: 1.2;
+    margin: 0 0 1em;
+  }
+
+  .hairline {
+    width: 64px;
+    height: 1px;
+    background: var(--ochre);
+    margin: 0 auto 14vh;
+    border: 0;
+    opacity: 0.85;
+  }
+
+  .door {
+    text-align: center;
+    padding-bottom: 4vh;
+  }
+  .door a {
+    font-family: "EB Garamond", Garamond, serif;
+    font-style: italic;
+    font-size: calc(var(--body-size) * 1.18);
+    color: var(--ochre);
+    text-decoration: none;
+    border-bottom: 1px solid var(--ochre);
+    padding-bottom: 2px;
+    line-height: 1;
+  }
+  .door a:hover {
+    color: var(--ink);
+    border-bottom-color: var(--ink);
+  }
+
+  footer {
+    text-align: center;
+    padding: 10vh 28px 10vh;
+    font-size: 14px;
+    color: var(--ink);
+    opacity: 0.55;
+  }
+  footer a {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 1px;
+  }
+  footer a:hover {
+    opacity: 1;
+    color: var(--ochre);
+    border-bottom-color: var(--ochre);
+  }
+
+  ::selection {
+    background: rgba(184, 146, 60, 0.22);
+    color: var(--ink);
+  }
+
+  @media (max-width: 640px) {
+    :root { --body-size: 18px; }
+    main { padding: 0 22px; }
+    .back-cluster { top: 20px; left: 22px; }
+    .mark { padding-top: 60px; }
+    .head { padding-top: 7vh; padding-bottom: 14vh; }
+    .head h1 { font-size: calc(var(--body-size) * 1.85); }
+    .phase { padding-bottom: 18vh; }
+    .phase .name { font-size: calc(var(--body-size) * 1.65); }
+    .phase .question { padding-left: 1.1em; }
+    .example .worked { padding-left: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="back-cluster">
+  <a href="layer-3.html" class="primary" rel="prev">← back</a>
+  <a href="layer-2.html" class="secondary">or back to the instruments</a>
+</div>
+
+<!-- Top mark: four lines, ascending length. Notice → Engage → Metabolize → Act. -->
+<div class="mark" aria-hidden="true">
+  <svg viewBox="0 0 120 56" width="120" height="56">
+    <g stroke="#B8923C" stroke-width="1.4" stroke-linecap="round" fill="none" opacity="0.3">
+      <line x1="50" y1="10" x2="70" y2="10"></line>
+      <line x1="44" y1="22" x2="76" y2="22"></line>
+      <line x1="36" y1="34" x2="84" y2="34"></line>
+      <line x1="26" y1="46" x2="94" y2="46"></line>
+    </g>
+  </svg>
+</div>
+
+<main>
+
+  <header class="head">
+    <h1>How to use them as a practice</h1>
+    <p class="orientation">The instruments and habitats are not for analyzing other people. They are for noticing what is moving through you, and choosing what to do with it. The practice has four phases. None of them is optional. The order matters.</p>
+  </header>
+
+  <!-- NOTICE -->
+  <section class="phase">
+    <p class="name">Notice</p>
+    <p class="descriptor">letting something land without immediately doing anything about it</p>
+
+    <p>Notice is the phase most people skip. Most patterns get reacted to before they get noticed — fed into the inner story, classified, judged, defended against, agreed with, or argued with — all before the noticing has actually completed. Notice is the phase before any of that begins.</p>
+
+    <p>What you'll feel, if you actually do it, is a small pause. A waiting. Sometimes a slight discomfort, because the pattern is already pulling you to do something — to reply, to fix, to dismiss, to align — and you are letting it stay present without obeying that pull. The discomfort is not a sign that something is wrong. It is a sign that notice is happening.</p>
+
+    <p class="metaphor">Notice is like letting a guest finish their first sentence before deciding whether to invite them in.</p>
+
+    <p class="notthis"><span class="lead">What this is not:</span> Notice is not analysis. Thinking is later. Noticing is just letting the thing be present. If you find yourself already with an opinion about what arrived, you have left the phase.</p>
+
+    <p class="question">What is actually here, before I do anything with it?</p>
+  </section>
+
+  <!-- ENGAGE -->
+  <section class="phase">
+    <p class="name">Engage</p>
+    <p class="descriptor">bringing the instruments to the thing you've noticed</p>
+
+    <p>Engage is where the six instruments come in. You have something present. Now you can ask Air, Water, Fire, Wood, Earth, Metal — not all six every time, but the ones that seem alive in this moment. Some questions will feel obvious, and that is fine. Some will feel irrelevant. Some will feel uncomfortable. The uncomfortable ones are usually the signal.</p>
+
+    <p>The work of engage is investigation, slow and a little unhurried. You are not trying to solve anything yet. You are trying to learn the shape of what you noticed. Often what you find is that the thing in front of you is not quite the thing you thought it was. That recognition is what the phase is for.</p>
+
+    <p class="metaphor">Engage is like turning a stone in your hand. You are not deciding what to do with it yet. You are learning its shape.</p>
+
+    <p class="notthis"><span class="lead">What this is not:</span> Engage is not solving. Engagement is investigation, not resolution. If you feel an answer arriving — a course of action, a verdict, a plan — you have probably skipped to act, and the answer is likely the old reaction wearing a fresh coat.</p>
+
+    <p class="question">What do the instruments show me, and what am I avoiding asking?</p>
+  </section>
+
+  <!-- METABOLIZE -->
+  <section class="phase">
+    <p class="name">Metabolize</p>
+    <p class="descriptor">letting what you noticed actually become part of you, including what is uncomfortable</p>
+
+    <p>Metabolize is the phase that takes time and cannot be rushed. You have noticed something and investigated it. Now it has to actually get inside you — digested, integrated, sometimes resisted, sometimes grieved. This phase often happens partly outside conscious attention. Sleep is part of it. Walking is part of it. Talking it through with someone who is not trying to fix it is part of it. So is sitting with discomfort that does not yet have a name.</p>
+
+    <p>This is the phase machines cannot do. A language model can notice and engage; it cannot metabolize. The asymmetry is not a metaphor. The practice is for embodied readers. If you find yourself trying to think your way through metabolize — running scenarios, building arguments, rehearsing what you'll say — you are still in engage. Metabolize is what happens when the thinking stops and the integrating begins.</p>
+
+    <p class="metaphor">Metabolize is digestion. The body knows how. The mind sometimes interferes.</p>
+
+    <p class="notthis"><span class="lead">What this is not:</span> Metabolize is not deciding. If you are deciding, you are already in act. Metabolize is the phase that makes act possible by giving it ground to stand on. It is also not productive in any visible sense. It looks like nothing from the outside.</p>
+
+    <p class="question">What is still being digested, and what wants to be acted on now?</p>
+  </section>
+
+  <!-- ACT -->
+  <section class="phase">
+    <p class="name">Act</p>
+    <p class="descriptor">doing something — or choosing not to do something — that the previous three phases have made possible</p>
+
+    <p>Act is the visible phase. It can be a conversation, a decision, a change of habit, a written piece, a refusal, a request, a leaving, a staying. It can also be the decision to do nothing yet. Not-acting is a valid act, if it is the act the previous phases made possible.</p>
+
+    <p>The action does not need to be large. Most acts that come from full NEMA are small — a sentence said differently, a question asked that wasn't going to be asked, a meeting left at the right time. The size of an act is rarely the measure of its rightness. The measure is whether the act came from the previous three phases, or from somewhere else.</p>
+
+    <p class="notthis"><span class="lead">What this is not:</span> Act is not reaction. A reaction is what happens when notice is skipped — the body moves before the noticing has finished. An act, in this sense, is the thing the previous three phases have made possible. If you can feel a tug of urgency under it, check whether you are still mid-metabolize.</p>
+
+    <p class="question">What does this moment now make possible?</p>
+  </section>
+
+  <!-- THE ORDER MATTERS -->
+  <section class="order">
+    <h2>The order is the practice</h2>
+    <p>Most reactive patterns happen because act jumps ahead of the others. Most paralysis happens because engage runs without metabolize completing. Most spiritual bypassing happens because metabolize is skipped — the discomfort is moved through too quickly. Most overthinking happens because act never arrives. The order is the diagnostic. When something feels stuck or wrong, ask which phase has been skipped.</p>
+  </section>
+
+  <!-- WORKED EXAMPLE -->
+  <section class="example">
+    <h2>A worked example</h2>
+    <div class="worked">
+      <p>Someone says something in a meeting that makes you tighten. The old reaction is to argue back, or to go quiet and feel resentful afterward. The practice is different.</p>
+
+      <p><span class="step-label">Notice:</span> a tightening, somewhere between the throat and the chest. A wanting-to-speak. A flash of something that feels like being unseen.</p>
+
+      <p><span class="step-label">Engage:</span> <span class="el-air">Air</span> asks what is actually here — a tightening, a wanting-to-speak. <span class="el-water">Water</span> asks what is being touched — something older than this meeting, probably. <span class="el-fire">Fire</span> asks what is spreading — irritation, mostly toward one person. <span class="el-earth">Earth</span> asks what is being digested — a story about whether your contributions are valued here. <span class="el-metal">Metal</span> asks what should be kept and what should be cut — the question is worth keeping, the irritation is not particularly load-bearing.</p>
+
+      <p><span class="step-label">Metabolize:</span> let the tightening soften. Let the older story be older than this meeting. Let the irritation pass without acting on it.</p>
+
+      <p><span class="step-label">Act:</span> ask the question that was underneath the irritation. Or don't. Either is a valid act. The point is that the act came from the previous three phases, not from the tightening.</p>
+    </div>
+  </section>
+
+  <!-- A NOTE ON STARTING -->
+  <section class="note">
+    <h2>A note on starting</h2>
+    <p>You don't need a difficult situation to practice. The practice works on ordinary moments — a conversation that went slightly off, a feeling you can't quite name, a habit you keep noticing. Most days have several. Start with one. The practice gets easier with use, and the instruments get sharper.</p>
+  </section>
+
+  <hr class="hairline" aria-hidden="true">
+
+  <nav class="door" aria-label="Continue">
+    <a href="layer-5.html"><em>Meet the Elementals →</em></a>
+  </nav>
+
+</main>
+
+<footer>
+  <a href="field-notes.html">Field notes from the work in progress</a>
+</footer>
+
+</body>
+</html>
