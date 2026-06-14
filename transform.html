@@ -358,12 +358,13 @@
 </footer>
 
 <script>
-  // Where submissions go. The endpoint (a form service or a Hermes route) hands the
-  // payload to system/intake.py → GATE 2 → an observation file. Until it's wired this
-  // stays null and the form confirms locally without losing the user's work.
-  // Payload shape matches intake.py: { phi, translation, email, consent, ... }.
-  // See system/FUNNEL_ARCHITECTURE_v2.md (Gate 2 + observation tier).
-  const ENDPOINT = "https://formspree.io/f/xykabwjz"; // Formspree → emails the submission to nema.durrant@gmail.com
+  // Where submissions go. POSTs to a Google Apps Script web app bound to the
+  // submissions Sheet (see system/google_apps_script_intake.gs). The local cron
+  // (system/sheet_ingest.py) pulls new rows → intake.py GATE 2 → observation file.
+  // mode:'no-cors' + text/plain avoids a CORS preflight Apps Script won't answer; the
+  // row still lands. We confirm optimistically (can't read a no-cors response).
+  // Payload shape matches intake.py: { phi, translation, email, name, consent, ... }.
+  const ENDPOINT = "https://script.google.com/macros/s/AKfycbxArMD_riaWpEeTZdjcX6VHVWpOZPtcQaAayk68K_B3DiQUJk7Z2iimv-EnlxAS7g0/exec";
 
   const form = document.getElementById('transform-form');
   const received = document.getElementById('received');
@@ -386,10 +387,11 @@
     const payload = { phi, translation, email, name, consent, submitted_at: new Date().toISOString() };
 
     try {
-      if (ENDPOINT) {
+      if (ENDPOINT && ENDPOINT.indexOf('http') === 0) {
         await fetch(ENDPOINT, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
           body: JSON.stringify(payload)
         });
       }
