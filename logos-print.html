@@ -206,6 +206,9 @@
     line-height: 1;
   }
   .op-row span { display: inline-block; }
+  /* Earth's operator is the digraph δγ — tighten it so it reads as one mark in the row */
+  .op-row .digraph { letter-spacing: -0.08em; font-size: 0.82em; }
+  .mono-op .digraph { letter-spacing: -0.06em; font-size: 0.82em; }
   .op-wordmark {
     font-family: "Cormorant Garamond", serif;
     font-weight: 400;
@@ -420,12 +423,12 @@
     <div class="stage">
       <div class="op-stack">
         <div class="op-row">
-          <span style="color:var(--c-air)">∴</span>
-          <span style="color:var(--c-water)">≈</span>
-          <span style="color:var(--c-fire)">▲</span>
-          <span style="color:var(--c-wood)">𐂷</span>
-          <span style="color:var(--c-earth)">☷</span>
-          <span style="color:var(--c-metal)">⛨</span>
+          <span style="color:var(--c-air)">σ</span>
+          <span style="color:var(--c-water)">ρ</span>
+          <span style="color:var(--c-fire)">λ</span>
+          <span style="color:var(--c-wood)">β</span>
+          <span class="digraph" style="color:var(--c-earth)">δγ</span>
+          <span style="color:var(--c-metal)">μ</span>
         </div>
         <div class="op-wordmark">elemental sensemaking</div>
       </div>
@@ -433,12 +436,12 @@
     <div class="mono">
       <div class="mono-label">at icon size</div>
       <div class="mono-op">
-        <span style="color:var(--c-air)">∴</span>
-        <span style="color:var(--c-water)">≈</span>
-        <span style="color:var(--c-fire)">▲</span>
-        <span style="color:var(--c-wood)">𐂷</span>
-        <span style="color:var(--c-earth)">☷</span>
-        <span style="color:var(--c-metal)">⛨</span>
+        <span style="color:var(--c-air)">σ</span>
+        <span style="color:var(--c-water)">ρ</span>
+        <span style="color:var(--c-fire)">λ</span>
+        <span style="color:var(--c-wood)">β</span>
+        <span class="digraph" style="color:var(--c-earth)">δγ</span>
+        <span style="color:var(--c-metal)">μ</span>
       </div>
     </div>
   </section>
