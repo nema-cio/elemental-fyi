@@ -235,6 +235,83 @@
     border-bottom-color: var(--ochre);
   }
 
+  /* Process flow + the call to begin (replaces the old "note") */
+  .process { padding-bottom: 2vh; }
+  .process h2 {
+    font-family: "Cormorant Garamond", "EB Garamond", serif;
+    font-weight: 400;
+    font-size: calc(var(--body-size) * 1.5);
+    line-height: 1.2;
+    margin: 0 0 1em;
+  }
+  .process p { margin: 0 0 1.4em; }
+  .process .phi { font-style: italic; }
+
+  /* Simple brand-style infographic: a vertical path of steps */
+  .flowmap { max-width: 460px; margin: 7vh auto 6vh; }
+  .flowmap .step {
+    position: relative;
+    display: flex;
+    gap: 18px;
+    padding-bottom: 3.6vh;
+  }
+  .flowmap .step:last-child { padding-bottom: 0; }
+  .flowmap .node {
+    position: relative;
+    flex: 0 0 12px;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: var(--ochre);
+    margin-top: 6px;
+    box-shadow: 0 0 0 4px var(--paper);
+    z-index: 1;
+  }
+  .flowmap .node.star {
+    background: transparent;
+    box-shadow: none;
+    color: var(--ochre);
+    font-size: 18px;
+    line-height: 1;
+    margin-top: 1px;
+    text-align: center;
+  }
+  .flowmap .step:not(:last-child)::before {
+    content: "";
+    position: absolute;
+    left: 5px; top: 12px;
+    height: 100%;
+    width: 1px;
+    background: rgba(184, 146, 60, 0.40);
+  }
+  .flowmap .label {
+    display: block;
+    font-family: "Cormorant Garamond", "EB Garamond", serif;
+    font-size: calc(var(--body-size) * 1.18);
+    line-height: 1.18;
+  }
+  .flowmap .gloss {
+    display: block;
+    font-size: 0.84em;
+    opacity: 0.7;
+    margin-top: 0.2em;
+  }
+
+  /* Primary call to action — larger than the secondary "read deeper" doors */
+  .begin {
+    text-align: center;
+    margin: 7vh 0 2vh;
+  }
+  .begin a {
+    font-family: "EB Garamond", Garamond, serif;
+    font-style: italic;
+    font-size: calc(var(--body-size) * 1.3);
+    color: var(--ochre);
+    text-decoration: none;
+    border-bottom: 1px solid var(--ochre);
+    padding-bottom: 3px;
+  }
+  .begin a:hover { color: var(--ink); border-bottom-color: var(--ink); }
+
   ::selection {
     background: rgba(184, 146, 60, 0.22);
     color: var(--ink);
@@ -366,17 +443,42 @@
     <p class="question">What is being kept, and what is being cut away?</p>
   </section>
 
-  <!-- Closing note -->
-  <section class="note">
-    <h2>A note on using them</h2>
-    <p>No single question captures the whole. The instruments work best when more than one is asked of the same moment. If only one feels true and the others go silent, that silence is its own signal. Notice which questions you reach for, and which you avoid.</p>
+  <!-- Process flow + the call to begin -->
+  <section class="process">
+    <h2>From a moment to a scene</h2>
+    <p>These angles aren't a worksheet to finish. They're how a single moment gets turned in the light. In a session with the Elemental Sensemaker you bring what's pressing and move through the angles that have something to say about it — some will speak, some will stay quiet, and that pattern is itself part of the reading. What surfaces distils into a <span class="phi">nemetic.φ</span>: one compact line that holds the shape of what's moving. Hand it to the elements, and they compose a scene from it — a short performed piece that returns to you on the site, in the Discord, and by email.</p>
+
+    <div class="flowmap" role="img" aria-label="The path: notice what's pressing; move through the six angles; a nemetic.φ forms; the elements compose a scene; it returns to you.">
+      <div class="step">
+        <span class="node" aria-hidden="true"></span>
+        <span><span class="label">Notice</span><span class="gloss">what's pressing — a feeling, a situation, a pattern you're inside</span></span>
+      </div>
+      <div class="step">
+        <span class="node" aria-hidden="true"></span>
+        <span><span class="label">Move through the six angles</span><span class="gloss">with the Elemental Sensemaker, asking each question of your moment</span></span>
+      </div>
+      <div class="step">
+        <span class="node" aria-hidden="true"></span>
+        <span><span class="label">A nemetic.φ forms</span><span class="gloss">the session distils into one compact line and a plain reading</span></span>
+      </div>
+      <div class="step">
+        <span class="node" aria-hidden="true"></span>
+        <span><span class="label">The elements compose a scene</span><span class="gloss">the six guides perform it together from your line</span></span>
+      </div>
+      <div class="step">
+        <span class="node star" aria-hidden="true">✶</span>
+        <span><span class="label">It returns to you</span><span class="gloss">on the site, in the Discord, and by email</span></span>
+      </div>
+    </div>
+
+    <p class="begin"><a href="begin.html"><em>Name what's pressing →</em></a></p>
   </section>
 
   <!-- Hairline -->
   <hr class="hairline" aria-hidden="true">
 
-  <!-- Two doors -->
-  <nav class="doors" aria-label="Continue">
+  <!-- Read deeper (secondary) -->
+  <nav class="doors" aria-label="Read further">
     <a href="layer-3.html"><em>Where these patterns live →</em></a>
     <a href="layer-4.html"><em>How to use them as a practice →</em></a>
   </nav>
