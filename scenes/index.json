@@ -1,21 +1,21 @@
 {
   "scenes": [
     {
-      "slug": "d68b8c2f097b",
-      "url": "https://elemental.fyi/scenes/d68b8c2f097b.html",
-      "matrix_id": "δγ→μ:Yaw",
-      "glyph": "↻_[δγ→μ]",
-      "title": "staying late again",
-      "published_at": "2026-06-13T23:02:10Z",
-      "credit": null
-    },
-    {
       "slug": "81d7adc7021f",
       "url": "https://elemental.fyi/scenes/81d7adc7021f.html",
       "matrix_id": null,
       "glyph": null,
       "title": "Footing and Knowing",
-      "published_at": "2026-06-14T22:08:22Z",
+      "published_at": "2026-06-14T23:54:49Z",
+      "credit": null
+    },
+    {
+      "slug": "d68b8c2f097b",
+      "url": "https://elemental.fyi/scenes/d68b8c2f097b.html",
+      "matrix_id": "δγ→μ:Yaw",
+      "glyph": "↻_[δγ→μ]",
+      "title": "staying late again",
+      "published_at": "2026-06-14T23:54:56Z",
       "credit": null
     }
   ]
