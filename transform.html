@@ -318,10 +318,17 @@
       <input type="text" id="name" name="name" placeholder="how you'd like to be credited">
     </div>
 
-    <div class="field" style="padding-bottom:4vh;">
+    <div class="field" style="padding-bottom:2.4vh;">
       <label for="consent" style="display:flex; gap:0.6em; align-items:flex-start; font-style:normal; cursor:pointer; margin:0;">
         <input type="checkbox" id="consent" style="margin-top:0.4em;">
         <span style="font-size:0.9em; opacity:0.82;">Share my scene publicly — the elements perform it in <strong>#elemental-production</strong> on Discord and post it on the site (crediting your name, if you gave one). <em>Unchecked: they compose it privately and email it to you only — nothing posted.</em></span>
+      </label>
+    </div>
+
+    <div class="field" style="padding-bottom:4vh;">
+      <label for="subscribe" style="display:flex; gap:0.6em; align-items:flex-start; font-style:normal; cursor:pointer; margin:0;">
+        <input type="checkbox" id="subscribe" style="margin-top:0.4em;">
+        <span style="font-size:0.9em; opacity:0.82;">Notify me — send a short weekly note when new scenes go live on elemental.fyi. <em>Just the titles and their nemetic.φ, nothing else; unsubscribe anytime.</em></span>
       </label>
       <p style="font-size:0.78em; opacity:0.55; margin:0.9em 0 0;"><a href="data-policy.html" style="color:var(--ochre); text-decoration:none; border-bottom:1px solid currentColor;">How your φ, name &amp; email are handled →</a></p>
     </div>
@@ -383,8 +390,9 @@
     }
 
     const consent = document.getElementById('consent').checked;
+    const subscribe = document.getElementById('subscribe').checked;
     const name = document.getElementById('name').value.trim();
-    const payload = { phi, translation, email, name, consent, submitted_at: new Date().toISOString() };
+    const payload = { phi, translation, email, name, consent, subscribe, submitted_at: new Date().toISOString() };
 
     try {
       if (ENDPOINT && ENDPOINT.indexOf('http') === 0) {
