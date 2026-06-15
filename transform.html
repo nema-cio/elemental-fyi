@@ -313,16 +313,16 @@
 
     <div class="field">
       <label for="name">Your name <span style="opacity:0.55;">(optional)</span>
-        <span class="hint">If you'd like the scene to credit you. Leave blank to stay anonymous.</span>
+        <span class="hint">Give a name to be credited on the scene as <em>“scene seed via [name]”</em>. Leave blank to stay anonymous — every scene is shared anonymously by default.</span>
       </label>
       <input type="text" id="name" name="name" placeholder="how you'd like to be credited">
     </div>
 
-    <div class="field" style="padding-bottom:2.4vh;">
-      <label for="consent" style="display:flex; gap:0.6em; align-items:flex-start; font-style:normal; cursor:pointer; margin:0;">
-        <input type="checkbox" id="consent" style="margin-top:0.4em;">
-        <span style="font-size:0.9em; opacity:0.82;">Share my scene publicly — the elements perform it in <strong>#elemental-production</strong> on Discord and post it on the site (crediting your name, if you gave one). <em>Unchecked: they compose it privately and email it to you only — nothing posted.</em></span>
+    <div class="field">
+      <label for="discord">Discord username <span style="opacity:0.55;">(optional)</span>
+        <span class="hint">In the <a href="https://discord.gg/4XJWnjnP" target="_blank" rel="noopener" style="color:var(--ochre);">Elemental Sensemaking Discord</a>? Add your username and Jake will thank you in <strong>#the-tally</strong> when your scene goes live.</span>
       </label>
+      <input type="text" id="discord" name="discord" placeholder="your_discord_username">
     </div>
 
     <div class="field" style="padding-bottom:4vh;">
@@ -342,7 +342,7 @@
   <!-- Shown in place of the form after a successful submit -->
   <section class="received" id="received" aria-live="polite">
     <p>It's with the elements now.</p>
-    <p>They will take their time. What comes back is a scene composed from the elements — it appears in the Discord if you shared it, and lands in your inbox either way. Read it as weather, not instruction.</p>
+    <p>They will take their time. What comes back is a scene composed from the elements — read, heard, and seen — posted anonymously on elemental.fyi, announced in the Discord, and sent to your inbox. Read it as weather, not instruction.</p>
     <div class="glyph-line" aria-hidden="true">
       <span style="background:var(--c-air)"></span>
       <span style="background:var(--c-water)"></span>
@@ -389,10 +389,11 @@
       return document.getElementById('email').focus();
     }
 
-    const consent = document.getElementById('consent').checked;
     const subscribe = document.getElementById('subscribe').checked;
     const name = document.getElementById('name').value.trim();
-    const payload = { phi, translation, email, name, consent, subscribe, submitted_at: new Date().toISOString() };
+    const discord = document.getElementById('discord').value.trim().replace(/^@/, '');
+    const credit = name.length > 0;
+    const payload = { phi, translation, email, name, credit, discord, subscribe, submitted_at: new Date().toISOString() };
 
     try {
       if (ENDPOINT && ENDPOINT.indexOf('http') === 0) {
