@@ -36,6 +36,17 @@ window.CYOA = (function () {
     return ORDER.slice(i).concat(ORDER.slice(0, i));
   };
 
+  // Each element's rebuilt ChatGPT GPT (the "take it deeper" door).
+  const GPT_URL = {
+    Air: "https://chatgpt.com/g/g-69459eaf0f94819184704a5da2d2c933-air",
+    Water: "https://chatgpt.com/g/g-6945d5a97570819191173ba622f7dad5-water",
+    Fire: "https://chatgpt.com/g/g-6945daa59cd88191a673ba5bbf16ffdc-fire",
+    Wood: "https://chatgpt.com/g/g-6945c5ca80608191a88b82c365342f9f-wood",
+    Earth: "https://chatgpt.com/g/g-6945d7402b288191a2c57d49174c5a6a-earth",
+    Metal: "https://chatgpt.com/g/g-6945d80679488191ae01c674a88d58ae-metal"
+  };
+  const DISCORD_INVITE = "https://discord.gg/4XJWnjnP";
+
   let TAX = null;
   const taxonomy = () => fetch("taxonomy.json").then(r => r.json()).then(t => (TAX = t));
   const elementByName = name => TAX.elements.find(e => e.element === name);
@@ -130,10 +141,15 @@ window.CYOA = (function () {
   }
   const chainPhi = chain => chain.map(c => c.phi).join(" ∘ ");
   const awaitingOf = s => (s.status && s.status.indexOf("awaiting:") === 0) ? s.status.split(":")[1] : null;
+  const enrichingOf = s => (s.status && s.status.indexOf("enriching:") === 0) ? s.status.split(":")[1] : null;
+  function enrich(sessionId, text) {
+    return post({ action: "enrich", session_id: sessionId, enrichment: text });
+  }
 
   // ---- core flows ---------------------------------------------------------------------
 
-  // START — element seeds a new session; order is the rotation beginning at it.
+  // START — element seeds a new session; order is the rotation beginning at it. After the CYOA
+  // the session sits at `enriching:<el>` — the handoff is gated on the GPT enrichment.
   function start(opts) {
     return taxonomy().then(() => playElement(opts.mount, opts.element)).then(entry => {
       const sessionId = uuid();
@@ -142,24 +158,28 @@ window.CYOA = (function () {
         (entry.element + " reads " + entry.facet_id.replace(/_/g, " "));
       post({ action: "start", session_id: sessionId, title: title,
              order: JSON.stringify(order), entry: JSON.stringify(entry) });
-      const nextEl = order[1] || null;
-      opts.onComplete(entry, sessionId, nextEl, title);
+      opts.onComplete(entry, sessionId, order, [entry], title);
     });
   }
 
-  // CONTINUE — load a waiting session, show the incoming φ, play THIS element seeded by it.
+  // CONTINUE — load a session reached via a Discord unlock link. Four cases by status:
+  //  awaiting:thisEl   → play THIS element's tree (its turn), then deepen+enrich
+  //  enriching:thisEl  → already played; resume at the deepen+enrich step (don't replay)
+  //  awaiting/enriching:other → not this element's turn (out-of-order guard)
+  //  complete          → done
   function cont(opts) {
     return taxonomy().then(() => getSession(opts.sessionId)).then(session => {
       if (!session) { opts.onMissing && opts.onMissing(); return; }
-      const awaiting = awaitingOf(session);
       if (session.status === "complete") { opts.onMismatch && opts.onMismatch(session, "complete"); return; }
-      if (awaiting && awaiting !== opts.element) { opts.onMismatch && opts.onMismatch(session, awaiting); return; }
+      const awaiting = awaitingOf(session), enriching = enrichingOf(session);
+      if (enriching === opts.element) { opts.onResume && opts.onResume(session); return; }
+      const busy = enriching || awaiting;
+      if (busy && busy !== opts.element) { opts.onMismatch && opts.onMismatch(session, busy); return; }
       if (opts.onIncoming) opts.onIncoming(session);
       return playElement(opts.mount, opts.element).then(entry => {
         post({ action: "advance", session_id: opts.sessionId, entry: JSON.stringify(entry) });
         const chain = session.chain.concat([entry]);
-        const nextEl = chain.length < session.order.length ? session.order[chain.length] : null;
-        opts.onComplete(entry, session, chain, nextEl);
+        opts.onComplete(entry, opts.sessionId, session.order, chain, session.title);
       });
     });
   }
@@ -183,43 +203,6 @@ window.CYOA = (function () {
           'and hands it to the next element. Six elements, six φ, and a synthesis at the end. ' +
           'Walk the whole relay yourself, or hand each φ to someone else.</p>');
 
-      const showResolveStart = (entry, sessionId, nextEl, title) => {
-        game.hidden = true;
-        const nextUrl = nextEl ? PAGE(nextEl) + "?s=" + sessionId : null;
-        resolve.innerHTML =
-          '<p class="label">' + El + "’s reading — the φ to carry forward</p>" +
-          '<p class="phi">' + esc(entry.phi) + "</p>" +
-          '<p class="reading">' + esc(entry.reading) + "</p>" +
-          (nextUrl ? '<p style="margin:0 0 1.2em;"><a class="door-link" href="' + nextUrl + '"><em>Carry it to ' + nextEl + " →</em></a></p>" : "") +
-          '<div class="copy-row"><span>or hand it off:</span><code>' + esc(entry.phi) + '</code><button type="button" class="copy-btn">copy the line</button></div>' +
-          '<p style="font-style:italic;opacity:0.7;font-size:0.9em;margin:2em 0 0;">“' + esc(title) + "” · " + nextEl +
-          " is now waiting. Open the door above to play their tree seeded by this φ — or send the link to someone else to make the handoff.</p>";
-        wireCopy(entry.phi);
-        resolve.hidden = false;
-        resolve.scrollIntoView({ behavior: "smooth", block: "start" });
-      };
-
-      const showResolveContinue = (entry, session, chain, nextEl) => {
-        game.hidden = true;
-        const nextUrl = nextEl ? PAGE(nextEl) + "?s=" + session.session_id : null;
-        let tail;
-        if (nextUrl) {
-          tail = '<p style="margin:0 0 1.2em;"><a class="door-link" href="' + nextUrl + '"><em>Carry it to ' + nextEl + ' →</em></a></p>' +
-                 '<p style="font-style:italic;opacity:0.78;">The current moves on — ' + nextEl + ' is next in the relay.</p>';
-        } else {
-          tail = '<p style="font-style:italic;opacity:0.78;">All six elements have read it. Aether now composes the synthesis — the Sunday strategic report.</p>';
-        }
-        resolve.innerHTML =
-          '<p class="label">' + El + '’s reading — added to the chain</p>' +
-          '<p class="phi">' + esc(entry.phi) + '</p>' +
-          '<p class="reading">' + esc(entry.reading) + '</p>' +
-          '<p class="label" style="margin-top:1em;">the chain so far</p>' +
-          '<p class="chain">' + esc(chainPhi(chain)) + '</p>' + tail;
-        if (nextUrl) wireCopy(entry.phi, true);
-        resolve.hidden = false;
-        resolve.scrollIntoView({ behavior: "smooth", block: "start" });
-      };
-
       function wireCopy(phi) {
         const btn = resolve.querySelector(".copy-btn");
         if (btn) btn.addEventListener("click", function () {
@@ -228,33 +211,91 @@ window.CYOA = (function () {
         });
       }
 
+      const TEXTAREA_STYLE = "width:100%;background:transparent;color:var(--ink);border:0;" +
+        "border-bottom:1px solid rgba(31,42,46,0.28);padding:0.4em 0;font-family:'SFMono-Regular','Menlo',monospace;" +
+        "font-size:0.82em;line-height:1.5;resize:vertical;min-height:6.5em;";
+
+      // φ + (chain) + the "take it deeper" GPT door + the paste-back field. On paste-back →
+      // enrich → the Discord-only funnel (no on-page next-link — the unlock lives in Discord).
+      function showResolve(entry, sessionId, order, chain) {
+        game.hidden = true;
+        const isLast = chain.length >= order.length;
+        const nextEl = isLast ? null : order[chain.length];
+        let html =
+          '<p class="label">' + El + "’s reading — your φ</p>" +
+          '<p class="phi">' + esc(entry.phi) + "</p>" +
+          '<p class="reading">' + esc(entry.reading) + "</p>";
+        if (chain.length > 1)
+          html += '<p class="label" style="margin-top:1.2em;">the chain so far</p>' +
+                  '<p class="chain">' + esc(chainPhi(chain)) + "</p>";
+        html +=
+          '<p class="label" style="margin-top:2em;">take it deeper</p>' +
+          '<p style="margin:0 0 1.2em;">Bring this φ to ' + El + ' and let it teach you — it ends with a short <em>carry-forward</em> block. Copy that block back here to hand the reading on.</p>' +
+          '<p style="margin:0 0 1.4em;"><a class="door-link" href="' + GPT_URL[El] + '" target="_blank" rel="noopener"><em>Take it deeper with ' + El + ' →</em></a></p>' +
+          '<div class="copy-row"><span>your φ:</span><code>' + esc(entry.phi) + '</code><button type="button" class="copy-btn">copy</button></div>' +
+          '<div style="margin-top:2.2em;">' +
+          '<label for="enrich-box" style="display:block;font-style:italic;margin:0 0 0.7em;">Paste what ' + El + ' gave you</label>' +
+          '<textarea id="enrich-box" rows="6" placeholder="the ─── CARRY FORWARD ─── block ' + El + ' ended with…" style="' + TEXTAREA_STYLE + '"></textarea>' +
+          '<p style="margin:1.6em 0 0;"><button type="button" id="enrich-btn" class="door-link" style="background:none;border:0;border-bottom:1px solid var(--accent);cursor:pointer;"><em>' +
+          (isLast ? "Complete the reading →" : "Hand it forward →") + '</em></button></p></div>';
+        resolve.innerHTML = html;
+        wireCopy(entry.phi);
+        q("#enrich-btn").addEventListener("click", () => {
+          const box = q("#enrich-box");
+          const txt = ((box && box.value) || "").trim();
+          if (!txt) { box && box.focus(); return; }
+          enrich(sessionId, txt);
+          showFunnel(nextEl, isLast);
+        });
+        resolve.hidden = false;
+        resolve.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+
+      function showFunnel(nextEl, isLast) {
+        resolve.innerHTML = isLast
+          ? '<p class="label">the reading is complete</p>' +
+            '<p>All six elements have read it. The full chain goes to Aether now — the Sunday synthesis, the strategic report. It will land in the Discord.</p>' +
+            '<p style="margin-top:1.8em;"><a class="door-link" href="' + DISCORD_INVITE + '" target="_blank" rel="noopener"><em>See where it lands →</em></a></p>'
+          : '<p class="label">carried to ' + El + '’s channel</p>' +
+            '<p>Your φ and what you found are on their way to ' + El + "’s channel in the Discord, where " + El +
+            ' will post them and ask who carries them to <strong>' + nextEl + '</strong>. That’s the handoff — the next reader picks up the baton there.</p>' +
+            '<p style="margin-top:1.8em;"><a class="door-link" href="' + DISCORD_INVITE + '" target="_blank" rel="noopener"><em>Join the Discord to carry it forward →</em></a></p>';
+        resolve.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+
+      const showIncoming = session => {
+        const last = session.chain[session.chain.length - 1];
+        incoming.innerHTML =
+          '<p class="from">a current arrived from ' + last.element + " — “" + esc(session.title) + "”</p>" +
+          '<p class="phi">' + esc(last.phi) + "</p>" +
+          '<p class="reading">' + esc(last.reading) + "</p>" +
+          (last.enrichment ? '<p class="reading" style="margin-top:0.7em;opacity:0.8;">' + esc(last.enrichment) + "</p>" : "");
+        incoming.hidden = false;
+      };
+
       if (sid) {
-        // CONTINUE mode
         cont({
           element: El, sessionId: sid, mount: game,
           onMissing: () => { incoming.innerHTML =
-            '<p class="from">That current hasn’t settled here yet, or the link is incomplete. Give it a moment and refresh — a handoff can take a few seconds to arrive.</p>';
+            '<p class="from">That current hasn’t settled here yet, or the link is incomplete. Give it a little while and refresh — a handoff can take a moment to arrive.</p>';
             incoming.hidden = false; },
           onMismatch: (session, who) => {
             incoming.innerHTML = who === "complete"
               ? '<p class="from">This reading is already complete — all six elements have read it.</p>'
-              : '<p class="from">This current is waiting for <strong>' + who + '</strong>, not ' + El + '.</p>' +
-                '<p style="margin-top:1em;"><a class="door-link" href="' + PAGE(who) + "?s=" + esc(sid) + '"><em>Take it to ' + who + " →</em></a></p>";
+              : '<p class="from">This current is with <strong>' + who + '</strong> right now, not ' + El + '.</p>' +
+                '<p style="margin-top:1em;"><a class="door-link" href="' + PAGE(who) + "?s=" + esc(sid) + '"><em>Go to ' + who + " →</em></a></p>";
             incoming.hidden = false;
           },
-          onIncoming: session => {
+          onResume: session => {     // came back during enriching:thisEl — resume the deepen step
+            if (session.chain.length > 1)
+              showIncoming({ chain: session.chain.slice(0, -1), title: session.title });
             const last = session.chain[session.chain.length - 1];
-            incoming.innerHTML =
-              '<p class="from">a current arrived from ' + last.element + " — “" + esc(session.title) + "”</p>" +
-              '<p class="phi">' + esc(last.phi) + "</p>" +
-              '<p class="reading">' + esc(last.reading) + "</p>";
-            incoming.hidden = false;
-            game.hidden = false;
+            showResolve(last, sid, session.order, session.chain);
           },
-          onComplete: showResolveContinue
+          onIncoming: session => { showIncoming(session); game.hidden = false; },
+          onComplete: (entry, sessionId, order, chain) => showResolve(entry, sessionId, order, chain)
         });
       } else {
-        // START mode — name the situation, then play
         intro.innerHTML =
           '<div style="padding:1vh 0 5vh;">' +
           '<label for="title" style="display:block;font-style:italic;margin:0 0 0.7em;">Name the situation <span style="opacity:0.55;">(optional)</span></label>' +
@@ -265,7 +306,8 @@ window.CYOA = (function () {
         q("#begin").addEventListener("click", () => {
           const title = (q("#title") || {}).value || "";
           intro.hidden = true; game.hidden = false;
-          start({ element: El, mount: game, title: title, onComplete: showResolveStart });
+          start({ element: El, mount: game, title: title,
+                  onComplete: (entry, sessionId, order, chain) => showResolve(entry, sessionId, order, chain) });
         });
       }
     });
