@@ -132,6 +132,18 @@ main { max-width: var(--measure); margin: 0 auto; padding: 0 28px; }
   font-size: 0.95em; padding: 0;
 }
 
+/* the resolved retrieval prompt — a readable block to copy */
+.retrieve-prompt {
+  font-family: "EB Garamond", Garamond, serif;
+  font-size: calc(var(--body-size) * 0.92);
+  line-height: 1.6;
+  background: rgba(31,42,46,0.04);
+  border-left: 2px solid var(--accent);
+  padding: 1.1em 1.3em;
+  border-radius: 2px;
+  white-space: pre-wrap;
+}
+
 .honest {
   font-style: italic; margin: 6vh 0 0; padding: 0 0 0 22px;
   border-left: 2px solid var(--ochre); max-width: 560px;

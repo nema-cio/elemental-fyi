@@ -1,0 +1,201 @@
+{
+  "_meta": {
+    "title": "Area-of-interest taxonomy — the retrieval drilldown",
+    "role": "Reuses the cyoa.js engine. A participant drills Scale → Field → Source to locate WHERE a transition lives for them; the leaf composes an area-φ ⌖(<field> | <source>) :<scale> handed to the GPT (Mode C) alongside the transition hinge. Personal/Local/Global = micro/meso/macro social stratification (emergence flows outward, constraint flows inward; ideas need a Local 'carrier wave' to travel from Personal to Global).",
+    "phi_form": "⌖(<field> | <source>) :<scale>",
+    "operator": "⌖ (focus/locus) — parallels the strategic <operator>(<facet>|<stance>)"
+  },
+  "sources": [
+    {
+      "id": "memoir",
+      "label": "memoir",
+      "gloss": "first-person, felt from inside",
+      "fits": [
+        "personal",
+        "local"
+      ]
+    },
+    {
+      "id": "professional",
+      "label": "professional account",
+      "gloss": "practitioners writing about the work",
+      "fits": [
+        "local",
+        "global"
+      ]
+    },
+    {
+      "id": "historical",
+      "label": "historical record",
+      "gloss": "events, documents, the archive",
+      "fits": [
+        "local",
+        "global"
+      ]
+    },
+    {
+      "id": "philosophical",
+      "label": "philosophical text",
+      "gloss": "the movement thought through",
+      "fits": [
+        "personal",
+        "global"
+      ]
+    },
+    {
+      "id": "sociological",
+      "label": "sociological study",
+      "gloss": "patterns observed across people",
+      "fits": [
+        "local",
+        "global"
+      ]
+    },
+    {
+      "id": "fiction",
+      "label": "fiction",
+      "gloss": "the movement rendered, not reported",
+      "fits": [
+        "personal",
+        "local"
+      ]
+    }
+  ],
+  "scales": [
+    {
+      "id": "personal",
+      "label": "Personal",
+      "stratum": "micro",
+      "gloss": "the scale of the individual — where “I” appears most vividly, already shot through with the layers above",
+      "characterization": "Embodied cognition, identity formation, affective patterns, moment-to-moment sensemaking, small interactions. The holding environment where a meme is first tested, mutated, or rejected — where a single insight, grief, or reorientation can originate.",
+      "fields": [
+        {
+          "id": "internal_dialogue",
+          "text": "Internal dialogue",
+          "gloss": "the voice that runs when no one is listening",
+          "phrase": "their own internal dialogue"
+        },
+        {
+          "id": "one_to_one",
+          "text": "A single relationship",
+          "gloss": "one other person, up close",
+          "phrase": "a single close relationship"
+        },
+        {
+          "id": "creative_practice",
+          "text": "Creative practice",
+          "gloss": "the work you make when no one asked — writing, painting, code",
+          "phrase": "a personal creative practice"
+        },
+        {
+          "id": "private_ritual",
+          "text": "Private ritual",
+          "gloss": "the small repeated things that hold you",
+          "phrase": "a private ritual or daily practice"
+        },
+        {
+          "id": "symptom_experience",
+          "text": "Symptom & the body",
+          "gloss": "mind or body reporting something — illness, trauma, a perceptual filter",
+          "phrase": "living with a symptom in the body or mind"
+        },
+        {
+          "id": "value_recalibration",
+          "text": "A turning of values",
+          "gloss": "the quiet recalibration of what matters",
+          "phrase": "a personal turning of values"
+        }
+      ]
+    },
+    {
+      "id": "local",
+      "label": "Local",
+      "stratum": "meso",
+      "gloss": "the scale of groups, places, and institutions — where “we” becomes operational, and most change either sticks or evaporates",
+      "characterization": "Norm emergence, collective sensemaking, trust and reputation, subculture formation, the translation of personal intent into shared protocols. The primary amplification chamber — the carrier wave a meme needs to travel from Personal toward Global.",
+      "fields": [
+        {
+          "id": "family",
+          "text": "A family",
+          "gloss": "the first “we”, inherited",
+          "phrase": "a family"
+        },
+        {
+          "id": "working_team",
+          "text": "A working team",
+          "gloss": "people coordinating toward something",
+          "phrase": "a working team"
+        },
+        {
+          "id": "community_of_practice",
+          "text": "A community of practice or belief",
+          "gloss": "a craft, a faith, a scene held in common",
+          "phrase": "a community of practice or belief"
+        },
+        {
+          "id": "place",
+          "text": "A specific place",
+          "gloss": "the rhythms, conflicts, and affordances of a somewhere",
+          "phrase": "a specific place and its community"
+        },
+        {
+          "id": "institution_local",
+          "text": "A local institution",
+          "gloss": "a school, clinic, co-op, congregation, city hall",
+          "phrase": "a local institution (a school, clinic, co-op)"
+        },
+        {
+          "id": "subculture",
+          "text": "A subculture",
+          "gloss": "a dialect of belonging",
+          "phrase": "a subculture"
+        }
+      ]
+    },
+    {
+      "id": "global",
+      "label": "Global",
+      "stratum": "macro",
+      "gloss": "the scale of societies, world-systems, and dominant logics — where “it” (the system) appears impersonal, yet is enacted by smaller scales",
+      "characterization": "Cultural hegemony, legal and economic architectures, global information regimes, geopolitical and ecological constraints, long-wave meme propagation. The selection environment that rewards or punishes whole classes of local and personal patterns.",
+      "fields": [
+        {
+          "id": "migration_regimes",
+          "text": "Migration & movement regimes",
+          "gloss": "who may move, and who may not",
+          "phrase": "migration and movement regimes"
+        },
+        {
+          "id": "economic_architecture",
+          "text": "Economic architecture",
+          "gloss": "the money and tax rules everyone lives inside",
+          "phrase": "the economic and tax architecture of a society"
+        },
+        {
+          "id": "tech_trajectory",
+          "text": "A technology's trajectory",
+          "gloss": "the wave of a technology arriving (e.g. AI)",
+          "phrase": "a technology's trajectory through society"
+        },
+        {
+          "id": "planetary_limits",
+          "text": "Planetary limits",
+          "gloss": "the ecological ceiling and its discourse",
+          "phrase": "planetary ecological limits and their discourse"
+        },
+        {
+          "id": "paradigm",
+          "text": "A reigning paradigm",
+          "gloss": "the dominant story of how things are — of mind, progress, risk",
+          "phrase": "a reigning societal paradigm"
+        },
+        {
+          "id": "governance_global",
+          "text": "World-scale governance",
+          "gloss": "law, policy, and institutional logic at planetary scale",
+          "phrase": "world-scale governance and policy"
+        }
+      ]
+    }
+  ]
+}
