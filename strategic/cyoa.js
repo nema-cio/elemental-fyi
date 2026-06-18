@@ -217,10 +217,14 @@ window.CYOA = (function () {
 
       // φ + (chain) + the "take it deeper" GPT door + the paste-back field. On paste-back →
       // enrich → the Discord-only funnel (no on-page next-link — the unlock lives in Discord).
-      function showResolve(entry, sessionId, order, chain) {
+      function showResolve(entry, sessionId, order, chain, title) {
         game.hidden = true;
         const isLast = chain.length >= order.length;
         const nextEl = isLast ? null : order[chain.length];
+        const situation = (title || "").trim();
+        // what the participant pastes into the GPT — the φ AND the situation they named, so the
+        // guide has the context (fixes the dropped first-box).
+        const handoff = entry.phi + (situation ? "\n\nThe situation I'm reading: " + situation : "");
         let html =
           '<p class="label">' + El + "’s reading — your φ</p>" +
           '<p class="phi">' + esc(entry.phi) + "</p>" +
@@ -230,9 +234,10 @@ window.CYOA = (function () {
                   '<p class="chain">' + esc(chainPhi(chain)) + "</p>";
         html +=
           '<p class="label" style="margin-top:2em;">take it deeper</p>' +
-          '<p style="margin:0 0 1.2em;">Bring this φ to ' + El + ' and let it teach you — it ends with a short <em>carry-forward</em> block. Copy that block back here to hand the reading on.</p>' +
+          '<p style="margin:0 0 1.2em;">Bring this to ' + El + ' and let it teach you. <strong>Take your time</strong> — sit with it, go back and forth a few times; this is contemplation, not a quiz, and it can run as long as you like. When you’re ready, ask it: <em>“Provide what I should carry forward to elemental.fyi.”</em> It will hand back a short <em>carry-forward</em> block — paste that back here to hand the reading on.</p>' +
           '<p style="margin:0 0 1.4em;"><a class="door-link" href="' + GPT_URL[El] + '" target="_blank" rel="noopener"><em>Take it deeper with ' + El + ' →</em></a></p>' +
-          '<div class="copy-row"><span>your φ:</span><code>' + esc(entry.phi) + '</code><button type="button" class="copy-btn">copy</button></div>' +
+          '<div class="copy-row"><span>paste this to ' + El + ':</span><code>' + esc(entry.phi) + '</code><button type="button" class="copy-btn">copy</button></div>' +
+          (situation ? '<p style="font-size:0.84em;opacity:0.65;margin:0.5em 0 0;">(the copy carries your situation too: “' + esc(situation) + '”)</p>' : "") +
           '<div style="margin-top:2.2em;">' +
           '<label for="enrich-box" style="display:block;font-style:italic;margin:0 0 0.7em;">Paste what ' + El + ' gave you</label>' +
           '<textarea id="enrich-box" rows="6" placeholder="the ─── CARRY FORWARD ─── block ' + El + ' ended with…" style="' + TEXTAREA_STYLE + '"></textarea>' +
@@ -241,7 +246,7 @@ window.CYOA = (function () {
           '<p style="margin:1.8em 0 0;"><button type="button" id="enrich-btn" class="door-link" style="background:none;border:0;border-bottom:1px solid var(--accent);cursor:pointer;"><em>' +
           (isLast ? "Complete the reading →" : "Hand it forward →") + '</em></button></p></div>';
         resolve.innerHTML = html;
-        wireCopy(entry.phi);
+        wireCopy(handoff);
         q("#enrich-btn").addEventListener("click", () => {
           const box = q("#enrich-box");
           const txt = ((box && box.value) || "").trim();
@@ -296,10 +301,10 @@ window.CYOA = (function () {
             if (session.chain.length > 1)
               showIncoming({ chain: session.chain.slice(0, -1), title: session.title });
             const last = session.chain[session.chain.length - 1];
-            showResolve(last, sid, session.order, session.chain);
+            showResolve(last, sid, session.order, session.chain, session.title);
           },
           onIncoming: session => { showIncoming(session); game.hidden = false; },
-          onComplete: (entry, sessionId, order, chain) => showResolve(entry, sessionId, order, chain)
+          onComplete: (entry, sessionId, order, chain, title) => showResolve(entry, sessionId, order, chain, title)
         });
       } else {
         intro.innerHTML =
@@ -313,7 +318,7 @@ window.CYOA = (function () {
           const title = (q("#title") || {}).value || "";
           intro.hidden = true; game.hidden = false;
           start({ element: El, mount: game, title: title,
-                  onComplete: (entry, sessionId, order, chain) => showResolve(entry, sessionId, order, chain) });
+                  onComplete: (entry, sessionId, order, chain, t) => showResolve(entry, sessionId, order, chain, t) });
         });
       }
     });
