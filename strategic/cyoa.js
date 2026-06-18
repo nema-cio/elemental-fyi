@@ -45,7 +45,7 @@ window.CYOA = (function () {
     Earth: "https://chatgpt.com/g/g-6945d7402b288191a2c57d49174c5a6a-earth",
     Metal: "https://chatgpt.com/g/g-6945d80679488191ae01c674a88d58ae-metal"
   };
-  const DISCORD_INVITE = "https://discord.gg/4XJWnjnP";
+  const DISCORD_INVITE = "https://discord.gg/uBSMGS7Hzr";
 
   let TAX = null;
   const taxonomy = () => fetch("taxonomy.json").then(r => r.json()).then(t => (TAX = t));
