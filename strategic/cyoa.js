@@ -142,8 +142,9 @@ window.CYOA = (function () {
   const chainPhi = chain => chain.map(c => c.phi).join(" ∘ ");
   const awaitingOf = s => (s.status && s.status.indexOf("awaiting:") === 0) ? s.status.split(":")[1] : null;
   const enrichingOf = s => (s.status && s.status.indexOf("enriching:") === 0) ? s.status.split(":")[1] : null;
-  function enrich(sessionId, text, email) {
-    return post({ action: "enrich", session_id: sessionId, enrichment: text, notify_email: email || "" });
+  function enrich(sessionId, text, email, share) {
+    return post({ action: "enrich", session_id: sessionId, enrichment: text,
+                  notify_email: email || "", share: share ? "true" : "" });
   }
 
   // ---- core flows ---------------------------------------------------------------------
@@ -195,13 +196,13 @@ window.CYOA = (function () {
 
       head.innerHTML =
         '<span class="element-mark" aria-hidden="true">' + element.operator + '</span>' +
-        '<p class="eyebrow">a strategic reading · ' + (sid ? "continues" : "begins") + " with " + El.toLowerCase() + '</p>' +
+        '<p class="eyebrow">a reading · ' + (sid ? "continues" : "begins") + " with " + El.toLowerCase() + '</p>' +
         '<h1>' + esc(element.diagnostic.core_question) + '</h1>' +
         '<p class="orientation">' + esc(BLURB[El]) + '</p>' +
         (sid ? "" :
-          '<p class="orientation">Walk three choices; ' + El + ' cuts one line — a <em>nemetic.φ</em> — ' +
-          'and hands it to the next element. Six elements, six φ, and a synthesis at the end. ' +
-          'Walk the whole relay yourself, or hand each φ to someone else.</p>');
+          '<p class="orientation">A decision, a situation, a strategy — anything you’re trying to read clearly, ' +
+          'one lens at a time. Walk three choices; ' + El + ' cuts one line — a <em>nemetic.φ</em> — to take ' +
+          'deeper with the guide, then hand on. Six elements, and a synthesis at the end.</p>');
 
       function wireCopy(phi) {
         const btn = resolve.querySelector(".copy-btn");
@@ -241,9 +242,13 @@ window.CYOA = (function () {
           '<div style="margin-top:2.2em;">' +
           '<label for="enrich-box" style="display:block;font-style:italic;margin:0 0 0.7em;">Paste what ' + El + ' gave you</label>' +
           '<textarea id="enrich-box" rows="6" placeholder="the ─── CARRY FORWARD ─── block ' + El + ' ended with…" style="' + TEXTAREA_STYLE + '"></textarea>' +
-          '<label for="enrich-email" style="display:block;font-style:italic;margin:1.6em 0 0.6em;">Email me when it’s handed off <span style="opacity:0.55;">(optional)</span></label>' +
+          '<label for="enrich-email" style="display:block;font-style:italic;margin:1.6em 0 0.4em;">Where should we send your way back?</label>' +
+          '<p style="font-size:0.84em;opacity:0.7;margin:0 0 0.6em;">Optional, but recommended — it’s how you find your way back to continue, and where a link will reach you.</p>' +
           '<input type="email" id="enrich-email" placeholder="you@somewhere" style="width:100%;background:transparent;border:0;border-bottom:1px solid rgba(31,42,46,0.28);padding:0.4em 0;font-family:inherit;font-size:1em;color:var(--ink);">' +
-          '<p style="margin:1.8em 0 0;"><button type="button" id="enrich-btn" class="door-link" style="background:none;border:0;border-bottom:1px solid var(--accent);cursor:pointer;"><em>' +
+          '<label for="enrich-share" style="display:flex;gap:0.6em;align-items:flex-start;font-style:normal;cursor:pointer;margin:1.8em 0 0;">' +
+          '<input type="checkbox" id="enrich-share" style="margin-top:0.4em;">' +
+          '<span style="font-size:0.9em;opacity:0.82;">Share this to the community Discord — let ' + El + ' voice it and invite someone to carry it forward. <em>Off by default: your reading stays private, and you carry it on yourself.</em></span></label>' +
+          '<p style="margin:2em 0 0;"><button type="button" id="enrich-btn" class="door-link" style="background:none;border:0;border-bottom:1px solid var(--accent);cursor:pointer;"><em>' +
           (isLast ? "Complete the reading →" : "Hand it forward →") + '</em></button></p></div>';
         resolve.innerHTML = html;
         wireCopy(handoff);
@@ -252,25 +257,35 @@ window.CYOA = (function () {
           const txt = ((box && box.value) || "").trim();
           if (!txt) { box && box.focus(); return; }
           const email = ((q("#enrich-email") || {}).value || "").trim();
-          enrich(sessionId, txt, email);
-          showFunnel(nextEl, isLast, email);
+          const share = !!(q("#enrich-share") && q("#enrich-share").checked);
+          enrich(sessionId, txt, email, share);
+          showFunnel(nextEl, isLast, email, sessionId, share);
         });
         resolve.hidden = false;
         resolve.scrollIntoView({ behavior: "smooth", block: "start" });
       }
 
-      function showFunnel(nextEl, isLast, email) {
-        const mailLine = email
-          ? "We’ll email <strong>" + esc(email) + "</strong> the link when it’s live."
-          : "Watch " + (isLast ? "the Discord" : El + "’s channel") + " for it.";
-        resolve.innerHTML = isLast
-          ? '<p class="label">the reading is complete</p>' +
-            '<p>All six elements have read it. The full chain goes to Aether now — the Sunday synthesis, the strategic report. Within the hour it lands in the Discord. ' + mailLine + '</p>' +
-            '<p style="margin-top:1.8em;"><a class="door-link" href="' + DISCORD_INVITE + '" target="_blank" rel="noopener"><em>See where it lands →</em></a></p>'
-          : '<p class="label">carried to ' + El + '’s channel</p>' +
-            '<p>' + El + ' is taking this as far as it can. <strong>Within the hour</strong>, ' + El + "’s voice posts in the Discord — your φ and what you found — and asks who carries them to <strong>" + nextEl + '</strong>. That’s the handoff; the next reader picks up the baton there. ' + mailLine + '</p>' +
-            '<p style="font-style:italic;opacity:0.7;font-size:0.92em;margin:1.2em 0 0;">The pause is the point — a reading should travel slowly, and through someone else.</p>' +
-            '<p style="margin-top:1.8em;"><a class="door-link" href="' + DISCORD_INVITE + '" target="_blank" rel="noopener"><em>Join the Discord to carry it forward →</em></a></p>';
+      function showFunnel(nextEl, isLast, email, sessionId, share) {
+        const mailLine = email ? " We’ll email <strong>" + esc(email) + "</strong> the link." : "";
+        const nextUrl = (!isLast && nextEl) ? PAGE(nextEl) + "?s=" + sessionId : null;
+        if (isLast) {
+          resolve.innerHTML =
+            '<p class="label">the reading is complete</p>' +
+            '<p>All six elements have read it. The full chain goes to Aether now — the Sunday synthesis.' + mailLine + '</p>' +
+            (share ? '<p style="margin-top:1.8em;"><a class="door-link" href="' + DISCORD_INVITE + '" target="_blank" rel="noopener"><em>See where it lands in the Discord →</em></a></p>' : '');
+        } else if (share) {
+          resolve.innerHTML =
+            '<p class="label">carried to ' + El + '’s channel</p>' +
+            '<p>' + El + ' is taking this as far as it can. <strong>Within the hour</strong>, ' + El + '’s voice posts in the Discord — your φ and what you found — inviting someone to carry it to <strong>' + nextEl + '</strong>.' + mailLine + '</p>' +
+            '<p style="font-style:italic;opacity:0.7;font-size:0.92em;margin:1.2em 0 0;">The pause is the point — a reading should travel slowly, and sometimes through someone else.</p>' +
+            '<p style="margin-top:1.8em;"><a class="door-link" href="' + DISCORD_INVITE + '" target="_blank" rel="noopener"><em>Join the Discord to follow it →</em></a></p>';
+        } else {
+          resolve.innerHTML =
+            '<p class="label">your reading is saved — and private</p>' +
+            '<p>Nothing was shared. Carry it on to <strong>' + nextEl + '</strong> whenever you’re ready.' + mailLine + '</p>' +
+            (nextUrl ? '<p style="margin-top:1.8em;"><a class="door-link" href="' + nextUrl + '"><em>Carry it to ' + nextEl + ' →</em></a></p>' : '') +
+            '<p style="font-style:italic;opacity:0.7;font-size:0.9em;margin:1.2em 0 0;">You can hand that link to someone else too — a reading is meant to travel.</p>';
+        }
         resolve.scrollIntoView({ behavior: "smooth", block: "start" });
       }
 
