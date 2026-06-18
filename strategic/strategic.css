@@ -32,7 +32,7 @@ main { max-width: var(--measure); margin: 0 auto; padding: 0 28px; }
 }
 .back:hover { color: var(--ink); }
 
-.brand-floret {
+.brand-floret { pointer-events: none;
   display: flex; justify-content: center; align-items: center; gap: 12px;
   padding-top: 36px; font-family: "Cormorant Garamond", "EB Garamond", serif;
   font-weight: 400; font-size: 22px; line-height: 1; color: var(--ink);
