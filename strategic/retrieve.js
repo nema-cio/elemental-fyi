@@ -151,7 +151,7 @@ window.RETRIEVE = (function () {
           '<div class="retrieve-prompt">' + esc(prompt) + "</div>" +
           '<p style="margin:1.4em 0 0;"><button type="button" class="copy-btn" id="r-copy">copy the prompt</button></p>' +
           '<p class="label" style="margin-top:2.4em;">now</p>' +
-          '<p>Paste it into a search-enabled LLM — <strong>Grok</strong> and Perplexity both do this well, or ChatGPT (search on), Claude, or Gemini — and let it bring back real passages. It’s built to say <em>“nothing found”</em> rather than invent, so trust the empty result as much as the full one.</p>' +
+          '<p>Paste it into a search-enabled LLM. In testing, citations came back cleanest with <strong>Claude</strong> or <strong>ChatGPT</strong> — turn web search on for either — then Gemini, then Kimi, then Grok. It’s built to say <em>“nothing found”</em> rather than invent, so trust the empty result as much as the full one.</p>' +
           '<p style="margin-top:1.2em;">Then bring what you find back to <a class="door-link" href="' + GPT_URL[to] + '" target="_blank" rel="noopener">' + DAEMON[to] + "</a> — or any of the guides — and read it together: <em>does this seem real for you, and if not, why not?</em></p>";
         result.hidden = false;
         const btn = q("#r-copy");
