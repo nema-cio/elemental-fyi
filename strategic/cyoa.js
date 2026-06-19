@@ -322,16 +322,34 @@ window.CYOA = (function () {
           onComplete: (entry, sessionId, order, chain, title) => showResolve(entry, sessionId, order, chain, title)
         });
       } else {
+        var HINT_REST = "A short label, just so you and the guide know what you’re reading — it travels with the reading, into each element and the handoff.";
         intro.innerHTML =
           '<div style="padding:1vh 0 5vh;">' +
           '<label for="title" style="display:block;font-style:italic;margin:0 0 0.7em;">Name the situation <span style="opacity:0.55;">(optional)</span></label>' +
-          '<input type="text" id="title" placeholder="the strategy or situation you\'re reading" ' +
+          '<input type="text" id="title" placeholder="the strategy or situation you\'re reading" autocomplete="off" ' +
           'style="width:100%;background:transparent;border:0;border-bottom:1px solid rgba(31,42,46,0.28);padding:0.4em 0;font-family:inherit;font-size:1em;color:var(--ink);">' +
-          '<p style="margin:2.4em 0 0;"><button type="button" id="begin" class="door-link" style="background:none;border:0;border-bottom:1px solid var(--accent);cursor:pointer;"><em>Begin with ' + El + ' →</em></button></p></div>';
+          '<p id="title-hint" style="font-size:0.85em;line-height:1.45;font-style:italic;opacity:0.6;margin:0.7em 0 0;transition:opacity 0.15s,color 0.15s;">' + HINT_REST + '</p>' +
+          '<p style="margin:2.2em 0 0;"><button type="button" id="begin" class="door-link" style="background:none;border:0;border-bottom:1px solid var(--accent);cursor:pointer;"><em>Begin with ' + El + ' →</em></button></p></div>';
         intro.hidden = false;
+        var titleEl = q("#title"), titleHint = q("#title-hint");
+        // live affordance — once they name it, confirm it will be carried, not lost
+        titleEl.addEventListener("input", function () {
+          var v = titleEl.value.trim();
+          if (v) {
+            titleHint.innerHTML = "✓ Noted — “" + esc(v) + "” carries through your reading, into each element and the guide handoff.";
+            titleHint.style.color = "var(--accent)"; titleHint.style.opacity = "0.95"; titleHint.style.fontStyle = "normal";
+          } else {
+            titleHint.textContent = HINT_REST;
+            titleHint.style.color = ""; titleHint.style.opacity = "0.6"; titleHint.style.fontStyle = "italic";
+          }
+        });
         q("#begin").addEventListener("click", () => {
-          const title = (q("#title") || {}).value || "";
-          intro.hidden = true; game.hidden = false;
+          const title = (titleEl.value || "").trim();
+          // keep the named situation on screen as the reading proceeds — proof it carried over
+          intro.innerHTML = title
+            ? '<p style="font-size:0.86em;font-style:italic;opacity:0.72;margin:0 0 1.6em;border-left:2px solid var(--accent);padding-left:0.8em;">reading: ' + esc(title) + '</p>'
+            : "";
+          intro.hidden = !title; game.hidden = false;
           start({ element: El, mount: game, title: title,
                   onComplete: (entry, sessionId, order, chain, t) => showResolve(entry, sessionId, order, chain, t) });
         });
