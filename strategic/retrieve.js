@@ -46,6 +46,13 @@ window.RETRIEVE = (function () {
   };
   const DAEMON = { Air: "Aerunik", Water: "Sentaria", Fire: "Jvalion", Wood: "Arboriel", Earth: "Humavita", Metal: "Ferrosid" };
 
+  // Submit a Mode D write-up to be published as an account (same Apps Script /exec as intake/relay).
+  const ENDPOINT = "https://script.google.com/macros/s/AKfycbxArMD_riaWpEeTZdjcX6VHVWpOZPtcQaAayk68K_B3DiQUJk7Z2iimv-EnlxAS7g0/exec";
+  function postRetrieval(payload) {
+    return fetch(ENDPOINT, { method: "POST", mode: "no-cors",
+      headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(payload) }).catch(function () {});
+  }
+
   let TR = null, AREA = null, LIB = null;
   const load = () => Promise.all([
     fetch("transitions.json").then(r => r.json()),
@@ -145,8 +152,12 @@ window.RETRIEVE = (function () {
         const tmpl = (LIB[key] || {})[source.id] || "";
         const prompt = tmpl.replace("{{AREA}}", field.phrase) + CITE_DIRECTIVE;
         const aphi = "⌖(" + field.id + " | " + source.id + ") :" + scale.id;
+        const TA = "width:100%;background:transparent;color:var(--ink);border:1px solid rgba(31,42,46,0.2);border-radius:6px;padding:0.7em 0.8em;font-family:inherit;font-size:0.95em;line-height:1.5;resize:vertical;";
+        const IN = "width:100%;background:transparent;border:0;border-bottom:1px solid rgba(31,42,46,0.28);padding:0.4em 0.55em;font-family:inherit;font-size:1em;color:var(--ink);margin-top:1.1em;";
         result.innerHTML =
-          '<p class="label">① copy this for the guide</p>' +
+          '<p class="label">how this works</p>' +
+          '<p style="margin:0 0 0.5em;">Below are two things to copy: a <strong>key</strong> for the guide, and a <strong>search prompt</strong>. Take the prompt to a search LLM to gather real, cited accounts; bring them back to the guide along with the key; read them together; then ask the guide for your reading. It hands you a <em>nemetic.φ</em> and a write-up — which you can submit at the end, to help build ' + DAEMON[to] + '’s knowledge and become a published account.</p>' +
+          '<p class="label" style="margin-top:2.2em;">① copy this for the guide</p>' +
           '<p style="margin:0 0 0.7em;font-size:0.92em;opacity:0.82;">This line tells the guide what you went looking for — you’ll paste it together with what you find.</p>' +
           '<div class="copy-row"><code id="r-aphi">' + esc(aphi) + '</code></div>' +
           '<p style="margin:0.7em 0 0;"><button type="button" class="copy-btn" id="r-copy-phi">copy the key</button></p>' +
@@ -154,14 +165,36 @@ window.RETRIEVE = (function () {
           '<div class="retrieve-prompt">' + esc(prompt) + "</div>" +
           '<p style="margin:1.4em 0 0;"><button type="button" class="copy-btn" id="r-copy">copy the prompt</button></p>' +
           '<p style="margin-top:1em;font-size:0.92em;opacity:0.85;">In testing, citations came back cleanest with <strong>Claude</strong> or <strong>ChatGPT</strong> — turn web search on for either — then Gemini, then Kimi, then Grok. The prompt is built to say <em>“nothing found”</em> rather than invent, so trust the empty result as much as the full one.</p>' +
-          '<p class="label" style="margin-top:2.4em;">then — bring it back to the guide</p>' +
-          '<p>Open <a class="door-link" href="' + GPT_URL[to] + '" target="_blank" rel="noopener">' + DAEMON[to] + '</a> (or any guide), paste the <strong>key</strong> and the passages you found, and read them together: <em>does this seem real for you — and where does yours diverge?</em> When you’re ready, ask for your reading — it hands back a <em>nemetic.φ</em> and a write-up you can bring back to elemental.fyi to be published in ' + DAEMON[to] + '’s voice.</p>';
+          '<p class="label" style="margin-top:2.4em;">③ bring it back to the guide</p>' +
+          '<p>Open <a class="door-link" href="' + GPT_URL[to] + '" target="_blank" rel="noopener">' + DAEMON[to] + '</a> (or any guide), paste the <strong>key</strong> and the passages you found, and read them together: <em>does this seem real for you — and where does yours diverge?</em> When you’re ready, ask for your reading — it hands back a <em>nemetic.φ</em> and a write-up.</p>' +
+          '<p class="label" style="margin-top:2.4em;">④ submit your reading <span style="opacity:0.55;font-style:italic;">— optional</span></p>' +
+          '<p>Paste the write-up ' + DAEMON[to] + ' gave you. It helps build the guide’s knowledge and becomes a published <em>account</em> in ' + DAEMON[to] + '’s voice, citations intact. Add a name to be credited (or leave blank to stay anonymous), and an email if you’d like the link when it’s live.</p>' +
+          '<textarea id="r-md" rows="8" placeholder="paste the whole markdown write-up ' + DAEMON[to] + ' gave you" style="' + TA + '"></textarea>' +
+          '<input id="r-name" type="text" placeholder="name to credit (optional)" style="' + IN + '">' +
+          '<input id="r-email" type="email" placeholder="email for the link (optional)" style="' + IN + '">' +
+          '<p style="margin:1.6em 0 0;"><button type="button" class="copy-btn" id="r-submit">submit my reading</button></p>' +
+          '<p style="margin:0.8em 0 0;font-size:0.86em;opacity:0.6;">Each account is reviewed before it’s published.</p>';
         result.hidden = false;
         q("#r-copy").addEventListener("click", function () {
           navigator.clipboard && navigator.clipboard.writeText(prompt); this.textContent = "copied ✓";
         });
         q("#r-copy-phi").addEventListener("click", function () {
           navigator.clipboard && navigator.clipboard.writeText(aphi); this.textContent = "copied ✓";
+        });
+        q("#r-submit").addEventListener("click", function () {
+          const md = (q("#r-md").value || "").trim();
+          if (!md) { q("#r-md").focus(); return; }
+          const name = (q("#r-name").value || "").trim();
+          const email = (q("#r-email").value || "").trim();
+          postRetrieval({ action: "retrieval", element: to, movement: from + "→" + to, area: aphi,
+                          markdown: md, name: name, email: email });
+          let thanks = (name ? "Thank you, " + esc(name) + " — " : "Thank you — ") +
+            "your reading is in. " + DAEMON[to] + " will write it up as an account" +
+            (email ? ", and we’ll email <strong>" + esc(email) + "</strong> the link when it’s live."
+                   : "; watch the #" + to.toLowerCase() + " channel in the Discord for the link.");
+          result.innerHTML = '<p class="label">submitted</p><p>' + thanks +
+            '</p><p style="font-size:0.86em;opacity:0.6;margin-top:0.8em;">Each account is reviewed before it’s published.</p>';
+          result.scrollIntoView({ behavior: "smooth", block: "start" });
         });
         result.scrollIntoView({ behavior: "smooth", block: "start" });
       }
