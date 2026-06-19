@@ -81,7 +81,8 @@ window.RETRIEVE = (function () {
         '<span class="element-mark" aria-hidden="true">⌖</span>' +
         '<p class="eyebrow">a reading, taken outward</p>' +
         '<h1>Find real accounts of a movement</h1>' +
-        '<p class="orientation">Name an inner movement you’ve been through — a shift from one way of being to another. We’ll hand you a search prompt to take to any search-enabled LLM, to find <em>real, attributable</em> passages where other people have documented that same turn. Then read them, and ask: does this seem real for me?</p>';
+        '<p class="orientation">Name a movement you’ve lived — a shift from one way of being to another — and we’ll hand you a search prompt for any search-enabled LLM, to find <em>real, attributable</em> passages where other people have documented that same turn. Then read them, and ask: does this seem real for me?</p>' +
+        '<p class="orientation" style="font-size:0.94em;opacity:0.82;">We start by placing the movement at one of three scales, because the same turn reads differently at each: <strong>Personal</strong> — you, as an individual; <strong>Local</strong> — a group, team, or place; <strong>Global</strong> — a society or system. Then we narrow from there to where you’d find real accounts.</p>';
 
       let SCALE = null, PRESEED = null;
       const states = () => STATE_BY_SCALE[SCALE.id];
