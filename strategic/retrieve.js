@@ -146,18 +146,22 @@ window.RETRIEVE = (function () {
         const prompt = tmpl.replace("{{AREA}}", field.phrase) + CITE_DIRECTIVE;
         const aphi = "⌖(" + field.id + " | " + source.id + ") :" + scale.id;
         result.innerHTML =
-          '<p class="label">your search prompt</p>' +
-          '<p class="chain" style="margin:0 0 1.4em;">' + esc(aphi) + "</p>" +
+          '<p class="label">① copy this for the guide</p>' +
+          '<p style="margin:0 0 0.7em;font-size:0.92em;opacity:0.82;">This line tells the guide what you went looking for — you’ll paste it together with what you find.</p>' +
+          '<div class="copy-row"><code id="r-aphi">' + esc(aphi) + '</code></div>' +
+          '<p style="margin:0.7em 0 0;"><button type="button" class="copy-btn" id="r-copy-phi">copy the key</button></p>' +
+          '<p class="label" style="margin-top:2.4em;">② take this to a search LLM</p>' +
           '<div class="retrieve-prompt">' + esc(prompt) + "</div>" +
           '<p style="margin:1.4em 0 0;"><button type="button" class="copy-btn" id="r-copy">copy the prompt</button></p>' +
-          '<p class="label" style="margin-top:2.4em;">now</p>' +
-          '<p>Paste it into a search-enabled LLM. In testing, citations came back cleanest with <strong>Claude</strong> or <strong>ChatGPT</strong> — turn web search on for either — then Gemini, then Kimi, then Grok. It’s built to say <em>“nothing found”</em> rather than invent, so trust the empty result as much as the full one.</p>' +
-          '<p style="margin-top:1.2em;">Then bring what you find back to <a class="door-link" href="' + GPT_URL[to] + '" target="_blank" rel="noopener">' + DAEMON[to] + "</a> — or any of the guides — and read it together: <em>does this seem real for you, and if not, why not?</em></p>";
+          '<p style="margin-top:1em;font-size:0.92em;opacity:0.85;">In testing, citations came back cleanest with <strong>Claude</strong> or <strong>ChatGPT</strong> — turn web search on for either — then Gemini, then Kimi, then Grok. The prompt is built to say <em>“nothing found”</em> rather than invent, so trust the empty result as much as the full one.</p>' +
+          '<p class="label" style="margin-top:2.4em;">then — bring it back to the guide</p>' +
+          '<p>Open <a class="door-link" href="' + GPT_URL[to] + '" target="_blank" rel="noopener">' + DAEMON[to] + '</a> (or any guide), paste the <strong>key</strong> and the passages you found, and read them together: <em>does this seem real for you — and where does yours diverge?</em> When you’re ready, ask for your reading — it hands back a <em>nemetic.φ</em> and a write-up you can bring back to elemental.fyi to be published in ' + DAEMON[to] + '’s voice.</p>';
         result.hidden = false;
-        const btn = q("#r-copy");
-        btn.addEventListener("click", function () {
-          navigator.clipboard && navigator.clipboard.writeText(prompt);
-          this.textContent = "copied ✓";
+        q("#r-copy").addEventListener("click", function () {
+          navigator.clipboard && navigator.clipboard.writeText(prompt); this.textContent = "copied ✓";
+        });
+        q("#r-copy-phi").addEventListener("click", function () {
+          navigator.clipboard && navigator.clipboard.writeText(aphi); this.textContent = "copied ✓";
         });
         result.scrollIntoView({ behavior: "smooth", block: "start" });
       }
