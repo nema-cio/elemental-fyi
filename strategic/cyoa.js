@@ -213,7 +213,7 @@ window.CYOA = (function () {
       }
 
       const TEXTAREA_STYLE = "width:100%;background:transparent;color:var(--ink);border:0;" +
-        "border-bottom:1px solid rgba(31,42,46,0.28);padding:0.4em 0;font-family:'SFMono-Regular','Menlo',monospace;" +
+        "border-bottom:1px solid rgba(31,42,46,0.28);padding:0.4em 0.55em;font-family:'SFMono-Regular','Menlo',monospace;" +
         "font-size:0.82em;line-height:1.5;resize:vertical;min-height:6.5em;";
 
       // φ + (chain) + the "take it deeper" GPT door + the paste-back field. On paste-back →
@@ -244,7 +244,7 @@ window.CYOA = (function () {
           '<textarea id="enrich-box" rows="6" placeholder="the ─── CARRY FORWARD ─── block ' + El + ' ended with…" style="' + TEXTAREA_STYLE + '"></textarea>' +
           '<label for="enrich-email" style="display:block;font-style:italic;margin:1.6em 0 0.4em;">Where should we send your way back?</label>' +
           '<p style="font-size:0.84em;opacity:0.7;margin:0 0 0.6em;">Optional, but recommended — it’s how you find your way back to continue, and where a link will reach you.</p>' +
-          '<input type="email" id="enrich-email" placeholder="you@somewhere" style="width:100%;background:transparent;border:0;border-bottom:1px solid rgba(31,42,46,0.28);padding:0.4em 0;font-family:inherit;font-size:1em;color:var(--ink);">' +
+          '<input type="email" id="enrich-email" placeholder="you@somewhere" style="width:100%;background:transparent;border:0;border-bottom:1px solid rgba(31,42,46,0.28);padding:0.4em 0.55em;font-family:inherit;font-size:1em;color:var(--ink);">' +
           '<label for="enrich-share" style="display:flex;gap:0.6em;align-items:flex-start;font-style:normal;cursor:pointer;margin:1.8em 0 0;">' +
           '<input type="checkbox" id="enrich-share" style="margin-top:0.4em;">' +
           '<span style="font-size:0.9em;opacity:0.82;">Share this to the community Discord — let ' + El + ' voice it and invite someone to carry it forward. <em>Off by default: your reading stays private, and you carry it on yourself.</em></span></label>' +
@@ -327,7 +327,7 @@ window.CYOA = (function () {
           '<div style="padding:1vh 0 5vh;">' +
           '<label for="title" style="display:block;font-style:italic;margin:0 0 0.7em;">Name the situation <span style="opacity:0.55;">(optional)</span></label>' +
           '<input type="text" id="title" placeholder="the strategy or situation you\'re reading" autocomplete="off" ' +
-          'style="width:100%;background:transparent;border:0;border-bottom:1px solid rgba(31,42,46,0.28);padding:0.4em 0;font-family:inherit;font-size:1em;color:var(--ink);">' +
+          'style="width:100%;background:transparent;border:0;border-bottom:1px solid rgba(31,42,46,0.28);padding:0.4em 0.55em;font-family:inherit;font-size:1em;color:var(--ink);">' +
           '<p id="title-hint" style="font-size:0.85em;line-height:1.45;font-style:italic;opacity:0.6;margin:0.7em 0 0;transition:opacity 0.15s,color 0.15s;">' + HINT_REST + '</p>' +
           '<p style="margin:2.2em 0 0;"><button type="button" id="begin" class="door-link" style="background:none;border:0;border-bottom:1px solid var(--accent);cursor:pointer;"><em>Begin with ' + El + ' →</em></button></p></div>';
         intro.hidden = false;
