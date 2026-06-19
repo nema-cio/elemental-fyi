@@ -74,6 +74,17 @@ window.RETRIEVE = (function () {
 
   const hingeOf = (f, t) => { const x = TR.find(y => y.from === f && y.to === t); return x ? x.hinge : ""; };
 
+  // Citations are already requested in every prompt, but many search-LLMs surface them in a side panel
+  // or tooltip that's lost the moment the participant copies the text out — useless for the blog. So we
+  // also dictate the OUTPUT FORMAT: markdown, citations inline + copyable. One tunable suffix on every
+  // prompt (no corpus edit), so it's easy to refine as you test which LLMs actually comply.
+  const CITE_DIRECTIVE =
+    "\n\nFormat your entire response as markdown. Under each passage, give its citation inline as plain, " +
+    "copyable text — author, work, year, a locator (chapter/section/page), and a direct link or DOI if one " +
+    "exists. Do not put citations in a sidebar, tooltip, footnote, or collapsed panel, and do not omit them: " +
+    "they must survive being copied as part of the text. If you cannot give a real, locatable citation for a " +
+    "passage, leave that passage out rather than include it uncited.";
+
   function page() {
     return load().then(() => {
       const head = q("#head"), pick = q("#pick"), confirm = q("#confirm"), area = q("#area"), result = q("#result");
@@ -132,7 +143,7 @@ window.RETRIEVE = (function () {
         area.hidden = true;
         const key = from + "→" + to;
         const tmpl = (LIB[key] || {})[source.id] || "";
-        const prompt = tmpl.replace("{{AREA}}", field.phrase);
+        const prompt = tmpl.replace("{{AREA}}", field.phrase) + CITE_DIRECTIVE;
         const aphi = "⌖(" + field.id + " | " + source.id + ") :" + scale.id;
         result.innerHTML =
           '<p class="label">your search prompt</p>' +
