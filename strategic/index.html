@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A reading, one element at a time</title>
+<meta name="description" content="Read a decision, a situation, a strategy — one lens at a time. Start with the element that fits what you're reading; it hands a nemetic.φ forward through all six, to a synthesis at the end.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="strategic.css">
+<style>
+  :root { --accent: var(--ochre); }
+  .relay-intro { margin: 0 0 1.4em; }
+  .relay-doors { margin: 1.8em 0 0; }
+  .relay-door {
+    display: grid; grid-template-columns: 1.7em 1fr; gap: 0 1em; align-items: baseline;
+    text-decoration: none; color: var(--ink); padding: 1.15em 0;
+    border-top: 1px solid rgba(31, 42, 46, 0.14); transition: padding-left 0.15s ease;
+  }
+  .relay-door:last-child { border-bottom: 1px solid rgba(31, 42, 46, 0.14); }
+  .relay-door:hover { padding-left: 10px; }
+  .rd-glyph { font-family: "Cormorant Garamond", serif; font-size: 1.7em; line-height: 1; color: var(--accent); }
+  .rd-body { display: flex; flex-direction: column; gap: 0.18em; }
+  .rd-domain { font-style: italic; font-size: 0.82em; letter-spacing: 0.03em; color: var(--accent); }
+  .rd-q { font-family: "Cormorant Garamond", "EB Garamond", serif; font-size: 1.28em; line-height: 1.2; }
+  .relay-door:hover .rd-q { color: var(--accent); }
+  .rd-when { font-size: 0.9em; opacity: 0.72; line-height: 1.45; }
+  .relay-door.air   { --accent: var(--c-air); }
+  .relay-door.water { --accent: var(--c-water); }
+  .relay-door.fire  { --accent: var(--c-fire); }
+  .relay-door.wood  { --accent: var(--c-wood); }
+  .relay-door.earth { --accent: var(--c-earth); }
+  .relay-door.metal { --accent: var(--c-metal); }
+  .relay-after { margin: 2.6em 0 0; display: flex; flex-direction: column; gap: 0.7em; }
+</style>
+</head>
+<body>
+
+<a href="../guides.html" class="back" rel="prev">← the elements</a>
+
+<div class="brand-floret" aria-hidden="true">
+  <span>Elemental</span><span class="star">✶</span><span class="it">Sensemaking</span>
+</div>
+
+<main>
+
+  <header class="head">
+    <p class="eyebrow">a reading · in six lenses</p>
+    <h1>Read it one element at a time.</h1>
+    <p class="orientation relay-intro">A decision, a situation, a strategy — anything you're trying to read clearly. Each element is one lens. You start with the one that fits what you're carrying, walk three choices, and it cuts a single line — a <em>nemetic.φ</em> — that you can take deeper with the guide, then hand on to the next element. Six lenses, and a synthesis at the end.</p>
+    <p class="orientation">Start anywhere. <strong>Begin with the lens that fits</strong> — the reading rotates through all six from there.</p>
+  </header>
+
+  <nav class="relay-doors" aria-label="Begin a reading with one element">
+
+    <a class="relay-door air" href="air.html">
+      <span class="rd-glyph" aria-hidden="true">σ</span>
+      <span class="rd-body">
+        <span class="rd-domain">Air · Signal, Sensemaking &amp; Epistemics</span>
+        <span class="rd-q">What is actually happening?</span>
+        <span class="rd-when">Start here when noise is drowning the signal, or interpretations harden before you've looked.</span>
+      </span>
+    </a>
+
+    <a class="relay-door water" href="water.html">
+      <span class="rd-glyph" aria-hidden="true">ρ</span>
+      <span class="rd-body">
+        <span class="rd-domain">Water · Resonance, Trust &amp; Social Legitimacy</span>
+        <span class="rd-q">How does it feel, and how does it relate?</span>
+        <span class="rd-when">Start here when trust or belonging is breaking down — coordination fractures despite shared facts.</span>
+      </span>
+    </a>
+
+    <a class="relay-door fire" href="fire.html">
+      <span class="rd-glyph" aria-hidden="true">λ</span>
+      <span class="rd-body">
+        <span class="rd-domain">Fire · Direction, Conflict &amp; Transformation</span>
+        <span class="rd-q">Where is this going, and what is it for?</span>
+        <span class="rd-when">Start here when commitment stalls — the situation drifts, competing possibilities prevent a decision.</span>
+      </span>
+    </a>
+
+    <a class="relay-door wood" href="wood.html">
+      <span class="rd-glyph" aria-hidden="true">β</span>
+      <span class="rd-body">
+        <span class="rd-domain">Wood · Emergence, Innovation &amp; Branching</span>
+        <span class="rd-q">What new forms are trying to emerge?</span>
+        <span class="rd-when">Start here when the options have collapsed — paths narrowed too early, you can't picture an alternative.</span>
+      </span>
+    </a>
+
+    <a class="relay-door earth" href="earth.html">
+      <span class="rd-glyph" aria-hidden="true">δγ</span>
+      <span class="rd-body">
+        <span class="rd-domain">Earth · Resources, Metabolism &amp; Sustainability</span>
+        <span class="rd-q">What feeds it, and what exhausts it?</span>
+        <span class="rd-when">Start here when it's costing more than it gives — consumed faster than it regenerates, upkeep neglected.</span>
+      </span>
+    </a>
+
+    <a class="relay-door metal" href="metal.html">
+      <span class="rd-glyph" aria-hidden="true">μ</span>
+      <span class="rd-body">
+        <span class="rd-domain">Metal · Governance, Boundaries &amp; Integrity</span>
+        <span class="rd-q">What holds it together?</span>
+        <span class="rd-when">Start here when boundaries fail — roles blur, rules turn inconsistent, trust can't scale.</span>
+      </span>
+    </a>
+
+  </nav>
+
+  <nav class="relay-after" aria-label="Other ways in">
+    <a class="door-link" href="../guides.html"><em>New here? Meet the elementals first →</em></a>
+    <a class="door-link" href="retrieve.html"><em>Or find real accounts of a movement →</em></a>
+  </nav>
+
+  <p class="honest">A way of looking, not a verdict. The reading is a generative practice — hold what it surfaces lightly, and notice what it makes you ask.</p>
+  <hr class="hairline" aria-hidden="true">
+</main>
+
+<footer><a href="../field-notes.html">Field notes from the work in progress</a></footer>
+
+</body>
+</html>
