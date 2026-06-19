@@ -6,14 +6,35 @@
  */
 window.RETRIEVE = (function () {
   const ORDER = ["Air", "Water", "Fire", "Wood", "Earth", "Metal"];
-  // the six element-states in plain language — the surface never names the elements
-  const STATE = {
-    Air:   { label: "Clear-eyed",   gloss: "seeing, naming, making distinctions" },
-    Water: { label: "Connected",    gloss: "feeling, attuned, close to something" },
-    Fire:  { label: "Driven",       gloss: "aimed, committed, moving toward something" },
-    Wood:  { label: "Open",         gloss: "exploring, playing with what could be" },
-    Earth: { label: "Grounded",     gloss: "sustaining, maintaining, keeping going" },
-    Metal: { label: "Holding form", gloss: "keeping a boundary, a rule, a structure" }
+  // the six element-states in plain language, voiced per scale — the surface never names the elements.
+  // Personal = an individual · Local = a group/place · Global = a society/system. Same six underlying
+  // states; only the register changes. The prompt library keys on the element, NOT the label, so these
+  // are purely a surface choice (re-voicing is free — no corpus regeneration).
+  const STATE_BY_SCALE = {
+    personal: {
+      Air:   { label: "Clear-eyed",   gloss: "seeing, naming, making distinctions" },
+      Water: { label: "Connected",    gloss: "feeling, attuned, close to something" },
+      Fire:  { label: "Driven",       gloss: "aimed, committed, moving toward something" },
+      Wood:  { label: "Open",         gloss: "exploring, playing with what could be" },
+      Earth: { label: "Grounded",     gloss: "sustaining, maintaining, keeping going" },
+      Metal: { label: "Holding form", gloss: "keeping a boundary, a rule, a structure" }
+    },
+    local: {
+      Air:   { label: "Seeing it plainly", gloss: "the group reads and names what's really going on" },
+      Water: { label: "Close-knit",        gloss: "bound by trust and belonging" },
+      Fire:  { label: "Mobilized",         gloss: "rallied and moving toward something" },
+      Wood:  { label: "Experimenting",     gloss: "trying new ways of being together" },
+      Earth: { label: "Self-sustaining",   gloss: "keeping itself fed and going" },
+      Metal: { label: "Holding its shape", gloss: "kept by roles, rules, and boundaries" }
+    },
+    global: {
+      Air:   { label: "Made legible",     gloss: "seen, measured, named in public" },
+      Water: { label: "Bound by trust",   gloss: "held by shared legitimacy and belonging" },
+      Fire:  { label: "In transformation", gloss: "momentum, conflict, a push to change" },
+      Wood:  { label: "In ferment",       gloss: "new forms and possibilities branching" },
+      Earth: { label: "Resourced",        gloss: "fed and maintained by its material base" },
+      Metal: { label: "Codified",         gloss: "held by law, institutions, and structure" }
+    }
   };
   const GPT_URL = {
     Air: "https://chatgpt.com/g/g-69459eaf0f94819184704a5da2d2c933-air",
@@ -62,15 +83,27 @@ window.RETRIEVE = (function () {
         '<h1>Find real accounts of a movement</h1>' +
         '<p class="orientation">Name an inner movement you’ve been through — a shift from one way of being to another. We’ll hand you a search prompt to take to any search-enabled LLM, to find <em>real, attributable</em> passages where other people have documented that same turn. Then read them, and ask: does this seem real for me?</p>';
 
+      let SCALE = null, PRESEED = null;
+      const states = () => STATE_BY_SCALE[SCALE.id];
+
+      // Scale first — it sets the register the movement is named in (an individual / a group / a system).
+      function pickScale() {
+        pick.hidden = false;
+        step(pick, "First — at what scale does this movement live?",
+          AREA.scales.map(s => ({ label: s.label, hint: s.gloss, ref: s })),
+          o => { SCALE = o.ref; clear(pick);
+                 if (PRESEED) return confirmStep(PRESEED.f, PRESEED.x);
+                 pickFrom(); });
+      }
       function pickFrom() {
         pick.hidden = false;
         step(pick, "Where did it start?",
-          ORDER.map(e => ({ label: STATE[e].label, hint: STATE[e].gloss, ref: e })),
+          ORDER.map(e => ({ label: states()[e].label, hint: states()[e].gloss, ref: e })),
           o => pickTo(o.ref));
       }
       function pickTo(from) {
         step(pick, "And where did it move to?",
-          ORDER.filter(e => e !== from).map(e => ({ label: STATE[e].label, hint: STATE[e].gloss, ref: e })),
+          ORDER.filter(e => e !== from).map(e => ({ label: states()[e].label, hint: states()[e].gloss, ref: e })),
           o => confirmStep(from, o.ref));
       }
       function confirmStep(from, to) {
@@ -82,18 +115,17 @@ window.RETRIEVE = (function () {
           '<button type="button" class="cyoa-door" id="r-yes"><span class="cyoa-door-label">Yes — that’s the turn</span></button>' +
           '<button type="button" class="cyoa-door" id="r-no"><span class="cyoa-door-label">Not quite — choose again</span></button></div>';
         confirm.hidden = false;
-        q("#r-yes").addEventListener("click", () => { confirm.hidden = true; areaStep(from, to); });
-        q("#r-no").addEventListener("click", () => { confirm.hidden = true; clear(pick); pickFrom(); });
+        q("#r-yes").addEventListener("click", () => { confirm.hidden = true; fieldStep(from, to); });
+        q("#r-no").addEventListener("click", () => { confirm.hidden = true; clear(pick); PRESEED = null; pickFrom(); });
       }
-      function areaStep(from, to) {
+      // Then drill down within the chosen scale: which part of that life, and where to look.
+      function fieldStep(from, to) {
         area.hidden = false;
-        step(area, "Where does this movement live for you?",
-          AREA.scales.map(s => ({ label: s.label, hint: s.gloss, ref: s })),
-          sc => step(area, "Closer in — which part of " + sc.ref.label.toLowerCase() + " life?",
-            sc.ref.fields.map(f => ({ label: f.text, hint: f.gloss, ref: f })),
-            fl => step(area, "And where would you look for real accounts of it?",
-              AREA.sources.map(so => ({ label: so.label, hint: so.gloss + (so.fits.indexOf(sc.ref.id) >= 0 ? " · a natural fit for the " + sc.ref.label.toLowerCase() + " scale" : ""), ref: so })),
-              src => resolve(from, to, sc.ref, fl.ref, src.ref))));
+        step(area, "Closer in — which part of " + SCALE.label.toLowerCase() + " life?",
+          SCALE.fields.map(f => ({ label: f.text, hint: f.gloss, ref: f })),
+          fl => step(area, "And where would you look for real accounts of it?",
+            AREA.sources.map(so => ({ label: so.label, hint: so.gloss + (so.fits.indexOf(SCALE.id) >= 0 ? " · a natural fit for the " + SCALE.label.toLowerCase() + " scale" : ""), ref: so })),
+            src => resolve(from, to, SCALE, fl.ref, src.ref)));
       }
       function resolve(from, to, scale, field, source) {
         area.hidden = true;
@@ -107,7 +139,7 @@ window.RETRIEVE = (function () {
           '<div class="retrieve-prompt">' + esc(prompt) + "</div>" +
           '<p style="margin:1.4em 0 0;"><button type="button" class="copy-btn" id="r-copy">copy the prompt</button></p>' +
           '<p class="label" style="margin-top:2.4em;">now</p>' +
-          '<p>Paste it into a search-enabled LLM — Perplexity, ChatGPT (search on), Claude, or Gemini — and let it bring back real passages. It’s built to say <em>“nothing found”</em> rather than invent, so trust the empty result as much as the full one.</p>' +
+          '<p>Paste it into a search-enabled LLM — <strong>Grok</strong> and Perplexity both do this well, or ChatGPT (search on), Claude, or Gemini — and let it bring back real passages. It’s built to say <em>“nothing found”</em> rather than invent, so trust the empty result as much as the full one.</p>' +
           '<p style="margin-top:1.2em;">Then bring what you find back to <a class="door-link" href="' + GPT_URL[to] + '" target="_blank" rel="noopener">' + DAEMON[to] + "</a> — or any of the guides — and read it together: <em>does this seem real for you, and if not, why not?</em></p>";
         result.hidden = false;
         const btn = q("#r-copy");
@@ -118,12 +150,13 @@ window.RETRIEVE = (function () {
         result.scrollIntoView({ behavior: "smooth", block: "start" });
       }
 
+      // a relay handoff can pre-seed the movement (?t=Fire-Wood); we still ask scale first, then confirm.
       const t = new URLSearchParams(location.search).get("t");
       if (t && t.indexOf("-") > 0) {
         const [f, x] = t.split("-");
-        if (STATE[f] && STATE[x] && f !== x) return confirmStep(f, x);
+        if (ORDER.indexOf(f) >= 0 && ORDER.indexOf(x) >= 0 && f !== x) PRESEED = { f: f, x: x };
       }
-      pickFrom();
+      pickScale();
     });
   }
 
