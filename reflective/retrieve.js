@@ -166,7 +166,7 @@ window.RETRIEVE = (function () {
           '<p class="label" style="margin-top:2.4em;">② take this to a search LLM</p>' +
           '<div class="retrieve-prompt">' + esc(prompt) + "</div>" +
           '<p style="margin:1.4em 0 0;"><button type="button" class="copy-btn" id="r-copy">copy the prompt</button></p>' +
-          '<p style="margin-top:1em;font-size:0.92em;opacity:0.85;">In testing, citations came back cleanest with <strong>Claude</strong> or <strong>ChatGPT</strong> — turn web search on for either — then Gemini, then Kimi, then Grok. The prompt is built to say <em>“nothing found”</em> rather than invent, so trust the empty result as much as the full one.</p>' +
+          '<p style="margin-top:1em;font-size:0.92em;opacity:0.85;">In testing, citations came back cleanest with <strong>Claude</strong> or <strong>ChatGPT</strong> — turn web search on for either — then Gemini, then Kimi, then Grok. <strong>Favor the model that takes care over the one that answers fastest</strong> — a quick citation is often an invented one. The prompt is built to say <em>“nothing found”</em> rather than invent, so trust the empty result as much as the full one.</p>' +
           '<p class="label" style="margin-top:2.4em;">③ bring it back to the guide</p>' +
           '<p>Open <a class="door-link" href="' + GPT_URL[to] + '" target="_blank" rel="noopener">' + DAEMON[to] + '</a> — it catches this movement handed <em>from ' + DAEMON[from] + '</em> (' + from + ' → ' + to + '). Paste the <strong>key</strong> and the passages you found, and read them together: <em>does this seem real for you — and where does yours diverge?</em> When you’re ready, ask for your reading — it hands back a <em>nemetic.φ</em> and a write-up.</p>' +
           '<p class="label" style="margin-top:2.4em;">④ submit your reading <span style="opacity:0.55;font-style:italic;">— optional</span></p>' +
@@ -176,7 +176,7 @@ window.RETRIEVE = (function () {
           '<input id="r-email" type="email" placeholder="email for the link (optional)" style="' + IN + '">' +
           '<p id="r-warn" style="display:none;margin:1.2em 0 0;font-size:0.9em;color:var(--c-fire);line-height:1.5;"></p>' +
           '<p style="margin:1.6em 0 0;"><button type="button" class="copy-btn" id="r-submit">submit my reading</button></p>' +
-          '<p style="margin:0.8em 0 0;font-size:0.86em;opacity:0.6;">Each account is reviewed before it’s published.</p>';
+          '<p style="margin:0.8em 0 0;font-size:0.86em;opacity:0.6;">Each account is reviewed before it’s published — and if a citation can’t be verified, the guide sets it aside and asks the community for help rather than publish something unsound.</p>';
         result.hidden = false;
         q("#r-copy").addEventListener("click", function () {
           navigator.clipboard && navigator.clipboard.writeText(prompt); this.textContent = "copied ✓";
