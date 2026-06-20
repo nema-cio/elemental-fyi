@@ -6,6 +6,10 @@
  */
 window.RETRIEVE = (function () {
   const ORDER = ["Air", "Water", "Fire", "Wood", "Earth", "Metal"];
+  // operator notation + element colors — shown on the movement (from/to) options so the surface stays
+  // plain-language but the notation mark and the element colour ride alongside each choice.
+  const ELGLYPH = { Air: "σ", Water: "ρ", Fire: "λ", Wood: "β", Earth: "δγ", Metal: "μ" };
+  const ELCOLOR = { Air: "#7E868C", Water: "#3D5566", Fire: "#B5512A", Wood: "#5A6F3C", Earth: "#9C7B2E", Metal: "#5C5E62" };
   // the six element-states in plain language, voiced per scale — the surface never names the elements.
   // Personal = an individual · Local = a group/place · Global = a society/system. Same six underlying
   // states; only the register changes. The prompt library keys on the element, NOT the label, so these
@@ -71,7 +75,9 @@ window.RETRIEVE = (function () {
     const list = elc("div", "cyoa-options");
     options.forEach(opt => {
       const b = elc("button", "cyoa-door"); b.type = "button";
-      b.innerHTML = '<span class="cyoa-door-label">' + esc(opt.label) + "</span>" +
+      if (opt.color) b.style.setProperty("--el-color", opt.color);
+      const g = opt.glyph ? '<span class="el-glyph">' + opt.glyph + "</span>" : "";
+      b.innerHTML = '<span class="cyoa-door-label">' + g + esc(opt.label) + "</span>" +
         (opt.hint ? '<span class="cyoa-door-hint">' + esc(opt.hint) + "</span>" : "");
       b.addEventListener("click", () => onPick(opt));
       list.appendChild(b);
@@ -117,12 +123,12 @@ window.RETRIEVE = (function () {
       function pickFrom() {
         pick.hidden = false;
         step(pick, "Where did it start?",
-          ORDER.map(e => ({ label: states()[e].label, hint: states()[e].gloss, ref: e })),
+          ORDER.map(e => ({ label: states()[e].label, hint: states()[e].gloss, ref: e, glyph: ELGLYPH[e], color: ELCOLOR[e] })),
           o => pickTo(o.ref));
       }
       function pickTo(from) {
         step(pick, "And where did it move to?",
-          ORDER.filter(e => e !== from).map(e => ({ label: states()[e].label, hint: states()[e].gloss, ref: e })),
+          ORDER.filter(e => e !== from).map(e => ({ label: states()[e].label, hint: states()[e].gloss, ref: e, glyph: ELGLYPH[e], color: ELCOLOR[e] })),
           o => confirmStep(from, o.ref));
       }
       function confirmStep(from, to) {

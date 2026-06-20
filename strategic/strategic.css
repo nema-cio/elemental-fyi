@@ -89,6 +89,11 @@ main { max-width: var(--measure); margin: 0 auto; padding: 0 28px; }
 .cyoa-door:first-child { border-top: 1px solid rgba(31,42,46,0.16); }
 .cyoa-door:hover { padding-left: 12px; }
 .cyoa-door:hover .cyoa-door-label { color: var(--accent); }
+/* movement options carry a colored operator mark (--el-color set per element); tap/hover tints to it */
+.cyoa-door .el-glyph { font-family: "Cormorant Garamond", serif; color: var(--el-color, var(--accent));
+  margin-right: 0.5em; font-size: 1.06em; }
+.cyoa-door[style*="--el-color"]:hover .cyoa-door-label,
+.cyoa-door[style*="--el-color"]:active .cyoa-door-label { color: var(--el-color); }
 .cyoa-door-label {
   display: block; font-size: calc(var(--body-size) * 1.02); line-height: 1.4;
 }
