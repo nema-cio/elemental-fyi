@@ -151,7 +151,9 @@ window.RETRIEVE = (function () {
         const key = from + "→" + to;
         const tmpl = (LIB[key] || {})[source.id] || "";
         const prompt = tmpl.replace("{{AREA}}", field.phrase) + CITE_DIRECTIVE;
-        const aphi = "⌖(" + field.id + " | " + source.id + ") :" + scale.id;
+        // the key carries the AREA *and the movement* — the movement is a handoff (from-element → to-element),
+        // so the receiving guide knows which element it is catching the baton from.
+        const aphi = "⌖(" + field.id + " | " + source.id + ") :" + scale.id + " · " + from + "→" + to;
         const TA = "width:100%;background:transparent;color:var(--ink);border:1px solid rgba(31,42,46,0.2);border-radius:6px;padding:0.7em 0.8em;font-family:inherit;font-size:0.95em;line-height:1.5;resize:vertical;";
         const IN = "width:100%;background:transparent;border:0;border-bottom:1px solid rgba(31,42,46,0.28);padding:0.4em 0.55em;font-family:inherit;font-size:1em;color:var(--ink);margin-top:1.1em;";
         result.innerHTML =
@@ -166,7 +168,7 @@ window.RETRIEVE = (function () {
           '<p style="margin:1.4em 0 0;"><button type="button" class="copy-btn" id="r-copy">copy the prompt</button></p>' +
           '<p style="margin-top:1em;font-size:0.92em;opacity:0.85;">In testing, citations came back cleanest with <strong>Claude</strong> or <strong>ChatGPT</strong> — turn web search on for either — then Gemini, then Kimi, then Grok. The prompt is built to say <em>“nothing found”</em> rather than invent, so trust the empty result as much as the full one.</p>' +
           '<p class="label" style="margin-top:2.4em;">③ bring it back to the guide</p>' +
-          '<p>Open <a class="door-link" href="' + GPT_URL[to] + '" target="_blank" rel="noopener">' + DAEMON[to] + '</a> (or any guide), paste the <strong>key</strong> and the passages you found, and read them together: <em>does this seem real for you — and where does yours diverge?</em> When you’re ready, ask for your reading — it hands back a <em>nemetic.φ</em> and a write-up.</p>' +
+          '<p>Open <a class="door-link" href="' + GPT_URL[to] + '" target="_blank" rel="noopener">' + DAEMON[to] + '</a> — it catches this movement handed <em>from ' + DAEMON[from] + '</em> (' + from + ' → ' + to + '). Paste the <strong>key</strong> and the passages you found, and read them together: <em>does this seem real for you — and where does yours diverge?</em> When you’re ready, ask for your reading — it hands back a <em>nemetic.φ</em> and a write-up.</p>' +
           '<p class="label" style="margin-top:2.4em;">④ submit your reading <span style="opacity:0.55;font-style:italic;">— optional</span></p>' +
           '<p>Paste the write-up ' + DAEMON[to] + ' gave you. It helps build the guide’s knowledge and becomes a published <em>account</em> in ' + DAEMON[to] + '’s voice, citations intact. Add a name to be credited (or leave blank to stay anonymous), and an email if you’d like the link when it’s live.</p>' +
           '<textarea id="r-md" rows="8" placeholder="paste the whole markdown write-up ' + DAEMON[to] + ' gave you" style="' + TA + '"></textarea>' +
