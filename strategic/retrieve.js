@@ -172,6 +172,7 @@ window.RETRIEVE = (function () {
           '<textarea id="r-md" rows="8" placeholder="paste the whole markdown write-up ' + DAEMON[to] + ' gave you" style="' + TA + '"></textarea>' +
           '<input id="r-name" type="text" placeholder="name to credit (optional)" style="' + IN + '">' +
           '<input id="r-email" type="email" placeholder="email for the link (optional)" style="' + IN + '">' +
+          '<p id="r-warn" style="display:none;margin:1.2em 0 0;font-size:0.9em;color:var(--c-fire);line-height:1.5;"></p>' +
           '<p style="margin:1.6em 0 0;"><button type="button" class="copy-btn" id="r-submit">submit my reading</button></p>' +
           '<p style="margin:0.8em 0 0;font-size:0.86em;opacity:0.6;">Each account is reviewed before it’s published.</p>';
         result.hidden = false;
@@ -184,6 +185,14 @@ window.RETRIEVE = (function () {
         q("#r-submit").addEventListener("click", function () {
           const md = (q("#r-md").value || "").trim();
           if (!md) { q("#r-md").focus(); return; }
+          // guard: a relay CARRY FORWARD is not a retrieval write-up — catch the category error here
+          const looksWrong = /CARRY FORWARD|Handing to:/i.test(md) || !/##\s*Real accounts/i.test(md);
+          if (looksWrong && this.dataset.ok !== "1") {
+            q("#r-warn").innerHTML = "This looks like a relay <em>carry-forward</em>, not a retrieval write-up — a published account needs the <strong>real, cited passages</strong> you brought back. Paste the write-up the guide gave you <em>after</em> you brought it accounts. If you’re sure, press again to submit anyway.";
+            q("#r-warn").style.display = "block";
+            this.textContent = "submit anyway"; this.dataset.ok = "1";
+            return;
+          }
           const name = (q("#r-name").value || "").trim();
           const email = (q("#r-email").value || "").trim();
           postRetrieval({ action: "retrieval", element: to, movement: from + "→" + to, area: aphi,
