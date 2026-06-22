@@ -342,7 +342,7 @@
   <!-- Shown in place of the form after a successful submit -->
   <section class="received" id="received" aria-live="polite">
     <p>It's with the elements now.</p>
-    <p>They will take their time. What comes back is a scene composed from the elements — read, heard, and seen — posted anonymously on elemental.fyi, announced in the Discord, and sent to your inbox. Read it as weather, not instruction.</p>
+    <p>They will take their time. What comes back is a scene composed from the elements — read, heard, and seen — posted on elemental.fyi, announced in the Discord, and sent to your inbox. <span id="creditNote">If you gave a name, the scene is credited to you; otherwise it's posted anonymously.</span> Read it as weather, not instruction.</p>
     <div class="glyph-line" aria-hidden="true">
       <span style="background:var(--c-air)"></span>
       <span style="background:var(--c-water)"></span>
@@ -407,6 +407,13 @@
     } catch (_) {
       // Even if the network call fails, we don't strand the person — the pipeline
       // can also be fed from a logged submission. Confirm gracefully.
+    }
+
+    const creditNote = document.getElementById('creditNote');
+    if (creditNote) {
+      creditNote.textContent = credit
+        ? 'You gave a name, so the scene will be credited to you as “scene seed via ' + name + '.”'
+        : 'You didn’t give a name, so the scene is posted anonymously.';
     }
 
     form.style.display = 'none';
