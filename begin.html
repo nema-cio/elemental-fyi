@@ -70,6 +70,10 @@
     font-size: calc(var(--body-size) * 1.18); color: var(--ochre); text-decoration: none;
     border-bottom: 1px solid var(--ochre); padding-bottom: 2px; }
   .carry a:hover { color: var(--ink); border-bottom-color: var(--ink); }
+  .carry-where { font-size: 0.74em; opacity: 0.5; font-style: italic; margin-left: 0.5em; }
+  .gpt-note { font-size: 0.84em; opacity: 0.62; line-height: 1.55; margin: 1em 0 0; max-width: 46ch; }
+  .gpt-note a { color: var(--ochre); text-decoration: none; border-bottom: 1px solid var(--ochre); }
+  .gpt-note a:hover { color: var(--ink); border-bottom-color: var(--ink); }
   ::selection { background: rgba(184,146,60,0.22); }
   @media (max-width: 640px) { :root { --body-size: 18px; } main { padding: 0 22px; }
     .back { top: 20px; left: 22px; } .head h1 { font-size: calc(var(--body-size) * 1.85); }
@@ -167,7 +171,8 @@
     <p class="seed" id="seedText"></p>
     <p class="seed-hint">Copy it and paste it into the conversation. The glyph sets where to begin; the line in quotes is what you're bringing.</p>
     <p><button id="copyBtn" class="copybtn" type="button">copy</button></p>
-    <p class="carry"><a id="carryLink" href="https://chatgpt.com/g/g-6a2c0fe6d3b081918f80d27b775715f9-elemental-sensemaker" rel="noopener" target="_blank"><em>Sit with the elements →</em></a></p>
+    <p class="carry"><a id="carryLink" href="https://chatgpt.com/g/g-6a2c0fe6d3b081918f80d27b775715f9-elemental-sensemaker" rel="noopener" target="_blank"><em>Sit with the elements →</em></a> <span class="carry-where">opens the Elemental Sensemaker in ChatGPT</span></p>
+    <p class="gpt-note">Sit with it there. When you're ready, ask for your <em>nemetic.φ</em> — a single line the elements hand back. Copy that line and bring it to <a href="transform.html"><em>transform →</em></a> to carry the working forward.</p>
   </main>
 </div>
 
