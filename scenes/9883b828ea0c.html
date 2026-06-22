@@ -14,6 +14,8 @@
   .back{position:absolute;top:28px;left:28px;font-family:"EB Garamond",serif;font-style:italic;font-size:15px;color:var(--ochre);text-decoration:none}
   .back:hover{color:var(--ink)}
   .floret{display:flex;justify-content:center;align-items:center;gap:12px;padding-top:36px;font-family:"Cormorant Garamond",serif;font-size:22px;opacity:.85}
+  a.floret{text-decoration:none;color:var(--ink);transition:opacity .15s ease}
+  a.floret:hover{opacity:1}
   .floret .star{color:var(--ochre);font-size:16px}.floret .it{font-style:italic}
   .hero-card{text-align:center;padding:6vh 0 4vh;margin:0 0 1vh;border-bottom:1px solid rgba(31,42,46,.1)}
   .hero-card .ops{font-family:"Cormorant Garamond",serif;font-size:clamp(54px,11vw,76px);line-height:1;letter-spacing:.04em}
@@ -37,7 +39,7 @@
   @media(max-width:640px){:root{--body:18px}}
 </style></head><body>
 <a href="../index.html" class="back">← Home</a>
-<div class="floret"><span>Elemental</span><span class="star">✶</span><span class="it">Sensemaking</span></div>
+<a href="../index.html" class="floret" aria-label="Home — Elemental Sensemaking"><span>Elemental</span><span class="star">✶</span><span class="it">Sensemaking</span></a>
 <main>
   <h1 class="sr">Aim and pressure</h1>
   <header class="hero-card"><div class="ops"><span style="color:#B5512A">λ</span></div><div class="hc-title">Aim and pressure</div><div class="hc-phi">Φ(ambition) = λ(aim|pressure) + ε | :open</div></header>
