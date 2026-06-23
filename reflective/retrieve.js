@@ -164,7 +164,7 @@ window.RETRIEVE = (function () {
         const IN = "width:100%;background:transparent;border:0;border-bottom:1px solid rgba(31,42,46,0.28);padding:0.4em 0.55em;font-family:inherit;font-size:1em;color:var(--ink);margin-top:1.1em;";
         result.innerHTML =
           '<p class="label">how this works</p>' +
-          '<p style="margin:0 0 0.5em;">Below are two things to copy: a <strong>key</strong> for the guide, and a <strong>search prompt</strong>. Take the prompt to a search LLM to gather real, cited accounts; bring them back to the guide along with the key; read them together; then ask the guide for your reading. It hands you a <em>nemetic.φ</em> and a write-up — which you can submit at the end, to help build ' + DAEMON[to] + '’s knowledge and become a published account.</p>' +
+          '<p style="margin:0 0 0.5em;">Below are two things to copy: a <strong>key</strong> for the guide, and a <strong>search prompt</strong>. Take the prompt to a search LLM (turn web search on) to gather real, cited accounts. Then — rather than compiling them yourself — make that conversation <strong>shareable</strong> and bring the link back here with a sentence on how it landed. ' + DAEMON[to] + ' reads your sources directly, verifies the citations, and writes the account in its own voice.</p>' +
           '<p class="label" style="margin-top:2.2em;">① copy this for the guide</p>' +
           '<p style="margin:0 0 0.7em;font-size:0.92em;opacity:0.82;">This line tells the guide what you went looking for — you’ll paste it together with what you find.</p>' +
           '<div class="copy-row"><code id="r-aphi">' + esc(aphi) + '</code></div>' +
@@ -173,16 +173,18 @@ window.RETRIEVE = (function () {
           '<div class="retrieve-prompt">' + esc(prompt) + "</div>" +
           '<p style="margin:1.4em 0 0;"><button type="button" class="copy-btn" id="r-copy">copy the prompt</button></p>' +
           '<p style="margin-top:1em;font-size:0.92em;opacity:0.85;">In testing, citations came back cleanest with <strong>Claude</strong> or <strong>ChatGPT</strong> — turn web search on for either — then Gemini, then Kimi, then Grok. <strong>Favor the model that takes care over the one that answers fastest</strong> — a quick citation is often an invented one. The prompt is built to say <em>“nothing found”</em> rather than invent, so trust the empty result as much as the full one.</p>' +
-          '<p class="label" style="margin-top:2.4em;">③ bring it back to the guide</p>' +
-          '<p>Open <a class="door-link" href="' + GPT_URL[to] + '" target="_blank" rel="noopener">' + DAEMON[to] + '</a> — it catches this movement handed <em>from ' + DAEMON[from] + '</em> (' + from + ' → ' + to + '). Paste the <strong>key</strong> and the passages you found, and read them together: <em>does this seem real for you — and where does yours diverge?</em> When you’re ready, ask for your reading — it hands back a <em>nemetic.φ</em> and a write-up.</p>' +
-          '<p class="label" style="margin-top:2.4em;">④ submit your reading <span style="opacity:0.55;font-style:italic;">— optional</span></p>' +
-          '<p>Paste the write-up ' + DAEMON[to] + ' gave you. It helps build the guide’s knowledge and becomes a published <em>account</em> in ' + DAEMON[to] + '’s voice, citations intact. Add a name to be credited (or leave blank to stay anonymous), and an email if you’d like the link when it’s live.</p>' +
-          '<textarea id="r-md" rows="8" placeholder="paste the whole markdown write-up ' + DAEMON[to] + ' gave you" style="' + TA + '"></textarea>' +
+          '<p class="label" style="margin-top:2.4em;">③ make your research shareable</p>' +
+          '<p>In Claude or ChatGPT, create a <strong>public share link</strong> for that conversation (Claude: the share icon → <em>Create public link</em>; ChatGPT: <em>Share</em> → <em>Create link</em>) and copy it. The guide reads that link directly — the real passages and their sources, not a retyped copy — so nothing is lost in translation.</p>' +
+          '<p style="font-size:0.9em;opacity:0.78;margin-top:0.7em;">Optional — want to sit with it first? Open <a class="door-link" href="' + GPT_URL[to] + '" target="_blank" rel="noopener">' + DAEMON[to] + '</a> and talk the movement through (' + from + ' → ' + to + ', handed from ' + DAEMON[from] + '). It’s a companion for your own reflection, not a required step — the account is built from your share link.</p>' +
+          '<p class="label" style="margin-top:2.4em;">④ submit your reading</p>' +
+          '<p>Bring back your <strong>share link</strong> and a sentence or two on how these accounts landed — where yours matches, and where it diverges. ' + DAEMON[to] + ' reads the link, verifies the citations, and publishes the account in its voice. Add a name to be credited (or leave blank to stay anonymous), and an email if you’d like the link when it’s live.</p>' +
+          '<input id="r-share" type="url" placeholder="paste your Claude / ChatGPT share link" style="' + IN + '">' +
+          '<textarea id="r-refl" rows="4" placeholder="how did these accounts land for you? where does yours diverge? (optional but valued)" style="' + TA + ' margin-top:1.1em;"></textarea>' +
           '<input id="r-name" type="text" placeholder="name to credit (optional)" style="' + IN + '">' +
           '<input id="r-email" type="email" placeholder="email for the link (optional)" style="' + IN + '">' +
           '<p id="r-warn" style="display:none;margin:1.2em 0 0;font-size:0.9em;color:var(--c-fire);line-height:1.5;"></p>' +
           '<p style="margin:1.6em 0 0;"><button type="button" class="copy-btn" id="r-submit">submit my reading</button></p>' +
-          '<p style="margin:0.8em 0 0;font-size:0.86em;opacity:0.6;">Each account is reviewed before it’s published — and if a citation can’t be verified, the guide sets it aside and asks the community for help rather than publish something unsound.</p>';
+          '<p style="margin:0.8em 0 0;font-size:0.86em;opacity:0.6;">Each account is reviewed before it’s published — the guide checks every citation against your sources, and if one can’t be verified it’s set aside rather than published unsound. Your share link is used only to build the account; it’s never posted.</p>';
         result.hidden = false;
         q("#r-copy").addEventListener("click", function () {
           navigator.clipboard && navigator.clipboard.writeText(prompt); this.textContent = "copied ✓";
@@ -190,23 +192,32 @@ window.RETRIEVE = (function () {
         q("#r-copy-phi").addEventListener("click", function () {
           navigator.clipboard && navigator.clipboard.writeText(aphi); this.textContent = "copied ✓";
         });
+        const SHARE_HOSTS = /(claude\.ai|chatgpt\.com|chat\.openai\.com|gemini\.google\.com|g\.co|kimi\.com|grok\.com|x\.com|perplexity\.ai)/i;
         q("#r-submit").addEventListener("click", function () {
-          const md = (q("#r-md").value || "").trim();
-          if (!md) { q("#r-md").focus(); return; }
-          // guard: a relay CARRY FORWARD is not a retrieval write-up — catch the category error here
-          const looksWrong = /CARRY FORWARD|Handing to:/i.test(md) || !/##\s*Real accounts/i.test(md);
-          if (looksWrong && this.dataset.ok !== "1") {
-            q("#r-warn").innerHTML = "This looks like a relay <em>carry-forward</em>, not a retrieval write-up — a published account needs the <strong>real, cited passages</strong> you brought back. Paste the write-up the guide gave you <em>after</em> you brought it accounts. If you’re sure, press again to submit anyway.";
+          const url = (q("#r-share").value || "").trim();
+          const refl = (q("#r-refl").value || "").trim();
+          if (!url) {
+            q("#r-warn").innerHTML = "Paste the <strong>share link</strong> to your research conversation — that’s what the guide reads to build the account.";
+            q("#r-warn").style.display = "block"; q("#r-share").focus(); return;
+          }
+          if (!/^https?:\/\/\S+$/i.test(url)) {
+            q("#r-warn").innerHTML = "That doesn’t look like a link — paste the full <strong>https://…</strong> share URL.";
+            q("#r-warn").style.display = "block"; q("#r-share").focus(); return;
+          }
+          // soft guard: nudge if it isn't a recognised LLM share host — but allow it (direct source links can be valid)
+          if (!SHARE_HOSTS.test(url) && this.dataset.ok !== "1") {
+            q("#r-warn").innerHTML = "That isn’t a recognised Claude/ChatGPT (or Gemini/Kimi/Grok) <em>share</em> link. Make sure it’s a <strong>public</strong> link to the conversation — open it in a private window to check it loads. If you’re sure, press again to submit anyway.";
             q("#r-warn").style.display = "block";
             this.textContent = "submit anyway"; this.dataset.ok = "1";
             return;
           }
           const name = (q("#r-name").value || "").trim();
           const email = (q("#r-email").value || "").trim();
+          const md = "## Research link\n" + url + "\n\n## My reflection\n" + (refl || "(none provided)") + "\n";
           postRetrieval({ action: "retrieval", element: to, movement: from + "→" + to, area: aphi,
-                          markdown: md, name: name, email: email });
+                          share_url: url, reflection: refl, markdown: md, name: name, email: email });
           let thanks = (name ? "Thank you, " + esc(name) + " — " : "Thank you — ") +
-            "your reading is in. " + DAEMON[to] + " will write it up as an account" +
+            "your reading is in. " + DAEMON[to] + " will read your sources and write them up as an account" +
             (email ? ", and we’ll email <strong>" + esc(email) + "</strong> the link when it’s live."
                    : "; watch the #" + to.toLowerCase() + " channel in the Discord for the link.");
           result.innerHTML = '<p class="label">submitted</p><p>' + thanks +
