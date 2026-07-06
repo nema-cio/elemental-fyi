@@ -73,7 +73,8 @@
       <button class="door" id="pf-save" type="button">Save profile →</button>
       <span class="savemsg" id="pf-msg" hidden></span>
     </div>
-    <p class="quiet" style="margin-top:2em">Coming: your elemental profile — a short encounter with the six that maps how your attention leans. It will live here.</p>
+    <h2>Your elemental lean</h2>
+    <div id="mirror-box"><p class="quiet"><a href="mirror.html" style="color:var(--ochre)">Take the Mirror →</a> — a short encounter with the six that maps where your attention leans. It will live here.</p></div>
 
     <h2>Your readings</h2>
     <div id="readings"><p class="quiet">gathering…</p></div>
@@ -99,12 +100,41 @@ const $ = (s) => document.querySelector(s);
 
 function esc(t){ const d=document.createElement("div"); d.textContent=t==null?"":String(t); return d.innerHTML; }
 
+const EL_META = { air:["σ","#7E868C","Air"], water:["ρ","#3D5566","Water"], fire:["λ","#B5512A","Fire"],
+                  wood:["β","#5A6F3C","Wood"], earth:["δγ","#9C7B2E","Earth"], metal:["μ","#5C5E62","Metal"] };
+
 async function showSignedIn(){
   $("#signedout").hidden = true; $("#signedin").hidden = false;
   const A = window.ElementalAuth;
 
+  // a Mirror taken before signing in waits in this browser — attach it now
+  const pending = localStorage.getItem("es_pending_mirror");
+  if (pending) {
+    try {
+      const prof = await A.getProfile();
+      if (!prof || !prof.elemental_profile) await A.updateProfile({ elemental_profile: JSON.parse(pending) });
+      localStorage.removeItem("es_pending_mirror");
+    } catch (e) {}
+  }
+
   // profile
   const p = (await A.getProfile()) || {};
+
+  // elemental lean (the Mirror result)
+  const ep = p.elemental_profile;
+  if (ep && ep.pct) {
+    const ranked = Object.keys(ep.pct).sort((a,b) => ep.pct[b]-ep.pct[a]);
+    $("#mirror-box").innerHTML =
+      '<p style="font-family:\'Cormorant Garamond\',serif;font-size:1.5em;margin:0 0 .2em">' +
+      ranked.slice(0,3).map(k => '<span style="color:' + EL_META[k][1] + '">' + EL_META[k][0] + "</span>").join(" ∘ ") + "</p>" +
+      '<p class="quiet" style="margin:0 0 1em">' + EL_META[ep.dominant][2] + " first · taken " + esc(String(ep.taken_at||"").slice(0,10)) + "</p>" +
+      ranked.map(k =>
+        '<div style="display:grid;grid-template-columns:2.4em 1fr 3em;gap:.7em;align-items:center;margin:.3em 0">' +
+        '<span style="color:' + EL_META[k][1] + ';font-family:\'Cormorant Garamond\',serif;text-align:right">' + EL_META[k][0] + "</span>" +
+        '<span style="height:8px;background:rgba(31,42,46,.08)"><span style="display:block;height:100%;width:' + (ep.pct[k]|0) + "%;background:" + EL_META[k][1] + '"></span></span>' +
+        '<span class="quiet" style="font-size:.78em">' + (ep.pct[k]|0) + "%</span></div>").join("") +
+      '<p class="quiet" style="margin-top:1em"><a href="mirror.html" style="color:var(--ochre)">take it again ↺</a> — the lean moves with the season</p>';
+  }
   $("#pf-name").value = p.display_name || "";
   $("#pf-discord").value = p.discord_name || "";
   $("#pf-register").value = p.register || "plain";
