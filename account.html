@@ -127,13 +127,13 @@ async function showSignedIn(){
     $("#mirror-box").innerHTML =
       '<p style="font-family:\'Cormorant Garamond\',serif;font-size:1.5em;margin:0 0 .2em">' +
       ranked.slice(0,3).map(k => '<span style="color:' + EL_META[k][1] + '">' + EL_META[k][0] + "</span>").join(" ∘ ") + "</p>" +
-      '<p class="quiet" style="margin:0 0 1em">' + EL_META[ep.dominant][2] + " first · taken " + esc(String(ep.taken_at||"").slice(0,10)) + "</p>" +
+      '<p class="quiet" style="margin:0 0 1em">' + EL_META[ep.dominant][2] + " first · a snapshot from " + esc(String(ep.taken_at||"").slice(0,10)) + " — not a fixed self</p>" +
       ranked.map(k =>
         '<div style="display:grid;grid-template-columns:2.4em 1fr 3em;gap:.7em;align-items:center;margin:.3em 0">' +
         '<span style="color:' + EL_META[k][1] + ';font-family:\'Cormorant Garamond\',serif;text-align:right">' + EL_META[k][0] + "</span>" +
         '<span style="height:8px;background:rgba(31,42,46,.08)"><span style="display:block;height:100%;width:' + (ep.pct[k]|0) + "%;background:" + EL_META[k][1] + '"></span></span>' +
         '<span class="quiet" style="font-size:.78em">' + (ep.pct[k]|0) + "%</span></div>").join("") +
-      '<p class="quiet" style="margin-top:1em"><a href="mirror.html" style="color:var(--ochre)">take it again ↺</a> — the lean moves with the season</p>';
+      '<p class="quiet" style="margin-top:1em"><a href="mirror.html" style="color:var(--ochre)">look again ↺</a> — a different day may show a different face, and that movement is the interesting part</p>';
   }
   $("#pf-name").value = p.display_name || "";
   $("#pf-discord").value = p.discord_name || "";

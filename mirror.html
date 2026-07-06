@@ -76,6 +76,7 @@
     <div class="bars" id="bars"></div>
     <div class="reading-block"><p class="rb-t" id="dom-title"></p><p id="dom-text"></p></div>
     <div class="reading-block"><p id="temper-text" style="font-style:italic;opacity:.85"></p></div>
+    <div class="reading-block"><p style="font-size:.88em;font-style:italic;opacity:.62">This is a snapshot, not a self. The Mirror shows where your attention stood <em>today</em>, under today's weather — a different day, a different season, may show someone else looking back. That movement is not noise; it is the thing worth watching.</p></div>
     <div class="keep" id="keep"></div>
     <div class="doors" id="doors"></div>
     <p class="retake"><a href="#" id="retake">take the mirror again ↺</a></p>
@@ -189,7 +190,7 @@
       '<span style="color:' + EL[sec].color + '">' + EL[sec].op + "</span> ∘ " +
       '<span style="color:' + EL[tri].color + '">' + EL[tri].op + "</span>" : "";
     document.getElementById("lean-word").textContent =
-      "your lean, today — " + EL[dom].name.toLowerCase() + " first, " + EL[sec].name.toLowerCase() + " close behind";
+      "where your attention stood today — " + EL[dom].name.toLowerCase() + " first, " + EL[sec].name.toLowerCase() + " close behind";
 
     var bars = document.getElementById("bars");
     ranked.forEach(function (k) {
