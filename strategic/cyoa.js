@@ -262,6 +262,21 @@ window.CYOA = (function () {
           showFunnel(nextEl, isLast, email, sessionId, share);
         });
         resolve.hidden = false;
+        // account attach (progressive): a signed-in reader keeps the reading automatically;
+        // a signed-out one gets a one-line invitation. No-ops if auth.js isn't on the page.
+        if (window.ElementalAuth) {
+          if (window.ElementalAuth.user()) {
+            window.ElementalAuth.saveReading(sessionId, situation, chainPhi(chain));
+          } else {
+            const keep = document.createElement("p");
+            keep.style.cssText = "font-size:0.84em;opacity:0.72;margin:1.6em 0 0;font-style:italic;";
+            keep.innerHTML = 'Keep this reading — <a href="#">sign in</a> and it stays yours across visits.';
+            keep.querySelector("a").addEventListener("click", function (e) {
+              e.preventDefault(); window.ElementalAuth.open();
+            });
+            resolve.appendChild(keep);
+          }
+        }
         resolve.scrollIntoView({ behavior: "smooth", block: "start" });
       }
 
