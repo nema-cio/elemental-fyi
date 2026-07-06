@@ -44,17 +44,20 @@ if (!cfg || !cfg.url) {
     '<input type="email" placeholder="you@somewhere" aria-label="Email address">' +
     '<div class="row"><button type="button" class="es-cancel">close</button>' +
     '<button type="button" class="es-send">send the link →</button></div>' +
-    '<p class="msg" hidden></p></div>';
+    '<p class="msg" hidden></p>' +
+    '<p style="font-size:.78em;font-style:italic;opacity:.55;margin:.8em 0 0;">The email arrives via Supabase, our sign-in service — if it hides, check spam.</p></div>';
   document.body.appendChild(root);
   const line = root.querySelector(".es-auth-line");
   const panel = root.querySelector(".es-auth-panel");
   const input = panel.querySelector("input");
   const msg = panel.querySelector(".msg");
 
+  // account page lives at the site root; compute the relative prefix from page depth
+  const ROOT = "../".repeat(Math.max(0, location.pathname.split("/").length - 2));
   function render() {
     if (user) {
       const name = (user.email || "").split("@")[0];
-      line.innerHTML = '<span class="who">' + name + "</span>" +
+      line.innerHTML = '<a class="who" href="' + ROOT + 'account.html" style="border-bottom:1px solid rgba(31,42,46,.25)">' + name + "</a>" +
         '<button type="button" class="es-out">sign out</button>';
       line.querySelector(".es-out").addEventListener("click", () => api.signOut());
     } else {
@@ -110,6 +113,28 @@ if (!cfg || !cfg.url) {
       if (!user) return [];
       const { data } = await sb.from("reading_progress").select("*");
       return data || [];
+    },
+    getProfile: async () => {
+      if (!user) return null;
+      const { data } = await sb.from("profiles").select("*").eq("id", user.id).maybeSingle();
+      return data;
+    },
+    updateProfile: async (fields) => {
+      if (!user) return false;
+      const row = Object.assign({ id: user.id, updated_at: new Date().toISOString() }, fields);
+      const { error } = await sb.from("profiles").upsert(row);
+      if (error) console.warn("[auth] updateProfile:", error.message);
+      return !error;
+    },
+    getReadings: async () => {
+      if (!user) return [];
+      const { data } = await sb.from("saved_readings").select("*").order("saved_at", { ascending: false });
+      return data || [];
+    },
+    getContributions: async () => {
+      if (!user) return [];
+      const { data, error } = await sb.from("contributions").select("*").order("created_at", { ascending: false });
+      return error ? [] : (data || []);   // table may not exist until migration 002 runs
     },
   };
   window.ElementalAuth = api;

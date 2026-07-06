@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your thread — Elemental Sensemaking</title>
+<meta name="description" content="Your readings, your progress, and the posts you helped weave.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#F4F1EA;--ink:#1F2A2E;--ochre:#B8923C;--measure:660px;--body:19px;--line:1.65}
+  *{box-sizing:border-box}html,body{margin:0;padding:0;background:var(--paper);color:var(--ink)}
+  body{font-family:"EB Garamond",Garamond,Georgia,serif;font-size:var(--body);line-height:var(--line);-webkit-font-smoothing:antialiased}
+  .back{position:absolute;top:28px;left:28px;font-style:italic;font-size:15px;color:var(--ochre);text-decoration:none}
+  .back:hover{color:var(--ink)}
+  .floret{display:flex;justify-content:center;align-items:center;gap:12px;padding-top:36px;font-family:"Cormorant Garamond",serif;font-size:22px;opacity:.85;text-decoration:none;color:var(--ink)}
+  .floret .star{color:var(--ochre)}.floret .it{font-style:italic}
+  main{max-width:var(--measure);margin:0 auto;padding:0 28px 10vh}
+  h1{font-family:"Cormorant Garamond",serif;font-weight:400;text-align:center;font-size:2em;margin:6vh 0 .2em}
+  .sub{text-align:center;font-style:italic;opacity:.65;margin:0 0 6vh}
+  h2{font-family:"Cormorant Garamond",serif;font-weight:500;font-size:1.25em;margin:5vh 0 .8em;border-top:1px solid rgba(31,42,46,.1);padding-top:4vh}
+  .quiet{font-style:italic;opacity:.6;font-size:.92em}
+  label{display:block;font-style:italic;font-size:.92em;margin:1.2em 0 .25em}
+  input,select{width:100%;background:transparent;border:0;border-bottom:1px solid rgba(31,42,46,.28);padding:.35em .1em;font-family:inherit;font-size:1em;color:var(--ink);outline:none}
+  select{cursor:pointer}
+  .save-row{margin-top:1.6em;display:flex;align-items:baseline;gap:1.2em}
+  button.door{font-family:inherit;font-size:1em;font-style:italic;color:var(--ochre);background:none;border:0;border-bottom:1px solid var(--ochre);padding:0 0 1px;cursor:pointer}
+  button.door:hover{color:var(--ink);border-bottom-color:var(--ink)}
+  .savemsg{font-size:.85em;font-style:italic;opacity:.7}
+  .reading{padding:1em 0;border-bottom:1px solid rgba(31,42,46,.09)}
+  .reading .rt{font-style:italic}
+  .reading .phi{font-family:"SFMono-Regular",Menlo,Consolas,monospace;font-size:.76em;opacity:.72;word-break:break-word;margin:.3em 0}
+  .reading .st{font-size:.85em;opacity:.7}
+  .reading a{color:var(--ochre);text-decoration:none;border-bottom:1px solid rgba(184,146,60,.5)}
+  .reading a:hover{color:var(--ink)}
+  .contribution{padding:.8em 0;border-bottom:1px solid rgba(31,42,46,.09)}
+  .signedout{text-align:center;padding:8vh 0}
+  .signedout a{color:var(--ochre);font-style:italic;text-decoration:none;border-bottom:1px solid var(--ochre)}
+  footer{text-align:center;padding:6vh 28px 8vh;font-size:14px;opacity:.55}
+  footer a{color:inherit;text-decoration:none;border-bottom:1px solid currentColor}
+  ::selection{background:rgba(184,146,60,.22)}
+</style>
+</head>
+<body>
+
+<a href="index.html" class="back">← Home</a>
+<a href="index.html" class="floret" aria-label="Home"><span>Elemental</span><span class="star">✶</span><span class="it">Sensemaking</span></a>
+
+<main>
+  <h1>Your thread</h1>
+  <p class="sub">what you've read, what you're becoming, what you helped weave</p>
+
+  <div id="signedout" class="signedout" hidden>
+    <p>This page is yours once you're signed in.</p>
+    <p><a href="#" id="so-signin">Sign in with an email link →</a></p>
+  </div>
+
+  <div id="signedin" hidden>
+
+    <h2>Profile</h2>
+    <label for="pf-name">How should the elements address you?</label>
+    <input id="pf-name" type="text" placeholder="a name, a handle — your choice">
+    <label for="pf-discord">Discord name <span class="quiet">(so your contributions there can find their way here)</span></label>
+    <input id="pf-discord" type="text" placeholder="optional">
+    <label for="pf-register">How the site speaks to you</label>
+    <select id="pf-register">
+      <option value="plain">Plain — everyday language first</option>
+      <option value="formal">Formal — the full notation and vocabulary</option>
+    </select>
+    <div class="save-row">
+      <button class="door" id="pf-save" type="button">Save profile →</button>
+      <span class="savemsg" id="pf-msg" hidden></span>
+    </div>
+    <p class="quiet" style="margin-top:2em">Coming: your elemental profile — a short encounter with the six that maps how your attention leans. It will live here.</p>
+
+    <h2>Your readings</h2>
+    <div id="readings"><p class="quiet">gathering…</p></div>
+
+    <h2>Story progress</h2>
+    <div id="progress"><p class="quiet">The first accounts — the elementals' own stories of humans who brought them something real — are arriving soon. Your place in each track will be kept here.</p></div>
+
+    <h2>What you helped weave</h2>
+    <div id="contribs"><p class="quiet">When a scene, a Sunday synthesis, or an account that you seeded or carried is published, it appears here with its link.</p></div>
+
+    <p style="margin-top:6vh"><button class="door" id="pf-signout" type="button">Sign out</button></p>
+  </div>
+</main>
+
+<footer><a href="strategic/index.html">Begin a reading →</a></footer>
+
+<script src="assets/supabase-config.js"></script>
+<script type="module" src="assets/auth.js"></script>
+<script type="module">
+const RELAY_ENDPOINT = "https://script.google.com/macros/s/AKfycbxArMD_riaWpEeTZdjcX6VHVWpOZPtcQaAayk68K_B3DiQUJk7Z2iimv-EnlxAS7g0/exec";
+const PAGE = { Air:"air.html", Water:"water.html", Fire:"fire.html", Wood:"wood.html", Earth:"earth.html", Metal:"metal.html" };
+const $ = (s) => document.querySelector(s);
+
+function esc(t){ const d=document.createElement("div"); d.textContent=t==null?"":String(t); return d.innerHTML; }
+
+async function showSignedIn(){
+  $("#signedout").hidden = true; $("#signedin").hidden = false;
+  const A = window.ElementalAuth;
+
+  // profile
+  const p = (await A.getProfile()) || {};
+  $("#pf-name").value = p.display_name || "";
+  $("#pf-discord").value = p.discord_name || "";
+  $("#pf-register").value = p.register || "plain";
+  const hasDiscordCol = p && Object.prototype.hasOwnProperty.call(p, "discord_name");
+  $("#pf-save").onclick = async () => {
+    const fields = { display_name: $("#pf-name").value.trim() || null,
+                     register: $("#pf-register").value };
+    if (hasDiscordCol) fields.discord_name = $("#pf-discord").value.trim() || null;
+    const ok = await A.updateProfile(fields);
+    const m = $("#pf-msg"); m.hidden = false;
+    m.textContent = ok ? "saved ✓" : "couldn't save — try again shortly";
+    setTimeout(() => { m.hidden = true; }, 3500);
+  };
+
+  // readings, with live relay state from the public session endpoint
+  const rs = await A.getReadings();
+  const box = $("#readings");
+  if (!rs.length) {
+    box.innerHTML = '<p class="quiet">No readings kept yet. Complete a leaf of a <a href="strategic/index.html" style="color:var(--ochre)">strategic reading</a> while signed in and it stays here.</p>';
+  } else {
+    box.innerHTML = "";
+    for (const r of rs) {
+      const el = document.createElement("div"); el.className = "reading";
+      el.innerHTML = '<div class="rt">' + esc(r.title || "an unnamed situation") + "</div>" +
+        '<div class="phi">' + esc(r.phi_chain || "") + "</div>" +
+        '<div class="st">looking in on the relay…</div>';
+      box.appendChild(el);
+      fetch(RELAY_ENDPOINT + "?action=session&s=" + encodeURIComponent(r.session_id))
+        .then((x) => x.json())
+        .then((j) => {
+          const st = el.querySelector(".st");
+          if (!j || !j.ok) { st.textContent = "relay state unavailable"; return; }
+          const s = j.session, chain = s.chain || [], order = s.order || [];
+          if (s.status === "complete") {
+            st.innerHTML = "complete — all " + order.length + " elements have read it ✶";
+          } else if (String(s.status).indexOf("awaiting:") === 0) {
+            const next = s.status.split(":")[1];
+            st.innerHTML = "waiting for <strong>" + esc(next) + "</strong> — " +
+              '<a href="strategic/' + (PAGE[next] || "index.html") + "?s=" + encodeURIComponent(r.session_id) + '">continue the reading →</a>';
+          } else if (String(s.status).indexOf("enriching:") === 0) {
+            const cur = s.status.split(":")[1];
+            st.innerHTML = "with <strong>" + esc(cur) + "</strong> now — paste its carry-forward back " +
+              '<a href="strategic/' + (PAGE[cur] || "index.html") + "?s=" + encodeURIComponent(r.session_id) + '">where you left off →</a>';
+          } else { st.textContent = String(s.status || ""); }
+        }).catch(() => { el.querySelector(".st").textContent = "relay state unavailable"; });
+    }
+  }
+
+  // story progress
+  const pr = await A.getProgress();
+  if (pr.length) {
+    $("#progress").innerHTML = pr.map((t) =>
+      '<div class="contribution"><em>' + esc(t.track_id) + "</em> — chapter " + (t.chapter|0) +
+      (t.completed_at ? " · complete ✶" : "") + "</div>").join("");
+  }
+
+  // contributions
+  const cs = await A.getContributions();
+  if (cs.length) {
+    $("#contribs").innerHTML = cs.map((c) =>
+      '<div class="contribution">' +
+      (c.url ? '<a href="' + esc(c.url) + '" style="color:var(--ochre);text-decoration:none;border-bottom:1px solid rgba(184,146,60,.5)">' + esc(c.title || c.kind) + "</a>" : esc(c.title || c.kind)) +
+      ' <span class="quiet">· ' + esc(c.kind) + (c.role ? " · " + esc(c.role) : "") + "</span></div>").join("");
+  }
+
+  $("#pf-signout").onclick = () => window.ElementalAuth.signOut();
+}
+
+function showSignedOut(){
+  $("#signedin").hidden = true; $("#signedout").hidden = false;
+  $("#so-signin").onclick = (e) => { e.preventDefault(); window.ElementalAuth && window.ElementalAuth.open(); };
+}
+
+const wait = setInterval(() => {
+  if (!window.ElementalAuth) return;
+  clearInterval(wait);
+  window.ElementalAuth.ready.then(() => {
+    window.ElementalAuth.user() ? showSignedIn() : showSignedOut();
+    window.ElementalAuth.onChange((u) => (u ? showSignedIn() : showSignedOut()));
+  });
+}, 120);
+</script>
+</body>
+</html>
