@@ -22,29 +22,73 @@
 
   /* Hero: the sphere is the background; the headline floats over it */
   .hero{position:relative;height:100vh;min-height:560px;overflow:hidden;text-align:center}
-  #sphere{position:absolute;inset:0;width:100%;height:100%;display:block}
+  #sphere{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:default}
   .hero .veil{position:absolute;inset:0;background:
-    radial-gradient(ellipse 60% 50% at 50% 50%, rgba(244,241,234,0) 0%, rgba(244,241,234,.35) 70%, rgba(244,241,234,.7) 100%)}
+    radial-gradient(ellipse 60% 50% at 50% 50%, rgba(244,241,234,0) 0%, rgba(244,241,234,.35) 70%, rgba(244,241,234,.7) 100%);
+    pointer-events:none}
   .hero-title{position:absolute;top:10vh;left:50%;transform:translateX(-50%);width:100%;padding:0 28px;
     font-family:"Cormorant Garamond",serif;font-weight:400;font-size:calc(var(--body)*2.6);
-    line-height:1.16;letter-spacing:-.005em;margin:0}
+    line-height:1.16;letter-spacing:-.005em;margin:0;pointer-events:none}
   .hero-title .star{color:var(--ochre)}
   .hero-below{position:absolute;top:61%;left:50%;transform:translateX(-50%);width:100%;
-    max-width:var(--measure);padding:0 28px}
-  .hero-below .sub{font-style:italic;opacity:.82;margin:0 0 1.8em;font-size:calc(var(--body)*1.05)}
-  .hero-below .door a{font-family:"EB Garamond",serif;font-style:italic;font-size:calc(var(--body)*1.18);
-    color:var(--ochre);text-decoration:none;border-bottom:1px solid var(--ochre);padding-bottom:2px}
-  .hero-below .door a:hover{color:var(--ink);border-bottom-color:var(--ink)}
+    max-width:var(--measure);padding:0 28px;pointer-events:none}
+  .hero-below .sub{font-style:italic;opacity:.82;margin:0 0 1.8em;font-size:calc(var(--body)*1.05);
+    transition:opacity .35s ease}
+  .hero-below .hint{font-size:14px;opacity:.5;font-style:italic;margin:0;transition:opacity .35s ease}
   .scrollcue{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);font-size:13px;
     opacity:.45;font-style:italic}
 
+  /* Element panel — appears when a node is chosen; the sphere holds still to be looked at.
+     A semi-translucent card, tinted by the chosen element's colour (--el, set in JS). */
+  .el-panel{position:absolute;top:56%;left:50%;transform:translateX(-50%) translateY(12px);width:100%;
+    max-width:460px;padding:1.7em 1.9em;opacity:0;visibility:hidden;pointer-events:none;
+    --el:var(--ochre);
+    background:color-mix(in srgb, var(--el) 12%, rgba(244,241,234,.86));
+    border:1px solid color-mix(in srgb, var(--el) 55%, transparent);
+    box-shadow:0 10px 34px color-mix(in srgb, var(--el) 22%, transparent), 0 2px 8px rgba(31,42,46,.06);
+    -webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);
+    transition:opacity .4s ease, transform .4s ease}
+  @supports not (background:color-mix(in srgb, red, blue)){
+    .el-panel{background:rgba(244,241,234,.9);border:1px solid rgba(31,42,46,.2)}}
+  .el-panel.open{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+  .el-panel .glyph{font-family:"Cormorant Garamond",serif;font-size:calc(var(--body)*2.2);line-height:1;
+    margin:0 0 .15em}
+  .el-panel h2{font-family:"Cormorant Garamond",serif;font-weight:500;font-size:calc(var(--body)*1.35);
+    margin:0 0 .4em}
+  .el-panel h2 .who{opacity:.6;font-weight:400;font-style:italic}
+  .el-panel p{margin:0 auto 1.1em;max-width:520px;font-size:calc(var(--body)*.98)}
+  .el-panel .more a{font-family:"EB Garamond",serif;font-style:italic;font-size:calc(var(--body)*1.1);
+    color:var(--ochre);text-decoration:none;border-bottom:1px solid var(--ochre);padding-bottom:2px}
+  .el-panel .more a:hover{color:var(--ink);border-bottom-color:var(--ink)}
+  .el-panel .close{display:inline-block;margin-top:1.1em;font-size:13px;opacity:.5;font-style:italic;
+    background:none;border:0;font-family:inherit;color:inherit;cursor:pointer}
+  .el-panel .close:hover{opacity:.85}
+
   /* Reading section below the fold (the existing voice) */
   main{max-width:var(--measure);margin:0 auto;padding:0 28px}
-  .block{padding-bottom:22vh}
+  .block{padding-bottom:18vh}
   .block:first-child{padding-top:16vh}
   .block p+p{margin-top:1.4em}
   .borrowed{font-style:italic}
-  .hairline{width:64px;height:1px;background:var(--ochre);margin:0 auto 18vh;border:0;opacity:.85}
+  .hairline{width:64px;height:1px;background:var(--ochre);margin:0 auto 14vh;border:0;opacity:.85}
+
+  /* The learning journey */
+  .journey h2{font-family:"Cormorant Garamond",serif;font-weight:500;font-size:calc(var(--body)*1.4);
+    text-align:center;margin:0 0 2.2em}
+  .journey ol{list-style:none;margin:0;padding:0}
+  .journey li{position:relative;padding:0 0 2.4em 44px}
+  .journey li::before{content:attr(data-k);position:absolute;left:0;top:.05em;
+    font-family:"Cormorant Garamond",serif;font-size:calc(var(--body)*1.3);color:var(--ochre);width:32px;text-align:center}
+  .journey li::after{content:"";position:absolute;left:15px;top:2em;bottom:.6em;width:1px;
+    background:rgba(31,42,46,.12)}
+  .journey li:last-child::after{display:none}
+  .journey .j-t{font-family:"Cormorant Garamond",serif;font-size:calc(var(--body)*1.12);display:block;margin-bottom:.2em}
+  .journey .j-d{font-size:calc(var(--body)*.92);opacity:.8;display:block}
+  .journey a{color:var(--ochre);text-decoration:none;border-bottom:1px solid rgba(184,146,60,.5)}
+  .journey a:hover{color:var(--ink);border-bottom-color:var(--ink)}
+  .journey .soon{font-size:.82em;font-style:italic;opacity:.6;border:1px solid rgba(31,42,46,.18);
+    border-radius:9px;padding:0 .5em;margin-left:.4em;white-space:nowrap}
+
   .door2{text-align:center;padding-bottom:14vh}
   .door2 a{font-family:"EB Garamond",serif;font-style:italic;font-size:calc(var(--body)*1.18);
     color:var(--ochre);text-decoration:none;border-bottom:1px solid var(--ochre);padding-bottom:2px}
@@ -52,18 +96,27 @@
   footer{text-align:center;padding:12vh 28px 10vh;font-size:14px;opacity:.55}
   footer a{color:inherit;text-decoration:none;border-bottom:1px solid currentColor}
   ::selection{background:rgba(184,146,60,.22)}
-  @media (max-width:640px){:root{--body:18px}.hero-title{font-size:calc(var(--body)*2.05);top:7vh}.hero-below{top:64%}}
+  @media (max-width:640px){:root{--body:18px}.hero-title{font-size:calc(var(--body)*2.05);top:7vh}
+    .hero-below{top:64%}.el-panel{top:56%}}
   @media (prefers-reduced-motion:reduce){.scrollcue{display:none}}
 </style>
 </head>
 <body>
 
 <section class="hero">
-  <canvas id="sphere" aria-hidden="true"></canvas>
+  <canvas id="sphere" aria-label="The six elements in rotation — choose one to hold it still"></canvas>
   <div class="veil" aria-hidden="true"></div>
   <h1 class="hero-title">Patterns are alive<span class="star">.</span></h1>
-  <div class="hero-below">
+  <div class="hero-below" id="hero-below">
     <p class="sub">A living instrument for noticing what moves through you — and what moves you.</p>
+    <p class="hint">Touch an element to hold it still.</p>
+  </div>
+  <div class="el-panel" id="el-panel" role="region" aria-live="polite">
+    <p class="glyph" id="el-glyph"></p>
+    <h2 id="el-name"></h2>
+    <p id="el-blurb"></p>
+    <p class="more"><a id="el-more" href="#"><em>Learn more →</em></a></p>
+    <button class="close" id="el-close" type="button">let it turn again ↺</button>
   </div>
   <div class="scrollcue" aria-hidden="true">↓ what this is</div>
 </section>
@@ -77,6 +130,35 @@
     <p>This is a way of looking. Six instruments for noticing — and a way to hand what you find to the elements, who will think it through together and write something back.</p>
     <p class="borrowed">It is not a belief system. It is not a path. The map knows it is a map.</p>
   </section>
+
+  <hr class="hairline" aria-hidden="true">
+
+  <section class="block journey" id="journey">
+    <h2>How the learning moves</h2>
+    <ol>
+      <li data-k="σ">
+        <span class="j-t"><a href="guides.html">Meet the six</a></span>
+        <span class="j-d">Each element is a way of noticing, kept by a guide with its own voice, instruments, and failure modes. Start with whichever one turned above and held your eye — or <a href="mirror.html">take the Mirror</a> and let six questions show you where your attention already leans.</span>
+      </li>
+      <li data-k="ρ">
+        <span class="j-t">Hear their accounts <span class="soon">arriving</span></span>
+        <span class="j-d">The guides tell stories of humans who brought them something real — each one carrying the story as far as its element can, then handing it to the next. Watch a reading move before you make one.</span>
+      </li>
+      <li data-k="λ">
+        <span class="j-t"><a href="strategic/">Take a reading of your own</a></span>
+        <span class="j-d">Bring a live situation. An element walks you from domain to facet to a stance you choose, hands you a φ, and passes you around the relay.</span>
+      </li>
+      <li data-k="β">
+        <span class="j-t">Go deeper with a guide</span>
+        <span class="j-d">At the end of a reading, the guide who read with you can take it further in conversation — once you already know how it thinks.</span>
+      </li>
+      <li data-k="✶">
+        <span class="j-t"><a href="strategic/synthesis/">Sundays, it weaves</a></span>
+        <span class="j-d">Aether reads across every relay that completed the circle that week — the stances taken, the chains, what carried forward.</span>
+      </li>
+    </ol>
+  </section>
+
   <hr class="hairline" aria-hidden="true">
   <nav class="door2"><a href="six-angles.html"><em>Six ways of noticing →</em></a></nav>
 </main>
@@ -84,23 +166,36 @@
 <footer><a href="field-notes.html">Field notes from the work in progress</a></footer>
 
 <script>
-/* Elemental Sensemaking Sphere — six element nodes + Aether star on an octahedron,
-   slow rotation, light-grey edges, colour pulses travelling node→node (the exchanges). */
+/* Elemental Sensemaking Sphere v2 — six element nodes carry their notation; choosing one
+   holds the rotation still and opens its description below. (Preview of the new homepage.) */
 (function(){
   var cv=document.getElementById('sphere'), ctx=cv.getContext('2d'), DPR=Math.min(2,window.devicePixelRatio||1);
   var C={air:'#A8AEB2',water:'#3D5566',fire:'#B5512A',wood:'#5A6F3C',earth:'#B8923C',metal:'#5C5E62'};
-  // octahedron: 6 vertices, one per element
+  // octahedron: 6 vertices, one per element — each node knows its notation + description
   var N=[
-    {c:C.air,  p:[0,1,0]}, {c:C.wood, p:[0,-1,0]},
-    {c:C.water,p:[1,0,0]}, {c:C.metal,p:[-1,0,0]},
-    {c:C.fire, p:[0,0,1]}, {c:C.earth,p:[0,0,-1]}
+    {c:C.air,  p:[0,1,0],  op:'σ',  el:'Air',   who:'Aerunik',
+     blurb:'Distinction. Air separates what is actually here from what was added afterward — the cut that lets you see signal before story. Dry, precise, useful when everything is loud.',
+     href:'guides/aerunik.html'},
+    {c:C.wood, p:[0,-1,0], op:'β',  el:'Wood',  who:'Arboriel',
+     blurb:'Branching. Wood takes a single intention and fans it into living alternatives — the crossroads, the fork, the version of the plan that wants to become something else. Growth with direction.',
+     href:'guides/arboriel.html'},
+    {c:C.water,p:[1,0,0],  op:'ρ',  el:'Water', who:'Sentaria',
+     blurb:'Coupling. Water reads the relations — what resonates with what, which current is carrying you, why a conversation stayed with you longer than it should have. Nothing exists alone here.',
+     href:'guides/sentaria.html'},
+    {c:C.metal,p:[-1,0,0], op:'μ',  el:'Metal', who:'Ferrosid',
+     blurb:'Boundary. Metal forges the edge — where a thing ends, what a standard demands, which yes should have been a no. Compression until integrity, and not one cut further.',
+     href:'guides/ferrosid.html'},
+    {c:C.fire, p:[0,0,1],  op:'λ',  el:'Fire',  who:'Jvalion',
+     blurb:'Direction. Fire is the vector — commitment, ignition, the future you are actually aiming at rather than the one you describe. It asks what you are prepared to burn for the crossing.',
+     href:'guides/jvalion.html'},
+    {c:C.earth,p:[0,0,-1], op:'δγ', el:'Earth', who:'Humavita',
+     blurb:'Metabolism. Earth grounds and composts — the fatigue you have been carrying, the load that will not break down on its own, the slow turning of spent material into soil. Consequence lives here.',
+     href:'guides/humavita.html'}
   ];
-  // edges = all non-antipodal pairs (octahedron has 12)
   var E=[]; for(var i=0;i<6;i++)for(var j=i+1;j<6;j++){ var a=N[i].p,b=N[j].p;
     if(!(a[0]+b[0]===0&&a[1]+b[1]===0&&a[2]+b[2]===0)) E.push([i,j]); }
-  var pulses=[], W,H,R,cx,cy,t=0;
-  // answered maneuvers (from scenes/index.json) → which element exchanges have a real scene.
-  // matrix_id like "δγ→μ:Yaw" maps from/to element operators to node indices; their edge lights up.
+  var pulses=[], W,H,R,cx,cy,t=0.9;
+  var frozen=false, selected=-1, LASTP=null, hoverI=-1;
   var OP2IDX={'σ':0,'ρ':2,'λ':4,'β':1,'δγ':5,'μ':3};
   var answered=[], nodeLit=[0,0,0,0,0,0];
   fetch('scenes/index.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(d){
@@ -117,7 +212,7 @@
   function size(){ W=cv.clientWidth;H=cv.clientHeight;cv.width=W*DPR;cv.height=H*DPR;ctx.setTransform(DPR,0,0,DPR,0,0);
     R=Math.min(W,H)*0.30;cx=W/2;cy=H/2; }
   window.addEventListener('resize',size); size();
-  function rot(p,ax,ay){ // rotate around Y then X
+  function rot(p,ax,ay){
     var x=p[0],y=p[1],z=p[2];
     var x1=x*Math.cos(ay)+z*Math.sin(ay), z1=-x*Math.sin(ay)+z*Math.cos(ay);
     var y2=y*Math.cos(ax)-z1*Math.sin(ax), z2=y*Math.sin(ax)+z1*Math.cos(ax);
@@ -127,20 +222,21 @@
   function star(x,y,r,a){ ctx.save();ctx.translate(x,y);ctx.globalAlpha=a;ctx.fillStyle=getCss('--ochre');
     ctx.beginPath(); for(var k=0;k<16;k++){var ang=k*Math.PI/8, rr=(k%2?r*0.42:r); ctx[k?'lineTo':'moveTo'](Math.cos(ang)*rr,Math.sin(ang)*rr);} ctx.closePath();ctx.fill();ctx.restore(); }
   function getCss(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
-  function frame(){
-    t+=0.0016; var ay=t, ax=Math.sin(t*0.6)*0.5+0.35;
+
+  function draw(){
+    var ay=t, ax=Math.sin(t*0.6)*0.5+0.35;
     ctx.clearRect(0,0,W,H);
     var P=N.map(function(n){return proj(rot(n.p,ax,ay));});
-    // edges (light grey, depth-faded)
+    LASTP=P;
     for(var e=0;e<E.length;e++){ var a=P[E[e][0]],b=P[E[e][1]]; var d=(a[2]+b[2])/2;
       ctx.strokeStyle='rgba(31,42,46,'+(0.07+0.09*(d+1)/2)+')'; ctx.lineWidth=1;
       ctx.beginPath();ctx.moveTo(a[0],a[1]);ctx.lineTo(b[0],b[1]);ctx.stroke(); }
-    // pulses (gradient trace travelling along an edge in the source colour)
-    if(Math.random()<0.045 && pulses.length<7){ var ei=(Math.random()*E.length)|0, dir=Math.random()<0.5;
-      pulses.push({e:ei,from:dir?E[ei][0]:E[ei][1],to:dir?E[ei][1]:E[ei][0],t:0,sp:0.006+Math.random()*0.006}); }
-    // answered exchanges replay as brighter, deterministic pulses along their from→to (antipodal pairs cross through Aether)
-    if(answered.length && Math.random()<0.022 && pulses.length<7){ var aw=answered[(Math.random()*answered.length)|0];
-      if(!aw.self) pulses.push({from:aw.from,to:aw.to,t:0,sp:0.005+Math.random()*0.004,lit:true}); }
+    if(!frozen){
+      if(Math.random()<0.045 && pulses.length<7){ var ei=(Math.random()*E.length)|0, dir=Math.random()<0.5;
+        pulses.push({e:ei,from:dir?E[ei][0]:E[ei][1],to:dir?E[ei][1]:E[ei][0],t:0,sp:0.006+Math.random()*0.006}); }
+      if(answered.length && Math.random()<0.022 && pulses.length<7){ var aw=answered[(Math.random()*answered.length)|0];
+        if(!aw.self) pulses.push({from:aw.from,to:aw.to,t:0,sp:0.005+Math.random()*0.004,lit:true}); }
+    }
     for(var q=pulses.length-1;q>=0;q--){ var pu=pulses[q]; pu.t+=pu.sp; if(pu.t>=1){pulses.splice(q,1);continue;}
       var a2=P[pu.from],b2=P[pu.to], x=a2[0]+(b2[0]-a2[0])*pu.t, y=a2[1]+(b2[1]-a2[1])*pu.t, col=N[pu.from].c;
       var tw=Math.max(0,pu.t-0.22), tx=a2[0]+(b2[0]-a2[0])*tw, ty=a2[1]+(b2[1]-a2[1])*tw;
@@ -148,24 +244,72 @@
       ctx.strokeStyle=g;ctx.lineWidth=pu.lit?2.6:1.8;ctx.beginPath();ctx.moveTo(tx,ty);ctx.lineTo(x,y);ctx.stroke();
       if(pu.lit){ ctx.fillStyle=col;ctx.globalAlpha=0.22;ctx.beginPath();ctx.arc(x,y,7,0,7);ctx.fill();ctx.globalAlpha=1; }
       ctx.fillStyle=col;ctx.globalAlpha=0.9;ctx.beginPath();ctx.arc(x,y,pu.lit?3.2:2.4,0,7);ctx.fill();ctx.globalAlpha=1; }
-    // nodes (sorted back-to-front), element-coloured, size+alpha by depth
     var order=P.map(function(p,i){return i;}).sort(function(a,b){return P[a][2]-P[b][2];});
     order.forEach(function(i){ var p=P[i], d=(p[2]+1)/2, r=4+5*d;
-      ctx.globalAlpha=0.45+0.55*d; ctx.fillStyle=N[i].c; ctx.beginPath();ctx.arc(p[0],p[1],r,0,7);ctx.fill();
-      ctx.globalAlpha=0.18; ctx.beginPath();ctx.arc(p[0],p[1],r+5,0,7);ctx.fill();
-      // engaged elements (have an answered scene) carry a steady, slow-breathing halo
+      var isSel=(i===selected), isHov=(i===hoverI);
+      ctx.globalAlpha=0.45+0.55*d; ctx.fillStyle=N[i].c; ctx.beginPath();ctx.arc(p[0],p[1],r+(isSel?2:0),0,7);ctx.fill();
+      ctx.globalAlpha=isHov&&!isSel?0.3:0.18; ctx.beginPath();ctx.arc(p[0],p[1],r+5,0,7);ctx.fill();
       if(nodeLit[i]>0){ ctx.globalAlpha=0.12*nodeLit[i]*(0.65+0.35*Math.sin(t*2.4+i));
         ctx.beginPath();ctx.arc(p[0],p[1],r+12,0,7);ctx.fill(); }
+      if(isSel){ ctx.globalAlpha=0.9; ctx.strokeStyle=N[i].c; ctx.lineWidth=1.4;
+        ctx.beginPath();ctx.arc(p[0],p[1],r+9,0,7);ctx.stroke(); }
+      // the notation, riding beside its node — depth-faded like the node itself
+      ctx.globalAlpha=(0.5+0.5*d)*(isSel?1:0.92);
+      ctx.fillStyle=N[i].c;
+      ctx.font=(isSel?500:400)+' '+Math.round(15+9*d+(isSel?3:0))+'px "Cormorant Garamond",serif';
+      ctx.textAlign='left'; ctx.textBaseline='middle';
+      ctx.fillText(N[i].op, p[0]+r+9, p[1]-1);
       ctx.globalAlpha=1; });
-    // Aether star at centre
     star(cx,cy,R*0.16,0.9);
+  }
+  function frame(){
+    if(!frozen){ t+=0.0016; }
+    else if(pulses.length){ /* let live pulses finish while held */ }
+    draw();
     requestAnimationFrame(frame);
   }
-  if(!window.matchMedia||!matchMedia('(prefers-reduced-motion:reduce)').matches){ requestAnimationFrame(frame); }
-  else { // static fallback
-    var P=N.map(function(n){return proj(n.p);}); ctx.clearRect(0,0,W,H);
-    P.forEach(function(p,i){ctx.fillStyle=N[i].c;ctx.beginPath();ctx.arc(p[0],p[1],7,0,7);ctx.fill();}); star(cx,cy,R*0.16,0.9);
+
+  // ---- choosing an element ------------------------------------------------------------
+  var panel=document.getElementById('el-panel'), below=document.getElementById('hero-below');
+  function hitNode(mx,my){
+    if(!LASTP) return -1;
+    var best=-1, bd=1e9;
+    LASTP.forEach(function(p,i){ var dx=mx-p[0], dy=my-p[1], dd=dx*dx+dy*dy;
+      var rr=Math.max(22, 14+9*((p[2]+1)/2)); if(dd<rr*rr && dd<bd){bd=dd;best=i;} });
+    return best;
   }
+  function select(i){
+    selected=i; frozen=true;
+    panel.style.setProperty('--el', N[i].c);   // tint the card by this element's colour
+    document.getElementById('el-glyph').textContent=N[i].op;
+    document.getElementById('el-glyph').style.color=N[i].c;
+    document.getElementById('el-name').innerHTML=N[i].el+' <span class="who">— kept by '+N[i].who+'</span>';
+    document.getElementById('el-blurb').textContent=N[i].blurb;
+    var more=document.getElementById('el-more');
+    more.href=N[i].href;
+    more.innerHTML='<em>Learn more about '+N[i].el+' →</em>';
+    below.style.opacity=0; below.style.visibility='hidden';
+    panel.classList.add('open');
+  }
+  function release(){
+    selected=-1; frozen=false;
+    panel.classList.remove('open');
+    below.style.opacity=1; below.style.visibility='visible';
+  }
+  cv.addEventListener('click',function(ev){
+    var r=cv.getBoundingClientRect(), i=hitNode(ev.clientX-r.left, ev.clientY-r.top);
+    if(i<0){ if(selected>=0) release(); return; }
+    if(i===selected){ release(); } else { select(i); }
+  });
+  cv.addEventListener('mousemove',function(ev){
+    var r=cv.getBoundingClientRect(); hoverI=hitNode(ev.clientX-r.left, ev.clientY-r.top);
+    cv.style.cursor=hoverI>=0?'pointer':'default';
+  });
+  document.getElementById('el-close').addEventListener('click',release);
+  document.addEventListener('keydown',function(ev){ if(ev.key==='Escape'&&selected>=0) release(); });
+
+  if(!window.matchMedia||!matchMedia('(prefers-reduced-motion:reduce)').matches){ requestAnimationFrame(frame); }
+  else { draw(); } // static, but still choosable — LASTP is set by draw()
 })();
 </script>
 <script src="assets/supabase-config.js"></script>
