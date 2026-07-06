@@ -39,10 +39,18 @@
   .scrollcue{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);font-size:13px;
     opacity:.45;font-style:italic}
 
-  /* Element panel — appears when a node is chosen; the sphere holds still to be looked at */
-  .el-panel{position:absolute;top:58%;left:50%;transform:translateX(-50%) translateY(12px);width:100%;
-    max-width:var(--measure);padding:0 28px;opacity:0;visibility:hidden;pointer-events:none;
+  /* Element panel — appears when a node is chosen; the sphere holds still to be looked at.
+     A semi-translucent card, tinted by the chosen element's colour (--el, set in JS). */
+  .el-panel{position:absolute;top:56%;left:50%;transform:translateX(-50%) translateY(12px);width:100%;
+    max-width:460px;padding:1.7em 1.9em;opacity:0;visibility:hidden;pointer-events:none;
+    --el:var(--ochre);
+    background:color-mix(in srgb, var(--el) 12%, rgba(244,241,234,.86));
+    border:1px solid color-mix(in srgb, var(--el) 55%, transparent);
+    box-shadow:0 10px 34px color-mix(in srgb, var(--el) 22%, transparent), 0 2px 8px rgba(31,42,46,.06);
+    -webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);
     transition:opacity .4s ease, transform .4s ease}
+  @supports not (background:color-mix(in srgb, red, blue)){
+    .el-panel{background:rgba(244,241,234,.9);border:1px solid rgba(31,42,46,.2)}}
   .el-panel.open{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0)}
   .el-panel .glyph{font-family:"Cormorant Garamond",serif;font-size:calc(var(--body)*2.2);line-height:1;
     margin:0 0 .15em}
@@ -273,6 +281,7 @@
   }
   function select(i){
     selected=i; frozen=true;
+    panel.style.setProperty('--el', N[i].c);   // tint the card by this element's colour
     document.getElementById('el-glyph').textContent=N[i].op;
     document.getElementById('el-glyph').style.color=N[i].c;
     document.getElementById('el-name').innerHTML=N[i].el+' <span class="who">— kept by '+N[i].who+'</span>';
