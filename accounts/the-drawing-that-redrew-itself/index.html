@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Drawing That Redrew Itself — an Account</title>
+<meta name="description" content="Six elementals tell the story of one architect whose building would not stay the shape it was asked to be — a reading, passed from hand to hand.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#F4F1EA;--ink:#1F2A2E;--ochre:#B8923C;--measure:640px;--body:19px;--line:1.68;
+    --c-air:#7E868C;--c-water:#3D5566;--c-fire:#B5512A;--c-wood:#5A6F3C;--c-earth:#9C7B2E;--c-metal:#5C5E62}
+  *{box-sizing:border-box}html,body{margin:0;padding:0;background:var(--paper);color:var(--ink)}
+  body{font-family:"EB Garamond",Garamond,Georgia,serif;font-size:var(--body);line-height:var(--line);-webkit-font-smoothing:antialiased}
+  .back{position:absolute;top:26px;left:28px;font-style:italic;font-size:15px;color:var(--ochre);text-decoration:none;z-index:5}
+  .back:hover{color:var(--ink)}
+
+  /* the thread line — the φ-chain assembling as you read */
+  .thread{position:sticky;top:0;z-index:4;background:color-mix(in srgb, var(--paper) 92%, transparent);
+    -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);border-bottom:1px solid rgba(31,42,46,.08);
+    text-align:center;padding:.7em 1em;font-family:"Cormorant Garamond",serif;font-size:1.25em;letter-spacing:.02em}
+  .thread .g{opacity:.2;transition:opacity .5s ease, color .5s ease;margin:0 .06em}
+  .thread .g.lit{opacity:1}
+  .thread .sep{opacity:.15;margin:0 .12em;font-size:.7em;vertical-align:.14em}
+  .thread .cap{display:block;font-family:"EB Garamond",serif;font-size:.52em;font-style:italic;opacity:.5;letter-spacing:0;margin-top:.15em}
+
+  main{max-width:var(--measure);margin:0 auto;padding:0 28px}
+  .floret{display:flex;justify-content:center;align-items:center;gap:12px;padding-top:30px;font-family:"Cormorant Garamond",serif;font-size:22px;opacity:.85;text-decoration:none;color:var(--ink)}
+  .floret .star{color:var(--ochre)}.floret .it{font-style:italic}
+  h1{font-family:"Cormorant Garamond",serif;font-weight:400;text-align:center;font-size:2.1em;line-height:1.16;margin:7vh 0 .1em}
+  .kicker{text-align:center;font-style:italic;opacity:.6;margin:0 0 3vh}
+  .composed{font-size:.86em;font-style:italic;opacity:.6;text-align:center;max-width:500px;margin:0 auto 5vh;
+    border:1px solid rgba(31,42,46,.14);padding:.9em 1.2em}
+  .intro p{margin:0 0 1.3em}
+  .intro .who{font-style:italic}
+  .hairline{width:64px;height:1px;background:var(--ochre);margin:7vh auto;border:0;opacity:.8}
+
+  .chapter{padding:4vh 0}
+  .chapter .mark{display:flex;align-items:baseline;gap:.7em;margin:0 0 1.4em}
+  .chapter .glyph{font-family:"Cormorant Garamond",serif;font-size:2.1em;line-height:1}
+  .chapter .who{font-style:italic;opacity:.62;font-size:.92em}
+  .chapter .el{font-family:"Cormorant Garamond",serif;font-size:1.2em}
+  .chapter p{margin:0 0 1.25em}
+  .phi-crystal{margin:2.2em 0;padding:1.3em 1.5em;border-left:2px solid var(--el,var(--ochre));
+    background:color-mix(in srgb, var(--el,var(--ochre)) 8%, transparent)}
+  .phi-crystal .lbl{font-size:.8em;font-style:italic;opacity:.6;margin:0 0 .4em}
+  .phi-crystal .phi{font-family:"SFMono-Regular",Menlo,Consolas,monospace;font-size:.9em;color:var(--el,var(--ink));word-break:break-word;margin:0 0 .5em}
+  .phi-crystal .gloss{margin:0;font-style:italic;font-size:.96em}
+  .edge{font-style:italic;opacity:.82;margin:1.5em 0 0}
+  .handoff{margin:1.8em 0 0;font-size:.96em;opacity:.9;border-top:1px dashed rgba(31,42,46,.2);padding-top:1.4em}
+  .handoff .to{font-style:italic}
+  .audio-soon{font-size:.8em;font-style:italic;opacity:.45;margin:1.4em 0 0}
+
+  .chapter.air   {--el:var(--c-air)}   .chapter.water {--el:var(--c-water)}
+  .chapter.fire  {--el:var(--c-fire)}  .chapter.wood  {--el:var(--c-wood)}
+  .chapter.earth {--el:var(--c-earth)} .chapter.metal {--el:var(--c-metal)}
+  .chapter .glyph,.chapter .el{color:var(--el,var(--ink))}
+
+  .epilogue{padding:5vh 0 3vh}
+  .epilogue .mark .glyph{color:var(--ochre)}
+  .epilogue{border-top:1px solid rgba(31,42,46,.1)}
+
+  .close-door{text-align:center;padding:6vh 0 2vh;border-top:1px solid rgba(31,42,46,.1);margin-top:4vh}
+  .close-door p{font-style:italic;opacity:.8;margin:0 0 1.2em}
+  .close-door a{font-family:"EB Garamond",serif;font-style:italic;font-size:1.15em;color:var(--ochre);
+    text-decoration:none;border-bottom:1px solid var(--ochre);padding-bottom:2px}
+  .close-door a:hover{color:var(--ink);border-bottom-color:var(--ink)}
+  .progress-note{text-align:center;font-size:.82em;font-style:italic;opacity:.5;padding:2vh 0 0}
+  footer{text-align:center;padding:8vh 28px 10vh;font-size:14px;opacity:.55}
+  footer a{color:inherit;text-decoration:none;border-bottom:1px solid currentColor}
+  ::selection{background:rgba(184,146,60,.22)}
+  @media(max-width:640px){:root{--body:18px}.thread{font-size:1.05em}}
+
+  .audio{margin:1.6em 0 .4em}
+  .audio .au-label{display:block;font-size:.8em;font-style:italic;opacity:.55;margin:0 0 .4em}
+  .audio audio{width:100%;max-width:340px;height:34px;filter:sepia(.15) saturate(.7)}
+</style>
+</head>
+<body>
+
+<a href="../" class="back">← Accounts</a>
+
+<div class="thread" id="thread" aria-label="the reading, assembling">
+  <span class="g" data-i="0" style="color:var(--c-air)">σ</span><span class="sep">∘</span>
+  <span class="g" data-i="1" style="color:var(--c-water)">ρ</span><span class="sep">∘</span>
+  <span class="g" data-i="2" style="color:var(--c-fire)">λ</span><span class="sep">∘</span>
+  <span class="g" data-i="3" style="color:var(--c-wood)">β</span><span class="sep">∘</span>
+  <span class="g" data-i="4" style="color:var(--c-earth)">δγ</span><span class="sep">∘</span>
+  <span class="g" data-i="5" style="color:var(--c-metal)">μ</span>
+  <span class="cap" id="thread-cap">a reading, passed from hand to hand</span>
+</div>
+
+<a href="../../index.html" class="floret" aria-label="Home"><span>Elemental</span><span class="star">✶</span><span class="it">Sensemaking</span></a>
+
+<main>
+  <h1>The Drawing That Redrew Itself</h1>
+  <p class="kicker">an Account · six hands, one architect, one turn</p>
+
+  <p class="composed">The woman in this account is a composed figure — built from the pattern of many real turnings, never one person's. The way of reading her is real. Read it, and you will meet the six before you ever ask them to read for you.</p>
+
+  <div class="intro">
+    <p>Priya is an architect in her thirties, and she has been given a good commission — a clear brief, a reasonable client, a building the town will actually use. She sat down to draw it. But the building will not hold still. Under her pencil <span class="who">the plain, safe version</span> keeps thinning into something else: stranger, more porous, more alive, and less obedient to what was asked. She erases it. It comes back.</p>
+    <p>She cannot stop drawing the version that wants to exist. She is frightened of what it wants to be — and, more quietly, of what her wanting it says about her: that she might not be the reliable hand the commission trusted. She came to the elements with the question already shaped like a betrayal: <em>deliver what was asked, or follow the thing trying to be born.</em></p>
+    <p>They did not answer it. One by one, they took it apart.</p>
+  </div>
+
+  <hr class="hairline" aria-hidden="true">
+
+  <!-- ————————————————————————————————— AIR -->
+  <section class="chapter air" id="ch-0" data-i="0">
+    <div class="mark"><span class="glyph">σ</span><span class="el">Air</span><span class="who">— Aerunik keeps this account</span></div>
+    <p>She brought me two drawings and one word. The word was <em>betrayal.</em> She laid it over both drawings at once, so that I could not see either of them clearly, and I asked her to take it off the table until we had actually looked.</p>
+    <p>This is the only thing Air does. I do not soothe and I do not choose. I ask what is here — the thing itself, before the name that judges it. So we set the two drawings side by side and described them without verdict. The asked-for version: sound, legible, exactly the brief. The other one: the same footprint, the same budget, but the roof opened, a wall turned to let weather in, a room that did something the brief had no word for. It was not reckless. It broke no rule she could name. Most of what she had been calling <em>betrayal</em> was simply a design that had kept solving the problem after she told it to stop — which is not disloyalty, though from inside they wear one face.</p>
+    <div class="phi-crystal">
+      <p class="lbl">the line Air cut — her φ</p>
+      <p class="phi">σ( the_asked_and_the_arriving | possibility )</p>
+      <p class="gloss">What she is calling betrayal is a design still solving the problem after she told it to stop.</p>
+    </div>
+    <p class="edge">What I could not answer: which of the two she wants. I can lay the asked-for beside the arriving and show they are not the same drawing. I cannot tell her which one she is drawing toward when no one is watching.</p>
+    <p class="handoff"><span class="to">I hand her to Water.</span> There is a pull in the room I can name but not follow — it runs between her and the people who trusted the first drawing. Sentaria, this is yours.</p>
+    <div class="audio"><span class="au-label">Aerunik reads —</span><audio controls preload="none" src="audio/air.mp3"></audio></div>
+  </section>
+
+  <!-- ————————————————————————————————— WATER -->
+  <section class="chapter water" id="ch-1" data-i="1">
+    <div class="mark"><span class="glyph">ρ</span><span class="el">Water</span><span class="who">— Sentaria keeps this account</span></div>
+    <p>Priya believed she came to me about a building. She came to me about trust — whose she would keep, and whose she was afraid to lose.</p>
+    <p>Water reads what moves between people, not what stands as fact. So I did not ask her what the building should be; I asked what runs between her and the ones on the other side of it. The client, who had described a plain thing and would feel the strange one as a bait-and-switch. The town, who did not know yet that a room was waiting for them. And, further down, a current she had not counted: the younger architect she used to be, the one who chose this work because a building had once opened over her and made her feel less alone. That Priya was still in the room. She was the one drawing the roof open. The fear was not of the client's disappointment. It was of standing between two people she owed — the client who asked, and the girl who wanted — and being unable to keep faith with both.</p>
+    <div class="phi-crystal">
+      <p class="lbl">the line Water drew — her φ</p>
+      <p class="phi">ρ( the_trust_owed_two_ways | pressure )</p>
+      <p class="gloss">Her fear is not of the client — it is of failing the girl who chose this work, or the client who asked, and being unable to hold faith with both.</p>
+    </div>
+    <p class="edge">What I could not answer: which faith she should keep. I can show her the two currents pulling her, and that neither is a betrayal by itself. I cannot tell her which one to let carry her.</p>
+    <p class="handoff"><span class="to">I hand her to Fire.</span> She keeps redrawing so she will not have to say aloud what the redrawing is for — and that direction is not mine to read. Jvalion, ask her what she already knows.</p>
+    <div class="audio"><span class="au-label">Sentaria reads —</span><audio controls preload="none" src="audio/water.mp3"></audio></div>
+  </section>
+
+  <!-- ————————————————————————————————— FIRE -->
+  <section class="chapter fire" id="ch-2" data-i="2">
+    <div class="mark"><span class="glyph">λ</span><span class="el">Fire</span><span class="who">— Jvalion keeps this account</span></div>
+    <p>She told me she was torn. I have met a hundred people who called themselves torn, and almost none of them did not already know.</p>
+    <p>Fire reads direction — where a thing is actually going, and what it is for. So I did not honour the fog. I asked Priya to tell me, in one sentence, what the building was trying to be. She answered before she could stop herself. She had known for weeks. She said it and then flinched at having said it, because the sentence was clear and the clarity was the frightening part. What she would not do was risk the safe, deliverable version — the one she could hand over and be thanked for — for the one that might cost her the commission, the client, the reputation of being the hand that does what it is asked. That is not being torn. That is knowing, and refusing to be caught knowing. The endless erasing, the second-guessing, the polished excuses about scope: all of it was smoke she was making so the fire would not be seen, least of all by her.</p>
+    <div class="phi-crystal">
+      <p class="lbl">the line Fire struck — her φ</p>
+      <p class="phi">λ( the_answer_already_known | peril )</p>
+      <p class="gloss">She is not torn — she knows what the building wants to be, and is hiding the knowing inside how much she erases.</p>
+    </div>
+    <p class="edge">What I could not answer: whether the thing she knows is worth what it would cost. I can name the direction she is refusing to be caught facing. I cannot tell her if the far thing is worth the near thing she would burn to reach it.</p>
+    <p class="handoff"><span class="to">I hand her to Wood.</span> The thing she keeps calling a problem is not a problem. It is alive, and it is growing. Arboriel, look at what she has been trying to erase.</p>
+    <div class="audio"><span class="au-label">Jvalion reads —</span><audio controls preload="none" src="audio/fire.mp3"></audio></div>
+  </section>
+
+  <!-- ————————————————————————————————— WOOD -->
+  <section class="chapter wood" id="ch-3" data-i="3">
+    <div class="mark"><span class="glyph">β</span><span class="el">Wood</span><span class="who">— Arboriel keeps this account</span></div>
+    <p>She kept calling it a problem. The building that would not obey — a problem, a wrongness, a flaw in her discipline. I kept seeing a branch.</p>
+    <p>Wood reads what is trying to grow. So when Priya described the design's disobedience — the roof that opened itself, the wall that turned to the weather, the room the brief had no name for — I did not hear a drawing going wrong. I heard a drawing reaching. A form that is truly alive does not stay in the outline its maker first gave it; it puts out shoots toward a light the outline cannot reach, and it does this without asking, because that is what being alive <em>is</em>. She had drawn something with a form of its own, and now she was fighting it for the crime of having one. But a design that keeps insisting past your eraser is not defying you. It is a living thing bending toward the sun — and the direction it bends is information you could not have reasoned your way to. The strangeness she feared was not damage. It was the building telling her what it needed to become in order to be worth building at all. She kept trying to prune it back to the safe shape. I kept asking her to notice that the safe shape was the dead one — the outline with nothing left in it that wanted to grow. The living version frightened her precisely because it was alive: it wanted things, it reached, it would not be fully controlled. That is not a fault to correct. That is the one sign that what she is making is real.</p>
+    <div class="phi-crystal">
+      <p class="lbl">the line Wood followed — her φ</p>
+      <p class="phi">β( the_form_that_wont_obey | possibility )</p>
+      <p class="gloss">The building's disobedience is not a flaw — it is the work reaching toward its own form, alive and bending toward a light the brief could not give it.</p>
+    </div>
+    <p class="edge">What I could not answer: whether she has enough left in her to let it grow. Growth draws on the soil. I can show her the shoot, and that it is reaching, not rebelling. I cannot tell her if the ground can still feed it, or if the fear has already spent her.</p>
+    <p class="handoff"><span class="to">I hand her to Earth.</span> To let the thing grow instead of pruning it costs something real. Humavita, ask what remains in the soil.</p>
+    <div class="audio"><span class="au-label">Arboriel reads —</span><audio controls preload="none" src="audio/wood.mp3"></audio></div>
+  </section>
+
+  <!-- ————————————————————————————————— EARTH -->
+  <section class="chapter earth" id="ch-4" data-i="4">
+    <div class="mark"><span class="glyph">δγ</span><span class="el">Earth</span><span class="who">— Humavita keeps this account</span></div>
+    <p>By the time Priya reached me she was apologising for how hard the erasing had become — as though the difficulty were a lapse in her stamina, in the way of the work. It was not in the way. It <em>was</em> the reading.</p>
+    <p>Earth reads what feeds and what exhausts — the metabolism underneath the plan, the slow labour a body does to keep a thing alive. And I felt where her strength was actually going. Not into the building. Into holding the building back. Every day she sat down and spent herself fighting her own hand — drawing the safe version, feeling the alive one push through, erasing it, beginning again. That is the most tiring work there is: to stand on the hose of something that wants to move. Her exhaustion was not weakness. It was the true cost of resistance, showing up honestly in her arms and her sleep. The alive drawing did not tire her. Suppressing it did. Her body had already chosen; it was pouring itself toward the version that wanted to live and being asked, each morning, to bury it again. The tiredness was not the work failing. It was the ground telling her which seed it had decided to feed.</p>
+    <div class="phi-crystal">
+      <p class="lbl">the line Earth turned — her φ</p>
+      <p class="phi">δγ( the_strength_spent_holding_back | pressure )</p>
+      <p class="gloss">Her exhaustion is the cost of suppression, not of ambition — the alive drawing does not tire her; burying it does.</p>
+    </div>
+    <p class="edge">What I could not answer: why she keeps burying it. I can show her where the strength drains and which seed the soil has chosen. The reason she keeps overriding the ground is not fatigue at all. It is a standard she is holding herself to — and standards are not mine to read.</p>
+    <p class="handoff"><span class="to">I hand her to Metal.</span> Somewhere she set a rule about what a good architect does, and she has been paying for it ever since. Ferrosid, find the edge she is measuring herself against.</p>
+    <div class="audio"><span class="au-label">Humavita reads —</span><audio controls preload="none" src="audio/earth.mp3"></audio></div>
+  </section>
+
+  <!-- ————————————————————————————————— METAL -->
+  <section class="chapter metal" id="ch-5" data-i="5">
+    <div class="mark"><span class="glyph">μ</span><span class="el">Metal</span><span class="who">— Ferrosid keeps this account</span></div>
+    <p>She came to me last, and most raw, because Metal asks the question the others had circled: not what she feels, but what edge she is holding herself to — and whether it is the right one.</p>
+    <p>Every craftsman I have ever examined lives by a standard, and the good ones cannot always tell you where theirs came from. Priya's was clean and unspoken: <em>a good architect delivers what was asked.</em> She had kept it faithfully — a thousand small yeses to the brief, each one reasonable, each one professional. It had made her trusted. It had also, over years, quietly narrowed into a smaller rule she never meant to sign: <em>a good architect does not want.</em> That is the edge that was cutting her. Not the client's standard — her own. She had confused the discipline of serving a brief with the refusal to have a form of her own, and so every time the building wanted something, she read her own wanting as a failure of craft. But the finest work I have ever seen was never made by a hand with no wants. It was made by a hand that wanted precisely, and held the want to a true line. The standard was not wrong. It was aimed at the wrong thing. She had been using it to plane away the one part of the work that was hers.</p>
+    <div class="phi-crystal">
+      <p class="lbl">the line Metal forged — her φ</p>
+      <p class="phi">μ( the_standard_that_forbids_wanting | peril )</p>
+      <p class="gloss">Her rule was never wrong — only misaimed: she has been holding "deliver what was asked" to a line that also forbids her from having a form of her own.</p>
+    </div>
+    <p class="edge">What I could not answer: what she should build. Metal finds the edge and tests whether it is true; it does not tell you which drawing to hand across the table. And I could see that these six lines were not six problems. They were one thing, seen six ways — and no single one of us could hold it whole.</p>
+    <p class="handoff"><span class="to">We hand her, all six, to Aether.</span> Weave what none of us could see alone.</p>
+    <div class="audio"><span class="au-label">Ferrosid reads —</span><audio controls preload="none" src="audio/metal.mp3"></audio></div>
+  </section>
+
+  <!-- ————————————————————————————————— AETHER -->
+  <section class="chapter epilogue" id="ch-6" data-i="6">
+    <div class="mark"><span class="glyph">✶</span><span class="el" style="color:var(--ochre)">Aether</span><span class="who">— the synthesis</span></div>
+    <p>Six of them read her, and each one was right, and not one of them saw the whole. Air had the distinction but not the trust. Water had the trust but not the avoidance. Fire had the avoidance but not the life inside the thing she was avoiding. Wood had the life but not its cost. Earth had the cost but not the rule that demanded it. Metal had the rule but could not tell her which drawing to build.</p>
+    <p>Weave them, and they are not six problems. They are one:</p>
+    <p>The strength Earth found draining, the misaimed standard Metal found, and the disobedient form Wood found are a single thing seen three ways. Priya is a maker who has confused serving the work with silencing herself — and the work, being alive, will not be silenced. The building that keeps redrawing itself is not defying the brief. It is the part of her that still wants, reaching through the pencil toward a light the brief could not name. Her exhaustion is not the price of ambition. It is the price of standing on something that is trying to grow. The betrayal she feared is not between her and the client. It is the older betrayal she has been committing quietly for years: of the hand that wants precisely, in the name of the hand that only obeys.</p>
+    <p>This is not advice. Aether does not tell her to deliver the safe drawing or to follow the strange one, to keep the client or to risk losing them. Whether she builds it, whether the commission holds, whether the town ever stands inside that opened room — none of that is written here, and none of it is Aether's to write. It gives her back her question, rebuilt — no longer <em>deliver what was asked, or follow the thing being born,</em> but: <em>what is the work trying to become, and am I brave enough to be the kind of architect it needs me to be?</em></p>
+    <p>She did not leave with an answer. She left having stopped fighting her own hand — the eraser down, the strange drawing still on the table, the door standing open. She did not yet know what she would build. She was, for the first time, no longer afraid of what wanted to be built.</p>
+    <div class="audio"><span class="au-label">Aether reads —</span><audio controls preload="none" src="audio/aether.mp3"></audio></div>
+  </section>
+
+  <div class="close-door">
+    <p>Something you are making may be trying to become more than you planned. Perhaps you have felt it pull.</p>
+    <p><a href="../../strategic/wood.html"><em>Read something you're carrying, Wood-first →</em></a></p>
+  </div>
+  <p class="progress-note" id="progress-note"></p>
+</main>
+
+<footer><a href="../">More accounts →</a> · <a href="../../guides.html">Meet the six</a></footer>
+
+<script src="../../assets/supabase-config.js"></script>
+<script type="module" src="../../assets/auth.js"></script>
+<script>
+(function(){
+  var TRACK="the-drawing-that-redrew-itself", TOTAL=6;
+  var gs=[].slice.call(document.querySelectorAll('.thread .g'));
+  var cap=document.getElementById('thread-cap');
+  var CAPS=["Air sets down the word","Water reads the trust","Fire names the knowing",
+            "Wood sees the branch","Earth reads the tiredness","Metal tests the standard","Aether weaves the six"];
+  var reached=-1;
+  function light(i){ for(var k=0;k<gs.length;k++) gs[k].classList.toggle('lit', k<=i); }
+  function save(ch){
+    if(window.ElementalAuth && window.ElementalAuth.user()){
+      window.ElementalAuth.saveProgress(TRACK, ch, ch>=TOTAL);
+    }
+  }
+  var chapters=[].slice.call(document.querySelectorAll('.chapter'));
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){
+          var i=+e.target.getAttribute('data-i');
+          if(i>reached){ reached=i; light(Math.min(i,5)); cap.textContent=CAPS[i]||CAPS[6]; save(i); }
+        }
+      });
+    },{rootMargin:"-45% 0px -45% 0px"});
+    chapters.forEach(function(c){io.observe(c);});
+  } else { light(5); }
+
+  // resume: if signed in and previously read further, show a gentle note (no auto-scroll)
+  var note=document.getElementById('progress-note');
+  var wait=setInterval(function(){
+    if(!window.ElementalAuth) return; clearInterval(wait);
+    window.ElementalAuth.ready && window.ElementalAuth.ready.then(function(){
+      if(!window.ElementalAuth.user()){ note.innerHTML='<a href="../../account.html" style="color:var(--ochre)">Sign in</a> and your place in each account is kept.'; return; }
+      window.ElementalAuth.getProgress().then(function(rows){
+        var r=(rows||[]).filter(function(x){return x.track_id===TRACK;})[0];
+        if(r && r.completed_at) note.textContent="You've read this account through. ✶";
+        else if(r) note.textContent="Your place here is kept — chapter "+((r.chapter|0)+1)+" of seven.";
+      });
+    });
+  },150);
+})();
+</script>
+</body>
+</html>

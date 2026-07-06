@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
 <style>
-  :root{--paper:#F4F1EA;--ink:#1F2A2E;--ochre:#B8923C;--measure:620px;--body:19px;--line:1.66;
+  :root{--paper:#F4F1EA;--ink:#1F2A2E;--ochre:#B8923C;--measure:640px;--body:19px;--line:1.66;
     --c-air:#7E868C;--c-water:#3D5566;--c-fire:#B5512A;--c-wood:#5A6F3C;--c-earth:#9C7B2E;--c-metal:#5C5E62}
   *{box-sizing:border-box}html,body{margin:0;padding:0;background:var(--paper);color:var(--ink)}
   body{font-family:"EB Garamond",Garamond,Georgia,serif;font-size:var(--body);line-height:var(--line);-webkit-font-smoothing:antialiased}
@@ -29,11 +29,16 @@
     border:1px solid rgba(31,42,46,.14);padding:.9em 1.2em}
   .hairline{width:64px;height:1px;background:var(--ochre);margin:6vh auto;border:0;opacity:.8}
   .track{display:block;text-decoration:none;color:var(--ink);border:1px solid rgba(31,42,46,.16);
-    padding:1.6em 1.7em;margin:0 0 1.4em;transition:border-color .15s ease, transform .15s ease}
-  .track:hover{border-color:var(--ochre);transform:translateY(-2px)}
-  .track .t{font-family:"Cormorant Garamond",serif;font-size:1.5em;line-height:1.2;margin:0 0 .2em}
-  .track .sub{font-style:italic;opacity:.65;font-size:.92em;margin:0 0 .8em}
-  .track .chain{font-family:"SFMono-Regular",Menlo,Consolas,monospace;font-size:.72em;opacity:.6;word-break:break-word}
+    border-left:3px solid var(--lead,var(--ochre));
+    padding:1.5em 1.7em;margin:0 0 1.3em;transition:border-color .15s ease, transform .15s ease}
+  .track:hover{border-color:var(--lead,var(--ochre));transform:translateY(-2px)}
+  .track .lead{font-size:.78em;font-style:italic;letter-spacing:.02em;color:var(--lead,var(--ochre));margin:0 0 .35em}
+  .track .lead .g{font-family:"Cormorant Garamond",serif;font-size:1.5em;vertical-align:-.12em;margin-right:.15em}
+  .track .t{font-family:"Cormorant Garamond",serif;font-size:1.45em;line-height:1.2;margin:0 0 .25em}
+  .track .sub{font-style:italic;opacity:.7;font-size:.94em;margin:0 0 .7em}
+  .track .phi{font-family:"SFMono-Regular",Menlo,Consolas,monospace;font-size:.72em;opacity:.6;word-break:break-word}
+  .track.air{--lead:var(--c-air)}.track.water{--lead:var(--c-water)}.track.fire{--lead:var(--c-fire)}
+  .track.wood{--lead:var(--c-wood)}.track.earth{--lead:var(--c-earth)}.track.metal{--lead:var(--c-metal)}
   .soon{opacity:.55;font-style:italic;font-size:.9em;text-align:center;padding:2vh 0}
   footer{text-align:center;padding:8vh 28px 10vh;font-size:14px;opacity:.55}
   footer a{color:inherit;text-decoration:none;border-bottom:1px solid currentColor}
@@ -53,20 +58,56 @@
     <p>Before you hand the elements anything of your own, watch them work. In each account, six of them take up one person's turning — a decision, a season, a stuck place — and read it in turn, each carrying it as far as its element can before handing it to the next.</p>
     <p>You will see a single line — a <em>nemetic.φ</em> — crystallize under each element, and the six of them assemble into a chain:</p>
     <p class="thread-demo"><span class="a">σ</span><span class="sep">∘</span><span class="w">ρ</span><span class="sep">∘</span><span class="f">λ</span><span class="sep">∘</span><span class="o">β</span><span class="sep">∘</span><span class="e">δγ</span><span class="sep">∘</span><span class="m">μ</span></p>
-    <p>That chain is the whole method, learned by watching it applied to one life instead of explained. When you've seen a reading move, making your own is no longer a leap in the dark.</p>
+    <p>That chain is the whole method, learned by watching it applied to one life instead of explained. Each account is led by a different element — so between the six of them, you meet all six ways of reading, each as the one that sees furthest.</p>
   </div>
 
-  <p class="composed">The humans in these first accounts are composed figures — built from the pattern of many real turnings, never one person's. The way of reading them is real. In time, with consent, the accounts will be of real people who chose to share their readings.</p>
+  <p class="composed">The humans in these accounts are composed figures — built from the pattern of many real turnings, never one person's. The way of reading them is real. In time, with consent, the accounts will be of real people who chose to share their readings.</p>
 
   <hr class="hairline" aria-hidden="true">
 
-  <a class="track" href="the-long-table/">
-    <p class="t">The Keeper of the Long Table</p>
-    <p class="sub">Mara has kept a workshop together for nine years — and can no longer tell if it is dying or becoming.</p>
-    <p class="chain">σ(decline_or_becoming) ∘ ρ(the_quiet_between_keepers) ∘ λ(the_crossing_unnamed) ∘ β(the_sprout_she_didnt_plant) ∘ δγ(the_load_uncomposted) ∘ μ(the_no_never_said)</p>
+  <a class="track air" href="the-weather-he-couldnt-read/">
+    <p class="lead"><span class="g">σ</span>led by Air</p>
+    <p class="t">The Weather He Couldn't Read</p>
+    <p class="sub">After years of being told what things meant, Tomas can no longer trust his own read — and wants it back.</p>
+    <p class="phi">σ(the_installed_frame) — what he took for seeing was a lens handed to him</p>
   </a>
 
-  <p class="soon">More accounts are being written — one keeps arriving each turn of the season.</p>
+  <a class="track water" href="the-house-with-two-griefs/">
+    <p class="lead"><span class="g">ρ</span>led by Water</p>
+    <p class="t">The House with Two Griefs</p>
+    <p class="sub">Two sisters, one dead mother, one house to empty — and they love each other and cannot do it together.</p>
+    <p class="phi">ρ(two_griefs_no_shared_shape) — not a conflict; two griefs that cannot find one shape</p>
+  </a>
+
+  <a class="track fire" href="the-surgeons-other-hands/">
+    <p class="lead"><span class="g">λ</span>led by Fire</p>
+    <p class="t">The Surgeon's Other Hands</p>
+    <p class="sub">A surgeon who has quietly wanted, for years, to put down the scalpel and pick up a plane and chisel.</p>
+    <p class="phi">λ(the_life_he_wont_light) — not a crisis; a crossing avoided for years</p>
+  </a>
+
+  <a class="track wood" href="the-drawing-that-redrew-itself/">
+    <p class="lead"><span class="g">β</span>led by Wood</p>
+    <p class="t">The Drawing That Redrew Itself</p>
+    <p class="sub">An architect whose commissioned building keeps insisting, under her pencil, on becoming something braver.</p>
+    <p class="phi">β(the_form_that_wont_obey) — the work reaching past its brief toward its own shape</p>
+  </a>
+
+  <a class="track earth" href="the-long-table/">
+    <p class="lead"><span class="g">δγ</span>led by Earth</p>
+    <p class="t">The Keeper of the Long Table</p>
+    <p class="sub">Mara has kept a workshop together for nine years — and can no longer tell if it is dying or becoming.</p>
+    <p class="phi">δγ(the_load_uncomposted) — the tiredness is an instruction, not a wound</p>
+  </a>
+
+  <a class="track metal" href="the-signature/">
+    <p class="lead"><span class="g">μ</span>led by Metal</p>
+    <p class="t">The Signature</p>
+    <p class="sub">A small, reasonable signature that everyone would understand — and the line it would quietly cross.</p>
+    <p class="phi">μ(the_signature_that_would_cost_the_edge) — one reasonable yes that would spend the line</p>
+  </a>
+
+  <p class="soon">More accounts arrive with the turning of the season — and, in time, the readings of real people who chose to share them.</p>
 </main>
 
 <footer><a href="../strategic/">Begin a reading of your own →</a> · <a href="../guides.html">Meet the six</a></footer>
