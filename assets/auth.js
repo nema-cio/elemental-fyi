@@ -45,7 +45,7 @@ if (!cfg || !cfg.url) {
     '<div class="row"><button type="button" class="es-cancel">close</button>' +
     '<button type="button" class="es-send">send the link →</button></div>' +
     '<p class="msg" hidden></p>' +
-    '<p style="font-size:.78em;font-style:italic;opacity:.55;margin:.8em 0 0;">The email arrives via Supabase, our sign-in service — if it hides, check spam.</p></div>';
+    '<p style="font-size:.78em;font-style:italic;opacity:.55;margin:.8em 0 0;">If the link doesn’t arrive in a minute, check your spam folder.</p></div>';
   document.body.appendChild(root);
   const line = root.querySelector(".es-auth-line");
   const panel = root.querySelector(".es-auth-panel");
@@ -135,6 +135,28 @@ if (!cfg || !cfg.url) {
       if (!user) return [];
       const { data, error } = await sb.from("contributions").select("*").order("created_at", { ascending: false });
       return error ? [] : (data || []);   // table may not exist until migration 002 runs
+    },
+    // "Real Accounts from readings" — a deliberate, anonymized, editor-gated consent
+    getConsents: async () => {
+      if (!user) return [];
+      const { data, error } = await sb.from("account_consent").select("*");
+      return error ? [] : (data || []);
+    },
+    consentToAccount: async (sessionId, credit, note) => {
+      if (!user || !sessionId) return false;
+      const { error } = await sb.from("account_consent").upsert(
+        { user_id: user.id, session_id: sessionId,
+          display_credit: (credit || "").trim() || null,
+          note: (note || "").trim() || null, status: "requested" },
+        { onConflict: "user_id,session_id" });
+      if (error) console.warn("[auth] consentToAccount:", error.message);
+      return !error;
+    },
+    withdrawAccountConsent: async (sessionId) => {
+      if (!user || !sessionId) return false;
+      const { error } = await sb.from("account_consent")
+        .update({ status: "withdrawn" }).eq("user_id", user.id).eq("session_id", sessionId);
+      return !error;
     },
   };
   window.ElementalAuth = api;
