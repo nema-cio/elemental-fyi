@@ -151,6 +151,53 @@ async function showSignedIn(){
 
   // readings, with live relay state from the public session endpoint
   const rs = await A.getReadings();
+  const consents = {};
+  (await A.getConsents()).forEach((c) => { consents[c.session_id] = c; });
+
+  // "Let the elements tell your account" — a deliberate, anonymized, editor-gated consent,
+  // offered only on a completed reading you own.
+  function accountAffordance(sessionId, title) {
+    const wrap = document.createElement("div");
+    wrap.style.cssText = "margin:.7em 0 0;font-size:.9em";
+    const c = consents[sessionId];
+    if (c && (c.status === "requested" || c.status === "drafting")) {
+      wrap.innerHTML = '<span class="quiet">✍ you’ve asked the elements to tell this account — the editor reviews before anything is published. ' +
+        '<a href="#" class="wd" style="color:var(--ochre)">withdraw</a></span>';
+      wrap.querySelector(".wd").onclick = async (e) => { e.preventDefault();
+        if (await A.withdrawAccountConsent(sessionId)) wrap.innerHTML = '<span class="quiet">withdrawn.</span>'; };
+      return wrap;
+    }
+    if (c && c.status === "published") { wrap.innerHTML = '<span class="quiet">✶ told as an account.</span>'; return wrap; }
+    const a = document.createElement("a");
+    a.href = "#"; a.style.cssText = "color:var(--ochre);font-style:italic;text-decoration:none;border-bottom:1px solid rgba(184,146,60,.5)";
+    a.textContent = "Let the elements tell this account →";
+    a.onclick = (e) => {
+      e.preventDefault();
+      wrap.innerHTML =
+        '<p class="quiet" style="margin:.2em 0 .7em">The elements would write the story of this reading in their voices, from your φ and what you carried forward. ' +
+        'It would be <strong>anonymized</strong> — no name, no email — and <strong>the editor reviews and edits before anything is published</strong>. You can withdraw until then.</p>' +
+        '<label style="display:block;font-style:italic;font-size:.9em;margin:.4em 0 .1em">Credit, if you’d like one <span class="quiet">(a first name — or leave blank to stay unnamed)</span></label>' +
+        '<input class="cr" type="text" placeholder="optional" style="width:100%;background:transparent;border:0;border-bottom:1px solid rgba(31,42,46,.28);padding:.3em .1em;font-family:inherit;font-size:1em;color:var(--ink)">' +
+        '<label style="display:block;font-style:italic;font-size:.9em;margin:1em 0 .1em">A note to the editor <span class="quiet">(optional)</span></label>' +
+        '<textarea class="nt" rows="2" placeholder="optional" style="width:100%;background:transparent;border:0;border-bottom:1px solid rgba(31,42,46,.28);padding:.3em .1em;font-family:inherit;font-size:.95em;color:var(--ink);resize:vertical"></textarea>' +
+        '<div style="margin-top:1em;display:flex;gap:1.2em;align-items:baseline">' +
+        '<button class="req door" type="button">Ask the elements →</button>' +
+        '<a href="#" class="cx quiet" style="color:inherit">never mind</a></div>' +
+        '<p class="rmsg quiet" hidden style="margin-top:.7em"></p>';
+      wrap.querySelector(".cx").onclick = (ev) => { ev.preventDefault(); wrap.innerHTML = ""; wrap.appendChild(accountAffordance(sessionId, title)); };
+      wrap.querySelector(".req").onclick = async () => {
+        const credit = wrap.querySelector(".cr").value, note = wrap.querySelector(".nt").value;
+        const ok = await A.consentToAccount(sessionId, credit, note);
+        const m = wrap.querySelector(".rmsg"); m.hidden = false;
+        m.textContent = ok ? "asked ✓ — the editor will review before anything is published. You can withdraw from here until then."
+                           : "couldn’t send just now — try again shortly.";
+        if (ok) { consents[sessionId] = { session_id: sessionId, status: "requested" }; }
+      };
+    };
+    wrap.appendChild(a);
+    return wrap;
+  }
+
   const box = $("#readings");
   if (!rs.length) {
     box.innerHTML = '<p class="quiet">No readings kept yet. Complete a leaf of a <a href="strategic/index.html" style="color:var(--ochre)">strategic reading</a> while signed in and it stays here.</p>';
@@ -170,6 +217,7 @@ async function showSignedIn(){
           const s = j.session, chain = s.chain || [], order = s.order || [];
           if (s.status === "complete") {
             st.innerHTML = "complete — all " + order.length + " elements have read it ✶";
+            el.appendChild(accountAffordance(r.session_id, r.title));
           } else if (String(s.status).indexOf("awaiting:") === 0) {
             const next = s.status.split(":")[1];
             st.innerHTML = "waiting for <strong>" + esc(next) + "</strong> — " +
