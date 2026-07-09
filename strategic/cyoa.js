@@ -247,7 +247,7 @@ window.CYOA = (function () {
           '<input type="email" id="enrich-email" placeholder="you@somewhere" style="width:100%;background:transparent;border:0;border-bottom:1px solid rgba(31,42,46,0.28);padding:0.4em 0.55em;font-family:inherit;font-size:1em;color:var(--ink);">' +
           '<label for="enrich-share" style="display:flex;gap:0.6em;align-items:flex-start;font-style:normal;cursor:pointer;margin:1.8em 0 0;">' +
           '<input type="checkbox" id="enrich-share" style="margin-top:0.4em;">' +
-          '<span style="font-size:0.9em;opacity:0.82;">Share this to the community Discord — let ' + El + ' voice it and invite someone to carry it forward. <em>Off by default: your reading stays private, and you carry it on yourself.</em></span></label>' +
+          '<span style="font-size:0.9em;opacity:0.82;">Include <em>your own words</em> when ' + El + ' voices the handoff in the community Discord. <em>Off by default: the reading still travels — the handoff posts either way — but what you wrote stays private.</em></span></label>' +
           '<p style="margin:2em 0 0;"><button type="button" id="enrich-btn" class="door-link" style="background:none;border:0;border-bottom:1px solid var(--accent);cursor:pointer;"><em>' +
           (isLast ? "Complete the reading →" : "Hand it forward →") + '</em></button></p></div>';
         resolve.innerHTML = html;
@@ -259,7 +259,7 @@ window.CYOA = (function () {
           const email = ((q("#enrich-email") || {}).value || "").trim();
           const share = !!(q("#enrich-share") && q("#enrich-share").checked);
           enrich(sessionId, txt, email, share);
-          showFunnel(nextEl, isLast, email, sessionId, share);
+          showFunnel(nextEl, isLast, email, sessionId, share, order);
         });
         resolve.hidden = false;
         // account attach (progressive): a signed-in reader keeps the reading automatically;
@@ -280,13 +280,18 @@ window.CYOA = (function () {
         resolve.scrollIntoView({ behavior: "smooth", block: "start" });
       }
 
-      function showFunnel(nextEl, isLast, email, sessionId, share) {
+      function showFunnel(nextEl, isLast, email, sessionId, share, order) {
         const mailLine = email ? " We’ll email <strong>" + esc(email) + "</strong> the link." : "";
         const nextUrl = (!isLast && nextEl) ? PAGE(nextEl) + "?s=" + sessionId : null;
         if (isLast) {
+          // truthful path summary — a session's order may be shorter than the full six
+          const path = (order && order.length) ? order.join(" → ") : null;
+          const pathLine = path
+            ? "Its path — <strong>" + esc(path) + "</strong> — is fully read."
+            : "Every element on its path has read it.";
           resolve.innerHTML =
             '<p class="label">the reading is complete</p>' +
-            '<p>All six elements have read it. The full chain goes to Aether now — the Sunday synthesis.' + mailLine + '</p>' +
+            '<p>' + pathLine + ' The full chain goes to Aether now — the Sunday synthesis.' + mailLine + '</p>' +
             (share ? '<p style="margin-top:1.8em;"><a class="door-link" href="' + DISCORD_INVITE + '" target="_blank" rel="noopener"><em>See where it lands in the Discord →</em></a></p>' : '');
         } else if (share) {
           resolve.innerHTML =
@@ -296,9 +301,9 @@ window.CYOA = (function () {
             '<p style="margin-top:1.8em;"><a class="door-link" href="' + DISCORD_INVITE + '" target="_blank" rel="noopener"><em>Join the Discord to follow it →</em></a></p>';
         } else {
           resolve.innerHTML =
-            '<p class="label">your reading is saved — and private</p>' +
-            '<p>Nothing was shared. Carry it on to <strong>' + nextEl + '</strong> whenever you’re ready.' + mailLine + '</p>' +
-            (nextUrl ? '<p style="margin-top:1.8em;"><a class="door-link" href="' + nextUrl + '"><em>Carry it to ' + nextEl + ' →</em></a></p>' : '') +
+            '<p class="label">your words stay private — the reading travels</p>' +
+            '<p><strong>Within the hour</strong>, ' + El + '’s voice posts the handoff in the Discord — the reading itself and an invitation to carry it to <strong>' + nextEl + '</strong> — but <em>your own words go with no one</em>. They stay here, yours.' + mailLine + '</p>' +
+            (nextUrl ? '<p style="margin-top:1.8em;"><a class="door-link" href="' + nextUrl + '"><em>Or carry it to ' + nextEl + ' yourself →</em></a></p>' : '') +
             '<p style="font-style:italic;opacity:0.7;font-size:0.9em;margin:1.2em 0 0;">You can hand that link to someone else too — a reading is meant to travel.</p>';
         }
         resolve.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -307,9 +312,12 @@ window.CYOA = (function () {
       const showIncoming = session => {
         const last = session.chain[session.chain.length - 1];
         incoming.innerHTML =
-          '<p class="from">a current arrived from ' + last.element + " — “" + esc(session.title) + "”</p>" +
+          // orientation for someone arriving cold (e.g. from a Discord handoff link)
+          '<p class="from" style="opacity:0.65;font-size:0.88em;">You’ve picked up a traveling reading — one situation, read by one element at a time, each handing forward what it found. ' +
+          esc(last.element) + ' has done its part; <strong>' + El + '</strong> reads next. Take it deeper with the guide below, then paste back the carry-forward to hand it on.</p>' +
+          '<p class="from">a current arrived from ' + esc(last.element) + " — “" + esc(session.title) + "”</p>" +
           '<p class="phi">' + esc(last.phi) + "</p>" +
-          '<p class="reading">' + esc(last.reading) + "</p>" +
+          (last.reading ? '<p class="reading">' + esc(last.reading) + "</p>" : "") +
           (last.enrichment ? '<p class="reading" style="margin-top:0.7em;opacity:0.8;">' + esc(last.enrichment) + "</p>" : "");
         incoming.hidden = false;
       };
@@ -322,7 +330,7 @@ window.CYOA = (function () {
             incoming.hidden = false; },
           onMismatch: (session, who) => {
             incoming.innerHTML = who === "complete"
-              ? '<p class="from">This reading is already complete — all six elements have read it.</p>'
+              ? '<p class="from">This reading is already complete — it has traveled its full path.</p>'
               : '<p class="from">This current is with <strong>' + who + '</strong> right now, not ' + El + '.</p>' +
                 '<p style="margin-top:1em;"><a class="door-link" href="' + PAGE(who) + "?s=" + esc(sid) + '"><em>Go to ' + who + " →</em></a></p>";
             incoming.hidden = false;
