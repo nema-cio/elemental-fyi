@@ -142,9 +142,10 @@ window.CYOA = (function () {
   const chainPhi = chain => chain.map(c => c.phi).join(" ∘ ");
   const awaitingOf = s => (s.status && s.status.indexOf("awaiting:") === 0) ? s.status.split(":")[1] : null;
   const enrichingOf = s => (s.status && s.status.indexOf("enriching:") === 0) ? s.status.split(":")[1] : null;
-  function enrich(sessionId, text, email, share) {
+  function enrich(sessionId, text, email, share, discord) {
     return post({ action: "enrich", session_id: sessionId, enrichment: text,
-                  notify_email: email || "", share: share ? "true" : "" });
+                  notify_email: email || "", share: share ? "true" : "",
+                  discord: (discord || "").replace(/^@/, "") });
   }
 
   // ---- core flows ---------------------------------------------------------------------
@@ -245,6 +246,9 @@ window.CYOA = (function () {
           '<label for="enrich-email" style="display:block;font-style:italic;margin:1.6em 0 0.4em;">Where should we send your way back?</label>' +
           '<p style="font-size:0.84em;opacity:0.7;margin:0 0 0.6em;">Optional, but recommended — it’s how you find your way back to continue, and where a link will reach you.</p>' +
           '<input type="email" id="enrich-email" placeholder="you@somewhere" style="width:100%;background:transparent;border:0;border-bottom:1px solid rgba(31,42,46,0.28);padding:0.4em 0.55em;font-family:inherit;font-size:1em;color:var(--ink);">' +
+          '<label for="enrich-discord" style="display:block;font-style:italic;margin:1.4em 0 0.4em;">Your Discord name, if you have one there</label>' +
+          '<p style="font-size:0.84em;opacity:0.7;margin:0 0 0.6em;">Optional — it’s how the community tally knows who carried this reading. Never shown publicly.</p>' +
+          '<input type="text" id="enrich-discord" placeholder="yourhandle" maxlength="60" autocomplete="off" style="width:100%;background:transparent;border:0;border-bottom:1px solid rgba(31,42,46,0.28);padding:0.4em 0.55em;font-family:inherit;font-size:1em;color:var(--ink);">' +
           '<label for="enrich-share" style="display:flex;gap:0.6em;align-items:flex-start;font-style:normal;cursor:pointer;margin:1.8em 0 0;">' +
           '<input type="checkbox" id="enrich-share" style="margin-top:0.4em;">' +
           '<span style="font-size:0.9em;opacity:0.82;">Include <em>your own words</em> when ' + El + ' voices the handoff in the community Discord. <em>Off by default: the reading still travels — the handoff posts either way — but what you wrote stays private.</em></span></label>' +
@@ -257,8 +261,9 @@ window.CYOA = (function () {
           const txt = ((box && box.value) || "").trim();
           if (!txt) { box && box.focus(); return; }
           const email = ((q("#enrich-email") || {}).value || "").trim();
+          const discord = ((q("#enrich-discord") || {}).value || "").trim();
           const share = !!(q("#enrich-share") && q("#enrich-share").checked);
-          enrich(sessionId, txt, email, share);
+          enrich(sessionId, txt, email, share, discord);
           showFunnel(nextEl, isLast, email, sessionId, share, order);
         });
         resolve.hidden = false;
