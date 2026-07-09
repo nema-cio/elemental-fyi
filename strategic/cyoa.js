@@ -297,7 +297,10 @@ window.CYOA = (function () {
           resolve.innerHTML =
             '<p class="label">the reading is complete</p>' +
             '<p>' + pathLine + ' The full chain goes to Aether now — the Sunday synthesis.' + mailLine + '</p>' +
-            (share ? '<p style="margin-top:1.8em;"><a class="door-link" href="' + DISCORD_INVITE + '" target="_blank" rel="noopener"><em>See where it lands in the Discord →</em></a></p>' : '');
+            // the commons: readings live among people, and carrying one counts
+            '<p style="margin-top:1.8em;">Readings like this one travel through a small community, hand to hand — the elementals voice each handoff there, and completed relays earn a place on your <a href="../account.html" style="color:inherit;">tally</a>.</p>' +
+            '<p style="margin-top:0.9em;"><a class="door-link" href="' + DISCORD_INVITE + '" target="_blank" rel="noopener"><em>' +
+            (share ? 'See where it lands in the Discord →' : 'Step into the commons →') + '</em></a></p>';
         } else if (share) {
           resolve.innerHTML =
             '<p class="label">carried to ' + El + '’s channel</p>' +

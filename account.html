@@ -239,13 +239,18 @@ async function showSignedIn(){
       (t.completed_at ? " · complete ✶" : "") + "</div>").join("");
   }
 
-  // contributions
+  // contributions + the tally (points written only by the system — never self-awarded)
   const cs = await A.getContributions();
   if (cs.length) {
-    $("#contribs").innerHTML = cs.map((c) =>
+    const total = cs.reduce((n, c) => n + (c.points | 0), 0);
+    $("#contribs").innerHTML =
+      (total ? '<div class="contribution" style="margin-bottom:.6em;"><strong>Your tally: ' + total +
+               '</strong> <span class="quiet">· a record of what you’ve carried, not a score to chase</span></div>' : "") +
+      cs.map((c) =>
       '<div class="contribution">' +
       (c.url ? '<a href="' + esc(c.url) + '" style="color:var(--ochre);text-decoration:none;border-bottom:1px solid rgba(184,146,60,.5)">' + esc(c.title || c.kind) + "</a>" : esc(c.title || c.kind)) +
-      ' <span class="quiet">· ' + esc(c.kind) + (c.role ? " · " + esc(c.role) : "") + "</span></div>").join("");
+      ' <span class="quiet">· ' + esc(c.kind) + (c.role ? " · " + esc(c.role) : "") +
+      ((c.points | 0) ? " · +" + (c.points | 0) : "") + "</span></div>").join("");
   }
 
   $("#pf-signout").onclick = () => window.ElementalAuth.signOut();
