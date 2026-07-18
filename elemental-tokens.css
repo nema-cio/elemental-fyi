@@ -1,0 +1,176 @@
+/* ============================================================
+   Elemental Sensemaking — design tokens
+   Six elemental palettes + shared brand tokens.
+   Each element is anchored to its site-native CORE (unchanged
+   from the existing dot palette); the expanded range is for
+   per-element pages and sections.
+   The ochre "aether bridge" (#B8923C) is shared across all six.
+   ============================================================ */
+
+:root {
+  /* ---- Shared / brand ---- */
+  --paper:        #F4F1EA;  /* warm paper base — global background */
+  --ink:          #1F2A2E;  /* default text */
+  --aether:       #B8923C;  /* ochre — the bridge, shared accent */
+  --panel:        #E8E4DC;  /* paper-dark panel */
+
+  /* ---- Stage-named neutrals (integrative: the palette is the process) ----
+     Alchemical stage names over the site's warm base. The two inks are
+     assigned by REGISTER: slate = soft mode (contemplative), nigredo =
+     hard mode (the native ground of the geometry). */
+  --albedo:       #F4F1EA;  /* the whitening — parchment ground (== --paper) */
+  --nigredo:      #16130E;  /* the blackening — warm near-black, hard-mode ground */
+  --slate:        #1F2A2E;  /* soft-mode ink (cool) — the Reader (== --ink) */
+  --ash:          #A39E92;  /* calcined — hairlines, grid lines, disabled */
+  --ash-deep:     #57534A;  /* secondary ink on albedo — captions, colophon */
+  --citrinitas:   #B8923C;  /* the yellowing — aether gold (== --aether) */
+  --citr-raised:  #D9A92E;  /* aether gold on nigredo (raised) */
+  --rubedo:       #B5512A;  /* the reddening — fire (== --fire) */
+
+  /* element CORE colors (the six dots — DO NOT change these) */
+  --air:   #A8AEB2;
+  --water: #3D5566;
+  --fire:  #B5512A;
+  --wood:  #5A6F3C;
+  --earth: #B8923C;   /* dot palette earth (== aether hue) */
+  --metal: #5C5E62;
+
+  /* operator-glyph earth (distinct, so it reads against the ochre) */
+  --earth-op: #9C7B2E;
+
+  /* ---- Type registers (four voices) ---- */
+  --font-oracle:    "Cormorant Garamond", Garamond, Georgia, serif; /* display, Greek, names */
+  --font-reader:    "EB Garamond", Garamond, Georgia, serif;        /* soft-mode body */
+  --font-architect: "Inter", system-ui, -apple-system, sans-serif;   /* hard-mode UI/data */
+  --font-scribe:    "IBM Plex Mono", ui-monospace, monospace;        /* signal, operators */
+
+  /* ---- Motion tempo grammar (from the alchemical system) ---- */
+  --t-state: 200ms;                          /* state changes */
+  --t-page:  600ms;                          /* page transitions */
+  --t-orbit: 120s;                           /* sigil rotation — one turn / two minutes */
+  --ease-precipitate: cubic-bezier(0.16, 1, 0.3, 1); /* fast out, long settle */
+
+  /* ---- The hexad / septenary geometry ---- */
+  --geo-stroke:      #A39E92;  /* ring hairline (ash) on light */
+  --geo-stroke-dark: #57534A;  /* wireframe on nigredo (ash-deep) */
+  --geo-bridge:      #B8923C;  /* inscribed hexagram (aether) */
+  --geo-weight:      0.8px;    /* hairline weight */
+}
+
+/* ============================================================
+   AIR — Aerunik · σ
+   "distinction without certainty · the cut · weak signal"
+   cadence: "contrast forming…" not "the truth is."
+   art: slate/bone linework, diagonal cuts, weak-signal dots; no clouds.
+   ============================================================ */
+.el-air, [data-element="air"] {
+  --el-core:    #A8AEB2;  /* air canonical */
+  --el-ink:     #1F2A2E;  /* primary text */
+  --el-steel:   #7E868C;  /* air steel */
+  --el-shadow:  #40484C;  /* slate shadow */
+  --el-shell:   #DED7CB;  /* bone shell */
+  --el-field:   #E0E2E0;  /* breath field */
+  --el-panel:   #E8E4DC;  /* paper-dark panel */
+  --el-paper:   #F4F1EA;  /* warm paper base */
+  --el-soft:    #B8C4C8;  /* weak signal blue */
+  --el-alert:   #A64846;  /* noise red — sparing */
+  --el-bridge:  #B8923C;  /* aether ochre bridge */
+}
+
+/* ============================================================
+   WATER — Sentaria · ρ
+   "resonance without absorption · feeling with boundary"
+   cadence: "this resonates…" not "this is true."
+   art: translucent veils, ripples not waves; no spa-cyan.
+   ============================================================ */
+.el-water, [data-element="water"] {
+  --el-core:    #3D5566;  /* sentaria core */
+  --el-ink:     #1E2D35;  /* deep current / text */
+  --el-tidal:   #5E7888;  /* tidal blue */
+  --el-glass:   #86A8B7;  /* river glass */
+  --el-veil:    #C8D8DD;  /* mist veil */
+  --el-foam:    #E8F0EF;  /* foam / panel */
+  --el-paper:   #F4F1EA;  /* warm paper base */
+  --el-pearl:   #FAF8F3;  /* pearl pause */
+  --el-shadow:  #17252B;  /* undertow shadow */
+  --el-accent:  #C99A8F;  /* shell warmth accent */
+  --el-bridge:  #B8923C;  /* ochre aether bridge */
+}
+
+/* ============================================================
+   FIRE — Jvalion · λ
+   "direction without command · controlled flame · vector, vow"
+   cadence: "vector forming…" not "you must."
+   art: ember/copper on warm paper; arrows, beacons, forge-lines.
+   ============================================================ */
+.el-fire, [data-element="fire"] {
+  --el-core:    #B5512A;  /* jvalion core */
+  --el-ink:     #2B1B16;  /* ember ink / text */
+  --el-vow:     #8F2F22;  /* vow red */
+  --el-coal:    #3A2420;  /* coal line */
+  --el-copper:  #C06A32;  /* forged copper */
+  --el-flame:   #D98A3A;  /* controlled flame */
+  --el-spark:   #F0B35A;  /* spark / signal */
+  --el-ash:     #EFE4D8;  /* hearth ash panel */
+  --el-paper:   #F4F1EA;  /* warm paper base */
+  --el-heat:    #FFF2CC;  /* white heat accent */
+  --el-bridge:  #B8923C;  /* aether ochre bridge */
+}
+
+/* ============================================================
+   WOOD — Arboriel · β
+   "possibility without sprawl · branching with constraint"
+   cadence: "one branch opening…" not "this is the story."
+   art: trellis, grafts, rings, mycelium dots; growth with structure.
+   ============================================================ */
+.el-wood, [data-element="wood"] {
+  --el-core:     #5A6F3C;  /* arboriel core */
+  --el-ink:      #1F2A2E;  /* primary text */
+  --el-moss:     #354326;  /* deep moss */
+  --el-olive:    #73834B;  /* olive branch */
+  --el-leaf:     #9AA66A;  /* new leaf */
+  --el-seedling: #C0C98A;  /* seedling light */
+  --el-bark:     #7A5B3A;  /* bark / trellis */
+  --el-panel:    #E8E4DC;  /* mycelium panel */
+  --el-paper:    #F4F1EA;  /* warm paper base */
+  --el-fruit:    #C48A5A;  /* fruiting accent */
+  --el-bridge:   #B8923C;  /* aether ochre bridge */
+}
+
+/* ============================================================
+   EARTH — Humavita · δγ
+   "capacity · compost · metabolizable ground"
+   cadence: δγ(load | release) · carry what can metabolize,
+            archive what has ended · hold / compost / release.
+   ============================================================ */
+.el-earth, [data-element="earth"] {
+  --el-core:    #B8923C;  /* earth / ochre */
+  --el-ink:     #3F352B;  /* humus (text) */
+  --el-clay:    #9A6B3A;  /* clay */
+  --el-compost: #7B6A45;  /* compost */
+  --el-loam:    #5C4632;  /* loam */
+  --el-straw:   #C8B071;  /* straw */
+  --el-bone:    #D8CCB8;  /* bone */
+  --el-sprout:  #6F7A43;  /* sprout */
+  --el-paper:   #F4F1EA;  /* warm paper */
+  --el-bridge:  #B8923C;  /* ochre */
+}
+
+/* ============================================================
+   METAL — Ferrosid · μ
+   "boundary · receipt · admissible structure"
+   cadence: μ(gate | receipt) · boundary with criteria,
+            provenance before passage · boundary without prison.
+   ============================================================ */
+.el-metal, [data-element="metal"] {
+  --el-core:    #5C5E62;  /* metal core */
+  --el-ink:     #2F3336;  /* graphite (text) */
+  --el-steel:   #7C8286;  /* steel */
+  --el-tin:     #A9ADB0;  /* tin */
+  --el-ash:     #D9D8D2;  /* ash */
+  --el-panel:   #E6E6E1;  /* panel */
+  --el-paper:   #F4F1EA;  /* warm paper */
+  --el-witness: #6E7F8D;  /* witness blue */
+  --el-flag:    #A64846;  /* red flag — sparing */
+  --el-bridge:  #B8923C;  /* ochre */
+}
