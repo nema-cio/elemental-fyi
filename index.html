@@ -7,12 +7,14 @@
 <meta name="description" content="A living instrument for noticing what moves through you — and what moves you.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="elemental-tokens.css">
+<link rel="stylesheet" href="assets/ledger.css">
 <style>
   :root{
-    --paper:#F4F1EA; --ink:#1F2A2E; --ochre:#B8923C;
-    --c-air:#A8AEB2; --c-water:#3D5566; --c-fire:#B5512A;
-    --c-wood:#5A6F3C; --c-earth:#B8923C; --c-metal:#5C5E62;
+    --paper:var(--albedo); --ink:var(--slate); --ochre:var(--citrinitas);
+    --c-air:var(--air); --c-water:var(--water); --c-fire:var(--fire);
+    --c-wood:var(--wood); --c-earth:var(--earth); --c-metal:var(--metal);
     --measure:620px; --body:19px; --line:1.65;
   }
   *{box-sizing:border-box}
@@ -23,9 +25,6 @@
   /* Hero: the sphere is the background; the headline floats over it */
   .hero{position:relative;height:100vh;min-height:560px;overflow:hidden;text-align:center}
   #sphere{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:default}
-  .hero .veil{position:absolute;inset:0;background:
-    radial-gradient(ellipse 60% 50% at 50% 50%, rgba(244,241,234,0) 0%, rgba(244,241,234,.35) 70%, rgba(244,241,234,.7) 100%);
-    pointer-events:none}
   .hero-title{position:absolute;top:10vh;left:50%;transform:translateX(-50%);width:100%;padding:0 28px;
     font-family:"Cormorant Garamond",serif;font-weight:400;font-size:calc(var(--body)*2.6);
     line-height:1.16;letter-spacing:-.005em;margin:0;pointer-events:none}
@@ -39,17 +38,14 @@
     opacity:.45;font-style:italic}
 
   /* Element panel — appears when a node is chosen; the sphere holds still to be looked at.
-     A semi-translucent card, tinted by the chosen element's colour (--el, set in JS). */
+     A keyline card on the parchment ground, its edge in the chosen element's colour
+     (--el, set in JS). Color arrives by a cut, not a blend — no tint, no glow. */
   .el-panel{position:absolute;top:56%;left:50%;transform:translateX(-50%) translateY(12px);width:100%;
     max-width:460px;padding:1.7em 1.9em;opacity:0;visibility:hidden;pointer-events:none;
     --el:var(--ochre);
-    background:color-mix(in srgb, var(--el) 12%, rgba(244,241,234,.86));
-    border:1px solid color-mix(in srgb, var(--el) 55%, transparent);
-    box-shadow:0 10px 34px color-mix(in srgb, var(--el) 22%, transparent), 0 2px 8px rgba(31,42,46,.06);
-    -webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);
-    transition:opacity .4s ease, transform .4s ease}
-  @supports not (background:color-mix(in srgb, red, blue)){
-    .el-panel{background:rgba(244,241,234,.9);border:1px solid rgba(31,42,46,.2)}}
+    background:var(--paper);
+    border:1px solid var(--el);
+    transition:opacity 320ms var(--ease-precipitate), transform 320ms var(--ease-precipitate)}
   .el-panel.open{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0)}
   .el-panel .glyph{font-family:"Cormorant Garamond",serif;font-size:calc(var(--body)*2.2);line-height:1;
     margin:0 0 .15em}
@@ -87,7 +83,7 @@
   .journey a{color:var(--ochre);text-decoration:none;border-bottom:1px solid rgba(184,146,60,.5)}
   .journey a:hover{color:var(--ink);border-bottom-color:var(--ink)}
   .journey .soon{font-size:.82em;font-style:italic;opacity:.6;border:1px solid rgba(31,42,46,.18);
-    border-radius:9px;padding:0 .5em;margin-left:.4em;white-space:nowrap}
+    padding:0 .5em;margin-left:.4em;white-space:nowrap}
 
   .door2{text-align:center;padding-bottom:14vh}
   .door2 a{font-family:"EB Garamond",serif;font-style:italic;font-size:calc(var(--body)*1.18);
@@ -102,10 +98,27 @@
 </style>
 </head>
 <body>
+<nav class="ledger">
+  <div class="ledger-inner">
+    <a class="home" href="index.html">
+      <span class="star">✶</span>
+      <span>Elemental</span>
+      <span class="dots">
+        <i style="background:var(--air)"></i><i style="background:var(--water)"></i><i style="background:var(--fire)"></i><i style="background:var(--wood)"></i><i style="background:var(--earth)"></i><i style="background:var(--metal)"></i>
+      </span>
+    </a>
+    <div class="ledger-links">
+      <a href="six-angles.html">six ways</a>
+      <a href="nema-practice.html">practice</a>
+      <a href="guides.html">guides</a>
+      <a href="posts/">readings</a>
+      <a href="operators.html">architecture</a>
+    </div>
+  </div>
+</nav>
 
 <section class="hero">
   <canvas id="sphere" aria-label="The six elements in rotation — choose one to hold it still"></canvas>
-  <div class="veil" aria-hidden="true"></div>
   <h1 class="hero-title">Patterns are alive<span class="star">.</span></h1>
   <div class="hero-below" id="hero-below">
     <p class="sub">A living instrument for noticing what moves through you — and what moves you.</p>
@@ -188,7 +201,7 @@
     {c:C.fire, p:[0,0,1],  op:'λ',  el:'Fire',  who:'Jvalion',
      blurb:'Direction. Fire is the vector — commitment, ignition, the future you are actually aiming at rather than the one you describe. It asks what you are prepared to burn for the crossing.',
      href:'guides/jvalion.html'},
-    {c:C.earth,p:[0,0,-1], op:'δγ', el:'Earth', who:'Humavita',
+    {c:C.earth,p:[0,0,-1], op:'δγ', opc:'#9C7B2E', el:'Earth', who:'Humavita',
      blurb:'Metabolism. Earth grounds and composts — the fatigue you have been carrying, the load that will not break down on its own, the slow turning of spent material into soil. Consequence lives here.',
      href:'guides/humavita.html'}
   ];
@@ -253,9 +266,10 @@
         ctx.beginPath();ctx.arc(p[0],p[1],r+12,0,7);ctx.fill(); }
       if(isSel){ ctx.globalAlpha=0.9; ctx.strokeStyle=N[i].c; ctx.lineWidth=1.4;
         ctx.beginPath();ctx.arc(p[0],p[1],r+9,0,7);ctx.stroke(); }
-      // the notation, riding beside its node — depth-faded like the node itself
+      // the notation, riding beside its node — depth-faded like the node itself.
+      // Earth's operator glyph uses --earth-op so δγ reads against the ochre dot.
       ctx.globalAlpha=(0.5+0.5*d)*(isSel?1:0.92);
-      ctx.fillStyle=N[i].c;
+      ctx.fillStyle=N[i].opc||N[i].c;
       ctx.font=(isSel?500:400)+' '+Math.round(15+9*d+(isSel?3:0))+'px "Cormorant Garamond",serif';
       ctx.textAlign='left'; ctx.textBaseline='middle';
       ctx.fillText(N[i].op, p[0]+r+9, p[1]-1);
@@ -282,7 +296,7 @@
     selected=i; frozen=true;
     panel.style.setProperty('--el', N[i].c);   // tint the card by this element's colour
     document.getElementById('el-glyph').textContent=N[i].op;
-    document.getElementById('el-glyph').style.color=N[i].c;
+    document.getElementById('el-glyph').style.color=N[i].opc||N[i].c;
     document.getElementById('el-name').innerHTML=N[i].el+' <span class="who">— kept by '+N[i].who+'</span>';
     document.getElementById('el-blurb').textContent=N[i].blurb;
     var more=document.getElementById('el-more');
