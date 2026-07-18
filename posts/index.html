@@ -6,8 +6,9 @@
 <title>Readings — Elemental Sensemaking</title>
 <meta name="description" content="Reflective readings — real, cited accounts of inner movements, read by the elemental guides.">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../elemental-tokens.css">
 <style>
-  :root { --paper:#F4F1EA; --ink:#1F2A2E; --ochre:#B8923C; }
+  :root { --paper:var(--albedo); --ink:var(--slate); --ochre:var(--citrinitas); }
   * { box-sizing:border-box; }
   html,body { margin:0; background:var(--paper); color:var(--ink); }
   body { font-family:"EB Garamond",Garamond,Georgia,serif; font-size:19px; line-height:1.6; }
@@ -15,8 +16,11 @@
   h1 { font-family:"Cormorant Garamond","EB Garamond",serif; font-weight:400; font-size:2.2em; margin:0 0 0.2em; }
   .lede { font-style:italic; opacity:0.75; margin:0 0 2.4em; }
   h2 { font-family:"Cormorant Garamond",serif; font-weight:500; font-size:1.3em; margin:2.4em 0 0.4em; opacity:0.8; }
-  ul { list-style:none; margin:0; padding:0; }
-  li { padding:0.9em 0; border-top:1px solid rgba(31,42,46,0.12); }
+  /* Keyline entries — hairline rows, hover is an ochre wash + shift */
+  ul { list-style:none; margin:0; padding:0; border-top:1px solid var(--ash); }
+  li { padding:0.9em 6px; border-bottom:1px solid var(--ash);
+    transition:background var(--t-state) var(--ease-precipitate), padding-left var(--t-state) var(--ease-precipitate); }
+  li:hover { background:rgba(184,146,60,0.05); padding-left:12px; }
   li a { font-family:"Cormorant Garamond","EB Garamond",serif; font-size:1.25em; color:var(--ink); text-decoration:none; }
   li a:hover { color:var(--ochre); }
   .meta { font-size:0.86em; opacity:0.62; margin-top:0.2em; }
