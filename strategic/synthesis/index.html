@@ -4,19 +4,21 @@
 <title>Sunday syntheses</title>
 <meta name="description" content="Weekly Aether readings across every completed strategic relay.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../elemental-tokens.css">
 <style>
-  :root{--paper:#F4F1EA;--ink:#1F2A2E;--ochre:#B8923C;--measure:660px;--body:19px;--line:1.6}
+  /* Hard mode — the weave is part of the lab: nigredo ground, albedo ink. */
+  :root{--paper:var(--nigredo);--ink:var(--albedo);--ochre:var(--citr-raised);--measure:660px;--body:17px;--line:1.62}
   *{box-sizing:border-box}html,body{margin:0;padding:0;background:var(--paper);color:var(--ink)}
-  body{font-family:"EB Garamond",Garamond,Georgia,serif;font-size:var(--body);line-height:var(--line);-webkit-font-smoothing:antialiased}
+  body{font-family:var(--font-architect);font-size:var(--body);line-height:var(--line);-webkit-font-smoothing:antialiased}
   main{max-width:var(--measure);margin:0 auto;padding:0 28px 6vh}
   .back{position:absolute;top:28px;left:28px;font-style:italic;font-size:15px;color:var(--ochre);text-decoration:none}
   .floret{display:flex;justify-content:center;align-items:center;gap:12px;padding-top:36px;font-family:"Cormorant Garamond",serif;font-size:22px;opacity:.85;text-decoration:none;color:var(--ink)}
   .floret .star{color:var(--ochre);font-size:16px}.floret .it{font-style:italic}
   h1{font-family:"Cormorant Garamond",serif;font-weight:400;text-align:center;font-size:2em;margin:5vh 0 .2em}
   .window{text-align:center;font-style:italic;opacity:.65;margin:0 0 5vh}
-  h2{font-family:"Cormorant Garamond",serif;font-weight:500;font-size:1.25em;margin:4vh 0 .6em;border-top:1px solid rgba(31,42,46,.1);padding-top:4vh}
-  .phi{font-family:"SFMono-Regular",Menlo,Consolas,monospace;font-size:.78em;opacity:.75;word-break:break-word}
+  h2{font-family:"Cormorant Garamond",serif;font-weight:500;font-size:1.25em;margin:4vh 0 .6em;border-top:1px solid rgba(244,241,234,.12);padding-top:4vh}
+  .phi{font-family:var(--font-scribe);font-size:.78em;opacity:.75;word-break:break-word}
   .relay{margin:0 0 2.2em}
   .relay .rt{font-style:italic}
   .quote{border-left:2px solid var(--ochre);padding:.1em 0 .1em 1em;margin:1.2em 0;opacity:.92}
@@ -24,7 +26,7 @@
   table{border-collapse:collapse;margin:1em auto;font-size:.92em}
   td,th{padding:.25em .8em;text-align:center}th{font-weight:500;opacity:.7}
   td.el{text-align:left;opacity:.85}
-  .aether{background:rgba(184,146,60,.08);border:1px solid rgba(184,146,60,.35);padding:1.2em 1.4em;margin:2em 0;font-style:italic}
+  .aether{background:rgba(217,169,46,.07);border:1px solid rgba(217,169,46,.35);padding:1.2em 1.4em;margin:2em 0;font-style:italic}
   .aether .mark{font-style:normal;font-size:.8em;letter-spacing:.08em;color:var(--ochre)}
   .quiet{text-align:center;font-style:italic;opacity:.6;margin:8vh 0}
   footer{text-align:center;padding:6vh 28px 8vh;font-size:14px;opacity:.55}

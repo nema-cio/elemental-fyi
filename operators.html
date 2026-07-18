@@ -7,22 +7,29 @@
 <meta name="description" content="Operators, formalism, SIML. The technical room beneath the Elementals.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="elemental-tokens.css">
+<link rel="stylesheet" href="assets/ledger.css">
 <style>
+  /* Hard mode — the architecture is the native dark ground of the geometry.
+     Same token set as upstairs; the registers swap: nigredo ground, albedo ink,
+     raised gold accent, Inter body (the Architect), Plex Mono signal. */
   :root {
-    --paper: #F4F1EA;
-    --ink: #1F2A2E;
-    --ochre: #B8923C;
+    --paper: var(--nigredo);
+    --ink: var(--albedo);
+    --ochre: var(--citr-raised);
 
-    --c-air:   #A8AEB2;
-    --c-water: #3D5566;
-    --c-fire:  #B5512A;
-    --c-wood:  #5A6F3C;
-    --c-earth: #B8923C;
-    --c-metal: #5C5E62;
+    --c-air:   var(--air);
+    --c-water: var(--water);
+    --c-fire:  var(--fire);
+    --c-wood:  var(--wood);
+    --c-earth: var(--earth);
+    --c-metal: var(--metal);
+
+    --hairline: rgba(244, 241, 234, 0.12);
 
     --measure: 680px;
-    --body-size: 18px;
+    --body-size: 17px;
     --line: 1.62;
   }
 
@@ -36,7 +43,7 @@
   }
 
   body {
-    font-family: "EB Garamond", Garamond, "Source Serif Pro", Georgia, serif;
+    font-family: var(--font-architect);
     font-size: var(--body-size);
     line-height: var(--line);
     font-weight: 400;
@@ -150,13 +157,13 @@
   }
   table.ops thead th {
     text-align: left;
-    font-family: "EB Garamond", serif;
+    font-family: var(--font-scribe);
     font-weight: 500;
-    font-variant: small-caps;
-    letter-spacing: 0.08em;
-    font-size: 0.82em;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.68em;
     color: var(--ink);
-    padding: 0.65em 0.7em;
+    padding: 0.85em 0.7em;
     border-top: 1px solid var(--ochre);
     border-bottom: 1px solid var(--ochre);
     opacity: 0.85;
@@ -164,7 +171,7 @@
   table.ops tbody td {
     padding: 0.85em 0.7em;
     vertical-align: top;
-    border-bottom: 1px solid rgba(31, 42, 46, 0.08);
+    border-bottom: 1px solid var(--hairline);
   }
   table.ops tbody tr:last-child td {
     border-bottom: none;
@@ -180,7 +187,8 @@
     white-space: nowrap;
   }
   table.ops .op-name .greek {
-    font-style: italic;
+    font-family: var(--font-scribe);
+    font-size: 0.92em;
     color: var(--ink);
     opacity: 0.75;
     margin-left: 0.35em;
@@ -230,7 +238,7 @@
   .inline-refs a {
     color: var(--ink);
     text-decoration: none;
-    border-bottom: 1px solid rgba(31, 42, 46, 0.35);
+    border-bottom: 1px solid rgba(244, 241, 234, 0.35);
     padding-bottom: 1px;
   }
   .inline-refs a:hover {
@@ -445,7 +453,7 @@
     bottom: 18px;
     right: 18px;
     background: var(--paper);
-    border: 1px solid rgba(31, 42, 46, 0.18);
+    border: 1px solid var(--hairline);
     color: var(--ink);
     font-family: "EB Garamond", serif;
     font-style: italic;
@@ -466,7 +474,7 @@
       right: 64px;
       width: auto;
       background: var(--paper);
-      border: 1px solid rgba(31, 42, 46, 0.18);
+      border: 1px solid var(--hairline);
       padding: 14px 16px;
       border-radius: 6px;
       transform: translateY(120%);
@@ -507,6 +515,24 @@
 </style>
 </head>
 <body>
+<nav class="ledger ledger--dark">
+  <div class="ledger-inner">
+    <a class="home" href="index.html">
+      <span class="star">✶</span>
+      <span>Elemental</span>
+      <span class="dots">
+        <i style="background:var(--air)"></i><i style="background:var(--water)"></i><i style="background:var(--fire)"></i><i style="background:var(--wood)"></i><i style="background:var(--earth)"></i><i style="background:var(--metal)"></i>
+      </span>
+    </a>
+    <div class="ledger-links">
+      <a href="six-angles.html">six ways</a>
+      <a href="nema-practice.html">practice</a>
+      <a href="guides.html">guides</a>
+      <a href="posts/">readings</a>
+      <a href="operators.html">architecture</a>
+    </div>
+  </div>
+</nav>
 
 <a href="guides.html" class="back" rel="prev">← back</a>
 

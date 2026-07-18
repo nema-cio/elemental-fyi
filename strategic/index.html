@@ -7,7 +7,7 @@
 <meta name="description" content="Read a decision, a situation, a strategy — one lens at a time. Start with the element that fits what you're reading; it hands a nemetic.φ forward through all six, to a synthesis at the end.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="strategic.css">
 <style>
   :root { --accent: var(--ochre); }
@@ -16,9 +16,9 @@
   .relay-door {
     display: grid; grid-template-columns: 1.7em 1fr; gap: 0 1em; align-items: baseline;
     text-decoration: none; color: var(--ink); padding: 1.15em 0;
-    border-top: 1px solid rgba(31, 42, 46, 0.14); transition: padding-left 0.15s ease;
+    border-top: 1px solid var(--hairline); transition: padding-left 0.15s ease;
   }
-  .relay-door:last-child { border-bottom: 1px solid rgba(31, 42, 46, 0.14); }
+  .relay-door:last-child { border-bottom: 1px solid var(--hairline); }
   .relay-door:hover { padding-left: 10px; }
   .rd-glyph { font-family: "Cormorant Garamond", serif; font-size: 1.7em; line-height: 1; color: var(--accent); }
   .rd-body { display: flex; flex-direction: column; gap: 0.18em; }

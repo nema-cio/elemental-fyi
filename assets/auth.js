@@ -24,9 +24,10 @@ if (!cfg || !cfg.url) {
   const css = document.createElement("style");
   css.textContent =
     '.es-auth{position:fixed;top:16px;right:20px;z-index:60;font-family:"EB Garamond",Garamond,Georgia,serif;font-size:15px;text-align:right}' +
+    "body:has(.ledger) .es-auth{top:58px}" +
     ".es-auth a,.es-auth button{font-family:inherit;font-size:inherit;font-style:italic;color:#B8923C;background:none;border:0;border-bottom:1px solid rgba(184,146,60,.55);padding:0 0 1px;cursor:pointer;text-decoration:none}" +
-    ".es-auth a:hover,.es-auth button:hover{color:#1F2A2E;border-bottom-color:#1F2A2E}" +
-    ".es-auth .who{font-style:italic;opacity:.62;color:#1F2A2E;margin-right:.7em;border:0}" +
+    ".es-auth a:hover,.es-auth button:hover{color:inherit;border-bottom-color:currentColor}" +
+    ".es-auth .who{font-style:italic;opacity:.62;color:inherit;margin-right:.7em;border:0}" +
     ".es-auth-panel{display:none;margin-top:.6em;background:#F4F1EA;border:1px solid rgba(31,42,46,.18);padding:1em 1.1em;width:min(300px,86vw);box-shadow:0 6px 24px rgba(31,42,46,.08);text-align:left}" +
     ".es-auth-panel.open{display:block}" +
     ".es-auth-panel p{margin:0 0 .7em;font-size:.92em;line-height:1.5;color:#1F2A2E}" +
