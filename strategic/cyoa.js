@@ -47,6 +47,29 @@ window.CYOA = (function () {
   };
   const DISCORD_INVITE = "https://discord.gg/uBSMGS7Hzr";
 
+  // Optional context the reader can name before the walk. Both are deliberately ORTHOGONAL to
+  // the taxonomy (sub-domain → facet → stance) the element is about to walk — they say where the
+  // situation sits and what shape it has, which the tree never asks and the guide can't infer.
+  // SCOPE follows the framework's nested habitats; TURNING uses the site's own vocabulary
+  // ("a decision, a season, a stuck place" — accounts).
+  const SCOPES = [
+    "just me", "me and one other", "a team or group",
+    "an organization", "a field or community", "something in the world"
+  ];
+  const TURNINGS = [
+    "a decision I'm facing", "a stuck place", "a conflict",
+    "a transition or ending", "something I'm watching unfold", "not sure yet"
+  ];
+
+  // The relay session carries ONE free field (`title`) end to end, so scope and turning are
+  // folded into it — otherwise they'd be lost the moment the next element picks the reading up.
+  function composeTitle(text, scope, turning) {
+    const qualifiers = [turning, scope].filter(Boolean).join(" · ");
+    text = (text || "").trim();
+    if (text && qualifiers) return text + " (" + qualifiers + ")";
+    return text || qualifiers;
+  }
+
   let TAX = null;
   const taxonomy = () => fetch("taxonomy.json").then(r => r.json()).then(t => (TAX = t));
   const elementByName = name => TAX.elements.find(e => e.element === name);
@@ -214,7 +237,7 @@ window.CYOA = (function () {
       }
 
       const TEXTAREA_STYLE = "width:100%;background:transparent;color:var(--ink);border:0;" +
-        "border-bottom:1px solid rgba(31,42,46,0.28);padding:0.4em 0.55em;font-family:'SFMono-Regular','Menlo',monospace;" +
+        "border-bottom:1px solid var(--hairline);padding:0.4em 0.55em;font-family:var(--font-scribe);" +
         "font-size:0.82em;line-height:1.5;resize:vertical;min-height:6.5em;";
 
       // φ + (chain) + the "take it deeper" GPT door + the paste-back field. On paste-back →
@@ -245,10 +268,10 @@ window.CYOA = (function () {
           '<textarea id="enrich-box" rows="6" placeholder="the ─── CARRY FORWARD ─── block ' + El + ' ended with…" style="' + TEXTAREA_STYLE + '"></textarea>' +
           '<label for="enrich-email" style="display:block;font-style:italic;margin:1.6em 0 0.4em;">Where should we send your way back?</label>' +
           '<p style="font-size:0.84em;opacity:0.7;margin:0 0 0.6em;">Optional, but recommended — it’s how you find your way back to continue, and where a link will reach you.</p>' +
-          '<input type="email" id="enrich-email" placeholder="you@somewhere" style="width:100%;background:transparent;border:0;border-bottom:1px solid rgba(31,42,46,0.28);padding:0.4em 0.55em;font-family:inherit;font-size:1em;color:var(--ink);">' +
+          '<input type="email" id="enrich-email" placeholder="you@somewhere" style="width:100%;background:transparent;border:0;border-bottom:1px solid var(--hairline);padding:0.4em 0.55em;font-family:inherit;font-size:1em;color:var(--ink);">' +
           '<label for="enrich-discord" style="display:block;font-style:italic;margin:1.4em 0 0.4em;">Your Discord name, if you have one there</label>' +
           '<p style="font-size:0.84em;opacity:0.7;margin:0 0 0.6em;">Optional — it’s how the community tally knows who carried this reading. Never shown publicly.</p>' +
-          '<input type="text" id="enrich-discord" placeholder="yourhandle" maxlength="60" autocomplete="off" style="width:100%;background:transparent;border:0;border-bottom:1px solid rgba(31,42,46,0.28);padding:0.4em 0.55em;font-family:inherit;font-size:1em;color:var(--ink);">' +
+          '<input type="text" id="enrich-discord" placeholder="yourhandle" maxlength="60" autocomplete="off" style="width:100%;background:transparent;border:0;border-bottom:1px solid var(--hairline);padding:0.4em 0.55em;font-family:inherit;font-size:1em;color:var(--ink);">' +
           '<label for="enrich-share" style="display:flex;gap:0.6em;align-items:flex-start;font-style:normal;cursor:pointer;margin:1.8em 0 0;">' +
           '<input type="checkbox" id="enrich-share" style="margin-top:0.4em;">' +
           '<span style="font-size:0.9em;opacity:0.82;">Include <em>your own words</em> when ' + El + ' voices the handoff in the community Discord. <em>Off by default: the reading still travels — the handoff posts either way — but what you wrote stays private.</em></span></label>' +
@@ -353,19 +376,28 @@ window.CYOA = (function () {
           onComplete: (entry, sessionId, order, chain, title) => showResolve(entry, sessionId, order, chain, title)
         });
       } else {
-        var HINT_REST = "A short label, just so you and the guide know what you’re reading — it travels with the reading, into each element and the handoff.";
+        var HINT_REST = "A short label and, if it helps, where this sits and what shape it has — all optional. Whatever you give travels with the reading, into each element and the handoff.";
+        var optionTags = list => list.map(v => '<option value="' + esc(v) + '">' + esc(v) + "</option>").join("");
         intro.innerHTML =
-          '<div style="padding:1vh 0 5vh;">' +
-          '<label for="title" style="display:block;font-style:italic;margin:0 0 0.7em;">Name the situation <span style="opacity:0.55;">(optional)</span></label>' +
-          '<input type="text" id="title" placeholder="the strategy or situation you\'re reading" autocomplete="off" ' +
-          'style="width:100%;background:transparent;border:0;border-bottom:1px solid rgba(31,42,46,0.28);padding:0.4em 0.55em;font-family:inherit;font-size:1em;color:var(--ink);">' +
-          '<p id="title-hint" style="font-size:0.85em;line-height:1.45;font-style:italic;opacity:0.6;margin:0.7em 0 0;transition:opacity 0.15s,color 0.15s;">' + HINT_REST + '</p>' +
+          '<div class="sit-block">' +
+          '<label class="sit-label" for="title">Name the situation <span class="opt">(optional)</span></label>' +
+          '<input class="sit-input" type="text" id="title" placeholder="the strategy or situation you\'re reading" autocomplete="off">' +
+          '<div class="sit-pair">' +
+            '<div><label class="sit-label" for="sit-scope">Where is this happening? <span class="opt">(optional)</span></label>' +
+            '<span class="sit-select-wrap"><select class="sit-select" id="sit-scope">' +
+            '<option value="">—</option>' + optionTags(SCOPES) + "</select></span></div>" +
+            '<div><label class="sit-label" for="sit-turning">What kind of turning is this? <span class="opt">(optional)</span></label>' +
+            '<span class="sit-select-wrap"><select class="sit-select" id="sit-turning">' +
+            '<option value="">—</option>' + optionTags(TURNINGS) + "</select></span></div>" +
+          "</div>" +
+          '<p id="title-hint" class="sit-hint">' + HINT_REST + "</p>" +
           '<p style="margin:2.2em 0 0;"><button type="button" id="begin" class="door-link" style="background:none;border:0;border-bottom:1px solid var(--accent);cursor:pointer;"><em>Begin with ' + El + ' →</em></button></p></div>';
         intro.hidden = false;
-        var titleEl = q("#title"), titleHint = q("#title-hint");
-        // live affordance — once they name it, confirm it will be carried, not lost
-        titleEl.addEventListener("input", function () {
-          var v = titleEl.value.trim();
+        var titleEl = q("#title"), titleHint = q("#title-hint"),
+            scopeEl = q("#sit-scope"), turnEl = q("#sit-turning");
+        // live affordance — once they name it, confirm what will be carried, not lost
+        function reflect() {
+          var v = composeTitle(titleEl.value, scopeEl.value, turnEl.value);
           if (v) {
             titleHint.innerHTML = "✓ Noted — “" + esc(v) + "” carries through your reading, into each element and the guide handoff.";
             titleHint.style.color = "var(--accent)"; titleHint.style.opacity = "0.95"; titleHint.style.fontStyle = "normal";
@@ -373,9 +405,12 @@ window.CYOA = (function () {
             titleHint.textContent = HINT_REST;
             titleHint.style.color = ""; titleHint.style.opacity = "0.6"; titleHint.style.fontStyle = "italic";
           }
-        });
+        }
+        titleEl.addEventListener("input", reflect);
+        scopeEl.addEventListener("change", reflect);
+        turnEl.addEventListener("change", reflect);
         q("#begin").addEventListener("click", () => {
-          const title = (titleEl.value || "").trim();
+          const title = composeTitle(titleEl.value, scopeEl.value, turnEl.value);
           // keep the named situation on screen as the reading proceeds — proof it carried over
           intro.innerHTML = title
             ? '<p style="font-size:0.86em;font-style:italic;opacity:0.72;margin:0 0 1.6em;border-left:2px solid var(--accent);padding-left:0.8em;">reading: ' + esc(title) + '</p>'

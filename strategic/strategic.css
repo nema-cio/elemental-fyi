@@ -155,6 +155,34 @@ main { max-width: var(--measure); margin: 0 auto; padding: 0 28px; }
   white-space: pre-wrap;
 }
 
+/* ── Naming the situation — optional context that travels with the reading.
+   Selects are stripped to the site's keyline language: square, transparent,
+   one hairline underline, caret as text so it inherits the ink. ── */
+.sit-block { padding: 1vh 0 5vh; }
+.sit-label { display: block; font-style: italic; margin: 0 0 0.7em; }
+.sit-label .opt { opacity: 0.55; }
+.sit-input, .sit-select {
+  width: 100%; background: transparent; color: var(--ink);
+  border: 0; border-bottom: 1px solid var(--hairline); border-radius: 0;
+  padding: 0.4em 0.55em; font-family: inherit; font-size: 1em;
+  transition: border-color var(--t-state) var(--ease-precipitate);
+}
+.sit-input:focus, .sit-select:focus { outline: none; border-bottom-color: var(--accent); }
+.sit-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 1.7em 1.8em; margin-top: 2.1em; }
+/* keep both selects on one line even when one label wraps */
+.sit-pair > div { display: flex; flex-direction: column; justify-content: space-between; }
+.sit-select-wrap { position: relative; display: block; }
+.sit-select { appearance: none; -webkit-appearance: none; padding-right: 1.7em; cursor: pointer; }
+.sit-select option { background: var(--paper); color: var(--ink); }
+.sit-select-wrap::after {
+  content: "▾"; position: absolute; right: 0.5em; top: 50%; transform: translateY(-50%);
+  pointer-events: none; color: var(--ash); font-size: 0.85em;
+}
+.sit-hint {
+  font-size: 0.85em; line-height: 1.45; font-style: italic; opacity: 0.6; margin: 1.5em 0 0;
+  transition: opacity var(--t-state), color var(--t-state);
+}
+
 .honest {
   font-style: italic; margin: 6vh 0 0; padding: 0 0 0 22px;
   border-left: 2px solid var(--ochre); max-width: 560px;
@@ -172,4 +200,5 @@ footer a:hover { color: var(--ochre); border-bottom-color: var(--ochre); }
   .back { top: 20px; left: 22px; }
   .head { padding-top: 6vh; }
   .head h1 { font-size: calc(var(--body-size) * 1.8); }
+  .sit-pair { grid-template-columns: 1fr; gap: 1.6em; }
 }
