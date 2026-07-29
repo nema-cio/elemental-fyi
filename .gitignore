@@ -1,0 +1,6 @@
+# macOS
+.DS_Store
+._*
+
+# Local design-handoff bundles (reference only — never served)
+Elementals.fyi.zip
