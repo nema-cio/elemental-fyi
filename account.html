@@ -110,7 +110,7 @@
   </div>
 </main>
 
-<footer><a href="strategic/index.html">Begin a reading →</a></footer>
+<footer><a href="relay/index.html">Begin a reading →</a></footer>
 
 <script src="assets/supabase-config.js"></script>
 <script type="module" src="assets/auth.js"></script>
@@ -221,7 +221,7 @@ async function showSignedIn(){
 
   const box = $("#readings");
   if (!rs.length) {
-    box.innerHTML = '<p class="quiet">No readings kept yet. Complete a leaf of a <a href="strategic/index.html" style="color:var(--ochre)">strategic reading</a> while signed in and it stays here.</p>';
+    box.innerHTML = '<p class="quiet">No readings kept yet. Complete a leaf of a <a href="relay/index.html" style="color:var(--ochre)">relay reading</a> while signed in and it stays here.</p>';
   } else {
     box.innerHTML = "";
     for (const r of rs) {
@@ -242,11 +242,11 @@ async function showSignedIn(){
           } else if (String(s.status).indexOf("awaiting:") === 0) {
             const next = s.status.split(":")[1];
             st.innerHTML = "waiting for <strong>" + esc(next) + "</strong> — " +
-              '<a href="strategic/' + (PAGE[next] || "index.html") + "?s=" + encodeURIComponent(r.session_id) + '">continue the reading →</a>';
+              '<a href="relay/' + (PAGE[next] || "index.html") + "?s=" + encodeURIComponent(r.session_id) + '">continue the reading →</a>';
           } else if (String(s.status).indexOf("enriching:") === 0) {
             const cur = s.status.split(":")[1];
             st.innerHTML = "with <strong>" + esc(cur) + "</strong> now — paste its carry-forward back " +
-              '<a href="strategic/' + (PAGE[cur] || "index.html") + "?s=" + encodeURIComponent(r.session_id) + '">where you left off →</a>';
+              '<a href="relay/' + (PAGE[cur] || "index.html") + "?s=" + encodeURIComponent(r.session_id) + '">where you left off →</a>';
           } else { st.textContent = String(s.status || ""); }
         }).catch(() => { el.querySelector(".st").textContent = "relay state unavailable"; });
     }
