@@ -58,6 +58,95 @@
 }
 
 /* ============================================================
+   THEME × REGISTER
+   ------------------------------------------------------------
+   Two independent axes:
+     REGISTER (per page, data-register)  soft = the Reader's descent
+                                         hard = the Architect's instrument
+     THEME    (per visitor, data-theme)  light | dark
+   The register is NOT the theme. Ground colour is only one of the ways a
+   register speaks — it also carries through type (Reader serif vs Architect
+   sans), accent (citrinitas vs raised gold) and density. So the theme may
+   flip the ground while the register survives: HARD IS ALWAYS DEEPER THAN
+   SOFT, in both themes. In dark, soft lifts to a warm reading ground and
+   hard keeps canonical nigredo — so the lab still sits below the descent.
+   ============================================================ */
+:root {
+  color-scheme: light;
+
+  --ground-soft:   var(--albedo);
+  --ground-hard:   var(--nigredo);
+  --ink-soft:      var(--slate);
+  --ink-hard:      var(--albedo);
+  --accent-soft:   var(--citrinitas);
+  --accent-hard:   var(--citr-raised);
+  --panel-soft:    #E8E4DC;
+  --panel-hard:    #221D16;
+  --rule-soft:     rgba(31, 42, 46, 0.14);
+  --rule-hard:     rgba(244, 241, 234, 0.14);
+  --wash-soft:     rgba(31, 42, 46, 0.05);
+  --wash-hard:     rgba(244, 241, 234, 0.06);
+
+  /* Bare channels, so existing rgba(…, α) values keep their own alpha while the colour
+     follows the theme: rgba(var(--ink-rgb), 0.14) rather than a fixed slate. */
+  --ink-rgb-soft:    31, 42, 46;
+  --ink-rgb-hard:    244, 241, 234;
+  --accent-rgb-soft: 184, 146, 60;
+  --accent-rgb-hard: 217, 169, 46;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* The Reader at night — lifted clear of nigredo so the descent still reads ABOVE the lab.
+     The gap is deliberate and must stay perceptible: a step, not a blend. Soft rgb(36,31,24)
+     against hard rgb(22,19,14) is ~14 points — a cut you can see without it turning grey. */
+  --ground-soft:   #241F18;
+  --ink-soft:      #E4DFD4;   /* warm off-white; softer than albedo to cut glare */
+  --accent-soft:   var(--citr-raised);
+  --panel-soft:    #2E2820;
+  --rule-soft:     rgba(228, 223, 212, 0.14);
+  --wash-soft:     rgba(228, 223, 212, 0.06);
+  --ink-rgb-soft:    228, 223, 212;
+  --accent-rgb-soft: 217, 169, 46;
+
+  /* hard mode is unchanged — nigredo is its native ground in either theme */
+  --ash:           #8A857A;   /* hairlines need to lift a little on dark */
+}
+
+/* Resolved per page. Soft is the default; a page declares itself hard. */
+:root {
+  --ground: var(--ground-soft);
+  --ink-on: var(--ink-soft);
+  --accent-on: var(--accent-soft);
+  --panel-on: var(--panel-soft);
+  --rule: var(--rule-soft);
+  --wash: var(--wash-soft);
+  --ink-rgb: var(--ink-rgb-soft);
+  --accent-rgb: var(--accent-rgb-soft);
+}
+:root[data-register="hard"] {
+  --ground: var(--ground-hard);
+  --ink-on: var(--ink-hard);
+  --accent-on: var(--accent-hard);
+  --panel-on: var(--panel-hard);
+  --rule: var(--rule-hard);
+  --wash: var(--wash-hard);
+  --ink-rgb: var(--ink-rgb-hard);
+  --accent-rgb: var(--accent-rgb-hard);
+}
+
+/* Legacy aliases: pages written before the theme layer keep working. */
+:root {
+  --paper: var(--ground);
+  --ink:   var(--ink-on);
+  --panel: var(--panel-on);
+}
+
+/* The geometry line follows the ink so canvas/SVG marks stay legible. */
+:root { --geo-line: var(--rule); }
+
+/* ============================================================
    AIR — Aerunik · σ
    "distinction without certainty · the cut · weak signal"
    cadence: "contrast forming…" not "the truth is."

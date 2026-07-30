@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-register="soft">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,9 +9,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../elemental-tokens.css">
+<script src="../../assets/theme.js"></script>
 <link rel="stylesheet" href="../../assets/ledger.css">
 <style>
-  :root{--paper:var(--albedo);--ink:var(--slate);--ochre:var(--citrinitas);--measure:640px;--body:19px;--line:1.68;
+  :root{--paper:var(--ground);--ink:var(--ink-on);--ochre:var(--accent-on);--measure:640px;--body:19px;--line:1.68;
     --c-air:#7E868C;--c-water:var(--water);--c-fire:var(--fire);--c-wood:var(--wood);--c-earth:var(--earth-op);--c-metal:var(--metal)}
   *{box-sizing:border-box}html,body{margin:0;padding:0;background:var(--paper);color:var(--ink)}
   body{font-family:"EB Garamond",Garamond,Georgia,serif;font-size:var(--body);line-height:var(--line);-webkit-font-smoothing:antialiased}
@@ -20,7 +21,7 @@
 
   /* the thread line — the φ-chain assembling as you read */
   .thread{position:sticky;top:0;z-index:4;background:color-mix(in srgb, var(--paper) 92%, transparent);
-    -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);border-bottom:1px solid rgba(31,42,46,.08);
+    -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);border-bottom:1px solid rgba(var(--ink-rgb),.08);
     text-align:center;padding:.7em 1em;font-family:"Cormorant Garamond",serif;font-size:1.25em;letter-spacing:.02em}
   .thread .g{opacity:.2;transition:opacity .5s ease, color .5s ease;margin:0 .06em}
   .thread .g.lit{opacity:1}
@@ -33,7 +34,7 @@
   h1{font-family:"Cormorant Garamond",serif;font-weight:400;text-align:center;font-size:2.1em;line-height:1.16;margin:7vh 0 .1em}
   .kicker{text-align:center;font-style:italic;opacity:.6;margin:0 0 3vh}
   .composed{font-size:.86em;font-style:italic;opacity:.6;text-align:center;max-width:500px;margin:0 auto 5vh;
-    border:1px solid rgba(31,42,46,.14);padding:.9em 1.2em}
+    border:1px solid rgba(var(--ink-rgb),.14);padding:.9em 1.2em}
   .intro p{margin:0 0 1.3em}
   .intro .who{font-style:italic}
   .hairline{width:64px;height:1px;background:var(--ochre);margin:7vh auto;border:0;opacity:.8}
@@ -50,7 +51,7 @@
   .phi-crystal .phi{font-family:var(--font-scribe);font-size:.9em;color:var(--el,var(--ink));word-break:break-word;margin:0 0 .5em}
   .phi-crystal .gloss{margin:0;font-style:italic;font-size:.96em}
   .edge{font-style:italic;opacity:.82;margin:1.5em 0 0}
-  .handoff{margin:1.8em 0 0;font-size:.96em;opacity:.9;border-top:1px dashed rgba(31,42,46,.2);padding-top:1.4em}
+  .handoff{margin:1.8em 0 0;font-size:.96em;opacity:.9;border-top:1px dashed rgba(var(--ink-rgb),.2);padding-top:1.4em}
   .handoff .to{font-style:italic}
   .audio-soon{font-size:.8em;font-style:italic;opacity:.45;margin:1.4em 0 0}
 
@@ -61,9 +62,9 @@
 
   .epilogue{padding:5vh 0 3vh}
   .epilogue .mark .glyph{color:var(--ochre)}
-  .epilogue{border-top:1px solid rgba(31,42,46,.1)}
+  .epilogue{border-top:1px solid rgba(var(--ink-rgb),.1)}
 
-  .close-door{text-align:center;padding:6vh 0 2vh;border-top:1px solid rgba(31,42,46,.1);margin-top:4vh}
+  .close-door{text-align:center;padding:6vh 0 2vh;border-top:1px solid rgba(var(--ink-rgb),.1);margin-top:4vh}
   .close-door p{font-style:italic;opacity:.8;margin:0 0 1.2em}
   .close-door a{font-family:"EB Garamond",serif;font-style:italic;font-size:1.15em;color:var(--ochre);
     text-decoration:none;border-bottom:1px solid var(--ochre);padding-bottom:2px}
@@ -71,7 +72,7 @@
   .progress-note{text-align:center;font-size:.82em;font-style:italic;opacity:.5;padding:2vh 0 0}
   footer{text-align:center;padding:8vh 28px 10vh;font-size:14px;opacity:.55}
   footer a{color:inherit;text-decoration:none;border-bottom:1px solid currentColor}
-  ::selection{background:rgba(184,146,60,.22)}
+  ::selection{background:rgba(var(--accent-rgb),.22)}
   @media(max-width:640px){:root{--body:18px}.thread{font-size:1.05em}}
 
   .audio{margin:1.6em 0 .4em}
@@ -100,6 +101,7 @@
       <a href="../../posts/">readings</a>
       <a href="../../operators.html">architecture</a>
     </div>
+    <button class="theme-toggle" type="button" aria-label="Switch theme">☾</button>
   </div>
 </nav>
 

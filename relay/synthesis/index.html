@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<html lang="en"><head>
+<html lang="en" data-register="hard"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Sunday syntheses</title>
 <meta name="description" content="Weekly Aether readings across every completed relay.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../elemental-tokens.css">
+<script src="../../assets/theme.js"></script>
 <link rel="stylesheet" href="../../assets/ledger.css">
 <style>
   /* Hard mode — the weave is part of the lab: nigredo ground, albedo ink. */
-  :root{--paper:var(--nigredo);--ink:var(--albedo);--ochre:var(--citr-raised);--measure:660px;--body:17px;--line:1.62}
+  :root{--paper:var(--ground);--ink:var(--ink-on);--ochre:var(--accent-on);--measure:660px;--body:17px;--line:1.62}
   *{box-sizing:border-box}html,body{margin:0;padding:0;background:var(--paper);color:var(--ink)}
   body{font-family:var(--font-architect);font-size:var(--body);line-height:var(--line);-webkit-font-smoothing:antialiased}
   main{max-width:var(--measure);margin:0 auto;padding:0 28px 6vh}
@@ -18,7 +19,7 @@
   .floret .star{color:var(--ochre);font-size:16px}.floret .it{font-style:italic}
   h1{font-family:"Cormorant Garamond",serif;font-weight:400;text-align:center;font-size:2em;margin:5vh 0 .2em}
   .window{text-align:center;font-style:italic;opacity:.65;margin:0 0 5vh}
-  h2{font-family:"Cormorant Garamond",serif;font-weight:500;font-size:1.25em;margin:4vh 0 .6em;border-top:1px solid rgba(244,241,234,.12);padding-top:4vh}
+  h2{font-family:"Cormorant Garamond",serif;font-weight:500;font-size:1.25em;margin:4vh 0 .6em;border-top:1px solid rgba(var(--ink-rgb),.12);padding-top:4vh}
   .phi{font-family:var(--font-scribe);font-size:.78em;opacity:.75;word-break:break-word}
   .relay{margin:0 0 2.2em}
   .relay .rt{font-style:italic}
@@ -33,7 +34,7 @@
   footer{text-align:center;padding:6vh 28px 8vh;font-size:14px;opacity:.55}
   footer a{color:inherit;text-decoration:none;border-bottom:1px solid currentColor}
 </style></head><body>
-<nav class="ledger ledger--dark">
+<nav class="ledger">
   <div class="ledger-inner">
     <a class="home" href="../../index.html">
       <span class="star">✶</span>
@@ -49,6 +50,7 @@
       <a href="../../posts/">readings</a>
       <a href="../../operators.html">architecture</a>
     </div>
+    <button class="theme-toggle" type="button" aria-label="Switch theme">☾</button>
   </div>
 </nav>
 

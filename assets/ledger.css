@@ -1,27 +1,56 @@
 /* ── Quiet ledger nav — present but never louder than the opening ──
-   Shared site-wide component (from the design-system handoff).
-   Requires elemental-tokens.css. */
+   Shared site-wide component. Requires elemental-tokens.css.
+   Everything here resolves from the theme × register tokens, so the bar
+   follows its page's ground in either theme with no per-page variant. */
 
 .ledger {
   position: sticky; top: 0; z-index: 40;
-  background: rgba(244,241,234,0.82);
+  background: var(--ground);                                   /* fallback */
+  background: color-mix(in srgb, var(--ground) 82%, transparent);
   backdrop-filter: blur(7px); -webkit-backdrop-filter: blur(7px);
-  border-bottom: 1px solid rgba(163,158,146,0.4);
+  border-bottom: 1px solid var(--rule);
 }
 .ledger-inner {
   max-width: 1060px; margin: 0 auto; padding: 13px 30px;
   display: flex; align-items: center; gap: 16px;
   font-family: var(--font-scribe); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
 }
-.ledger-inner .home { display: flex; align-items: center; gap: 8px; color: var(--slate); text-decoration: none; }
-.ledger-inner .home .star { color: var(--citrinitas); font-family: var(--font-oracle); font-size: 13px; }
+.ledger-inner .home { display: flex; align-items: center; gap: 8px; color: var(--ink-on); text-decoration: none; }
+.ledger-inner .home .star { color: var(--accent-on); font-family: var(--font-oracle); font-size: 13px; }
 .ledger-inner .home .dots { display: flex; gap: 4px; }
 .ledger-inner .home .dots i { width: 5px; height: 5px; border-radius: 50%; display: block; }
 .ledger-links { margin-left: auto; display: flex; gap: 22px; }
-.ledger-links a { color: var(--ash-deep); text-decoration: none; transition: color var(--t-state) var(--ease-precipitate); }
-.ledger-links a:hover { color: var(--citrinitas); }
+.ledger-links a {
+  color: var(--ink-on); opacity: 0.62; text-decoration: none;
+  transition: color var(--t-state) var(--ease-precipitate), opacity var(--t-state) var(--ease-precipitate);
+}
+.ledger-links a:hover { color: var(--accent-on); opacity: 1; }
+
+/* ── Theme switch — a keyline cell showing the ground you'd move to.
+   Square, hairline, colour-only ignition; no chrome, no track, no slider. ── */
+.theme-toggle {
+  flex: 0 0 auto; margin-left: 18px;
+  width: 26px; height: 22px; padding: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: transparent; border: 1px solid var(--rule); border-radius: 0;
+  color: var(--ink-on); opacity: 0.62; cursor: pointer;
+  font-family: var(--font-oracle); font-size: 13px; line-height: 1;
+  transition: color var(--t-state) var(--ease-precipitate),
+              border-color var(--t-state) var(--ease-precipitate),
+              opacity var(--t-state) var(--ease-precipitate);
+}
+.theme-toggle:hover { color: var(--accent-on); border-color: var(--accent-on); opacity: 1; }
+.theme-toggle:focus-visible { outline: 1px solid var(--accent-on); outline-offset: 2px; }
+
+/* Pages with the ledger keep their quiet back links, shifted below the bar */
+.ledger ~ .back, .ledger ~ .back-cluster { top: 74px; }
+@media (max-width: 640px) {
+  .ledger ~ .back, .ledger ~ .back-cluster { top: 64px; }
+}
+
 /* Narrow: the links stay — they scroll sideways rather than vanish. Hiding navigation on
-   phones left every inner page a dead end. No chrome, no toggle; the row just slides. */
+   phones left every inner page a dead end. No chrome, no toggle; the row just slides.
+   The theme switch sits outside the scroller so it stays reachable. */
 @media (max-width: 860px) {
   .ledger-inner { gap: 12px; padding: 12px 18px; }
   .ledger-links {
@@ -34,20 +63,5 @@
   .ledger-links::-webkit-scrollbar { display: none; }
   .ledger-links a { white-space: nowrap; }
   .ledger-inner .home span:not(.star):not(.dots) { display: none; }  /* mark + dots carry it */
-}
-
-/* Hard-mode variant — for pages on the nigredo ground */
-.ledger--dark {
-  background: rgba(22,19,14,0.82);
-  border-bottom-color: rgba(87,83,74,0.5);
-}
-.ledger--dark .home { color: var(--albedo); }
-.ledger--dark .home .star { color: var(--citr-raised); }
-.ledger--dark .ledger-links a { color: var(--ash); }
-.ledger--dark .ledger-links a:hover { color: var(--citr-raised); }
-
-/* Pages with the ledger keep their quiet back links, shifted below the bar */
-.ledger ~ .back, .ledger ~ .back-cluster { top: 74px; }
-@media (max-width: 640px) {
-  .ledger ~ .back, .ledger ~ .back-cluster { top: 64px; }
+  .theme-toggle { margin-left: 10px; }
 }

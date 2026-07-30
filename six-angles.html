@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-register="soft">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,12 +9,13 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="elemental-tokens.css">
+<script src="assets/theme.js"></script>
 <link rel="stylesheet" href="assets/ledger.css">
 <style>
   :root {
-    --paper: var(--albedo);
-    --ink: var(--slate);
-    --ochre: var(--citrinitas);
+    --paper: var(--ground);
+    --ink: var(--ink-on);
+    --ochre: var(--accent-on);
 
     --c-air:   var(--air);
     --c-water: var(--water);
@@ -157,7 +158,7 @@
     font-style: italic;
     margin: 2.2em 0 0;
     padding-left: 1.6em;
-    border-left: 1px solid rgba(31, 42, 46, 0.18);
+    border-left: 1px solid rgba(var(--ink-rgb), 0.18);
     line-height: 1.45;
   }
 
@@ -283,7 +284,7 @@
     left: 5px; top: 12px;
     height: 100%;
     width: 1px;
-    background: rgba(184, 146, 60, 0.40);
+    background: rgba(var(--accent-rgb), 0.40);
   }
   .flowmap .label {
     display: block;
@@ -315,7 +316,7 @@
   .begin a:hover { color: var(--ink); border-bottom-color: var(--ink); }
 
   ::selection {
-    background: rgba(184, 146, 60, 0.22);
+    background: rgba(var(--accent-rgb), 0.22);
     color: var(--ink);
   }
 
@@ -351,6 +352,7 @@
       <a href="posts/">readings</a>
       <a href="operators.html">architecture</a>
     </div>
+    <button class="theme-toggle" type="button" aria-label="Switch theme">☾</button>
   </div>
 </nav>
 

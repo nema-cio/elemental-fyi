@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-register="soft">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,9 +9,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../../elemental-tokens.css">
+<script src="../../../assets/theme.js"></script>
 <link rel="stylesheet" href="../../../assets/ledger.css">
 <style>
-  :root { --paper:var(--albedo); --ink:var(--slate); --ochre:var(--citrinitas); --accent:var(--fire); }
+  :root { --paper:var(--ground); --ink:var(--ink-on); --ochre:var(--accent-on); --accent:var(--fire); }
   * { box-sizing:border-box; }
   html,body { margin:0; background:var(--paper); color:var(--ink); }
   body { font-family:"EB Garamond",Garamond,Georgia,serif; font-size:19px; line-height:1.65; -webkit-font-smoothing:antialiased; }
@@ -38,9 +39,9 @@
   h2 { font-family:"Cormorant Garamond","EB Garamond",serif; font-weight:500; font-size:1.4em; margin:2.2em 0 0.6em; color:var(--accent); }
   blockquote { margin:1.2em 0; padding:0.2em 0 0.2em 1.1em; border-left:2px solid var(--accent); font-style:italic; }
   blockquote cite { display:block; font-style:normal; font-size:0.85em; opacity:0.7; margin-top:0.4em; }
-  .reading { border-top:1px solid rgba(31,42,46,0.14); margin-top:2.4em; padding-top:1.4em; }
+  .reading { border-top:1px solid rgba(var(--ink-rgb),0.14); margin-top:2.4em; padding-top:1.4em; }
   .reading .phi { font-family:var(--font-scribe); font-size:0.9em; color:var(--accent); }
-  footer { max-width:660px; margin:4vh auto 0; padding:1.6em 28px; border-top:1px solid rgba(31,42,46,0.14); font-size:0.82em; opacity:0.7; line-height:1.5; }
+  footer { max-width:660px; margin:4vh auto 0; padding:1.6em 28px; border-top:1px solid rgba(var(--ink-rgb),0.14); font-size:0.82em; opacity:0.7; line-height:1.5; }
   a { color:var(--ochre); }
 </style>
 </head>
@@ -61,6 +62,7 @@
       <a href="../../../posts/">readings</a>
       <a href="../../../operators.html">architecture</a>
     </div>
+    <button class="theme-toggle" type="button" aria-label="Switch theme">☾</button>
   </div>
 </nav>
 

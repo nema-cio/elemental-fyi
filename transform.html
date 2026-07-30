@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-register="soft">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,12 +9,13 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="elemental-tokens.css">
+<script src="assets/theme.js"></script>
 <link rel="stylesheet" href="assets/ledger.css">
 <style>
   :root {
-    --paper: var(--albedo);
-    --ink: var(--slate);
-    --ochre: var(--citrinitas);
+    --paper: var(--ground);
+    --ink: var(--ink-on);
+    --ochre: var(--accent-on);
 
     --c-air:   var(--air);
     --c-water: var(--water);
@@ -152,7 +153,7 @@
     background: transparent;
     color: var(--ink);
     border: 0;
-    border-bottom: 1px solid rgba(31, 42, 46, 0.28);
+    border-bottom: 1px solid rgba(var(--ink-rgb), 0.28);
     padding: 0.4em 0;
     font-family: inherit;
     font-size: calc(var(--body-size) * 0.98);
@@ -173,7 +174,7 @@
     outline: none;
     border-bottom-color: var(--ochre);
   }
-  ::placeholder { color: rgba(31, 42, 46, 0.32); font-style: italic; }
+  ::placeholder { color: rgba(var(--ink-rgb), 0.32); font-style: italic; }
 
   /* Submit — styled as a door, not a button. */
   .submit-row { padding-top: 1vh; }
@@ -239,7 +240,7 @@
   }
   footer a:hover { opacity: 1; color: var(--ochre); border-bottom-color: var(--ochre); }
 
-  ::selection { background: rgba(184, 146, 60, 0.22); color: var(--ink); }
+  ::selection { background: rgba(var(--accent-rgb), 0.22); color: var(--ink); }
 
   @media (max-width: 640px) {
     :root { --body-size: 18px; }
@@ -271,6 +272,7 @@
       <a href="posts/">readings</a>
       <a href="operators.html">architecture</a>
     </div>
+    <button class="theme-toggle" type="button" aria-label="Switch theme">☾</button>
   </div>
 </nav>
 

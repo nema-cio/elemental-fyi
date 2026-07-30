@@ -4,17 +4,17 @@
    Plex Mono for φ signal. Element accents are raised one ramp-stop so they
    read against the dark ground (cores stay canonical elsewhere). */
 :root {
-  --paper: var(--nigredo);
-  --ink: var(--albedo);
-  --ochre: var(--citr-raised);
+  --paper: var(--ground);
+  --ink: var(--ink-on);
+  --ochre: var(--accent-on);
   --c-air:   var(--air);      /* core is already light */
   --c-water: #5E7888;         /* el-tidal — water core is too deep for nigredo */
   --c-fire:  #C06A32;         /* el-copper */
   --c-wood:  #73834B;         /* el-olive */
   --c-earth: #C8B071;         /* el-straw — earth-op is too dim for nigredo */
   --c-metal: #7C8286;         /* el-steel */
-  --hairline: rgba(244, 241, 234, 0.14);
-  --wash: rgba(244, 241, 234, 0.06);
+  --hairline: var(--rule);
+  --wash: var(--wash);
   --measure: 660px;
   --body-size: 17px;
   --line: 1.62;
@@ -192,7 +192,7 @@ main { max-width: var(--measure); margin: 0 auto; padding: 0 28px; }
 footer { text-align: center; padding: 8vh 28px; font-size: 14px; opacity: 0.55; }
 footer a { color: inherit; text-decoration: none; border-bottom: 1px solid currentColor; }
 footer a:hover { color: var(--ochre); border-bottom-color: var(--ochre); }
-::selection { background: rgba(184,146,60,0.22); color: var(--ink); }
+::selection { background: rgba(var(--accent-rgb),0.22); color: var(--ink); }
 
 @media (max-width: 640px) {
   :root { --body-size: 18px; }

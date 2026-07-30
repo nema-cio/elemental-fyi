@@ -160,8 +160,8 @@ window.RETRIEVE = (function () {
         // the key carries the AREA *and the movement* — the movement is a handoff (from-element → to-element),
         // so the receiving guide knows which element it is catching the baton from.
         const aphi = "⌖(" + field.id + " | " + source.id + ") :" + scale.id + " · " + from + "→" + to;
-        const TA = "width:100%;background:transparent;color:var(--ink);border:1px solid rgba(31,42,46,0.2);border-radius:6px;padding:0.7em 0.8em;font-family:inherit;font-size:0.95em;line-height:1.5;resize:vertical;";
-        const IN = "width:100%;background:transparent;border:0;border-bottom:1px solid rgba(31,42,46,0.28);padding:0.4em 0.55em;font-family:inherit;font-size:1em;color:var(--ink);margin-top:1.1em;";
+        const TA = "width:100%;background:transparent;color:var(--ink);border:1px solid rgba(var(--ink-rgb),0.2);border-radius:6px;padding:0.7em 0.8em;font-family:inherit;font-size:0.95em;line-height:1.5;resize:vertical;";
+        const IN = "width:100%;background:transparent;border:0;border-bottom:1px solid rgba(var(--ink-rgb),0.28);padding:0.4em 0.55em;font-family:inherit;font-size:1em;color:var(--ink);margin-top:1.1em;";
         result.innerHTML =
           '<p class="label">how this works</p>' +
           '<p style="margin:0 0 0.5em;">Below are two things to copy: a <strong>key</strong> for the guide, and a <strong>search prompt</strong>. Take the prompt to a search LLM (turn web search on) to gather real, cited accounts. Then — rather than compiling them yourself — make that conversation <strong>shareable</strong> and bring the link back here with a sentence on how it landed. ' + DAEMON[to] + ' reads your sources directly, verifies the citations, and writes the account in its own voice.</p>' +

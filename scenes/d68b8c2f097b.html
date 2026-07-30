@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"><head>
+<html lang="en" data-register="soft"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>staying late again — a scene</title>
 <meta name="description" content="An elemental scene composed from a nemetic.φ.">
@@ -7,9 +7,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../elemental-tokens.css">
+<script src="../assets/theme.js"></script>
 <link rel="stylesheet" href="../assets/ledger.css">
 <style>
-  :root{--paper:var(--albedo);--ink:var(--slate);--ochre:var(--citrinitas);--measure:660px;--body:19px;--line:1.6}
+  :root{--paper:var(--ground);--ink:var(--ink-on);--ochre:var(--accent-on);--measure:660px;--body:19px;--line:1.6}
   *{box-sizing:border-box}html,body{margin:0;padding:0;background:var(--paper);color:var(--ink)}
   body{font-family:"EB Garamond",Garamond,Georgia,serif;font-size:var(--body);line-height:var(--line);-webkit-font-smoothing:antialiased}
   main{max-width:var(--measure);margin:0 auto;padding:0 28px}
@@ -19,7 +20,7 @@
   a.floret{text-decoration:none;color:var(--ink);transition:opacity .15s ease}
   a.floret:hover{opacity:1}
   .floret .star{color:var(--ochre);font-size:16px}.floret .it{font-style:italic}
-  .hero-card{text-align:center;padding:6vh 0 4vh;margin:0 0 1vh;border-bottom:1px solid rgba(31,42,46,.1)}
+  .hero-card{text-align:center;padding:6vh 0 4vh;margin:0 0 1vh;border-bottom:1px solid rgba(var(--ink-rgb),.1)}
   .hero-card .ops{font-family:"Cormorant Garamond",serif;font-size:clamp(54px,11vw,76px);line-height:1;letter-spacing:.04em}
   .hero-card .ops .op-sep{color:var(--ink);opacity:.28;font-size:.5em;margin:0 .18em;vertical-align:.18em}
   .hero-card .hc-title{font-family:"Cormorant Garamond",serif;font-weight:400;font-size:calc(var(--body)*2.3);line-height:1.14;margin:.5em 0 .35em}
@@ -29,7 +30,7 @@
   .player{width:100%;margin:0 0 1vh;outline:none}
   .player-wrap{margin:0 0 6vh}
   .player-cap{font-size:13px;opacity:.55;text-align:center;font-style:italic}
-  .scene{border-top:1px solid rgba(31,42,46,.1);padding-top:5vh}
+  .scene{border-top:1px solid rgba(var(--ink-rgb),.1);padding-top:5vh}
   .beat .said{}
   .credit{text-align:right;font-style:italic;opacity:.6;margin:5vh 0 0;font-size:.9em}
   .hairline{width:64px;height:1px;background:var(--ochre);margin:7vh auto 5vh;border:0;opacity:.85}
@@ -37,7 +38,7 @@
   .cta a{font-family:"EB Garamond",serif;font-style:italic;color:var(--ochre);text-decoration:none;border-bottom:1px solid var(--ochre);padding-bottom:2px}
   footer{text-align:center;padding:8vh 28px 10vh;font-size:14px;opacity:.55}
   footer a{color:inherit;text-decoration:none;border-bottom:1px solid currentColor}
-  ::selection{background:rgba(184,146,60,.22)}
+  ::selection{background:rgba(var(--accent-rgb),.22)}
   @media(max-width:640px){:root{--body:18px}}
 </style></head><body>
 <nav class="ledger">
@@ -56,6 +57,7 @@
       <a href="../posts/">readings</a>
       <a href="../operators.html">architecture</a>
     </div>
+    <button class="theme-toggle" type="button" aria-label="Switch theme">☾</button>
   </div>
 </nav>
 

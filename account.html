@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-register="soft">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,9 +10,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="elemental-tokens.css">
+<script src="assets/theme.js"></script>
 <link rel="stylesheet" href="assets/ledger.css">
 <style>
-  :root{--paper:var(--albedo);--ink:var(--slate);--ochre:var(--citrinitas);--measure:660px;--body:19px;--line:1.65}
+  :root{--paper:var(--ground);--ink:var(--ink-on);--ochre:var(--accent-on);--measure:660px;--body:19px;--line:1.65}
   *{box-sizing:border-box}html,body{margin:0;padding:0;background:var(--paper);color:var(--ink)}
   body{font-family:"EB Garamond",Garamond,Georgia,serif;font-size:var(--body);line-height:var(--line);-webkit-font-smoothing:antialiased}
   .back{position:absolute;top:28px;left:28px;font-style:italic;font-size:15px;color:var(--ochre);text-decoration:none}
@@ -22,27 +23,27 @@
   main{max-width:var(--measure);margin:0 auto;padding:0 28px 10vh}
   h1{font-family:"Cormorant Garamond",serif;font-weight:400;text-align:center;font-size:2em;margin:6vh 0 .2em}
   .sub{text-align:center;font-style:italic;opacity:.65;margin:0 0 6vh}
-  h2{font-family:"Cormorant Garamond",serif;font-weight:500;font-size:1.25em;margin:5vh 0 .8em;border-top:1px solid rgba(31,42,46,.1);padding-top:4vh}
+  h2{font-family:"Cormorant Garamond",serif;font-weight:500;font-size:1.25em;margin:5vh 0 .8em;border-top:1px solid rgba(var(--ink-rgb),.1);padding-top:4vh}
   .quiet{font-style:italic;opacity:.6;font-size:.92em}
   label{display:block;font-style:italic;font-size:.92em;margin:1.2em 0 .25em}
-  input,select{width:100%;background:transparent;border:0;border-bottom:1px solid rgba(31,42,46,.28);padding:.35em .1em;font-family:inherit;font-size:1em;color:var(--ink);outline:none}
+  input,select{width:100%;background:transparent;border:0;border-bottom:1px solid rgba(var(--ink-rgb),.28);padding:.35em .1em;font-family:inherit;font-size:1em;color:var(--ink);outline:none}
   select{cursor:pointer}
   .save-row{margin-top:1.6em;display:flex;align-items:baseline;gap:1.2em}
   button.door{font-family:inherit;font-size:1em;font-style:italic;color:var(--ochre);background:none;border:0;border-bottom:1px solid var(--ochre);padding:0 0 1px;cursor:pointer}
   button.door:hover{color:var(--ink);border-bottom-color:var(--ink)}
   .savemsg{font-size:.85em;font-style:italic;opacity:.7}
-  .reading{padding:1em 0;border-bottom:1px solid rgba(31,42,46,.09)}
+  .reading{padding:1em 0;border-bottom:1px solid rgba(var(--ink-rgb),.09)}
   .reading .rt{font-style:italic}
   .reading .phi{font-family:"SFMono-Regular",Menlo,Consolas,monospace;font-size:.76em;opacity:.72;word-break:break-word;margin:.3em 0}
   .reading .st{font-size:.85em;opacity:.7}
-  .reading a{color:var(--ochre);text-decoration:none;border-bottom:1px solid rgba(184,146,60,.5)}
+  .reading a{color:var(--ochre);text-decoration:none;border-bottom:1px solid rgba(var(--accent-rgb),.5)}
   .reading a:hover{color:var(--ink)}
-  .contribution{padding:.8em 0;border-bottom:1px solid rgba(31,42,46,.09)}
+  .contribution{padding:.8em 0;border-bottom:1px solid rgba(var(--ink-rgb),.09)}
   .signedout{text-align:center;padding:8vh 0}
   .signedout a{color:var(--ochre);font-style:italic;text-decoration:none;border-bottom:1px solid var(--ochre)}
   footer{text-align:center;padding:6vh 28px 8vh;font-size:14px;opacity:.55}
   footer a{color:inherit;text-decoration:none;border-bottom:1px solid currentColor}
-  ::selection{background:rgba(184,146,60,.22)}
+  ::selection{background:rgba(var(--accent-rgb),.22)}
 </style>
 </head>
 <body>
@@ -62,6 +63,7 @@
       <a href="posts/">readings</a>
       <a href="operators.html">architecture</a>
     </div>
+    <button class="theme-toggle" type="button" aria-label="Switch theme">☾</button>
   </div>
 </nav>
 
@@ -153,7 +155,7 @@ async function showSignedIn(){
       ranked.map(k =>
         '<div style="display:grid;grid-template-columns:2.4em 1fr 3em;gap:.7em;align-items:center;margin:.3em 0">' +
         '<span style="color:' + EL_META[k][1] + ';font-family:\'Cormorant Garamond\',serif;text-align:right">' + EL_META[k][0] + "</span>" +
-        '<span style="height:8px;background:rgba(31,42,46,.08)"><span style="display:block;height:100%;width:' + (ep.pct[k]|0) + "%;background:" + EL_META[k][1] + '"></span></span>' +
+        '<span style="height:8px;background:rgba(var(--ink-rgb),.08)"><span style="display:block;height:100%;width:' + (ep.pct[k]|0) + "%;background:" + EL_META[k][1] + '"></span></span>' +
         '<span class="quiet" style="font-size:.78em">' + (ep.pct[k]|0) + "%</span></div>").join("") +
       '<p class="quiet" style="margin-top:1em"><a href="mirror.html" style="color:var(--ochre)">look again ↺</a> — a different day may show a different face, and that movement is the interesting part</p>';
   }
@@ -191,7 +193,7 @@ async function showSignedIn(){
     }
     if (c && c.status === "published") { wrap.innerHTML = '<span class="quiet">✶ told as an account.</span>'; return wrap; }
     const a = document.createElement("a");
-    a.href = "#"; a.style.cssText = "color:var(--ochre);font-style:italic;text-decoration:none;border-bottom:1px solid rgba(184,146,60,.5)";
+    a.href = "#"; a.style.cssText = "color:var(--ochre);font-style:italic;text-decoration:none;border-bottom:1px solid rgba(var(--accent-rgb),.5)";
     a.textContent = "Let the elements tell this account →";
     a.onclick = (e) => {
       e.preventDefault();
@@ -199,9 +201,9 @@ async function showSignedIn(){
         '<p class="quiet" style="margin:.2em 0 .7em">The elements would write the story of this reading in their voices, from your φ and what you carried forward. ' +
         'It would be <strong>anonymized</strong> — no name, no email — and <strong>the editor reviews and edits before anything is published</strong>. You can withdraw until then.</p>' +
         '<label style="display:block;font-style:italic;font-size:.9em;margin:.4em 0 .1em">Credit, if you’d like one <span class="quiet">(a first name — or leave blank to stay unnamed)</span></label>' +
-        '<input class="cr" type="text" placeholder="optional" style="width:100%;background:transparent;border:0;border-bottom:1px solid rgba(31,42,46,.28);padding:.3em .1em;font-family:inherit;font-size:1em;color:var(--ink)">' +
+        '<input class="cr" type="text" placeholder="optional" style="width:100%;background:transparent;border:0;border-bottom:1px solid rgba(var(--ink-rgb),.28);padding:.3em .1em;font-family:inherit;font-size:1em;color:var(--ink)">' +
         '<label style="display:block;font-style:italic;font-size:.9em;margin:1em 0 .1em">A note to the editor <span class="quiet">(optional)</span></label>' +
-        '<textarea class="nt" rows="2" placeholder="optional" style="width:100%;background:transparent;border:0;border-bottom:1px solid rgba(31,42,46,.28);padding:.3em .1em;font-family:inherit;font-size:.95em;color:var(--ink);resize:vertical"></textarea>' +
+        '<textarea class="nt" rows="2" placeholder="optional" style="width:100%;background:transparent;border:0;border-bottom:1px solid rgba(var(--ink-rgb),.28);padding:.3em .1em;font-family:inherit;font-size:.95em;color:var(--ink);resize:vertical"></textarea>' +
         '<div style="margin-top:1em;display:flex;gap:1.2em;align-items:baseline">' +
         '<button class="req door" type="button">Ask the elements →</button>' +
         '<a href="#" class="cx quiet" style="color:inherit">never mind</a></div>' +
@@ -270,7 +272,7 @@ async function showSignedIn(){
                '</strong> <span class="quiet">· a record of what you’ve carried, not a score to chase</span></div>' : "") +
       cs.map((c) =>
       '<div class="contribution">' +
-      (c.url ? '<a href="' + esc(c.url) + '" style="color:var(--ochre);text-decoration:none;border-bottom:1px solid rgba(184,146,60,.5)">' + esc(c.title || c.kind) + "</a>" : esc(c.title || c.kind)) +
+      (c.url ? '<a href="' + esc(c.url) + '" style="color:var(--ochre);text-decoration:none;border-bottom:1px solid rgba(var(--accent-rgb),.5)">' + esc(c.title || c.kind) + "</a>" : esc(c.title || c.kind)) +
       ' <span class="quiet">· ' + esc(c.kind) + (c.role ? " · " + esc(c.role) : "") +
       ((c.points | 0) ? " · +" + (c.points | 0) : "") + "</span></div>").join("");
   }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-register="hard">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,11 +9,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="relay.css">
+<script src="../assets/theme.js"></script>
 <link rel="stylesheet" href="../assets/ledger.css">
 <style>:root { --accent: var(--c-earth); }</style>
 </head>
 <body>
-<nav class="ledger ledger--dark">
+<nav class="ledger">
   <div class="ledger-inner">
     <a class="home" href="../index.html">
       <span class="star">✶</span>
@@ -29,6 +30,7 @@
       <a href="../posts/">readings</a>
       <a href="../operators.html">architecture</a>
     </div>
+    <button class="theme-toggle" type="button" aria-label="Switch theme">☾</button>
   </div>
 </nav>
 

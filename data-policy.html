@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-register="soft">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,9 +9,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="elemental-tokens.css">
+<script src="assets/theme.js"></script>
 <link rel="stylesheet" href="assets/ledger.css">
 <style>
-  :root{--paper:var(--albedo);--ink:var(--slate);--ochre:var(--citrinitas);--measure:620px;--body:19px;--line:1.65}
+  :root{--paper:var(--ground);--ink:var(--ink-on);--ochre:var(--accent-on);--measure:620px;--body:19px;--line:1.65}
   *{box-sizing:border-box}
   html,body{margin:0;padding:0;background:var(--paper);color:var(--ink)}
   body{font-family:"EB Garamond",Garamond,Georgia,serif;font-size:var(--body);line-height:var(--line);
@@ -30,7 +31,7 @@
     margin:5vh 0 .6em;line-height:1.2}
   p{margin:0 0 1.2em}
   code{font-family:"SFMono-Regular",Menlo,Consolas,monospace;font-size:.82em;
-    background:rgba(31,42,46,.05);padding:.1em .35em;border-radius:2px}
+    background:rgba(var(--ink-rgb),.05);padding:.1em .35em;border-radius:2px}
   ul{margin:0 0 1.2em;padding-left:1.2em}
   li{margin:.4em 0}
   .lede{font-style:italic;opacity:.82;text-align:center;max-width:520px;margin:0 auto 2vh}
@@ -39,7 +40,7 @@
   footer{text-align:center;padding:10vh 28px 10vh;font-size:14px;opacity:.55}
   footer a{color:inherit;text-decoration:none;border-bottom:1px solid currentColor}
   a{color:var(--ochre)}
-  ::selection{background:rgba(184,146,60,.22)}
+  ::selection{background:rgba(var(--accent-rgb),.22)}
   @media(max-width:640px){:root{--body:18px}}
 </style>
 </head>
@@ -60,6 +61,7 @@
       <a href="posts/">readings</a>
       <a href="operators.html">architecture</a>
     </div>
+    <button class="theme-toggle" type="button" aria-label="Switch theme">☾</button>
   </div>
 </nav>
 

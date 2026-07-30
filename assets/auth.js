@@ -25,13 +25,13 @@ if (!cfg || !cfg.url) {
   css.textContent =
     '.es-auth{position:fixed;top:16px;right:20px;z-index:60;font-family:"EB Garamond",Garamond,Georgia,serif;font-size:15px;text-align:right}' +
     "body:has(.ledger) .es-auth{top:58px}" +
-    ".es-auth a,.es-auth button{font-family:inherit;font-size:inherit;font-style:italic;color:#B8923C;background:none;border:0;border-bottom:1px solid rgba(184,146,60,.55);padding:0 0 1px;cursor:pointer;text-decoration:none}" +
+    ".es-auth a,.es-auth button{font-family:inherit;font-size:inherit;font-style:italic;color:var(--accent-on);background:none;border:0;border-bottom:1px solid rgba(var(--accent-rgb),.55);padding:0 0 1px;cursor:pointer;text-decoration:none}" +
     ".es-auth a:hover,.es-auth button:hover{color:inherit;border-bottom-color:currentColor}" +
     ".es-auth .who{font-style:italic;opacity:.62;color:inherit;margin-right:.7em;border:0}" +
-    ".es-auth-panel{display:none;margin-top:.6em;background:#F4F1EA;border:1px solid rgba(31,42,46,.18);padding:1em 1.1em;width:min(300px,86vw);box-shadow:0 6px 24px rgba(31,42,46,.08);text-align:left}" +
+    ".es-auth-panel{display:none;margin-top:.6em;background:var(--panel-on);border:1px solid rgba(var(--ink-rgb),.18);padding:1em 1.1em;width:min(300px,86vw);box-shadow:0 6px 24px rgba(var(--ink-rgb),.08);text-align:left}" +
     ".es-auth-panel.open{display:block}" +
-    ".es-auth-panel p{margin:0 0 .7em;font-size:.92em;line-height:1.5;color:#1F2A2E}" +
-    ".es-auth-panel input{width:100%;background:transparent;border:0;border-bottom:1px solid rgba(31,42,46,.28);padding:.35em .1em;font-family:inherit;font-size:1em;color:#1F2A2E;outline:none}" +
+    ".es-auth-panel p{margin:0 0 .7em;font-size:.92em;line-height:1.5;color:var(--ink-on)}" +
+    ".es-auth-panel input{width:100%;background:transparent;border:0;border-bottom:1px solid rgba(var(--ink-rgb),.28);padding:.35em .1em;font-family:inherit;font-size:1em;color:var(--ink-on);outline:none}" +
     ".es-auth-panel .row{margin-top:.9em;display:flex;justify-content:space-between;align-items:baseline}" +
     ".es-auth-panel .msg{font-size:.85em;font-style:italic;opacity:.75;margin:.8em 0 0}";
   document.head.appendChild(css);
@@ -58,7 +58,7 @@ if (!cfg || !cfg.url) {
   function render() {
     if (user) {
       const name = (user.email || "").split("@")[0];
-      line.innerHTML = '<a class="who" href="' + ROOT + 'account.html" style="border-bottom:1px solid rgba(31,42,46,.25)">' + name + "</a>" +
+      line.innerHTML = '<a class="who" href="' + ROOT + 'account.html" style="border-bottom:1px solid rgba(var(--ink-rgb),.25)">' + name + "</a>" +
         '<button type="button" class="es-out">sign out</button>';
       line.querySelector(".es-out").addEventListener("click", () => api.signOut());
     } else {

@@ -2,9 +2,9 @@
 /* Shared stylesheet for the six daemon pages. */
 
 :root {
-  --paper: var(--albedo);
-  --ink: var(--slate);
-  --ochre: var(--citrinitas);
+  --paper: var(--ground);
+  --ink: var(--ink-on);
+  --ochre: var(--accent-on);
 
   --c-air:   var(--air);
   --c-water: var(--water);
@@ -93,7 +93,7 @@ main {
 .portrait .frame {
   width: 100%;
   aspect-ratio: 1 / 1;
-  background: #E8E4DC;
+  background: var(--panel-on);
   overflow: hidden;
   border-top: 2px solid var(--accent, var(--ochre));
   position: relative;
@@ -180,7 +180,7 @@ section p + p { margin-top: 1.3em; }
 }
 .siblings li {
   padding: 0.55em 0;
-  border-bottom: 1px solid rgba(31, 42, 46, 0.08);
+  border-bottom: 1px solid rgba(var(--ink-rgb), 0.08);
 }
 .siblings li:last-child {
   border-bottom: none;
@@ -238,7 +238,7 @@ footer a:hover {
 }
 
 ::selection {
-  background: rgba(184, 146, 60, 0.22);
+  background: rgba(var(--accent-rgb), 0.22);
   color: var(--ink);
 }
 
@@ -258,7 +258,7 @@ footer a:hover {
 .doors p code {
   font-family: "IBM Plex Mono", ui-monospace, monospace;
   font-size: 0.86em;
-  background: rgba(31, 42, 46, 0.06);
+  background: rgba(var(--ink-rgb), 0.06);
   padding: 0.05em 0.35em;
 }
 .door-keys {
@@ -272,9 +272,9 @@ footer a:hover {
   gap: 0.4em 1.1em;
   align-items: baseline;
   padding: 0.55em 0;
-  border-top: 1px solid rgba(31, 42, 46, 0.1);
+  border-top: 1px solid rgba(var(--ink-rgb), 0.1);
 }
-.door-keys li:last-child { border-bottom: 1px solid rgba(31, 42, 46, 0.1); }
+.door-keys li:last-child { border-bottom: 1px solid rgba(var(--ink-rgb), 0.1); }
 .phi-key {
   font-family: "IBM Plex Mono", ui-monospace, monospace;
   font-size: 0.82em;

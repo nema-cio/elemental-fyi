@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-register="soft">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,9 +9,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="elemental-tokens.css">
+<script src="assets/theme.js"></script>
 <link rel="stylesheet" href="assets/ledger.css">
 <style>
-  :root{--paper:var(--albedo);--ink:var(--slate);--ochre:var(--citrinitas);--measure:620px;--body:19px;--line:1.65;
+  :root{--paper:var(--ground);--ink:var(--ink-on);--ochre:var(--accent-on);--measure:620px;--body:19px;--line:1.65;
     --c-air:#7E868C;--c-water:var(--water);--c-fire:var(--fire);--c-wood:var(--wood);--c-earth:var(--earth-op);--c-metal:var(--metal)}
   *{box-sizing:border-box}html,body{margin:0;padding:0;background:var(--paper);color:var(--ink)}
   body{font-family:"EB Garamond",Garamond,Georgia,serif;font-size:var(--body);line-height:var(--line);-webkit-font-smoothing:antialiased}
@@ -31,10 +32,10 @@
   .qt{font-family:"Cormorant Garamond",serif;font-size:1.35em;line-height:1.3;margin:0 0 1.2em}
   .opts{display:flex;flex-direction:column;gap:.7em}
   .opt{font-family:inherit;font-size:1em;line-height:1.5;text-align:left;background:transparent;color:var(--ink);
-    border:1px solid rgba(31,42,46,.18);padding:.8em 1em;cursor:pointer;transition:border-color .15s ease, padding-left .15s ease}
+    border:1px solid rgba(var(--ink-rgb),.18);padding:.8em 1em;cursor:pointer;transition:border-color .15s ease, padding-left .15s ease}
   .opt:hover{border-color:var(--ochre);padding-left:1.35em}
   .dots{display:flex;justify-content:center;gap:.55em;margin:3.2em 0 0}
-  .dots span{width:7px;height:7px;border-radius:50%;background:rgba(31,42,46,.18)}
+  .dots span{width:7px;height:7px;border-radius:50%;background:rgba(var(--ink-rgb),.18)}
   .dots span.done{background:var(--ochre)}
   #result{display:none}
   .lean-line{font-family:"Cormorant Garamond",serif;font-size:2.1em;text-align:center;margin:1.2em 0 .1em}
@@ -42,21 +43,21 @@
   .bars{margin:0 0 2.6em}
   .bar-row{display:grid;grid-template-columns:2.6em 1fr 3em;align-items:center;gap:.8em;margin:.45em 0}
   .bar-row .g{font-family:"Cormorant Garamond",serif;font-size:1.15em;text-align:right}
-  .bar-wrap{height:9px;background:rgba(31,42,46,.08)}
+  .bar-wrap{height:9px;background:rgba(var(--ink-rgb),.08)}
   .bar{display:block;height:100%;width:0;transition:width .9s ease}
   .bar-row .pc{font-size:.8em;opacity:.6}
   .reading-block{margin:0 0 2em}
   .reading-block .rb-t{font-family:"Cormorant Garamond",serif;font-size:1.15em;margin:0 0 .4em}
-  .keep{border-top:1px solid rgba(31,42,46,.1);padding-top:2em;margin-top:3em;font-size:.95em}
+  .keep{border-top:1px solid rgba(var(--ink-rgb),.1);padding-top:2em;margin-top:3em;font-size:.95em}
   .keep .kmsg{font-style:italic;opacity:.75}
   .keep a,button.door{font-family:inherit;font-size:1em;font-style:italic;color:var(--ochre);background:none;border:0;border-bottom:1px solid var(--ochre);padding:0 0 1px;cursor:pointer;text-decoration:none}
   .keep a:hover,button.door:hover{color:var(--ink);border-bottom-color:var(--ink)}
   .doors{margin-top:2.6em;display:flex;flex-direction:column;gap:.8em}
   .retake{text-align:center;margin-top:4em;font-size:.85em}
-  .retake a{color:inherit;opacity:.55;font-style:italic;text-decoration:none;border-bottom:1px solid rgba(31,42,46,.3)}
+  .retake a{color:inherit;opacity:.55;font-style:italic;text-decoration:none;border-bottom:1px solid rgba(var(--ink-rgb),.3)}
   footer{text-align:center;padding:6vh 28px 8vh;font-size:14px;opacity:.55}
   footer a{color:inherit;text-decoration:none;border-bottom:1px solid currentColor}
-  ::selection{background:rgba(184,146,60,.22)}
+  ::selection{background:rgba(var(--accent-rgb),.22)}
 </style>
 </head>
 <body>
@@ -76,6 +77,7 @@
       <a href="posts/">readings</a>
       <a href="operators.html">architecture</a>
     </div>
+    <button class="theme-toggle" type="button" aria-label="Switch theme">☾</button>
   </div>
 </nav>
 
