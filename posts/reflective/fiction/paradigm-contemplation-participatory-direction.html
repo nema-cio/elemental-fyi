@@ -7,9 +7,10 @@
 <meta name="description" content="A reflective reading — Paradigm contemplation → participatory direction, read by Jvalion, from real cited accounts.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../elemental-tokens.css">
 <style>
-  :root { --paper:#F4F1EA; --ink:#1F2A2E; --ochre:#B8923C; --accent:#B5512A; }
+  :root { --paper:var(--albedo); --ink:var(--slate); --ochre:var(--citrinitas); --accent:var(--fire); }
   * { box-sizing:border-box; }
   html,body { margin:0; background:var(--paper); color:var(--ink); }
   body { font-family:"EB Garamond",Garamond,Georgia,serif; font-size:19px; line-height:1.65; -webkit-font-smoothing:antialiased; }
@@ -25,7 +26,7 @@
   .hero { padding:5vh 0 2vh; text-align:center; }
   .hero .glyph { font-family:"Cormorant Garamond",serif; font-size:3em; color:var(--accent); line-height:1; }
   .hero .movement { font-family:"Cormorant Garamond",serif; font-size:1.7em; margin:0.3em 0 0.2em; }
-  .hero .phi { font-family:"SFMono-Regular","Menlo",monospace; font-size:0.82em; opacity:0.7; }
+  .hero .phi { font-family:var(--font-scribe); font-size:0.82em; opacity:0.7; }
   .hero .credit { font-style:italic; font-size:0.9em; opacity:0.65; margin-top:0.8em; }
   .hero .glyph .hmarrow { font-size:0.5em; opacity:0.5; color:var(--ink); vertical-align:middle; }
   .handoff { font-style:italic; opacity:0.9; border-left:2px solid var(--accent); padding:0.3em 0 0.3em 1.1em; margin:0 0 2em; }
@@ -37,7 +38,7 @@
   blockquote { margin:1.2em 0; padding:0.2em 0 0.2em 1.1em; border-left:2px solid var(--accent); font-style:italic; }
   blockquote cite { display:block; font-style:normal; font-size:0.85em; opacity:0.7; margin-top:0.4em; }
   .reading { border-top:1px solid rgba(31,42,46,0.14); margin-top:2.4em; padding-top:1.4em; }
-  .reading .phi { font-family:"SFMono-Regular","Menlo",monospace; font-size:0.9em; color:var(--accent); }
+  .reading .phi { font-family:var(--font-scribe); font-size:0.9em; color:var(--accent); }
   footer { max-width:660px; margin:4vh auto 0; padding:1.6em 28px; border-top:1px solid rgba(31,42,46,0.14); font-size:0.82em; opacity:0.7; line-height:1.5; }
   a { color:var(--ochre); }
 </style>

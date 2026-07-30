@@ -5,9 +5,10 @@
 <meta name="description" content="An elemental scene composed from a nemetic.φ.">
 <meta property="og:title" content="Aim and pressure"><meta property="og:type" content="article">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../elemental-tokens.css">
 <style>
-  :root{--paper:#F4F1EA;--ink:#1F2A2E;--ochre:#B8923C;--measure:660px;--body:19px;--line:1.6}
+  :root{--paper:var(--albedo);--ink:var(--slate);--ochre:var(--citrinitas);--measure:660px;--body:19px;--line:1.6}
   *{box-sizing:border-box}html,body{margin:0;padding:0;background:var(--paper);color:var(--ink)}
   body{font-family:"EB Garamond",Garamond,Georgia,serif;font-size:var(--body);line-height:var(--line);-webkit-font-smoothing:antialiased}
   main{max-width:var(--measure);margin:0 auto;padding:0 28px}
@@ -21,7 +22,7 @@
   .hero-card .ops{font-family:"Cormorant Garamond",serif;font-size:clamp(54px,11vw,76px);line-height:1;letter-spacing:.04em}
   .hero-card .ops .op-sep{color:var(--ink);opacity:.28;font-size:.5em;margin:0 .18em;vertical-align:.18em}
   .hero-card .hc-title{font-family:"Cormorant Garamond",serif;font-weight:400;font-size:calc(var(--body)*2.3);line-height:1.14;margin:.5em 0 .35em}
-  .hero-card .hc-phi{font-family:"SFMono-Regular",Menlo,Consolas,monospace;font-size:.8em;opacity:.72;word-break:break-word;max-width:92%;margin:0 auto}
+  .hero-card .hc-phi{font-family:var(--font-scribe);font-size:.8em;opacity:.72;word-break:break-word;max-width:92%;margin:0 auto}
   h1.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
   .trans{font-style:italic;font-size:1.1em;opacity:.9;text-align:center;margin:4vh auto 4vh;max-width:90%}
   .player{width:100%;margin:0 0 1vh;outline:none}
