@@ -20,7 +20,21 @@
 .ledger-links { margin-left: auto; display: flex; gap: 22px; }
 .ledger-links a { color: var(--ash-deep); text-decoration: none; transition: color var(--t-state) var(--ease-precipitate); }
 .ledger-links a:hover { color: var(--citrinitas); }
-@media (max-width: 720px) { .ledger-links { display: none; } }
+/* Narrow: the links stay — they scroll sideways rather than vanish. Hiding navigation on
+   phones left every inner page a dead end. No chrome, no toggle; the row just slides. */
+@media (max-width: 860px) {
+  .ledger-inner { gap: 12px; padding: 12px 18px; }
+  .ledger-links {
+    gap: 18px; overflow-x: auto; flex-wrap: nowrap;
+    scrollbar-width: none; -ms-overflow-style: none;
+    -webkit-overflow-scrolling: touch;
+    mask-image: linear-gradient(to right, #000 calc(100% - 16px), transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 16px), transparent 100%);
+  }
+  .ledger-links::-webkit-scrollbar { display: none; }
+  .ledger-links a { white-space: nowrap; }
+  .ledger-inner .home span:not(.star):not(.dots) { display: none; }  /* mark + dots carry it */
+}
 
 /* Hard-mode variant — for pages on the nigredo ground */
 .ledger--dark {
