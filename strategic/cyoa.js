@@ -30,6 +30,15 @@ window.CYOA = (function () {
     Earth: "Earth weighs what it costs — what feeds the system, what exhausts it, what the body can carry.",
     Metal: "Metal holds the form — the boundaries that keep it whole without becoming a cage."
   };
+  // The same six voices at the near scales — the operator is unchanged, the register is not.
+  const BLURB_REL = {
+    Air: "Air sees first — it separates what is actually here from the story already told about it.",
+    Water: "Water feels the field — who this touches, what is owed, where trust holds or thins.",
+    Fire: "Fire gives it direction — where this is heading, and what the crossing would cost.",
+    Wood: "Wood opens what's next — what is trying to grow, before the shape is fixed.",
+    Earth: "Earth weighs what it costs — what you are carrying, and what would actually feed it.",
+    Metal: "Metal holds the form — the edges that keep this whole without sealing it."
+  };
   const PAGE = el => el.toLowerCase() + ".html";
   const rotated = element => {
     const i = ORDER.indexOf(element);
@@ -70,8 +79,40 @@ window.CYOA = (function () {
     return text || qualifiers;
   }
 
-  let TAX = null;
-  const taxonomy = () => fetch("taxonomy.json").then(r => r.json()).then(t => (TAX = t));
+  // ---- tracks -------------------------------------------------------------------------
+  // The relay is the mechanism; the TRACK is which facet vocabulary it walks. Scope picks it:
+  // the near scales read on the relational track, the far ones on the strategic (PESTLE) one.
+  // The operators are identical across both, so φ, chains and the synthesis read across them.
+  const TRACK_BY_SCOPE = {
+    "just me": "relational",
+    "me and one other": "relational",
+    "a team or group": "relational",
+    "an organization": "strategic",
+    "a field or community": "strategic",
+    "something in the world": "strategic"
+  };
+  const TRACK_FILE = { strategic: "taxonomy.json", relational: "taxonomy-relational.json" };
+  const trackFor = scope => TRACK_BY_SCOPE[scope] || "strategic";
+
+  // A continuing element only receives `title` from the session, so the track is recovered from
+  // the qualifiers composeTitle() folded in — the same reason scope lives there in the first place.
+  // Only exact matches against SCOPES count, so a reader's own parentheses can't be misread.
+  function scopeFromTitle(title) {
+    const m = /\(([^()]*)\)\s*$/.exec(title || "");
+    if (!m) return "";
+    const parts = m[1].split("·").map(s => s.trim());
+    for (let i = 0; i < parts.length; i++) if (SCOPES.indexOf(parts[i]) > -1) return parts[i];
+    return "";
+  }
+  const trackFromTitle = title => trackFor(scopeFromTitle(title));
+
+  let TAX = null, TRACK = null;
+  const taxonomy = track => {
+    track = track || TRACK || "strategic";
+    if (TAX && TRACK === track) return Promise.resolve(TAX);
+    return fetch(TRACK_FILE[track] || TRACK_FILE.strategic)
+      .then(r => r.json()).then(t => { TAX = t; TRACK = track; return t; });
+  };
   const elementByName = name => TAX.elements.find(e => e.element === name);
   const stanceById = id => TAX.stances.find(s => s.id === id);
 
@@ -176,7 +217,7 @@ window.CYOA = (function () {
   // START — element seeds a new session; order is the rotation beginning at it. After the CYOA
   // the session sits at `enriching:<el>` — the handoff is gated on the GPT enrichment.
   function start(opts) {
-    return taxonomy().then(() => playElement(opts.mount, opts.element)).then(entry => {
+    return taxonomy(opts.track || trackFromTitle(opts.title)).then(() => playElement(opts.mount, opts.element)).then(entry => {
       const sessionId = uuid();
       const order = (opts.order || rotated(opts.element)).slice();
       const title = (opts.title && opts.title.trim()) ||
@@ -193,8 +234,12 @@ window.CYOA = (function () {
   //  awaiting/enriching:other → not this element's turn (out-of-order guard)
   //  complete          → done
   function cont(opts) {
-    return taxonomy().then(() => getSession(opts.sessionId)).then(session => {
+    // Session first: its title is what tells us which track this relay is walking.
+    return getSession(opts.sessionId).then(session => {
       if (!session) { opts.onMissing && opts.onMissing(); return; }
+      return taxonomy(trackFromTitle(session.title)).then(() => session);
+    }).then(session => {
+      if (!session) return;
       if (session.status === "complete") { opts.onMismatch && opts.onMismatch(session, "complete"); return; }
       const awaiting = awaitingOf(session), enriching = enrichingOf(session);
       if (enriching === opts.element) { opts.onResume && opts.onResume(session); return; }
@@ -218,15 +263,21 @@ window.CYOA = (function () {
       const head = q("#head"), intro = q("#intro"), game = q("#game"),
             resolve = q("#resolve"), incoming = q("#incoming");
 
-      head.innerHTML =
-        '<span class="element-mark" aria-hidden="true">' + element.operator + '</span>' +
-        '<p class="eyebrow">a reading · ' + (sid ? "continues" : "begins") + " with " + El.toLowerCase() + '</p>' +
-        '<h1>' + esc(element.diagnostic.core_question) + '</h1>' +
-        '<p class="orientation">' + esc(BLURB[El]) + '</p>' +
-        (sid ? "" :
-          '<p class="orientation">A decision, a situation, a strategy — anything you’re trying to read clearly, ' +
-          'one lens at a time. Walk three choices; ' + El + ' cuts one line — a <em>nemetic.φ</em> — to take ' +
-          'deeper with the guide, then hand on. Six elements, and a synthesis at the end.</p>');
+      // Re-rendered when scope changes the track: the question and the orientation are the
+      // reader's first sign that the instrument has changed register.
+      function renderHead() {
+        const el = elementByName(opts.element);
+        head.innerHTML =
+          '<span class="element-mark" aria-hidden="true">' + el.operator + '</span>' +
+          '<p class="eyebrow">a relay · ' + (sid ? "continues" : "begins") + " with " + El.toLowerCase() + '</p>' +
+          '<h1>' + esc(el.diagnostic.core_question) + '</h1>' +
+          '<p class="orientation">' + esc((TRACK === "relational" ? BLURB_REL : BLURB)[El]) + '</p>' +
+          (sid ? "" :
+            '<p class="orientation">A decision, a knot, a turning — anything you’re trying to read clearly, ' +
+            'one lens at a time. Walk three choices; ' + El + ' cuts one line — a <em>nemetic.φ</em> — to take ' +
+            'deeper with the guide, then hand on. Six elements carry it in turn, and a synthesis at the end.</p>');
+      }
+      renderHead();
 
       function wireCopy(phi) {
         const btn = resolve.querySelector(".copy-btn");
@@ -367,16 +418,17 @@ window.CYOA = (function () {
             incoming.hidden = false;
           },
           onResume: session => {     // came back during enriching:thisEl — resume the deepen step
+            renderHead();            // the track is known now; the head may have been the wrong register
             if (session.chain.length > 1)
               showIncoming({ chain: session.chain.slice(0, -1), title: session.title });
             const last = session.chain[session.chain.length - 1];
             showResolve(last, sid, session.order, session.chain, session.title);
           },
-          onIncoming: session => { showIncoming(session); game.hidden = false; },
+          onIncoming: session => { renderHead(); showIncoming(session); game.hidden = false; },
           onComplete: (entry, sessionId, order, chain, title) => showResolve(entry, sessionId, order, chain, title)
         });
       } else {
-        var HINT_REST = "A short label and, if it helps, where this sits and what shape it has — all optional. Whatever you give travels with the reading, into each element and the handoff.";
+        var HINT_REST = "A short label and, if it helps, where this sits and what shape it has. Whatever you give travels with the relay, into each element and the handoff. <em>Where</em> also sets the register the lenses read in — the near scales relationally, the far ones strategically.";
         var optionTags = list => list.map(v => '<option value="' + esc(v) + '">' + esc(v) + "</option>").join("");
         intro.innerHTML =
           '<div class="sit-block">' +
@@ -399,15 +451,21 @@ window.CYOA = (function () {
         function reflect() {
           var v = composeTitle(titleEl.value, scopeEl.value, turnEl.value);
           if (v) {
-            titleHint.innerHTML = "✓ Noted — “" + esc(v) + "” carries through your reading, into each element and the guide handoff.";
+            var reg = scopeEl.value ? " Read in the <strong>" + trackFor(scopeEl.value) + "</strong> register." : "";
+            titleHint.innerHTML = "✓ Noted — “" + esc(v) + "” carries through your relay, into each element and the guide handoff." + reg;
             titleHint.style.color = "var(--accent)"; titleHint.style.opacity = "0.95"; titleHint.style.fontStyle = "normal";
           } else {
-            titleHint.textContent = HINT_REST;
+            titleHint.innerHTML = HINT_REST;
             titleHint.style.color = ""; titleHint.style.opacity = "0.6"; titleHint.style.fontStyle = "italic";
           }
         }
         titleEl.addEventListener("input", reflect);
-        scopeEl.addEventListener("change", reflect);
+        // Scope is load-bearing: it selects which facet vocabulary this relay walks.
+        scopeEl.addEventListener("change", () => {
+          reflect();
+          const want = trackFor(scopeEl.value);
+          if (want !== TRACK) taxonomy(want).then(renderHead);
+        });
         turnEl.addEventListener("change", reflect);
         q("#begin").addEventListener("click", () => {
           const title = composeTitle(titleEl.value, scopeEl.value, turnEl.value);
@@ -416,7 +474,7 @@ window.CYOA = (function () {
             ? '<p style="font-size:0.86em;font-style:italic;opacity:0.72;margin:0 0 1.6em;border-left:2px solid var(--accent);padding-left:0.8em;">reading: ' + esc(title) + '</p>'
             : "";
           intro.hidden = !title; game.hidden = false;
-          start({ element: El, mount: game, title: title,
+          start({ element: El, mount: game, title: title, track: trackFor(scopeEl.value),
                   onComplete: (entry, sessionId, order, chain, t) => showResolve(entry, sessionId, order, chain, t) });
         });
       }
