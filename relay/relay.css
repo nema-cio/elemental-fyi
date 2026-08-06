@@ -183,6 +183,34 @@ main { max-width: var(--measure); margin: 0 auto; padding: 0 28px; }
   transition: opacity var(--t-state), color var(--t-state);
 }
 
+/* ── The walk: three dependent selects, all revisable until the line is cut ── */
+.walk { display: grid; gap: 1.5em; margin: 2em 0 0; }
+.walk-field { display: flex; flex-direction: column; }
+.walk-gloss {
+  margin: 1.2em 0 0; font-style: italic; font-size: 0.94em; opacity: 0.8;
+  border-left: 2px solid var(--accent); padding-left: 0.9em; min-height: 1.4em;
+}
+.walk-all { margin: 1.6em 0 0; font-size: 0.9em; }
+.walk-all summary {
+  cursor: pointer; font-family: var(--font-scribe); font-size: 0.78em;
+  text-transform: uppercase; letter-spacing: 0.14em; color: var(--accent); opacity: 0.85;
+}
+.walk-all summary:hover { opacity: 1; }
+.walk-all ul { list-style: none; margin: 1em 0 0; padding: 0; }
+.walk-all ul ul { margin: 0.3em 0 1em 0; padding-left: 1em; }
+.walk-all ul ul li { opacity: 0.78; padding: 0.15em 0; }
+.walk-all strong { font-weight: 500; }
+.walk-preview { margin: 1.8em 0 0; font-size: 0.9em; opacity: 0.8; }
+.walk-preview code { font-family: var(--font-scribe); font-size: 0.95em; color: var(--accent); }
+
+/* The full string handed to the guide — selectable by hand as well as copyable */
+.handoff-block {
+  font-family: var(--font-scribe); font-size: 0.8em; line-height: 1.6;
+  background: var(--wash); border: 1px solid var(--hairline);
+  padding: 1em 1.1em; margin: 0 0 0.9em; white-space: pre-wrap; word-break: break-word;
+  overflow-x: auto; user-select: all;
+}
+
 .honest {
   font-style: italic; margin: 6vh 0 0; padding: 0 0 0 22px;
   border-left: 2px solid var(--ochre); max-width: 560px;

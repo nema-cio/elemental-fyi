@@ -128,20 +128,7 @@ window.CYOA = (function () {
   const esc = s => String(s).replace(/[&<>]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]));
 
   // Render one choice-step: a framing question + a column of option "doors".
-  function step(mount, framing, options, onPick) {
-    clear(mount);
-    if (framing) mount.appendChild(elc("p", "cyoa-framing", esc(framing)));
-    const list = elc("div", "cyoa-options");
-    options.forEach(opt => {
-      const b = elc("button", "cyoa-door");
-      b.type = "button";
-      b.innerHTML = '<span class="cyoa-door-label">' + esc(opt.label) + "</span>" +
-        (opt.hint ? '<span class="cyoa-door-hint">' + esc(opt.hint) + "</span>" : "");
-      b.addEventListener("click", () => onPick(opt));
-      list.appendChild(b);
-    });
-    mount.appendChild(list);
-  }
+  const opt = (v, t) => '<option value="' + esc(v) + '">' + esc(t) + "</option>";
 
   // ---- leaf → φ -----------------------------------------------------------------------
   function compileLeaf(element, subdomain, facet, stanceId) {
@@ -156,22 +143,56 @@ window.CYOA = (function () {
   }
 
   // ---- play one element's tree, resolve to a leaf entry -------------------------------
+  // Three dependent selects rather than three one-way doors. The old walk committed on click
+  // and cleared the mount, so a reader chose a sub-domain before seeing what was inside it and
+  // could not go back. Here every level stays open and revisable, the whole tree is browsable
+  // before committing, and nothing is cut until the reader says so.
   function playElement(mount, elementName) {
     const element = elementByName(elementName);
     return new Promise(resolve => {
-      step(mount, element.diagnostic.core_question,
-        element.branches.map(b => ({ label: b.title, ref: b })),
-        pickB => {
-          const branch = pickB.ref;
-          step(mount, "Within “" + branch.title + "”, what's live?",
-            branch.facets.map(f => ({ label: f.text, ref: f })),
-            pickF => {
-              const facet = pickF.ref;
-              step(mount, "How is this live right now?",
-                TAX.stances.map(s => ({ label: s.label, hint: element.stance_frames[s.id], ref: s })),
-                pickS => resolve(compileLeaf(element, branch, facet, pickS.ref.id)));
-            });
-        });
+      clear(mount);
+      const all = element.branches.map(b =>
+        "<li><strong>" + esc(b.title) + "</strong><ul>" +
+        b.facets.map(f => "<li>" + esc(f.text) + "</li>").join("") + "</ul></li>").join("");
+      mount.innerHTML =
+        '<p class="cyoa-framing">' + esc(element.diagnostic.core_question) + "</p>" +
+        '<div class="walk">' +
+          '<div class="walk-field"><label class="sit-label" for="w-branch">Where does this sit?</label>' +
+            '<span class="sit-select-wrap"><select class="sit-select" id="w-branch">' +
+            element.branches.map((b, i) => opt(i, b.title)).join("") + "</select></span></div>" +
+          '<div class="walk-field"><label class="sit-label" for="w-facet">What’s live within it?</label>' +
+            '<span class="sit-select-wrap"><select class="sit-select" id="w-facet"></select></span></div>' +
+          '<div class="walk-field"><label class="sit-label" for="w-stance">How is it live right now?</label>' +
+            '<span class="sit-select-wrap"><select class="sit-select" id="w-stance">' +
+            TAX.stances.map(s => opt(s.id, s.label)).join("") + "</select></span></div>" +
+        "</div>" +
+        '<p class="walk-gloss" id="w-gloss"></p>' +
+        '<details class="walk-all"><summary>see all nine at once</summary><ul>' + all + "</ul></details>" +
+        '<p class="walk-preview">this cuts <code id="w-phi"></code></p>' +
+        '<p style="margin:1.6em 0 0;"><button type="button" id="w-cut" class="door-link" ' +
+        'style="background:none;border:0;border-bottom:1px solid var(--accent);cursor:pointer;">' +
+        "<em>Cut the line →</em></button></p>";
+
+      const bSel = mount.querySelector("#w-branch"), fSel = mount.querySelector("#w-facet"),
+            sSel = mount.querySelector("#w-stance"), gloss = mount.querySelector("#w-gloss"),
+            phiEl = mount.querySelector("#w-phi");
+      const branchOf = () => element.branches[bSel.value | 0];
+      const facetOf = () => branchOf().facets[fSel.value | 0];
+
+      function fillFacets() {
+        fSel.innerHTML = branchOf().facets.map((f, i) => opt(i, f.text)).join("");
+      }
+      function reflect() {
+        gloss.textContent = element.stance_frames[sSel.value] || "";
+        phiEl.textContent = element.operator + "(" + facetOf().id + " | " + sSel.value + ")";
+      }
+      bSel.addEventListener("change", () => { fillFacets(); reflect(); });
+      fSel.addEventListener("change", reflect);
+      sSel.addEventListener("change", reflect);
+      fillFacets(); reflect();
+
+      mount.querySelector("#w-cut").addEventListener("click", () =>
+        resolve(compileLeaf(element, branchOf(), facetOf(), sSel.value)));
     });
   }
 
@@ -300,7 +321,16 @@ window.CYOA = (function () {
         const situation = (title || "").trim();
         // what the participant pastes into the GPT — the φ AND the situation they named, so the
         // guide has the context (fixes the dropped first-box).
-        const handoff = entry.phi + (situation ? "\n\nThe situation I'm reading: " + situation : "");
+        // What the reader pastes into the guide. The φ alone strands the guide: it can't see the
+        // situation or what the earlier elements already found. The whole chain goes across.
+        const handoff = [
+          situation ? "The situation I'm reading: " + situation : null,
+          chain.length > 1 ? "The chain so far: " + chainPhi(chain) : null,
+          El + "’s line: " + entry.phi,
+          "Which reads: " + entry.reading,
+          "",
+          "Take this as far as " + El + " can, then give me what I should carry forward to elemental.fyi."
+        ].filter(v => v !== null).join("\n");
         let html =
           '<p class="label">' + El + "’s reading — your φ</p>" +
           '<p class="phi">' + esc(entry.phi) + "</p>" +
@@ -312,8 +342,10 @@ window.CYOA = (function () {
           '<p class="label" style="margin-top:2em;">take it deeper</p>' +
           '<p style="margin:0 0 1.2em;">Bring this to ' + El + ' and let it teach you. <strong>Take your time</strong> — sit with it, go back and forth a few times; this is contemplation, not a quiz, and it can run as long as you like. When you’re ready, ask it: <em>“Provide what I should carry forward to elemental.fyi.”</em> It will hand back a short <em>carry-forward</em> block — paste that back here to hand the reading on.</p>' +
           '<p style="margin:0 0 1.4em;"><a class="door-link" href="' + GPT_URL[El] + '" target="_blank" rel="noopener"><em>Take it deeper with ' + El + ' →</em></a></p>' +
-          '<div class="copy-row"><span>paste this to ' + El + ':</span><code>' + esc(entry.phi) + '</code><button type="button" class="copy-btn">copy</button></div>' +
-          (situation ? '<p style="font-size:0.84em;opacity:0.65;margin:0.5em 0 0;">(the copy carries your situation too: “' + esc(situation) + '”)</p>' : "") +
+          '<p class="label" style="margin-top:1.6em;">what to paste to ' + El + '</p>' +
+          '<pre class="handoff-block" id="handoff-src">' + esc(handoff) + "</pre>" +
+          '<div class="copy-row"><button type="button" class="copy-btn">copy the whole handoff</button>' +
+          '<span style="opacity:0.6;">— the situation, the chain so far, and this element’s line</span></div>' +
           '<div style="margin-top:2.2em;">' +
           '<label for="enrich-box" style="display:block;font-style:italic;margin:0 0 0.7em;">Paste what ' + El + ' gave you</label>' +
           '<textarea id="enrich-box" rows="6" placeholder="the ─── CARRY FORWARD ─── block ' + El + ' ended with…" style="' + TEXTAREA_STYLE + '"></textarea>' +
