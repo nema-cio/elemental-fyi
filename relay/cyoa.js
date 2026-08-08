@@ -56,55 +56,56 @@ window.CYOA = (function () {
   };
   const DISCORD_INVITE = "https://discord.gg/uBSMGS7Hzr";
 
-  // Optional context the reader can name before the walk. Both are deliberately ORTHOGONAL to
-  // the taxonomy (sub-domain → facet → stance) the element is about to walk — they say where the
-  // situation sits and what shape it has, which the tree never asks and the guide can't infer.
-  // SCOPE follows the framework's nested habitats; TURNING uses the site's own vocabulary
-  // ("a decision, a season, a stuck place" — accounts).
-  const SCOPES = [
-    "just me", "me and one other", "a team or group",
-    "an organization", "a field or community", "something in the world"
-  ];
-  const TURNINGS = [
-    "a decision I'm facing", "a stuck place", "a conflict",
-    "a transition or ending", "something I'm watching unfold", "not sure yet"
-  ];
-
   // The relay session carries ONE free field (`title`) end to end, so scope and turning are
   // folded into it — otherwise they'd be lost the moment the next element picks the reading up.
-  function composeTitle(text, scope, turning) {
-    const qualifiers = [turning, scope].filter(Boolean).join(" · ");
+  function composeTitle(text, where, turning) {
+    const qualifiers = [turning, where].filter(Boolean).join(" · ");
     text = (text || "").trim();
     if (text && qualifiers) return text + " (" + qualifiers + ")";
     return text || qualifiers;
   }
 
-  // ---- tracks -------------------------------------------------------------------------
-  // The relay is the mechanism; the TRACK is which facet vocabulary it walks. Scope picks it:
-  // the near scales read on the relational track, the far ones on the strategic (PESTLE) one.
-  // The operators are identical across both, so φ, chains and the synthesis read across them.
-  const TRACK_BY_SCOPE = {
-    "just me": "relational",
-    "me and one other": "relational",
-    "a team or group": "relational",
-    "an organization": "strategic",
-    "a field or community": "strategic",
+  // ---- scale, field, track --------------------------------------------------------------
+  // The relay's opening question is Scale -> Field (relay/scales.json, derived from the
+  // area-taxonomy that already modelled micro/meso/macro). The FIELD decides which facet
+  // vocabulary the six elements walk, because the meso stratum is genuinely mixed: "a family"
+  // is relational, "a local institution" wants the PESTLE facets. Naming only the scale falls
+  // back to that scale's default.
+  let SCALES = null;
+  const scales = () => SCALES ? Promise.resolve(SCALES)
+    : fetch("scales.json").then(r => r.json()).then(j => (SCALES = j.scales));
+  const scaleById = id => (SCALES || []).find(s => s.id === id);
+  const allFields = () => (SCALES || []).reduce((a, s) => a.concat(s.fields), []);
+
+  // Retired vocabulary: sessions started before the scale spine folded one of these into their
+  // title. They must keep resolving, or a relay in flight would switch register mid-chain.
+  const LEGACY_SCOPES = {
+    "just me": "relational", "me and one other": "relational", "a team or group": "relational",
+    "an organization": "strategic", "a field or community": "strategic",
     "something in the world": "strategic"
   };
+  const TURNINGS = [
+    "a decision I'm facing", "a stuck place", "a conflict",
+    "a transition or ending", "something I'm watching unfold", "not sure yet"
+  ];
   const TRACK_FILE = { strategic: "taxonomy.json", relational: "taxonomy-relational.json" };
-  const trackFor = scope => TRACK_BY_SCOPE[scope] || "strategic";
 
-  // A continuing element only receives `title` from the session, so the track is recovered from
-  // the qualifiers composeTitle() folded in — the same reason scope lives there in the first place.
-  // Only exact matches against SCOPES count, so a reader's own parentheses can't be misread.
-  function scopeFromTitle(title) {
+  // A continuing element receives only `title`, so the track is recovered from the qualifier
+  // composeTitle folded in — matched exactly, against fields first, then scales, then the
+  // retired scope wording.
+  function trackFromTitle(title) {
     const m = /\(([^()]*)\)\s*$/.exec(title || "");
-    if (!m) return "";
-    const parts = m[1].split("·").map(s => s.trim());
-    for (let i = 0; i < parts.length; i++) if (SCOPES.indexOf(parts[i]) > -1) return parts[i];
-    return "";
+    if (!m) return "strategic";
+    const parts = m[1].split("·").map(x => x.trim());
+    for (const p of parts) {
+      const f = allFields().find(x => x.label === p);
+      if (f) return f.track;
+      const sc = (SCALES || []).find(x => x.label === p);
+      if (sc) return sc.track_default;
+      if (LEGACY_SCOPES[p]) return LEGACY_SCOPES[p];
+    }
+    return "strategic";
   }
-  const trackFromTitle = title => trackFor(scopeFromTitle(title));
 
   let TAX = null, TRACK = null;
   const taxonomy = track => {
@@ -244,7 +245,8 @@ window.CYOA = (function () {
   // START — element seeds a new session; order is the rotation beginning at it. After the CYOA
   // the session sits at `enriching:<el>` — the handoff is gated on the GPT enrichment.
   function start(opts) {
-    return taxonomy(opts.track || trackFromTitle(opts.title)).then(() => playElement(opts.mount, opts.element)).then(entry => {
+    return scales().then(() => taxonomy(opts.track || trackFromTitle(opts.title)))
+      .then(() => playElement(opts.mount, opts.element)).then(entry => {
       const sessionId = uuid();
       const order = (opts.order || rotated(opts.element)).slice();
       const title = (opts.title && opts.title.trim()) ||
@@ -261,8 +263,9 @@ window.CYOA = (function () {
   //  awaiting/enriching:other → not this element's turn (out-of-order guard)
   //  complete          → done
   function cont(opts) {
-    // Session first: its title is what tells us which track this relay is walking.
-    return getSession(opts.sessionId).then(session => {
+    // Session first: its title is what tells us which track this relay is walking; the scale
+    // spine has to be loaded before that title can be matched against it.
+    return scales().then(() => getSession(opts.sessionId)).then(session => {
       if (!session) { opts.onMissing && opts.onMissing(); return; }
       return taxonomy(trackFromTitle(session.title)).then(() => session);
     }).then(session => {
@@ -283,7 +286,7 @@ window.CYOA = (function () {
 
   // ---- the page driver: wires a whole element page (Start or Continue) ----------------
   function page(opts) {
-    return taxonomy().then(() => {
+    return Promise.all([taxonomy(), scales()]).then(() => {
       const element = elementByName(opts.element);
       const El = element.element;
       const sid = new URLSearchParams(location.search).get("s");
@@ -479,30 +482,61 @@ window.CYOA = (function () {
           onComplete: (entry, sessionId, order, chain, title) => showResolve(entry, sessionId, order, chain, title)
         });
       } else {
-        var HINT_REST = "A short label and, if it helps, where this sits and what shape it has. Whatever you give travels with the relay, into each element and the handoff. <em>Where</em> also sets the register the lenses read in — the near scales relationally, the far ones strategically.";
+        var HINT_REST = "A short label, and where this actually sits. <em>Where</em> is load-bearing: " +
+          "it decides which vocabulary the six elements read in — the near scales relationally, the far " +
+          "ones strategically. Everything here travels with the relay, into each element and the handoff.";
         var optionTags = list => list.map(v => '<option value="' + esc(v) + '">' + esc(v) + "</option>").join("");
+        var scaleOpts = SCALES.map(sc => '<option value="' + esc(sc.id) + '">' + esc(sc.label) + " — " + esc(sc.gloss) + "</option>").join("");
         intro.innerHTML =
           '<div class="sit-block">' +
           '<label class="sit-label" for="title">Name the situation <span class="opt">(optional)</span></label>' +
-          '<input class="sit-input" type="text" id="title" placeholder="the strategy or situation you\'re reading" autocomplete="off">' +
+          '<input class="sit-input" type="text" id="title" placeholder="the situation you\'re reading" autocomplete="off">' +
           '<div class="sit-pair">' +
-            '<div><label class="sit-label" for="sit-scope">Where is this happening? <span class="opt">(optional)</span></label>' +
-            '<span class="sit-select-wrap"><select class="sit-select" id="sit-scope">' +
-            '<option value="">—</option>' + optionTags(SCOPES) + "</select></span></div>" +
-            '<div><label class="sit-label" for="sit-turning">What kind of turning is this? <span class="opt">(optional)</span></label>' +
-            '<span class="sit-select-wrap"><select class="sit-select" id="sit-turning">' +
-            '<option value="">—</option>' + optionTags(TURNINGS) + "</select></span></div>" +
+            '<div><label class="sit-label" for="sit-scale">At what scale? <span class="opt">(optional)</span></label>' +
+            '<span class="sit-select-wrap"><select class="sit-select" id="sit-scale">' +
+            '<option value="">—</option>' + scaleOpts + "</select></span></div>" +
+            '<div><label class="sit-label" for="sit-field">Where exactly? <span class="opt">(optional)</span></label>' +
+            '<span class="sit-select-wrap"><select class="sit-select" id="sit-field"><option value="">—</option></select></span></div>' +
           "</div>" +
+          '<div class="sit-field-single"><label class="sit-label" for="sit-turning">What kind of turning is this? <span class="opt">(optional)</span></label>' +
+          '<span class="sit-select-wrap"><select class="sit-select" id="sit-turning">' +
+          '<option value="">—</option>' + optionTags(TURNINGS) + "</select></span></div>" +
           '<p id="title-hint" class="sit-hint">' + HINT_REST + "</p>" +
           '<p style="margin:2.2em 0 0;"><button type="button" id="begin" class="door-link" style="background:none;border:0;border-bottom:1px solid var(--accent);cursor:pointer;"><em>Begin with ' + El + ' →</em></button></p></div>';
         intro.hidden = false;
         var titleEl = q("#title"), titleHint = q("#title-hint"),
-            scopeEl = q("#sit-scope"), turnEl = q("#sit-turning");
-        // live affordance — once they name it, confirm what will be carried, not lost
+            scaleEl = q("#sit-scale"), fieldEl = q("#sit-field"), turnEl = q("#sit-turning");
+
+        // The field is what travels; the scale stands in when no field is named.
+        const chosenField = () => {
+          const sc = scaleById(scaleEl.value);
+          return sc && fieldEl.value ? sc.fields.find(f => f.id === fieldEl.value) : null;
+        };
+        const whereLabel = () => {
+          const f = chosenField();
+          if (f) return f.label;
+          const sc = scaleById(scaleEl.value);
+          return sc ? sc.label : "";
+        };
+        const wantedTrack = () => {
+          const f = chosenField();
+          if (f) return f.track;
+          const sc = scaleById(scaleEl.value);
+          return sc ? sc.track_default : "strategic";
+        };
+        function fillFields() {
+          const sc = scaleById(scaleEl.value);
+          fieldEl.innerHTML = '<option value="">—</option>' + (sc ? sc.fields.map(f =>
+            '<option value="' + esc(f.id) + '">' + esc(f.label) + "</option>").join("") : "");
+          fieldEl.disabled = !sc;
+        }
         function reflect() {
-          var v = composeTitle(titleEl.value, scopeEl.value, turnEl.value);
+          var v = composeTitle(titleEl.value, whereLabel(), turnEl.value);
           if (v) {
-            var reg = scopeEl.value ? " Read in the <strong>" + trackFor(scopeEl.value) + "</strong> register." : "";
+            var f = chosenField();
+            var reg = (scaleEl.value || f)
+              ? " Read in the <strong>" + wantedTrack() + "</strong> register" +
+                (f ? " — " + esc(f.gloss) + "." : ".") : "";
             titleHint.innerHTML = "✓ Noted — “" + esc(v) + "” carries through your relay, into each element and the guide handoff." + reg;
             titleHint.style.color = "var(--accent)"; titleHint.style.opacity = "0.95"; titleHint.style.fontStyle = "normal";
           } else {
@@ -510,22 +544,23 @@ window.CYOA = (function () {
             titleHint.style.color = ""; titleHint.style.opacity = "0.6"; titleHint.style.fontStyle = "italic";
           }
         }
-        titleEl.addEventListener("input", reflect);
-        // Scope is load-bearing: it selects which facet vocabulary this relay walks.
-        scopeEl.addEventListener("change", () => {
-          reflect();
-          const want = trackFor(scopeEl.value);
+        function syncTrack() {
+          const want = wantedTrack();
           if (want !== TRACK) taxonomy(want).then(renderHead);
-        });
+        }
+        titleEl.addEventListener("input", reflect);
+        scaleEl.addEventListener("change", () => { fillFields(); reflect(); syncTrack(); });
+        fieldEl.addEventListener("change", () => { reflect(); syncTrack(); });
         turnEl.addEventListener("change", reflect);
+        fillFields();
         q("#begin").addEventListener("click", () => {
-          const title = composeTitle(titleEl.value, scopeEl.value, turnEl.value);
+          const title = composeTitle(titleEl.value, whereLabel(), turnEl.value);
           // keep the named situation on screen as the reading proceeds — proof it carried over
           intro.innerHTML = title
             ? '<p style="font-size:0.86em;font-style:italic;opacity:0.72;margin:0 0 1.6em;border-left:2px solid var(--accent);padding-left:0.8em;">reading: ' + esc(title) + '</p>'
             : "";
           intro.hidden = !title; game.hidden = false;
-          start({ element: El, mount: game, title: title, track: trackFor(scopeEl.value),
+          start({ element: El, mount: game, title: title, track: wantedTrack(),
                   onComplete: (entry, sessionId, order, chain, t) => showResolve(entry, sessionId, order, chain, t) });
         });
       }

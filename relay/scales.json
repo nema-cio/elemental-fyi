@@ -1,0 +1,163 @@
+{
+  "_meta": {
+    "title": "Relay scale spine — where a reading sits",
+    "role": "The relay's opening question, replacing the ad-hoc SCOPES list. Scale -> Field locates WHERE a situation lives; the field then selects which facet vocabulary the six elements walk. Derived from reflective/area-taxonomy.json, which models the same micro/meso/macro stratification for the (retired) retrieval track — same categories, same phrasing, plus a `track` per field.",
+    "contract": "Every entry carries the four layers used site-wide: id · label · gloss · phrase.",
+    "routing": "Personal -> relational, Global -> strategic, Local decided per field. A reader who names only the scale gets that scale's default."
+  },
+  "scales": [
+    {
+      "id": "personal",
+      "label": "Personal",
+      "stratum": "micro",
+      "gloss": "the scale of the individual",
+      "track_default": "relational",
+      "fields": [
+        {
+          "id": "internal_dialogue",
+          "label": "Internal dialogue",
+          "gloss": "the voice that runs when no one is listening",
+          "phrase": "their own internal dialogue",
+          "track": "relational"
+        },
+        {
+          "id": "one_to_one",
+          "label": "A single relationship",
+          "gloss": "one other person, up close",
+          "phrase": "a single close relationship",
+          "track": "relational"
+        },
+        {
+          "id": "creative_practice",
+          "label": "Creative practice",
+          "gloss": "the work you make when no one asked — writing, painting, code",
+          "phrase": "a personal creative practice",
+          "track": "relational"
+        },
+        {
+          "id": "private_ritual",
+          "label": "Private ritual",
+          "gloss": "the small repeated things that hold you",
+          "phrase": "a private ritual or daily practice",
+          "track": "relational"
+        },
+        {
+          "id": "symptom_experience",
+          "label": "Symptom & the body",
+          "gloss": "mind or body reporting something — illness, trauma, a perceptual filter",
+          "phrase": "living with a symptom in the body or mind",
+          "track": "relational"
+        },
+        {
+          "id": "value_recalibration",
+          "label": "A turning of values",
+          "gloss": "the quiet recalibration of what matters",
+          "phrase": "a personal turning of values",
+          "track": "relational"
+        }
+      ]
+    },
+    {
+      "id": "local",
+      "label": "Local",
+      "stratum": "meso",
+      "gloss": "the scale of groups, places, and institutions",
+      "track_default": "relational",
+      "fields": [
+        {
+          "id": "family",
+          "label": "A family",
+          "gloss": "the first “we”, inherited",
+          "phrase": "a family",
+          "track": "relational"
+        },
+        {
+          "id": "working_team",
+          "label": "A working team",
+          "gloss": "people coordinating toward something",
+          "phrase": "a working team",
+          "track": "relational"
+        },
+        {
+          "id": "community_of_practice",
+          "label": "A community of practice or belief",
+          "gloss": "a craft, a faith, a scene held in common",
+          "phrase": "a community of practice or belief",
+          "track": "relational"
+        },
+        {
+          "id": "place",
+          "label": "A specific place",
+          "gloss": "the rhythms, conflicts, and affordances of a somewhere",
+          "phrase": "a specific place and its community",
+          "track": "strategic"
+        },
+        {
+          "id": "institution_local",
+          "label": "A local institution",
+          "gloss": "a school, clinic, co-op, congregation, city hall",
+          "phrase": "a local institution (a school, clinic, co-op)",
+          "track": "strategic"
+        },
+        {
+          "id": "subculture",
+          "label": "A subculture",
+          "gloss": "a dialect of belonging",
+          "phrase": "a subculture",
+          "track": "relational"
+        }
+      ]
+    },
+    {
+      "id": "global",
+      "label": "Global",
+      "stratum": "macro",
+      "gloss": "the scale of societies, world-systems, and dominant logics",
+      "track_default": "strategic",
+      "fields": [
+        {
+          "id": "migration_regimes",
+          "label": "Migration & movement regimes",
+          "gloss": "who may move, and who may not",
+          "phrase": "migration and movement regimes",
+          "track": "strategic"
+        },
+        {
+          "id": "economic_architecture",
+          "label": "Economic architecture",
+          "gloss": "the money and tax rules everyone lives inside",
+          "phrase": "the economic and tax architecture of a society",
+          "track": "strategic"
+        },
+        {
+          "id": "tech_trajectory",
+          "label": "A technology's trajectory",
+          "gloss": "the wave of a technology arriving (e.g. AI)",
+          "phrase": "a technology's trajectory through society",
+          "track": "strategic"
+        },
+        {
+          "id": "planetary_limits",
+          "label": "Planetary limits",
+          "gloss": "the ecological ceiling and its discourse",
+          "phrase": "planetary ecological limits and their discourse",
+          "track": "strategic"
+        },
+        {
+          "id": "paradigm",
+          "label": "A reigning paradigm",
+          "gloss": "the dominant story of how things are — of mind, progress, risk",
+          "phrase": "a reigning societal paradigm",
+          "track": "strategic"
+        },
+        {
+          "id": "governance_global",
+          "label": "World-scale governance",
+          "gloss": "law, policy, and institutional logic at planetary scale",
+          "phrase": "world-scale governance and policy",
+          "track": "strategic"
+        }
+      ]
+    }
+  ]
+}

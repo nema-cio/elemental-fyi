@@ -230,3 +230,7 @@ footer a:hover { color: var(--ochre); border-bottom-color: var(--ochre); }
   .head h1 { font-size: calc(var(--body-size) * 1.8); }
   .sit-pair { grid-template-columns: 1fr; gap: 1.6em; }
 }
+
+/* A single full-width field under the scale/field pair */
+.sit-field-single { display: flex; flex-direction: column; margin-top: 1.7em; }
+.sit-select:disabled { opacity: 0.45; cursor: default; }
