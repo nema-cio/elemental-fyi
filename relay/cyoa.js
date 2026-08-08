@@ -130,6 +130,9 @@ window.CYOA = (function () {
   // Render one choice-step: a framing question + a column of option "doors".
   const opt = (v, t) => '<option value="' + esc(v) + '">' + esc(t) + "</option>";
 
+  // Menus show `label` — plain, recognisable wording. `text` stays the fuller descriptor that
+  // rides in the reading, and `id` stays the short-form encoding in the φ. Three layers, so the
+  // notation can be terse without the menu asking a reader to decode it. Falls back to `text`.
   // ---- leaf → φ -----------------------------------------------------------------------
   function compileLeaf(element, subdomain, facet, stanceId) {
     const stance = stanceById(stanceId);
@@ -152,14 +155,14 @@ window.CYOA = (function () {
     return new Promise(resolve => {
       clear(mount);
       const all = element.branches.map(b =>
-        "<li><strong>" + esc(b.title) + "</strong><ul>" +
-        b.facets.map(f => "<li>" + esc(f.text) + "</li>").join("") + "</ul></li>").join("");
+        "<li><strong>" + esc(b.label || b.title) + "</strong><ul>" +
+        b.facets.map(f => "<li>" + esc(f.label || f.text) + "</li>").join("") + "</ul></li>").join("");
       mount.innerHTML =
         '<p class="cyoa-framing">' + esc(element.diagnostic.core_question) + "</p>" +
         '<div class="walk">' +
           '<div class="walk-field"><label class="sit-label" for="w-branch">Where does this sit?</label>' +
             '<span class="sit-select-wrap"><select class="sit-select" id="w-branch">' +
-            element.branches.map((b, i) => opt(i, b.title)).join("") + "</select></span></div>" +
+            element.branches.map((b, i) => opt(i, b.label || b.title)).join("") + "</select></span></div>" +
           '<div class="walk-field"><label class="sit-label" for="w-facet">What’s live within it?</label>' +
             '<span class="sit-select-wrap"><select class="sit-select" id="w-facet"></select></span></div>' +
           '<div class="walk-field"><label class="sit-label" for="w-stance">How is it live right now?</label>' +
@@ -180,7 +183,7 @@ window.CYOA = (function () {
       const facetOf = () => branchOf().facets[fSel.value | 0];
 
       function fillFacets() {
-        fSel.innerHTML = branchOf().facets.map((f, i) => opt(i, f.text)).join("");
+        fSel.innerHTML = branchOf().facets.map((f, i) => opt(i, f.label || f.text)).join("");
       }
       function reflect() {
         gloss.textContent = element.stance_frames[sSel.value] || "";
@@ -300,11 +303,17 @@ window.CYOA = (function () {
       }
       renderHead();
 
-      function wireCopy(phi) {
-        const btn = resolve.querySelector(".copy-btn");
-        if (btn) btn.addEventListener("click", function () {
-          navigator.clipboard && navigator.clipboard.writeText(phi);
-          this.textContent = "copied ✓";
+      function wireCopy(full, closing) {
+        const pairs = [[".copy-btn", full], [".copy-close", closing]];
+        pairs.forEach(([sel, text]) => {
+          const btn = resolve.querySelector(sel);
+          if (!btn || !text) return;
+          const was = btn.textContent;
+          btn.addEventListener("click", function () {
+            navigator.clipboard && navigator.clipboard.writeText(text);
+            this.textContent = "copied ✓";
+            setTimeout(() => { this.textContent = was; }, 2200);
+          });
         });
       }
 
@@ -329,8 +338,13 @@ window.CYOA = (function () {
           El + "’s line: " + entry.phi,
           "Which reads: " + entry.reading,
           "",
-          "Take this as far as " + El + " can, then give me what I should carry forward to elemental.fyi."
+          "Read this with me through " + El + "’s lens — ask me whatever sharpens it, and take as long " +
+          "as it needs. When I’m ready to hand it on I’ll ask you for the carry-forward."
         ].filter(v => v !== null).join("\n");
+        // The guides are built to keep asking; a block that demands the carry-forward up front
+        // closes the conversation before it starts. So the paste opens it, and the reader asks
+        // for the close in their own time — this is the phrase that does it.
+        const closeAsk = "Give me what I should carry forward to elemental.fyi.";
         let html =
           '<p class="label">' + El + "’s reading — your φ</p>" +
           '<p class="phi">' + esc(entry.phi) + "</p>" +
@@ -345,7 +359,9 @@ window.CYOA = (function () {
           '<p class="label" style="margin-top:1.6em;">what to paste to ' + El + '</p>' +
           '<pre class="handoff-block" id="handoff-src">' + esc(handoff) + "</pre>" +
           '<div class="copy-row"><button type="button" class="copy-btn">copy the whole handoff</button>' +
-          '<span style="opacity:0.6;">— the situation, the chain so far, and this element’s line</span></div>' +
+          '<span style="opacity:0.6;">— opens the conversation; ' + El + ' will ask you questions back</span></div>' +
+          '<div class="copy-row" style="margin-top:0.5em;"><button type="button" class="copy-close">copy the closing ask</button>' +
+          '<span style="opacity:0.6;">— paste when you’re done exploring and want the carry-forward</span></div>' +
           '<div style="margin-top:2.2em;">' +
           '<label for="enrich-box" style="display:block;font-style:italic;margin:0 0 0.7em;">Paste what ' + El + ' gave you</label>' +
           '<textarea id="enrich-box" rows="6" placeholder="the ─── CARRY FORWARD ─── block ' + El + ' ended with…" style="' + TEXTAREA_STYLE + '"></textarea>' +
@@ -361,7 +377,7 @@ window.CYOA = (function () {
           '<p style="margin:2em 0 0;"><button type="button" id="enrich-btn" class="door-link" style="background:none;border:0;border-bottom:1px solid var(--accent);cursor:pointer;"><em>' +
           (isLast ? "Complete the reading →" : "Hand it forward →") + '</em></button></p></div>';
         resolve.innerHTML = html;
-        wireCopy(handoff);
+        wireCopy(handoff, closeAsk);
         q("#enrich-btn").addEventListener("click", () => {
           const box = q("#enrich-box");
           const txt = ((box && box.value) || "").trim();

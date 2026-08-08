@@ -7,19 +7,33 @@
     "stance_principle": "The v1.0 taxonomy is a diagnostic ecology, not a classifier: 'No domain belongs to any element. The question is never which element owns this domain, but which operator should lead now, and what handoff preserves the ecology.' The three stances are how a facet is LIVE for the leading operator — strain (pressure), opening (possibility), or hardening (peril) — and each maps to a z_state in the φ."
   },
   "stances": [
-    { "id": "pressure",    "label": "Pressure",    "z_state": "pure",
+    {
+      "id": "pressure",
+      "label": "Pressure",
+      "z_state": "pure",
       "gloss": "a current strain pressing on the system now — the Challenge that calls this operator to lead",
-      "cosmology_note": "all six neme-dimensions still live; the operator is needed but not yet captured" },
-    { "id": "possibility", "label": "Possibility", "z_state": "open",
+      "cosmology_note": "all six neme-dimensions still live; the operator is needed but not yet captured"
+    },
+    {
+      "id": "possibility",
+      "label": "Possibility",
+      "z_state": "open",
       "gloss": "a future opening trying to emerge — the live question, and the cue for a handoff that keeps movement",
-      "cosmology_note": "the breathing gap held open; leadership can pass without the field collapsing" },
-    { "id": "peril",       "label": "Peril",        "z_state": "hostile",
+      "cosmology_note": "the breathing gap held open; leadership can pass without the field collapsing"
+    },
+    {
+      "id": "peril",
+      "label": "Peril",
+      "z_state": "hostile",
       "gloss": "a risk of closure, capture, or hardening — this operator overstaying into its capture risk",
-      "cosmology_note": "compounding capture: the coupling collapsing toward a single register, the element's own blindness winning" }
+      "cosmology_note": "compounding capture: the coupling collapsing toward a single register, the element's own blindness winning"
+    }
   ],
   "elements": [
     {
-      "element": "Air", "operator": "σ", "color": "#7E868C",
+      "element": "Air",
+      "operator": "σ",
+      "color": "#7E868C",
       "strategy": "Signal, Sensemaking & Epistemics",
       "lens_question": "What is actually here — what can we know, and how would we know it?",
       "diagnostic": {
@@ -34,8 +48,20 @@
           "λ": "converts understanding into action",
           "β": "preserves alternative explanations"
         },
-        "capture_risk": ["certainty addiction", "ideological closure", "semantic ossification", "interpretive monopolies", "simulation lock-in", "abstraction replacing reality"],
-        "handoff_signs": ["more information no longer improves understanding", "dissent becomes noise", "analysis delays action", "clarity exists but commitment is absent"],
+        "capture_risk": [
+          "certainty addiction",
+          "ideological closure",
+          "semantic ossification",
+          "interpretive monopolies",
+          "simulation lock-in",
+          "abstraction replacing reality"
+        ],
+        "handoff_signs": [
+          "more information no longer improves understanding",
+          "dissent becomes noise",
+          "analysis delays action",
+          "clarity exists but commitment is absent"
+        ],
         "live_question": "What distinction would increase clarity without foreclosing revision?"
       },
       "stance_frames": {
@@ -44,22 +70,78 @@
         "peril": "The map hardening into the territory: certainty addiction, semantic ossification, simulation lock-in."
       },
       "branches": [
-        { "id": "signal_integrity", "title": "Signal Integrity", "facets": [
-          { "id": "data_reliability", "text": "Data reliability, misinformation, observability gaps" },
-          { "id": "framing_capture",  "text": "Framing conflicts and semantic capture" },
-          { "id": "attention_overload", "text": "Attention scarcity and cognitive overload" } ] },
-        { "id": "strategic_intelligence", "title": "Strategic Intelligence", "facets": [
-          { "id": "weak_signals",     "text": "Weak signals, uncertainty, model brittleness" },
-          { "id": "feedback_latency", "text": "Feedback latency and sensing infrastructure" },
-          { "id": "epistemic_governance", "text": "Expertise, dissent, and epistemic governance" } ] },
-        { "id": "future_cognition", "title": "Future Cognition", "facets": [
-          { "id": "ai_mediated",      "text": "AI-mediated reasoning and synthetic realities" },
-          { "id": "anticipatory",     "text": "Scenario planning and anticipatory literacy" },
-          { "id": "closure_risk",     "text": "Risks: certainty addiction, ideological closure, simulation lock-in" } ] }
+        {
+          "id": "signal_integrity",
+          "title": "Signal Integrity",
+          "facets": [
+            {
+              "id": "data_reliability",
+              "label": "Whether you can trust the data",
+              "text": "Data reliability, misinformation, observability gaps"
+            },
+            {
+              "id": "framing_capture",
+              "label": "Who controls how it's framed",
+              "text": "Framing conflicts and semantic capture"
+            },
+            {
+              "id": "attention_overload",
+              "label": "Too much input, not enough attention",
+              "text": "Attention scarcity and cognitive overload"
+            }
+          ],
+          "label": "Whether the information is sound"
+        },
+        {
+          "id": "strategic_intelligence",
+          "title": "Strategic Intelligence",
+          "facets": [
+            {
+              "id": "weak_signals",
+              "label": "Faint early signals, easy to miss",
+              "text": "Weak signals, uncertainty, model brittleness"
+            },
+            {
+              "id": "feedback_latency",
+              "label": "Finding out too late",
+              "text": "Feedback latency and sensing infrastructure"
+            },
+            {
+              "id": "epistemic_governance",
+              "label": "Who gets to say what's true",
+              "text": "Expertise, dissent, and epistemic governance"
+            }
+          ],
+          "label": "How well you can see ahead"
+        },
+        {
+          "id": "future_cognition",
+          "title": "Future Cognition",
+          "facets": [
+            {
+              "id": "ai_mediated",
+              "label": "Thinking through AI that's already framed it",
+              "text": "AI-mediated reasoning and synthetic realities"
+            },
+            {
+              "id": "anticipatory",
+              "label": "Planning for futures you can't predict",
+              "text": "Scenario planning and anticipatory literacy"
+            },
+            {
+              "id": "closure_risk",
+              "label": "Locking into one view too early",
+              "text": "Risks: certainty addiction, ideological closure, simulation lock-in"
+            }
+          ],
+          "label": "How thinking itself is changing"
+        }
       ]
     },
     {
-      "element": "Water", "operator": "ρ", "color": "#3D5566",
+      "element": "Water",
+      "operator": "ρ",
+      "color": "#3D5566",
       "strategy": "Resonance, Trust & Social Legitimacy",
       "lens_question": "What does this touch — who's coupled to it, and what carries across?",
       "diagnostic": {
@@ -74,8 +156,20 @@
           "λ": "restores shared purpose",
           "β": "enables new forms of affiliation"
         },
-        "capture_risk": ["affect-as-truth", "empathy capture", "emotional polarization", "resonance bubbles", "parasocial governance", "belonging becoming coercive"],
-        "handoff_signs": ["harmony requires suppression", "disagreement threatens membership", "trust replaces evidence", "care becomes control"],
+        "capture_risk": [
+          "affect-as-truth",
+          "empathy capture",
+          "emotional polarization",
+          "resonance bubbles",
+          "parasocial governance",
+          "belonging becoming coercive"
+        ],
+        "handoff_signs": [
+          "harmony requires suppression",
+          "disagreement threatens membership",
+          "trust replaces evidence",
+          "care becomes control"
+        ],
         "live_question": "What feeling is organizing this field, and does it widen or narrow relationship?"
       },
       "stance_frames": {
@@ -84,22 +178,78 @@
         "peril": "Affect-as-truth: resonance bubbles, empathy capture, belonging hardening into coercion."
       },
       "branches": [
-        { "id": "trust_belonging", "title": "Trust and Belonging", "facets": [
-          { "id": "institutional_trust", "text": "Institutional, interpersonal, and platform trust" },
-          { "id": "inclusion_cohesion",  "text": "Inclusion, identity, and social cohesion" },
-          { "id": "emotional_climate",   "text": "Emotional climate — morale, hope, fear, resentment" } ] },
-        { "id": "relational_coordination", "title": "Relational Coordination", "facets": [
-          { "id": "coalition_health",    "text": "Stakeholder empathy and coalition health" },
-          { "id": "narratives_contagion","text": "Cultural narratives, virality, emotional contagion" },
-          { "id": "consent_legitimacy",  "text": "Consent, fairness, perceived legitimacy" } ] },
-        { "id": "future_social", "title": "Future Social Adaptation", "facets": [
-          { "id": "digital_tribes",      "text": "Emerging identities and digital tribes" },
-          { "id": "mutual_aid",          "text": "Mutual aid, trauma recovery, resilience" },
-          { "id": "polarization_risk",   "text": "Risks: affect-as-truth, polarization, resonance bubbles" } ] }
+        {
+          "id": "trust_belonging",
+          "title": "Trust and Belonging",
+          "facets": [
+            {
+              "id": "institutional_trust",
+              "label": "Whether people trust institutions",
+              "text": "Institutional, interpersonal, and platform trust"
+            },
+            {
+              "id": "inclusion_cohesion",
+              "label": "Who's included, who's left out",
+              "text": "Inclusion, identity, and social cohesion"
+            },
+            {
+              "id": "emotional_climate",
+              "label": "The mood — morale, hope, resentment",
+              "text": "Emotional climate — morale, hope, fear, resentment"
+            }
+          ],
+          "label": "Trust and belonging"
+        },
+        {
+          "id": "relational_coordination",
+          "title": "Relational Coordination",
+          "facets": [
+            {
+              "id": "coalition_health",
+              "label": "Whether allies still hold together",
+              "text": "Stakeholder empathy and coalition health"
+            },
+            {
+              "id": "narratives_contagion",
+              "label": "Stories that spread fast",
+              "text": "Cultural narratives, virality, emotional contagion"
+            },
+            {
+              "id": "consent_legitimacy",
+              "label": "Whether people accept it as fair",
+              "text": "Consent, fairness, perceived legitimacy"
+            }
+          ],
+          "label": "Working together"
+        },
+        {
+          "id": "future_social",
+          "title": "Future Social Adaptation",
+          "facets": [
+            {
+              "id": "digital_tribes",
+              "label": "New groups forming online",
+              "text": "Emerging identities and digital tribes"
+            },
+            {
+              "id": "mutual_aid",
+              "label": "People helping each other recover",
+              "text": "Mutual aid, trauma recovery, resilience"
+            },
+            {
+              "id": "polarization_risk",
+              "label": "Splitting into camps that can't hear each other",
+              "text": "Risks: affect-as-truth, polarization, resonance bubbles"
+            }
+          ],
+          "label": "How people are changing"
+        }
       ]
     },
     {
-      "element": "Fire", "operator": "λ", "color": "#B5512A",
+      "element": "Fire",
+      "operator": "λ",
+      "color": "#B5512A",
       "strategy": "Direction, Conflict & Transformation",
       "lens_question": "Where is this going — what's the thrust, and what does it cost?",
       "diagnostic": {
@@ -114,8 +264,20 @@
           "μ": "channels force into structure",
           "β": "preserves alternatives"
         },
-        "capture_risk": ["crusade logic", "acceleration addiction", "burnout civilizations", "utopian coercion", "destiny absolutism", "mission becoming identity"],
-        "handoff_signs": ["execution exceeds understanding", "sacrifice exceeds regeneration", "dissent becomes betrayal", "speed destroys optionality"],
+        "capture_risk": [
+          "crusade logic",
+          "acceleration addiction",
+          "burnout civilizations",
+          "utopian coercion",
+          "destiny absolutism",
+          "mission becoming identity"
+        ],
+        "handoff_signs": [
+          "execution exceeds understanding",
+          "sacrifice exceeds regeneration",
+          "dissent becomes betrayal",
+          "speed destroys optionality"
+        ],
         "live_question": "Where is this going, and what is this for?"
       },
       "stance_frames": {
@@ -124,22 +286,78 @@
         "peril": "Crusade logic: acceleration addiction, mission becoming identity, speed destroying optionality."
       },
       "branches": [
-        { "id": "strategic_direction", "title": "Strategic Direction", "facets": [
-          { "id": "mission_narrative",   "text": "Mission, ambition, civilizational narratives" },
-          { "id": "competition_pressure","text": "Competition, arms races, innovation pressure" },
-          { "id": "mobilization",        "text": "Leadership, mobilization, crisis response" } ] },
-        { "id": "transformation_vectors", "title": "Transformation Vectors", "facets": [
-          { "id": "adoption_velocity",   "text": "R&D, entrepreneurship, adoption velocity" },
-          { "id": "conflict_modes",      "text": "Ideological, economic, kinetic, memetic conflict" },
-          { "id": "transition_pacing",   "text": "Strategic pivots, transition pacing, sacrifice tolerance" } ] },
-        { "id": "future_horizons", "title": "Future Horizons", "facets": [
-          { "id": "frontier_bets",       "text": "Space, longevity, intelligence amplification, stewardship" },
-          { "id": "multipolarity",       "text": "Multipolarity, planetary governance, sovereignty shifts" },
-          { "id": "crusade_risk",        "text": "Risks: crusade logic, burnout, acceleration addiction" } ] }
+        {
+          "id": "strategic_direction",
+          "title": "Strategic Direction",
+          "facets": [
+            {
+              "id": "mission_narrative",
+              "label": "The bigger story being told",
+              "text": "Mission, ambition, civilizational narratives"
+            },
+            {
+              "id": "competition_pressure",
+              "label": "Pressure from rivals racing ahead",
+              "text": "Competition, arms races, innovation pressure"
+            },
+            {
+              "id": "mobilization",
+              "label": "Getting people moving",
+              "text": "Leadership, mobilization, crisis response"
+            }
+          ],
+          "label": "Where it's heading"
+        },
+        {
+          "id": "transformation_vectors",
+          "title": "Transformation Vectors",
+          "facets": [
+            {
+              "id": "adoption_velocity",
+              "label": "How fast new things get taken up",
+              "text": "R&D, entrepreneurship, adoption velocity"
+            },
+            {
+              "id": "conflict_modes",
+              "label": "How the conflict is actually fought",
+              "text": "Ideological, economic, kinetic, memetic conflict"
+            },
+            {
+              "id": "transition_pacing",
+              "label": "How fast to change, and what it costs",
+              "text": "Strategic pivots, transition pacing, sacrifice tolerance"
+            }
+          ],
+          "label": "How change is happening"
+        },
+        {
+          "id": "future_horizons",
+          "title": "Future Horizons",
+          "facets": [
+            {
+              "id": "frontier_bets",
+              "label": "Long-shot bets on the far future",
+              "text": "Space, longevity, intelligence amplification, stewardship"
+            },
+            {
+              "id": "multipolarity",
+              "label": "Power shifting between countries",
+              "text": "Multipolarity, planetary governance, sovereignty shifts"
+            },
+            {
+              "id": "crusade_risk",
+              "label": "Pushing so hard it burns people out",
+              "text": "Risks: crusade logic, burnout, acceleration addiction"
+            }
+          ],
+          "label": "The longer horizon"
+        }
       ]
     },
     {
-      "element": "Wood", "operator": "β", "color": "#5A6F3C",
+      "element": "Wood",
+      "operator": "β",
+      "color": "#5A6F3C",
       "strategy": "Emergence, Innovation & Evolutionary Branching",
       "lens_question": "What is this becoming — which branches could grow?",
       "diagnostic": {
@@ -154,8 +372,20 @@
           "μ": "contains risk",
           "λ": "commits to promising branches"
         },
-        "capture_risk": ["novelty fetish", "infinite branching", "rootlessness", "aesthetic drift", "possibility without embodiment", "perpetual experimentation"],
-        "handoff_signs": ["options multiply without commitment", "experimentation replaces learning", "branching exceeds capacity", "novelty becomes identity"],
+        "capture_risk": [
+          "novelty fetish",
+          "infinite branching",
+          "rootlessness",
+          "aesthetic drift",
+          "possibility without embodiment",
+          "perpetual experimentation"
+        ],
+        "handoff_signs": [
+          "options multiply without commitment",
+          "experimentation replaces learning",
+          "branching exceeds capacity",
+          "novelty becomes identity"
+        ],
         "live_question": "What new form is trying to emerge, and what must be pruned for it to live?"
       },
       "stance_frames": {
@@ -164,22 +394,78 @@
         "peril": "Novelty fetish: infinite branching, rootlessness, possibility that never embodies."
       },
       "branches": [
-        { "id": "innovation_ecology", "title": "Innovation Ecology", "facets": [
-          { "id": "experimental_cultures","text": "Startups, prototypes, experimental cultures" },
-          { "id": "cultural_remix",      "text": "Cultural remixing, myth evolution, identity experimentation" },
-          { "id": "optionality",         "text": "Optionality, redundancy, strategic pluralism" } ] },
-        { "id": "future_prototyping", "title": "Future Prototyping", "facets": [
-          { "id": "sandboxes",           "text": "Sandboxes, pilots, alternative institutions" },
-          { "id": "deep_tech",           "text": "Synthetic bio, neurotech, virtual worlds, symbiosis" },
-          { "id": "regenerative_design", "text": "Biomimicry, regenerative design, adaptive ecosystems" } ] },
-        { "id": "emergence_stewardship", "title": "Imagination & Emergence Stewardship", "facets": [
-          { "id": "futures_literacy",    "text": "Futures literacy, speculative design, narrative abundance" },
-          { "id": "adaptive_pruning",    "text": "Mutation filtering, safe experimentation, adaptive pruning" },
-          { "id": "rootlessness_risk",   "text": "Risks: novelty fetish, rootlessness, infinite branching" } ] }
+        {
+          "id": "innovation_ecology",
+          "title": "Innovation Ecology",
+          "facets": [
+            {
+              "id": "experimental_cultures",
+              "label": "Places where people try things",
+              "text": "Startups, prototypes, experimental cultures"
+            },
+            {
+              "id": "cultural_remix",
+              "label": "Old ideas recombined into new ones",
+              "text": "Cultural remixing, myth evolution, identity experimentation"
+            },
+            {
+              "id": "optionality",
+              "label": "Keeping more than one path open",
+              "text": "Optionality, redundancy, strategic pluralism"
+            }
+          ],
+          "label": "Where new things come from"
+        },
+        {
+          "id": "future_prototyping",
+          "title": "Future Prototyping",
+          "facets": [
+            {
+              "id": "sandboxes",
+              "label": "Safe places to test ideas",
+              "text": "Sandboxes, pilots, alternative institutions"
+            },
+            {
+              "id": "deep_tech",
+              "label": "Deep technology reshaping what's possible",
+              "text": "Synthetic bio, neurotech, virtual worlds, symbiosis"
+            },
+            {
+              "id": "regenerative_design",
+              "label": "Designing the way living systems do",
+              "text": "Biomimicry, regenerative design, adaptive ecosystems"
+            }
+          ],
+          "label": "Testing what's next"
+        },
+        {
+          "id": "emergence_stewardship",
+          "title": "Imagination & Emergence Stewardship",
+          "facets": [
+            {
+              "id": "futures_literacy",
+              "label": "Getting better at imagining futures",
+              "text": "Futures literacy, speculative design, narrative abundance"
+            },
+            {
+              "id": "adaptive_pruning",
+              "label": "Cutting what doesn't work, safely",
+              "text": "Mutation filtering, safe experimentation, adaptive pruning"
+            },
+            {
+              "id": "rootlessness_risk",
+              "label": "Chasing novelty without putting down roots",
+              "text": "Risks: novelty fetish, rootlessness, infinite branching"
+            }
+          ],
+          "label": "Tending the imagination"
+        }
       ]
     },
     {
-      "element": "Earth", "operator": "δγ", "color": "#9C7B2E",
+      "element": "Earth",
+      "operator": "δγ",
+      "color": "#9C7B2E",
       "strategy": "Resources, Metabolism & Sustainability",
       "lens_question": "What can be sustained — what does it cost, and what can the body carry?",
       "diagnostic": {
@@ -194,8 +480,20 @@
           "λ": "prioritizes effort",
           "β": "develops adaptive alternatives"
         },
-        "capture_risk": ["growth absolutism", "extractive optimization", "regenerative theater", "care collapse", "resource hoarding", "maintenance becoming inertia"],
-        "handoff_signs": ["sustainability becomes preservationism", "regeneration suppresses innovation", "resilience becomes stagnation", "survival replaces adaptation"],
+        "capture_risk": [
+          "growth absolutism",
+          "extractive optimization",
+          "regenerative theater",
+          "care collapse",
+          "resource hoarding",
+          "maintenance becoming inertia"
+        ],
+        "handoff_signs": [
+          "sustainability becomes preservationism",
+          "regeneration suppresses innovation",
+          "resilience becomes stagnation",
+          "survival replaces adaptation"
+        ],
         "live_question": "What must be sustained, released, fed, or limited so this system can live?"
       },
       "stance_frames": {
@@ -204,22 +502,78 @@
         "peril": "Growth absolutism or its mirror — extractive optimization, or sustainability calcifying into inertia."
       },
       "branches": [
-        { "id": "material_foundations", "title": "Material Foundations", "facets": [
-          { "id": "energy_land",         "text": "Energy, water, food, minerals, land use" },
-          { "id": "infrastructure",      "text": "Supply chains, housing, utilities, infrastructure" },
-          { "id": "labor_vitality",      "text": "Labor vitality, demographics, skills, care capacity" } ] },
-        { "id": "regenerative_economics", "title": "Regenerative Economics", "facets": [
-          { "id": "value_circulation",   "text": "Value circulation, extraction, reinvestment" },
-          { "id": "ecological_limits",   "text": "Climate, biodiversity, waste, ecological limits" },
-          { "id": "resilience_reserves", "text": "Organizational fatigue, maintenance, resilience reserves" } ] },
-        { "id": "future_survivability", "title": "Future Survivability", "facets": [
-          { "id": "circular_transitions","text": "Circular economies, post-scarcity transitions" },
-          { "id": "adaptive_habitats",   "text": "Climate migration, adaptive habitats" },
-          { "id": "extraction_risk",     "text": "Risks: extractive optimization, care collapse, growth absolutism" } ] }
+        {
+          "id": "material_foundations",
+          "title": "Material Foundations",
+          "facets": [
+            {
+              "id": "energy_land",
+              "label": "Energy, water, food, land",
+              "text": "Energy, water, food, minerals, land use"
+            },
+            {
+              "id": "infrastructure",
+              "label": "Supply chains, housing, infrastructure",
+              "text": "Supply chains, housing, utilities, infrastructure"
+            },
+            {
+              "id": "labor_vitality",
+              "label": "Whether people have the capacity to do the work",
+              "text": "Labor vitality, demographics, skills, care capacity"
+            }
+          ],
+          "label": "The physical basics"
+        },
+        {
+          "id": "regenerative_economics",
+          "title": "Regenerative Economics",
+          "facets": [
+            {
+              "id": "value_circulation",
+              "label": "Where the value actually goes",
+              "text": "Value circulation, extraction, reinvestment"
+            },
+            {
+              "id": "ecological_limits",
+              "label": "Ecological limits being hit",
+              "text": "Climate, biodiversity, waste, ecological limits"
+            },
+            {
+              "id": "resilience_reserves",
+              "label": "Whether there's slack left in the system",
+              "text": "Organizational fatigue, maintenance, resilience reserves"
+            }
+          ],
+          "label": "Whether the economics renew"
+        },
+        {
+          "id": "future_survivability",
+          "title": "Future Survivability",
+          "facets": [
+            {
+              "id": "circular_transitions",
+              "label": "Reusing instead of extracting",
+              "text": "Circular economies, post-scarcity transitions"
+            },
+            {
+              "id": "adaptive_habitats",
+              "label": "Adapting where and how people live",
+              "text": "Climate migration, adaptive habitats"
+            },
+            {
+              "id": "extraction_risk",
+              "label": "Squeezing the system until care collapses",
+              "text": "Risks: extractive optimization, care collapse, growth absolutism"
+            }
+          ],
+          "label": "Lasting the distance"
+        }
       ]
     },
     {
-      "element": "Metal", "operator": "μ", "color": "#5C5E62",
+      "element": "Metal",
+      "operator": "μ",
+      "color": "#5C5E62",
       "strategy": "Governance, Boundaries & Institutional Integrity",
       "lens_question": "What must remain intact — what do we keep, and what do we cut?",
       "diagnostic": {
@@ -234,8 +588,20 @@
           "λ": "enables decisive enforcement",
           "β": "preserves adaptability"
         },
-        "capture_risk": ["bureaucratic ossification", "surveillance expansion", "protocol absolutism", "rule without purpose", "exit elimination", "governance capture"],
-        "handoff_signs": ["compliance replaces sense-making", "rules persist after purpose disappears", "institutions optimize themselves", "boundaries become walls"],
+        "capture_risk": [
+          "bureaucratic ossification",
+          "surveillance expansion",
+          "protocol absolutism",
+          "rule without purpose",
+          "exit elimination",
+          "governance capture"
+        ],
+        "handoff_signs": [
+          "compliance replaces sense-making",
+          "rules persist after purpose disappears",
+          "institutions optimize themselves",
+          "boundaries become walls"
+        ],
         "live_question": "What boundary protects flow without becoming a prison?"
       },
       "stance_frames": {
@@ -244,23 +610,79 @@
         "peril": "Bureaucratic ossification: protocol absolutism, rule without purpose, boundaries becoming walls."
       },
       "branches": [
-        { "id": "institutional_architecture", "title": "Institutional Architecture", "facets": [
-          { "id": "regulation",          "text": "Regulation, jurisdiction, administrative adaptability" },
-          { "id": "boundary_design",     "text": "Access, sovereignty, moderation, boundary design" },
-          { "id": "auditability",        "text": "Auditability, transparency, enforcement, redress" } ] },
-        { "id": "coordination_security", "title": "Coordination and Security", "facets": [
-          { "id": "standards",           "text": "Standards, protocols, interoperability" },
-          { "id": "security",            "text": "Cybersecurity, public safety, infrastructure protection" },
-          { "id": "capture",             "text": "Centralization, surveillance, monopoly, capture" } ] },
-        { "id": "future_governance", "title": "Future Governance", "facets": [
-          { "id": "algorithmic_reg",     "text": "Algorithmic regulation, AI adjudication" },
-          { "id": "participatory_gov",   "text": "Modular, participatory, transnational governance" },
-          { "id": "ossification_risk",   "text": "Risks: ossification, total surveillance, protocol absolutism" } ] }
+        {
+          "id": "institutional_architecture",
+          "title": "Institutional Architecture",
+          "facets": [
+            {
+              "id": "regulation",
+              "label": "Rules and who enforces them",
+              "text": "Regulation, jurisdiction, administrative adaptability"
+            },
+            {
+              "id": "boundary_design",
+              "label": "Who gets access, who decides",
+              "text": "Access, sovereignty, moderation, boundary design"
+            },
+            {
+              "id": "auditability",
+              "label": "Whether it can be checked and challenged",
+              "text": "Auditability, transparency, enforcement, redress"
+            }
+          ],
+          "label": "How rules and institutions work"
+        },
+        {
+          "id": "coordination_security",
+          "title": "Coordination and Security",
+          "facets": [
+            {
+              "id": "standards",
+              "label": "Shared standards that let things connect",
+              "text": "Standards, protocols, interoperability"
+            },
+            {
+              "id": "security",
+              "label": "Keeping people and systems safe",
+              "text": "Cybersecurity, public safety, infrastructure protection"
+            },
+            {
+              "id": "capture",
+              "label": "Power concentrating in too few hands",
+              "text": "Centralization, surveillance, monopoly, capture"
+            }
+          ],
+          "label": "Keeping things coordinated and safe"
+        },
+        {
+          "id": "future_governance",
+          "title": "Future Governance",
+          "facets": [
+            {
+              "id": "algorithmic_reg",
+              "label": "Machines making the decisions",
+              "text": "Algorithmic regulation, AI adjudication"
+            },
+            {
+              "id": "participatory_gov",
+              "label": "People governing more directly",
+              "text": "Modular, participatory, transnational governance"
+            },
+            {
+              "id": "ossification_risk",
+              "label": "Rules hardening until nothing can move",
+              "text": "Risks: ossification, total surveillance, protocol absolutism"
+            }
+          ],
+          "label": "How governing is changing"
+        }
       ]
     }
   ],
   "aether": {
-    "element": "Aether", "operator": "✶", "color": "#B8923C",
+    "element": "Aether",
+    "operator": "✶",
+    "color": "#B8923C",
     "strategy": "Lattice Integration & Strategic Balance",
     "role": "Not played. The Sunday synthesis lens applied over the six accumulated φ. Aether is not a seventh domain — it observes the operator ecology; its function is orchestration, not leadership.",
     "orchestration_inquiry": [
@@ -277,18 +699,60 @@
     ],
     "principle": "Every significant issue exists in multiple elemental dimensions simultaneously. The question is never 'which element owns this domain?' but 'which operator should lead now, and what handoff preserves the ecology?'",
     "branches": [
-      { "id": "elemental_balance", "title": "Elemental Balance", "facets": [
-        { "id": "dominant_lens",  "text": "Which lens dominates the strategy?" },
-        { "id": "missing_lens",   "text": "Which lens is missing or underdeveloped?" },
-        { "id": "hidden_tradeoffs","text": "Where are tradeoffs becoming invisible?" } ] },
-      { "id": "cross_domain", "title": "Cross-Domain Inquiry", "facets": [
-        { "id": "force_overlap",  "text": "How do political/economic/social/technological/legal/ecological forces overlap?" },
-        { "id": "now_vs_future",  "text": "Where do current-state pressures conflict with future-state possibilities?" },
-        { "id": "preserve_adaptability", "text": "Which decisions preserve adaptability rather than forcing closure?" } ] },
-      { "id": "grid_risk", "title": "Grid Risk Detection", "facets": [
-        { "id": "hardened_truth", "text": "Where has coordination hardened into truth?" },
-        { "id": "vanishing_exits","text": "Where are exits, dissent, or alternatives disappearing?" },
-        { "id": "unimagined_futures", "text": "What futures stay unimagined because one lens monopolizes perception?" } ] }
+      {
+        "id": "elemental_balance",
+        "title": "Elemental Balance",
+        "facets": [
+          {
+            "id": "dominant_lens",
+            "text": "Which lens dominates the strategy?"
+          },
+          {
+            "id": "missing_lens",
+            "text": "Which lens is missing or underdeveloped?"
+          },
+          {
+            "id": "hidden_tradeoffs",
+            "text": "Where are tradeoffs becoming invisible?"
+          }
+        ]
+      },
+      {
+        "id": "cross_domain",
+        "title": "Cross-Domain Inquiry",
+        "facets": [
+          {
+            "id": "force_overlap",
+            "text": "How do political/economic/social/technological/legal/ecological forces overlap?"
+          },
+          {
+            "id": "now_vs_future",
+            "text": "Where do current-state pressures conflict with future-state possibilities?"
+          },
+          {
+            "id": "preserve_adaptability",
+            "text": "Which decisions preserve adaptability rather than forcing closure?"
+          }
+        ]
+      },
+      {
+        "id": "grid_risk",
+        "title": "Grid Risk Detection",
+        "facets": [
+          {
+            "id": "hardened_truth",
+            "text": "Where has coordination hardened into truth?"
+          },
+          {
+            "id": "vanishing_exits",
+            "text": "Where are exits, dissent, or alternatives disappearing?"
+          },
+          {
+            "id": "unimagined_futures",
+            "text": "What futures stay unimagined because one lens monopolizes perception?"
+          }
+        ]
+      }
     ]
   }
 }

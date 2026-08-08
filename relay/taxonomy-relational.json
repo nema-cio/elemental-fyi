@@ -7,7 +7,6 @@
     "phi_form": "<operator>(<facet-slug> | <stance>) — identical to the strategic track, so chains, handoffs and the Sunday synthesis read across both",
     "third_branch_rule": "As in the strategic track, each element's third sub-domain looks forward and its final facet names that element's characteristic capture — the peril stance has something specific to bite on."
   },
-
   "stances": [
     {
       "id": "pressure",
@@ -31,7 +30,6 @@
       "cosmology_note": "compounding capture: the coupling collapsing toward a single register, the element's own blindness winning"
     }
   ],
-
   "elements": [
     {
       "element": "Air",
@@ -43,8 +41,15 @@
         "core_question": "What is actually here?",
         "leads_when": "the account of it has run ahead of the thing itself — you can say what it means before you can say what happened",
         "blindness": "mistakes a clean description for the whole of it; cannot feel what the distinction costs",
-        "capture_risk": ["certainty as comfort", "analysis instead of contact", "naming a thing to be done with it"],
-        "handoff_signs": ["you can describe it precisely and still cannot move", "more detail stops changing anything"],
+        "capture_risk": [
+          "certainty as comfort",
+          "analysis instead of contact",
+          "naming a thing to be done with it"
+        ],
+        "handoff_signs": [
+          "you can describe it precisely and still cannot move",
+          "more detail stops changing anything"
+        ],
         "live_question": "What would you have to admit is here, if no one needed you to have a position on it?"
       },
       "stance_frames": {
@@ -57,32 +62,70 @@
           "id": "whats_here",
           "title": "What Is Actually Here",
           "facets": [
-            { "id": "fact_and_story", "text": "The fact, and the story laid over it" },
-            { "id": "borrowed_frame", "text": "A frame you were handed and never checked" },
-            { "id": "mood_as_verdict", "text": "A mood being read as a verdict" }
-          ]
+            {
+              "id": "fact_and_story",
+              "label": "What happened, vs. the story about it",
+              "text": "The fact, and the story laid over it"
+            },
+            {
+              "id": "borrowed_frame",
+              "label": "A way of seeing you picked up from someone else",
+              "text": "A frame you were handed and never checked"
+            },
+            {
+              "id": "mood_as_verdict",
+              "label": "Treating a passing mood as the truth",
+              "text": "A mood being read as a verdict"
+            }
+          ],
+          "label": "What's actually going on"
         },
         {
           "id": "what_you_can_tell",
           "title": "What You Can Actually Tell",
           "facets": [
-            { "id": "unnamed_shift", "text": "Something changed and has not been named" },
-            { "id": "secondhand_read", "text": "Knowing it only through what others have said" },
-            { "id": "too_close_to_see", "text": "Standing too close to make out the shape" }
-          ]
+            {
+              "id": "unnamed_shift",
+              "label": "Something changed and nobody has said so",
+              "text": "Something changed and has not been named"
+            },
+            {
+              "id": "secondhand_read",
+              "label": "You only know it secondhand",
+              "text": "Knowing it only through what others have said"
+            },
+            {
+              "id": "too_close_to_see",
+              "label": "You're too close to see it clearly",
+              "text": "Standing too close to make out the shape"
+            }
+          ],
+          "label": "What you can actually tell"
         },
         {
           "id": "seeing_further",
           "title": "Seeing a Little Further",
           "facets": [
-            { "id": "rehearsed_future", "text": "A future rehearsed so often it feels already known" },
-            { "id": "question_underneath", "text": "The question underneath the one being asked" },
-            { "id": "closure_risk", "text": "Risks: deciding before looking, certainty as relief" }
-          ]
+            {
+              "id": "rehearsed_future",
+              "label": "You've already decided how it ends",
+              "text": "A future rehearsed so often it feels already known"
+            },
+            {
+              "id": "question_underneath",
+              "label": "The real question under the one being asked",
+              "text": "The question underneath the one being asked"
+            },
+            {
+              "id": "closure_risk",
+              "label": "Deciding before you've actually looked",
+              "text": "Risks: deciding before looking, certainty as relief"
+            }
+          ],
+          "label": "Seeing a bit further ahead"
         }
       ]
     },
-
     {
       "element": "Water",
       "operator": "ρ",
@@ -93,8 +136,15 @@
         "core_question": "What does this touch, and who holds it with you?",
         "leads_when": "the difficulty is not in the facts but in what is owed, felt, or unsaid between people",
         "blindness": "mistakes resonance for truth; cannot tell closeness from agreement",
-        "capture_risk": ["merging", "rescuing", "keeping the peace instead of the relationship"],
-        "handoff_signs": ["everyone feels understood and nothing changes", "closeness is being used to avoid a decision"],
+        "capture_risk": [
+          "merging",
+          "rescuing",
+          "keeping the peace instead of the relationship"
+        ],
+        "handoff_signs": [
+          "everyone feels understood and nothing changes",
+          "closeness is being used to avoid a decision"
+        ],
         "live_question": "What is true here that closeness has made hard to say?"
       },
       "stance_frames": {
@@ -107,32 +157,70 @@
           "id": "the_bonds",
           "title": "The Bonds",
           "facets": [
-            { "id": "whose_need", "text": "Whose need is quietly shaping this" },
-            { "id": "owed_two_ways", "text": "Trust owed in two directions at once" },
-            { "id": "belonging_shifting", "text": "Belonging that is moving, thinning, or being left" }
-          ]
+            {
+              "id": "whose_need",
+              "label": "Someone else's need is steering this",
+              "text": "Whose need is quietly shaping this"
+            },
+            {
+              "id": "owed_two_ways",
+              "label": "You owe two people different things",
+              "text": "Trust owed in two directions at once"
+            },
+            {
+              "id": "belonging_shifting",
+              "label": "Where you belong is changing",
+              "text": "Belonging that is moving, thinning, or being left"
+            }
+          ],
+          "label": "The people involved"
         },
         {
           "id": "what_moves_between",
           "title": "What Moves Between",
           "facets": [
-            { "id": "unshared_shape", "text": "Two feelings that cannot find one shape" },
-            { "id": "quiet_between", "text": "The quiet that has grown between people" },
-            { "id": "warmth_that_asks", "text": "Warmth that arrives with a request inside it" }
-          ]
+            {
+              "id": "unshared_shape",
+              "label": "You each feel it differently",
+              "text": "Two feelings that cannot find one shape"
+            },
+            {
+              "id": "quiet_between",
+              "label": "Things have gone quiet between you",
+              "text": "The quiet that has grown between people"
+            },
+            {
+              "id": "warmth_that_asks",
+              "label": "Kindness with a request attached",
+              "text": "Warmth that arrives with a request inside it"
+            }
+          ],
+          "label": "What's going on between you"
         },
         {
           "id": "what_could_hold",
           "title": "What Could Hold",
           "facets": [
-            { "id": "resonance_forming", "text": "Something new beginning to resonate" },
-            { "id": "repair_available", "text": "A repair that is still available" },
-            { "id": "fusion_risk", "text": "Risks: merging, rescuing, peace kept at your expense" }
-          ]
+            {
+              "id": "resonance_forming",
+              "label": "Something new is starting to click",
+              "text": "Something new beginning to resonate"
+            },
+            {
+              "id": "repair_available",
+              "label": "There's still a chance to repair it",
+              "text": "A repair that is still available"
+            },
+            {
+              "id": "fusion_risk",
+              "label": "Keeping the peace at your own expense",
+              "text": "Risks: merging, rescuing, peace kept at your expense"
+            }
+          ],
+          "label": "What might hold it together"
         }
       ]
     },
-
     {
       "element": "Fire",
       "operator": "λ",
@@ -143,8 +231,15 @@
         "core_question": "Where is this heading, and what would it cost?",
         "leads_when": "the answer is already known and unacted on — the crossing is being circled rather than made",
         "blindness": "mistakes intensity for direction; cannot see what the push costs the people carrying it",
-        "capture_risk": ["urgency as identity", "burning what you needed", "commitment that forecloses revision"],
-        "handoff_signs": ["the push has outlived its reason", "movement continues and no one can say toward what"],
+        "capture_risk": [
+          "urgency as identity",
+          "burning what you needed",
+          "commitment that forecloses revision"
+        ],
+        "handoff_signs": [
+          "the push has outlived its reason",
+          "movement continues and no one can say toward what"
+        ],
         "live_question": "What are you actually prepared to spend, and on what?"
       },
       "stance_frames": {
@@ -157,32 +252,70 @@
           "id": "the_direction",
           "title": "The Direction",
           "facets": [
-            { "id": "crossing_unnamed", "text": "A crossing you have not named out loud" },
-            { "id": "answer_known", "text": "An answer already known and not acted on" },
-            { "id": "what_youd_spend", "text": "What you would actually spend for this" }
-          ]
+            {
+              "id": "crossing_unnamed",
+              "label": "A decision you haven't said out loud",
+              "text": "A crossing you have not named out loud"
+            },
+            {
+              "id": "answer_known",
+              "label": "You know the answer and haven't acted",
+              "text": "An answer already known and not acted on"
+            },
+            {
+              "id": "what_youd_spend",
+              "label": "What you'd actually give up for it",
+              "text": "What you would actually spend for this"
+            }
+          ],
+          "label": "Where it's heading"
         },
         {
           "id": "cost_to_move",
           "title": "What It Costs to Move",
           "facets": [
-            { "id": "cost_as_question", "text": "A cost disguised as an open question" },
-            { "id": "momentum_borrowed", "text": "Momentum that belongs to someone else" },
-            { "id": "timing_pressure", "text": "Moving now, or moving when it is ready" }
-          ]
+            {
+              "id": "cost_as_question",
+              "label": "A cost you're calling an open question",
+              "text": "A cost disguised as an open question"
+            },
+            {
+              "id": "momentum_borrowed",
+              "label": "The push is coming from someone else",
+              "text": "Momentum that belongs to someone else"
+            },
+            {
+              "id": "timing_pressure",
+              "label": "Move now, or wait until it's ready",
+              "text": "Moving now, or moving when it is ready"
+            }
+          ],
+          "label": "What moving would cost"
         },
         {
           "id": "could_become",
           "title": "What It Could Become",
           "facets": [
-            { "id": "life_unlit", "text": "A life or a work you keep not lighting" },
-            { "id": "vow_worth_making", "text": "A commitment that would organise the rest" },
-            { "id": "crusade_risk", "text": "Risks: urgency as identity, burning what you needed" }
-          ]
+            {
+              "id": "life_unlit",
+              "label": "Something you keep not starting",
+              "text": "A life or a work you keep not lighting"
+            },
+            {
+              "id": "vow_worth_making",
+              "label": "A commitment that would settle the rest",
+              "text": "A commitment that would organise the rest"
+            },
+            {
+              "id": "crusade_risk",
+              "label": "Pushing so hard you burn what mattered",
+              "text": "Risks: urgency as identity, burning what you needed"
+            }
+          ],
+          "label": "What it could become"
         }
       ]
     },
-
     {
       "element": "Wood",
       "operator": "β",
@@ -193,8 +326,15 @@
         "core_question": "What is trying to grow here?",
         "leads_when": "the shape has been decided too early — options closed before they were understood",
         "blindness": "mistakes possibility for progress; keeps everything open and lands nothing",
-        "capture_risk": ["endless branching", "novelty instead of depth", "possibility that never embodies"],
-        "handoff_signs": ["options multiply and none is taken", "the new thing never has to survive contact"],
+        "capture_risk": [
+          "endless branching",
+          "novelty instead of depth",
+          "possibility that never embodies"
+        ],
+        "handoff_signs": [
+          "options multiply and none is taken",
+          "the new thing never has to survive contact"
+        ],
         "live_question": "What would have to be given up for the living part of this to grow?"
       },
       "stance_frames": {
@@ -207,32 +347,70 @@
           "id": "what_is_growing",
           "title": "What Is Growing",
           "facets": [
-            { "id": "unplanted_sprout", "text": "Something growing that no one planted" },
-            { "id": "form_insisting", "text": "The form the thing keeps insisting on" },
-            { "id": "grown_in_shadow", "text": "A part of you grown in someone else's shade" }
-          ]
+            {
+              "id": "unplanted_sprout",
+              "label": "Something is growing that nobody planned",
+              "text": "Something growing that no one planted"
+            },
+            {
+              "id": "form_insisting",
+              "label": "It keeps wanting to be something else",
+              "text": "The form the thing keeps insisting on"
+            },
+            {
+              "id": "grown_in_shadow",
+              "label": "A part of you shaped by someone else",
+              "text": "A part of you grown in someone else's shade"
+            }
+          ],
+          "label": "What's growing on its own"
         },
         {
           "id": "the_branches",
           "title": "The Branches",
           "facets": [
-            { "id": "fork_unadmitted", "text": "A fork that has not been admitted yet" },
-            { "id": "option_worth_keeping", "text": "An option worth holding open a while longer" },
-            { "id": "root_missing", "text": "A bond continuing without its original root" }
-          ]
+            {
+              "id": "fork_unadmitted",
+              "label": "A choice you haven't admitted is a choice",
+              "text": "A fork that has not been admitted yet"
+            },
+            {
+              "id": "option_worth_keeping",
+              "label": "Worth keeping your options open a while",
+              "text": "An option worth holding open a while longer"
+            },
+            {
+              "id": "root_missing",
+              "label": "A relationship continuing past its reason",
+              "text": "A bond continuing without its original root"
+            }
+          ],
+          "label": "The choices ahead"
         },
         {
           "id": "wants_room",
           "title": "What Wants Room",
           "facets": [
-            { "id": "version_unlived", "text": "A version of this you have not tried" },
-            { "id": "pruning_needed", "text": "What would have to be cut for the rest to grow" },
-            { "id": "sprawl_risk", "text": "Risks: endless branching, keeping options instead of living one" }
-          ]
+            {
+              "id": "version_unlived",
+              "label": "A version of this you haven't tried",
+              "text": "A version of this you have not tried"
+            },
+            {
+              "id": "pruning_needed",
+              "label": "What you'd have to drop for the rest to grow",
+              "text": "What would have to be cut for the rest to grow"
+            },
+            {
+              "id": "sprawl_risk",
+              "label": "Keeping every option instead of living one",
+              "text": "Risks: endless branching, keeping options instead of living one"
+            }
+          ],
+          "label": "What needs room to grow"
         }
       ]
     },
-
     {
       "element": "Earth",
       "operator": "δγ",
@@ -243,8 +421,15 @@
         "core_question": "What are you carrying, and what would feed it?",
         "leads_when": "the cost has been accumulating quietly — tiredness is arriving as information",
         "blindness": "mistakes endurance for capacity; counts what is spent and not what is fed",
-        "capture_risk": ["running on reserve", "care collapse", "rest deferred until it is a crisis"],
-        "handoff_signs": ["capacity is being borrowed from tomorrow", "the load is named and still not put down"],
+        "capture_risk": [
+          "running on reserve",
+          "care collapse",
+          "rest deferred until it is a crisis"
+        ],
+        "handoff_signs": [
+          "capacity is being borrowed from tomorrow",
+          "the load is named and still not put down"
+        ],
         "live_question": "What here can actually be metabolised, and what has simply ended?"
       },
       "stance_frames": {
@@ -257,32 +442,70 @@
           "id": "carrying",
           "title": "What You Are Carrying",
           "facets": [
-            { "id": "load_uncomposted", "text": "A load that has not broken down" },
-            { "id": "undigested_ending", "text": "A person or an ending not yet metabolised" },
-            { "id": "strength_spent_holding", "text": "Strength spent holding something back" }
-          ]
+            {
+              "id": "load_uncomposted",
+              "label": "Carrying something that hasn't settled",
+              "text": "A load that has not broken down"
+            },
+            {
+              "id": "undigested_ending",
+              "label": "An ending you haven't finished feeling",
+              "text": "A person or an ending not yet metabolised"
+            },
+            {
+              "id": "strength_spent_holding",
+              "label": "Energy spent holding something back",
+              "text": "Strength spent holding something back"
+            }
+          ],
+          "label": "What you're carrying"
         },
         {
           "id": "what_it_takes",
           "title": "What It Takes",
           "facets": [
-            { "id": "honest_capacity", "text": "What your actual capacity is right now" },
-            { "id": "work_that_only_takes", "text": "Work or care that only takes and never feeds" },
-            { "id": "care_uncounted", "text": "Care being given without being counted" }
-          ]
+            {
+              "id": "honest_capacity",
+              "label": "What you can actually manage right now",
+              "text": "What your actual capacity is right now"
+            },
+            {
+              "id": "work_that_only_takes",
+              "label": "Effort that never gives anything back",
+              "text": "Work or care that only takes and never feeds"
+            },
+            {
+              "id": "care_uncounted",
+              "label": "Care you give that nobody counts",
+              "text": "Care being given without being counted"
+            }
+          ],
+          "label": "What it's taking out of you"
         },
         {
           "id": "would_feed",
           "title": "What Would Feed It",
           "facets": [
-            { "id": "soil_being_built", "text": "Soil being built slowly and invisibly" },
-            { "id": "rest_as_instruction", "text": "Tiredness that is information, not weakness" },
-            { "id": "depletion_risk", "text": "Risks: running on reserve, care collapse, rest deferred to crisis" }
-          ]
+            {
+              "id": "soil_being_built",
+              "label": "Something building slowly, out of sight",
+              "text": "Soil being built slowly and invisibly"
+            },
+            {
+              "id": "rest_as_instruction",
+              "label": "Tiredness telling you something",
+              "text": "Tiredness that is information, not weakness"
+            },
+            {
+              "id": "depletion_risk",
+              "label": "Running on reserves you don't have",
+              "text": "Risks: running on reserve, care collapse, rest deferred to crisis"
+            }
+          ],
+          "label": "What would give back"
         }
       ]
     },
-
     {
       "element": "Metal",
       "operator": "μ",
@@ -293,8 +516,15 @@
         "core_question": "What holds this, and what should end?",
         "leads_when": "the edge has gone soft — what you will and will not allow has stopped being legible, including to you",
         "blindness": "mistakes a wall for a boundary; cannot tell integrity from refusal",
-        "capture_risk": ["boundary as wall", "standards that forbid repair", "principle used to avoid contact"],
-        "handoff_signs": ["the rule survives its reason", "the line is held and the relationship is not"],
+        "capture_risk": [
+          "boundary as wall",
+          "standards that forbid repair",
+          "principle used to avoid contact"
+        ],
+        "handoff_signs": [
+          "the rule survives its reason",
+          "the line is held and the relationship is not"
+        ],
         "live_question": "What edge would let this keep its shape without sealing it?"
       },
       "stance_frames": {
@@ -307,28 +537,67 @@
           "id": "the_edges",
           "title": "The Edges",
           "facets": [
-            { "id": "no_never_said", "text": "A no that was never actually said" },
-            { "id": "edge_conceded", "text": "An edge quietly conceded" },
-            { "id": "standard_forbidding", "text": "A standard that forbids wanting anything" }
-          ]
+            {
+              "id": "no_never_said",
+              "label": "A no you never actually said",
+              "text": "A no that was never actually said"
+            },
+            {
+              "id": "edge_conceded",
+              "label": "A limit you let slide",
+              "text": "An edge quietly conceded"
+            },
+            {
+              "id": "standard_forbidding",
+              "label": "A standard that won't let you want things",
+              "text": "A standard that forbids wanting anything"
+            }
+          ],
+          "label": "Where your limits are"
         },
         {
           "id": "holds_shape",
           "title": "What Holds the Shape",
           "facets": [
-            { "id": "yes_became_measure", "text": "A yes that became the measure of you" },
-            { "id": "line_worth_keeping", "text": "A line worth keeping even at cost" },
-            { "id": "whats_admissible", "text": "What you will and will not let through" }
-          ]
+            {
+              "id": "yes_became_measure",
+              "label": "A yes that became what you're judged by",
+              "text": "A yes that became the measure of you"
+            },
+            {
+              "id": "line_worth_keeping",
+              "label": "A line worth holding even if it costs",
+              "text": "A line worth keeping even at cost"
+            },
+            {
+              "id": "whats_admissible",
+              "label": "What you will and won't allow",
+              "text": "What you will and will not let through"
+            }
+          ],
+          "label": "What keeps it in shape"
         },
         {
           "id": "should_close",
           "title": "What Should Close",
           "facets": [
-            { "id": "ending_unmarked", "text": "An ending that has not been marked" },
-            { "id": "boundary_grief_needs", "text": "The edge a grief or a change requires" },
-            { "id": "rigidity_risk", "text": "Risks: boundary as wall, standards that forbid repair" }
-          ]
+            {
+              "id": "ending_unmarked",
+              "label": "An ending nobody marked",
+              "text": "An ending that has not been marked"
+            },
+            {
+              "id": "boundary_grief_needs",
+              "label": "The space a loss or change needs",
+              "text": "The edge a grief or a change requires"
+            },
+            {
+              "id": "rigidity_risk",
+              "label": "A boundary that's become a wall",
+              "text": "Risks: boundary as wall, standards that forbid repair"
+            }
+          ],
+          "label": "What needs to end"
         }
       ]
     }
