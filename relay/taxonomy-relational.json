@@ -65,17 +65,20 @@
             {
               "id": "fact_and_story",
               "label": "What happened, vs. the story about it",
-              "text": "The fact, and the story laid over it"
+              "gloss": "The fact, and the story laid over it",
+              "phrase": "the gap between what happened and the story told about it"
             },
             {
               "id": "borrowed_frame",
               "label": "A way of seeing you picked up from someone else",
-              "text": "A frame you were handed and never checked"
+              "gloss": "A frame you were handed and never checked",
+              "phrase": "a way of seeing inherited from someone else and never checked"
             },
             {
               "id": "mood_as_verdict",
               "label": "Treating a passing mood as the truth",
-              "text": "A mood being read as a verdict"
+              "gloss": "A mood being read as a verdict",
+              "phrase": "a passing mood being treated as the verdict"
             }
           ],
           "label": "What's actually going on"
@@ -87,17 +90,20 @@
             {
               "id": "unnamed_shift",
               "label": "Something changed and nobody has said so",
-              "text": "Something changed and has not been named"
+              "gloss": "Something changed and has not been named",
+              "phrase": "something that changed and has never been named"
             },
             {
               "id": "secondhand_read",
               "label": "You only know it secondhand",
-              "text": "Knowing it only through what others have said"
+              "gloss": "Knowing it only through what others have said",
+              "phrase": "knowing it only through what others have said"
             },
             {
               "id": "too_close_to_see",
               "label": "You're too close to see it clearly",
-              "text": "Standing too close to make out the shape"
+              "gloss": "Standing too close to make out the shape",
+              "phrase": "standing too close to make out the shape"
             }
           ],
           "label": "What you can actually tell"
@@ -109,17 +115,20 @@
             {
               "id": "rehearsed_future",
               "label": "You've already decided how it ends",
-              "text": "A future rehearsed so often it feels already known"
+              "gloss": "A future rehearsed so often it feels already known",
+              "phrase": "a future rehearsed so often it feels already settled"
             },
             {
               "id": "question_underneath",
               "label": "The real question under the one being asked",
-              "text": "The question underneath the one being asked"
+              "gloss": "The question underneath the one being asked",
+              "phrase": "the real question sitting under the one being asked"
             },
             {
               "id": "closure_risk",
               "label": "Deciding before you've actually looked",
-              "text": "Risks: deciding before looking, certainty as relief"
+              "gloss": "Risks: deciding before looking, certainty as relief",
+              "phrase": "deciding before actually looking"
             }
           ],
           "label": "Seeing a bit further ahead"
@@ -160,17 +169,20 @@
             {
               "id": "whose_need",
               "label": "Someone else's need is steering this",
-              "text": "Whose need is quietly shaping this"
+              "gloss": "Whose need is quietly shaping this",
+              "phrase": "someone else's need quietly steering this"
             },
             {
               "id": "owed_two_ways",
               "label": "You owe two people different things",
-              "text": "Trust owed in two directions at once"
+              "gloss": "Trust owed in two directions at once",
+              "phrase": "trust owed in two directions at once"
             },
             {
               "id": "belonging_shifting",
               "label": "Where you belong is changing",
-              "text": "Belonging that is moving, thinning, or being left"
+              "gloss": "Belonging that is moving, thinning, or being left",
+              "phrase": "a sense of belonging that is moving or thinning"
             }
           ],
           "label": "The people involved"
@@ -182,17 +194,20 @@
             {
               "id": "unshared_shape",
               "label": "You each feel it differently",
-              "text": "Two feelings that cannot find one shape"
+              "gloss": "Two feelings that cannot find one shape",
+              "phrase": "two people feeling the same thing differently"
             },
             {
               "id": "quiet_between",
               "label": "Things have gone quiet between you",
-              "text": "The quiet that has grown between people"
+              "gloss": "The quiet that has grown between people",
+              "phrase": "the quiet that has grown between them"
             },
             {
               "id": "warmth_that_asks",
               "label": "Kindness with a request attached",
-              "text": "Warmth that arrives with a request inside it"
+              "gloss": "Warmth that arrives with a request inside it",
+              "phrase": "warmth that arrives with a request inside it"
             }
           ],
           "label": "What's going on between you"
@@ -204,17 +219,20 @@
             {
               "id": "resonance_forming",
               "label": "Something new is starting to click",
-              "text": "Something new beginning to resonate"
+              "gloss": "Something new beginning to resonate",
+              "phrase": "something new beginning to resonate"
             },
             {
               "id": "repair_available",
               "label": "There's still a chance to repair it",
-              "text": "A repair that is still available"
+              "gloss": "A repair that is still available",
+              "phrase": "a repair that is still available"
             },
             {
               "id": "fusion_risk",
               "label": "Keeping the peace at your own expense",
-              "text": "Risks: merging, rescuing, peace kept at your expense"
+              "gloss": "Risks: merging, rescuing, peace kept at your expense",
+              "phrase": "peace being kept at their own expense"
             }
           ],
           "label": "What might hold it together"
@@ -255,17 +273,20 @@
             {
               "id": "crossing_unnamed",
               "label": "A decision you haven't said out loud",
-              "text": "A crossing you have not named out loud"
+              "gloss": "A crossing you have not named out loud",
+              "phrase": "a crossing that has not been named out loud"
             },
             {
               "id": "answer_known",
               "label": "You know the answer and haven't acted",
-              "text": "An answer already known and not acted on"
+              "gloss": "An answer already known and not acted on",
+              "phrase": "an answer already known and not yet acted on"
             },
             {
               "id": "what_youd_spend",
               "label": "What you'd actually give up for it",
-              "text": "What you would actually spend for this"
+              "gloss": "What you would actually spend for this",
+              "phrase": "what they would actually spend for this"
             }
           ],
           "label": "Where it's heading"
@@ -277,17 +298,20 @@
             {
               "id": "cost_as_question",
               "label": "A cost you're calling an open question",
-              "text": "A cost disguised as an open question"
+              "gloss": "A cost disguised as an open question",
+              "phrase": "a cost being carried as though it were an open question"
             },
             {
               "id": "momentum_borrowed",
               "label": "The push is coming from someone else",
-              "text": "Momentum that belongs to someone else"
+              "gloss": "Momentum that belongs to someone else",
+              "phrase": "momentum that belongs to someone else"
             },
             {
               "id": "timing_pressure",
               "label": "Move now, or wait until it's ready",
-              "text": "Moving now, or moving when it is ready"
+              "gloss": "Moving now, or moving when it is ready",
+              "phrase": "the choice between moving now and waiting until it is ready"
             }
           ],
           "label": "What moving would cost"
@@ -299,17 +323,20 @@
             {
               "id": "life_unlit",
               "label": "Something you keep not starting",
-              "text": "A life or a work you keep not lighting"
+              "gloss": "A life or a work you keep not lighting",
+              "phrase": "a life or a work they keep not lighting"
             },
             {
               "id": "vow_worth_making",
               "label": "A commitment that would settle the rest",
-              "text": "A commitment that would organise the rest"
+              "gloss": "A commitment that would organise the rest",
+              "phrase": "a commitment that would organise the rest"
             },
             {
               "id": "crusade_risk",
               "label": "Pushing so hard you burn what mattered",
-              "text": "Risks: urgency as identity, burning what you needed"
+              "gloss": "Risks: urgency as identity, burning what you needed",
+              "phrase": "pushing hard enough to burn what mattered"
             }
           ],
           "label": "What it could become"
@@ -350,17 +377,20 @@
             {
               "id": "unplanted_sprout",
               "label": "Something is growing that nobody planned",
-              "text": "Something growing that no one planted"
+              "gloss": "Something growing that no one planted",
+              "phrase": "something growing that no one planted"
             },
             {
               "id": "form_insisting",
               "label": "It keeps wanting to be something else",
-              "text": "The form the thing keeps insisting on"
+              "gloss": "The form the thing keeps insisting on",
+              "phrase": "the form the thing keeps insisting on"
             },
             {
               "id": "grown_in_shadow",
               "label": "A part of you shaped by someone else",
-              "text": "A part of you grown in someone else's shade"
+              "gloss": "A part of you grown in someone else's shade",
+              "phrase": "a part of them grown in someone else's shade"
             }
           ],
           "label": "What's growing on its own"
@@ -372,17 +402,20 @@
             {
               "id": "fork_unadmitted",
               "label": "A choice you haven't admitted is a choice",
-              "text": "A fork that has not been admitted yet"
+              "gloss": "A fork that has not been admitted yet",
+              "phrase": "a fork that has not been admitted to be one"
             },
             {
               "id": "option_worth_keeping",
               "label": "Worth keeping your options open a while",
-              "text": "An option worth holding open a while longer"
+              "gloss": "An option worth holding open a while longer",
+              "phrase": "an option worth holding open a while longer"
             },
             {
               "id": "root_missing",
               "label": "A relationship continuing past its reason",
-              "text": "A bond continuing without its original root"
+              "gloss": "A bond continuing without its original root",
+              "phrase": "a bond continuing without its original root"
             }
           ],
           "label": "The choices ahead"
@@ -394,17 +427,20 @@
             {
               "id": "version_unlived",
               "label": "A version of this you haven't tried",
-              "text": "A version of this you have not tried"
+              "gloss": "A version of this you have not tried",
+              "phrase": "a version of this they have not tried"
             },
             {
               "id": "pruning_needed",
               "label": "What you'd have to drop for the rest to grow",
-              "text": "What would have to be cut for the rest to grow"
+              "gloss": "What would have to be cut for the rest to grow",
+              "phrase": "what would have to be cut for the rest to grow"
             },
             {
               "id": "sprawl_risk",
               "label": "Keeping every option instead of living one",
-              "text": "Risks: endless branching, keeping options instead of living one"
+              "gloss": "Risks: endless branching, keeping options instead of living one",
+              "phrase": "keeping every option instead of living one"
             }
           ],
           "label": "What needs room to grow"
@@ -445,17 +481,20 @@
             {
               "id": "load_uncomposted",
               "label": "Carrying something that hasn't settled",
-              "text": "A load that has not broken down"
+              "gloss": "A load that has not broken down",
+              "phrase": "a load that has not broken down"
             },
             {
               "id": "undigested_ending",
               "label": "An ending you haven't finished feeling",
-              "text": "A person or an ending not yet metabolised"
+              "gloss": "A person or an ending not yet metabolised",
+              "phrase": "an ending not yet metabolised"
             },
             {
               "id": "strength_spent_holding",
               "label": "Energy spent holding something back",
-              "text": "Strength spent holding something back"
+              "gloss": "Strength spent holding something back",
+              "phrase": "strength spent holding something back"
             }
           ],
           "label": "What you're carrying"
@@ -467,17 +506,20 @@
             {
               "id": "honest_capacity",
               "label": "What you can actually manage right now",
-              "text": "What your actual capacity is right now"
+              "gloss": "What your actual capacity is right now",
+              "phrase": "what they can actually carry right now"
             },
             {
               "id": "work_that_only_takes",
               "label": "Effort that never gives anything back",
-              "text": "Work or care that only takes and never feeds"
+              "gloss": "Work or care that only takes and never feeds",
+              "phrase": "work that only takes and never feeds"
             },
             {
               "id": "care_uncounted",
               "label": "Care you give that nobody counts",
-              "text": "Care being given without being counted"
+              "gloss": "Care being given without being counted",
+              "phrase": "care given without being counted"
             }
           ],
           "label": "What it's taking out of you"
@@ -489,17 +531,20 @@
             {
               "id": "soil_being_built",
               "label": "Something building slowly, out of sight",
-              "text": "Soil being built slowly and invisibly"
+              "gloss": "Soil being built slowly and invisibly",
+              "phrase": "something building slowly and out of sight"
             },
             {
               "id": "rest_as_instruction",
               "label": "Tiredness telling you something",
-              "text": "Tiredness that is information, not weakness"
+              "gloss": "Tiredness that is information, not weakness",
+              "phrase": "tiredness arriving as information rather than weakness"
             },
             {
               "id": "depletion_risk",
               "label": "Running on reserves you don't have",
-              "text": "Risks: running on reserve, care collapse, rest deferred to crisis"
+              "gloss": "Risks: running on reserve, care collapse, rest deferred to crisis",
+              "phrase": "running on reserves that are not there"
             }
           ],
           "label": "What would give back"
@@ -540,17 +585,20 @@
             {
               "id": "no_never_said",
               "label": "A no you never actually said",
-              "text": "A no that was never actually said"
+              "gloss": "A no that was never actually said",
+              "phrase": "a no that was never actually said"
             },
             {
               "id": "edge_conceded",
               "label": "A limit you let slide",
-              "text": "An edge quietly conceded"
+              "gloss": "An edge quietly conceded",
+              "phrase": "an edge quietly conceded"
             },
             {
               "id": "standard_forbidding",
               "label": "A standard that won't let you want things",
-              "text": "A standard that forbids wanting anything"
+              "gloss": "A standard that forbids wanting anything",
+              "phrase": "a standard that forbids wanting anything"
             }
           ],
           "label": "Where your limits are"
@@ -562,17 +610,20 @@
             {
               "id": "yes_became_measure",
               "label": "A yes that became what you're judged by",
-              "text": "A yes that became the measure of you"
+              "gloss": "A yes that became the measure of you",
+              "phrase": "a yes that became the measure of them"
             },
             {
               "id": "line_worth_keeping",
               "label": "A line worth holding even if it costs",
-              "text": "A line worth keeping even at cost"
+              "gloss": "A line worth keeping even at cost",
+              "phrase": "a line worth keeping even at cost"
             },
             {
               "id": "whats_admissible",
               "label": "What you will and won't allow",
-              "text": "What you will and will not let through"
+              "gloss": "What you will and will not let through",
+              "phrase": "what they will and will not let through"
             }
           ],
           "label": "What keeps it in shape"
@@ -584,17 +635,20 @@
             {
               "id": "ending_unmarked",
               "label": "An ending nobody marked",
-              "text": "An ending that has not been marked"
+              "gloss": "An ending that has not been marked",
+              "phrase": "an ending that has not been marked"
             },
             {
               "id": "boundary_grief_needs",
               "label": "The space a loss or change needs",
-              "text": "The edge a grief or a change requires"
+              "gloss": "The edge a grief or a change requires",
+              "phrase": "the edge a grief or a change requires"
             },
             {
               "id": "rigidity_risk",
               "label": "A boundary that's become a wall",
-              "text": "Risks: boundary as wall, standards that forbid repair"
+              "gloss": "Risks: boundary as wall, standards that forbid repair",
+              "phrase": "a boundary that has hardened into a wall"
             }
           ],
           "label": "What needs to end"

@@ -77,17 +77,20 @@
             {
               "id": "data_reliability",
               "label": "Whether you can trust the data",
-              "text": "Data reliability, misinformation, observability gaps"
+              "gloss": "Data reliability, misinformation, observability gaps",
+              "phrase": "whether the underlying data can be trusted"
             },
             {
               "id": "framing_capture",
               "label": "Who controls how it's framed",
-              "text": "Framing conflicts and semantic capture"
+              "gloss": "Framing conflicts and semantic capture",
+              "phrase": "who controls how the question is framed"
             },
             {
               "id": "attention_overload",
               "label": "Too much input, not enough attention",
-              "text": "Attention scarcity and cognitive overload"
+              "gloss": "Attention scarcity and cognitive overload",
+              "phrase": "more input than there is attention to meet it"
             }
           ],
           "label": "Whether the information is sound"
@@ -99,17 +102,20 @@
             {
               "id": "weak_signals",
               "label": "Faint early signals, easy to miss",
-              "text": "Weak signals, uncertainty, model brittleness"
+              "gloss": "Weak signals, uncertainty, model brittleness",
+              "phrase": "faint early signals that are easy to miss"
             },
             {
               "id": "feedback_latency",
               "label": "Finding out too late",
-              "text": "Feedback latency and sensing infrastructure"
+              "gloss": "Feedback latency and sensing infrastructure",
+              "phrase": "finding out too late to act on it"
             },
             {
               "id": "epistemic_governance",
               "label": "Who gets to say what's true",
-              "text": "Expertise, dissent, and epistemic governance"
+              "gloss": "Expertise, dissent, and epistemic governance",
+              "phrase": "who gets to decide what counts as true"
             }
           ],
           "label": "How well you can see ahead"
@@ -121,17 +127,20 @@
             {
               "id": "ai_mediated",
               "label": "Thinking through AI that's already framed it",
-              "text": "AI-mediated reasoning and synthetic realities"
+              "gloss": "AI-mediated reasoning and synthetic realities",
+              "phrase": "reasoning through systems that have already framed it"
             },
             {
               "id": "anticipatory",
               "label": "Planning for futures you can't predict",
-              "text": "Scenario planning and anticipatory literacy"
+              "gloss": "Scenario planning and anticipatory literacy",
+              "phrase": "planning for futures that cannot be predicted"
             },
             {
               "id": "closure_risk",
               "label": "Locking into one view too early",
-              "text": "Risks: certainty addiction, ideological closure, simulation lock-in"
+              "gloss": "Risks: certainty addiction, ideological closure, simulation lock-in",
+              "phrase": "locking into one view too early"
             }
           ],
           "label": "How thinking itself is changing"
@@ -185,17 +194,20 @@
             {
               "id": "institutional_trust",
               "label": "Whether people trust institutions",
-              "text": "Institutional, interpersonal, and platform trust"
+              "gloss": "Institutional, interpersonal, and platform trust",
+              "phrase": "whether people still trust the institutions"
             },
             {
               "id": "inclusion_cohesion",
               "label": "Who's included, who's left out",
-              "text": "Inclusion, identity, and social cohesion"
+              "gloss": "Inclusion, identity, and social cohesion",
+              "phrase": "who is included and who is left out"
             },
             {
               "id": "emotional_climate",
               "label": "The mood — morale, hope, resentment",
-              "text": "Emotional climate — morale, hope, fear, resentment"
+              "gloss": "Emotional climate — morale, hope, fear, resentment",
+              "phrase": "the emotional climate — morale, hope, resentment"
             }
           ],
           "label": "Trust and belonging"
@@ -207,17 +219,20 @@
             {
               "id": "coalition_health",
               "label": "Whether allies still hold together",
-              "text": "Stakeholder empathy and coalition health"
+              "gloss": "Stakeholder empathy and coalition health",
+              "phrase": "whether the coalition still holds together"
             },
             {
               "id": "narratives_contagion",
               "label": "Stories that spread fast",
-              "text": "Cultural narratives, virality, emotional contagion"
+              "gloss": "Cultural narratives, virality, emotional contagion",
+              "phrase": "stories spreading faster than they can be checked"
             },
             {
               "id": "consent_legitimacy",
               "label": "Whether people accept it as fair",
-              "text": "Consent, fairness, perceived legitimacy"
+              "gloss": "Consent, fairness, perceived legitimacy",
+              "phrase": "whether people accept this as legitimate"
             }
           ],
           "label": "Working together"
@@ -229,17 +244,20 @@
             {
               "id": "digital_tribes",
               "label": "New groups forming online",
-              "text": "Emerging identities and digital tribes"
+              "gloss": "Emerging identities and digital tribes",
+              "phrase": "new identities forming online"
             },
             {
               "id": "mutual_aid",
               "label": "People helping each other recover",
-              "text": "Mutual aid, trauma recovery, resilience"
+              "gloss": "Mutual aid, trauma recovery, resilience",
+              "phrase": "people organising to help each other recover"
             },
             {
               "id": "polarization_risk",
               "label": "Splitting into camps that can't hear each other",
-              "text": "Risks: affect-as-truth, polarization, resonance bubbles"
+              "gloss": "Risks: affect-as-truth, polarization, resonance bubbles",
+              "phrase": "splitting into camps that can no longer hear each other"
             }
           ],
           "label": "How people are changing"
@@ -293,17 +311,20 @@
             {
               "id": "mission_narrative",
               "label": "The bigger story being told",
-              "text": "Mission, ambition, civilizational narratives"
+              "gloss": "Mission, ambition, civilizational narratives",
+              "phrase": "the larger story being told about the mission"
             },
             {
               "id": "competition_pressure",
               "label": "Pressure from rivals racing ahead",
-              "text": "Competition, arms races, innovation pressure"
+              "gloss": "Competition, arms races, innovation pressure",
+              "phrase": "pressure from rivals racing ahead"
             },
             {
               "id": "mobilization",
               "label": "Getting people moving",
-              "text": "Leadership, mobilization, crisis response"
+              "gloss": "Leadership, mobilization, crisis response",
+              "phrase": "getting people to move together"
             }
           ],
           "label": "Where it's heading"
@@ -315,17 +336,20 @@
             {
               "id": "adoption_velocity",
               "label": "How fast new things get taken up",
-              "text": "R&D, entrepreneurship, adoption velocity"
+              "gloss": "R&D, entrepreneurship, adoption velocity",
+              "phrase": "how fast new things are being taken up"
             },
             {
               "id": "conflict_modes",
               "label": "How the conflict is actually fought",
-              "text": "Ideological, economic, kinetic, memetic conflict"
+              "gloss": "Ideological, economic, kinetic, memetic conflict",
+              "phrase": "how the conflict is actually being fought"
             },
             {
               "id": "transition_pacing",
               "label": "How fast to change, and what it costs",
-              "text": "Strategic pivots, transition pacing, sacrifice tolerance"
+              "gloss": "Strategic pivots, transition pacing, sacrifice tolerance",
+              "phrase": "how fast to change, and what the pace costs"
             }
           ],
           "label": "How change is happening"
@@ -337,17 +361,20 @@
             {
               "id": "frontier_bets",
               "label": "Long-shot bets on the far future",
-              "text": "Space, longevity, intelligence amplification, stewardship"
+              "gloss": "Space, longevity, intelligence amplification, stewardship",
+              "phrase": "long-range bets on the far future"
             },
             {
               "id": "multipolarity",
               "label": "Power shifting between countries",
-              "text": "Multipolarity, planetary governance, sovereignty shifts"
+              "gloss": "Multipolarity, planetary governance, sovereignty shifts",
+              "phrase": "power shifting between states"
             },
             {
               "id": "crusade_risk",
               "label": "Pushing so hard it burns people out",
-              "text": "Risks: crusade logic, burnout, acceleration addiction"
+              "gloss": "Risks: crusade logic, burnout, acceleration addiction",
+              "phrase": "pushing so hard it burns people out"
             }
           ],
           "label": "The longer horizon"
@@ -401,17 +428,20 @@
             {
               "id": "experimental_cultures",
               "label": "Places where people try things",
-              "text": "Startups, prototypes, experimental cultures"
+              "gloss": "Startups, prototypes, experimental cultures",
+              "phrase": "places where people are free to try things"
             },
             {
               "id": "cultural_remix",
               "label": "Old ideas recombined into new ones",
-              "text": "Cultural remixing, myth evolution, identity experimentation"
+              "gloss": "Cultural remixing, myth evolution, identity experimentation",
+              "phrase": "old ideas recombining into new ones"
             },
             {
               "id": "optionality",
               "label": "Keeping more than one path open",
-              "text": "Optionality, redundancy, strategic pluralism"
+              "gloss": "Optionality, redundancy, strategic pluralism",
+              "phrase": "keeping more than one path open"
             }
           ],
           "label": "Where new things come from"
@@ -423,17 +453,20 @@
             {
               "id": "sandboxes",
               "label": "Safe places to test ideas",
-              "text": "Sandboxes, pilots, alternative institutions"
+              "gloss": "Sandboxes, pilots, alternative institutions",
+              "phrase": "safe places to test what might work"
             },
             {
               "id": "deep_tech",
               "label": "Deep technology reshaping what's possible",
-              "text": "Synthetic bio, neurotech, virtual worlds, symbiosis"
+              "gloss": "Synthetic bio, neurotech, virtual worlds, symbiosis",
+              "phrase": "deep technology reshaping what is possible"
             },
             {
               "id": "regenerative_design",
               "label": "Designing the way living systems do",
-              "text": "Biomimicry, regenerative design, adaptive ecosystems"
+              "gloss": "Biomimicry, regenerative design, adaptive ecosystems",
+              "phrase": "designing the way living systems do"
             }
           ],
           "label": "Testing what's next"
@@ -445,17 +478,20 @@
             {
               "id": "futures_literacy",
               "label": "Getting better at imagining futures",
-              "text": "Futures literacy, speculative design, narrative abundance"
+              "gloss": "Futures literacy, speculative design, narrative abundance",
+              "phrase": "the capacity to imagine futures well"
             },
             {
               "id": "adaptive_pruning",
               "label": "Cutting what doesn't work, safely",
-              "text": "Mutation filtering, safe experimentation, adaptive pruning"
+              "gloss": "Mutation filtering, safe experimentation, adaptive pruning",
+              "phrase": "cutting what does not work without doing harm"
             },
             {
               "id": "rootlessness_risk",
               "label": "Chasing novelty without putting down roots",
-              "text": "Risks: novelty fetish, rootlessness, infinite branching"
+              "gloss": "Risks: novelty fetish, rootlessness, infinite branching",
+              "phrase": "chasing novelty without putting down roots"
             }
           ],
           "label": "Tending the imagination"
@@ -509,17 +545,20 @@
             {
               "id": "energy_land",
               "label": "Energy, water, food, land",
-              "text": "Energy, water, food, minerals, land use"
+              "gloss": "Energy, water, food, minerals, land use",
+              "phrase": "the physical basics — energy, water, food, land"
             },
             {
               "id": "infrastructure",
               "label": "Supply chains, housing, infrastructure",
-              "text": "Supply chains, housing, utilities, infrastructure"
+              "gloss": "Supply chains, housing, utilities, infrastructure",
+              "phrase": "supply chains, housing, the built infrastructure"
             },
             {
               "id": "labor_vitality",
               "label": "Whether people have the capacity to do the work",
-              "text": "Labor vitality, demographics, skills, care capacity"
+              "gloss": "Labor vitality, demographics, skills, care capacity",
+              "phrase": "whether people have the capacity to do the work"
             }
           ],
           "label": "The physical basics"
@@ -531,17 +570,20 @@
             {
               "id": "value_circulation",
               "label": "Where the value actually goes",
-              "text": "Value circulation, extraction, reinvestment"
+              "gloss": "Value circulation, extraction, reinvestment",
+              "phrase": "where the value actually ends up"
             },
             {
               "id": "ecological_limits",
               "label": "Ecological limits being hit",
-              "text": "Climate, biodiversity, waste, ecological limits"
+              "gloss": "Climate, biodiversity, waste, ecological limits",
+              "phrase": "ecological limits being reached"
             },
             {
               "id": "resilience_reserves",
               "label": "Whether there's slack left in the system",
-              "text": "Organizational fatigue, maintenance, resilience reserves"
+              "gloss": "Organizational fatigue, maintenance, resilience reserves",
+              "phrase": "whether any slack is left in the system"
             }
           ],
           "label": "Whether the economics renew"
@@ -553,17 +595,20 @@
             {
               "id": "circular_transitions",
               "label": "Reusing instead of extracting",
-              "text": "Circular economies, post-scarcity transitions"
+              "gloss": "Circular economies, post-scarcity transitions",
+              "phrase": "reusing instead of extracting"
             },
             {
               "id": "adaptive_habitats",
               "label": "Adapting where and how people live",
-              "text": "Climate migration, adaptive habitats"
+              "gloss": "Climate migration, adaptive habitats",
+              "phrase": "adapting where and how people live"
             },
             {
               "id": "extraction_risk",
               "label": "Squeezing the system until care collapses",
-              "text": "Risks: extractive optimization, care collapse, growth absolutism"
+              "gloss": "Risks: extractive optimization, care collapse, growth absolutism",
+              "phrase": "squeezing the system until care collapses"
             }
           ],
           "label": "Lasting the distance"
@@ -617,17 +662,20 @@
             {
               "id": "regulation",
               "label": "Rules and who enforces them",
-              "text": "Regulation, jurisdiction, administrative adaptability"
+              "gloss": "Regulation, jurisdiction, administrative adaptability",
+              "phrase": "the rules, and who enforces them"
             },
             {
               "id": "boundary_design",
               "label": "Who gets access, who decides",
-              "text": "Access, sovereignty, moderation, boundary design"
+              "gloss": "Access, sovereignty, moderation, boundary design",
+              "phrase": "who gets access, and who decides"
             },
             {
               "id": "auditability",
               "label": "Whether it can be checked and challenged",
-              "text": "Auditability, transparency, enforcement, redress"
+              "gloss": "Auditability, transparency, enforcement, redress",
+              "phrase": "whether it can be checked and challenged"
             }
           ],
           "label": "How rules and institutions work"
@@ -639,17 +687,20 @@
             {
               "id": "standards",
               "label": "Shared standards that let things connect",
-              "text": "Standards, protocols, interoperability"
+              "gloss": "Standards, protocols, interoperability",
+              "phrase": "shared standards that let things connect"
             },
             {
               "id": "security",
               "label": "Keeping people and systems safe",
-              "text": "Cybersecurity, public safety, infrastructure protection"
+              "gloss": "Cybersecurity, public safety, infrastructure protection",
+              "phrase": "keeping people and systems safe"
             },
             {
               "id": "capture",
               "label": "Power concentrating in too few hands",
-              "text": "Centralization, surveillance, monopoly, capture"
+              "gloss": "Centralization, surveillance, monopoly, capture",
+              "phrase": "power concentrating in too few hands"
             }
           ],
           "label": "Keeping things coordinated and safe"
@@ -661,17 +712,20 @@
             {
               "id": "algorithmic_reg",
               "label": "Machines making the decisions",
-              "text": "Algorithmic regulation, AI adjudication"
+              "gloss": "Algorithmic regulation, AI adjudication",
+              "phrase": "machines making the decisions"
             },
             {
               "id": "participatory_gov",
               "label": "People governing more directly",
-              "text": "Modular, participatory, transnational governance"
+              "gloss": "Modular, participatory, transnational governance",
+              "phrase": "people governing more directly"
             },
             {
               "id": "ossification_risk",
               "label": "Rules hardening until nothing can move",
-              "text": "Risks: ossification, total surveillance, protocol absolutism"
+              "gloss": "Risks: ossification, total surveillance, protocol absolutism",
+              "phrase": "rules hardening until nothing can move"
             }
           ],
           "label": "How governing is changing"

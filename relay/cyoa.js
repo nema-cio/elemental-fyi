@@ -133,6 +133,8 @@ window.CYOA = (function () {
   // Menus show `label` — plain, recognisable wording. `text` stays the fuller descriptor that
   // rides in the reading, and `id` stays the short-form encoding in the φ. Three layers, so the
   // notation can be terse without the menu asking a reader to decode it. Falls back to `text`.
+  // Four layers per facet, one job each:  id -> the φ encoding · label -> the menu ·
+  // gloss -> what it means · phrase -> the fragment that composes into prose for the guide.
   // ---- leaf → φ -----------------------------------------------------------------------
   function compileLeaf(element, subdomain, facet, stanceId) {
     const stance = stanceById(stanceId);
@@ -141,7 +143,8 @@ window.CYOA = (function () {
       subdomain_id: subdomain.id, facet_id: facet.id,
       stance: stanceId, z_state: stance.z_state,
       phi: element.operator + "(" + facet.id + " | " + stanceId + ")",
-      reading: element.element + " — " + facet.text + " — " + element.stance_frames[stanceId]
+      reading: "Through " + element.element + ": " + (facet.phrase || facet.gloss || facet.text) +
+        ", read as " + stanceId + ". " + element.stance_frames[stanceId]
     };
   }
 
@@ -156,7 +159,7 @@ window.CYOA = (function () {
       clear(mount);
       const all = element.branches.map(b =>
         "<li><strong>" + esc(b.label || b.title) + "</strong><ul>" +
-        b.facets.map(f => "<li>" + esc(f.label || f.text) + "</li>").join("") + "</ul></li>").join("");
+        b.facets.map(f => "<li>" + esc(f.label || f.gloss || f.text) + "</li>").join("") + "</ul></li>").join("");
       mount.innerHTML =
         '<p class="cyoa-framing">' + esc(element.diagnostic.core_question) + "</p>" +
         '<div class="walk">' +
@@ -183,7 +186,7 @@ window.CYOA = (function () {
       const facetOf = () => branchOf().facets[fSel.value | 0];
 
       function fillFacets() {
-        fSel.innerHTML = branchOf().facets.map((f, i) => opt(i, f.label || f.text)).join("");
+        fSel.innerHTML = branchOf().facets.map((f, i) => opt(i, f.label || f.gloss || f.text)).join("");
       }
       function reflect() {
         gloss.textContent = element.stance_frames[sSel.value] || "";
