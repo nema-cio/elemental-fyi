@@ -46,6 +46,10 @@ Coordinator is the **single public Buzz mouth**. When `glyph` is present, answer
 
 `begin.html` already attaches the matching glyph from each concern’s `data-op`.
 
+## Latency
+
+Public coordinator-public broker enforces ~**60s** between outbound replies. The Pages client shows quiet wait copy (“sitting with it — a reply may take up to a minute”) while the POST is in flight and disables send until the reply returns.
+
 ## Response
 
 JSON:

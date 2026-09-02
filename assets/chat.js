@@ -4,10 +4,14 @@
  *
  * API (window.ElementalBeginChat):
  *   send({ message, glyph?, line? }) · mount(rootEl) · setSeed({ glyph, line, seedText })
+ *
+ * Public Buzz broker may take ~60s between Coordinator replies — show quiet wait copy.
  */
 (function () {
   var SESSION_KEY = "es_begin_chat_session";
   var MAX_MSG = 4096;
+  var WAIT_COPY =
+    "sitting with it — a reply may take up to a minute";
   var cfg = function () {
     return window.ELEMENTAL_CHAT || { endpoint: "" };
   };
@@ -35,6 +39,7 @@
     input: null,
     sendBtn: null,
     errEl: null,
+    waitEl: null,
     glyph: "",
     line: "",
     seedText: "",
@@ -44,12 +49,20 @@
   };
 
   function appendTurn(kind, text) {
-    if (!state.thread) return;
+    if (!state.thread) return null;
     var el = document.createElement("p");
     el.className = "begin-chat-turn begin-chat-turn--" + kind;
     el.textContent = text;
     state.thread.appendChild(el);
     state.thread.scrollTop = state.thread.scrollHeight;
+    return el;
+  }
+
+  function clearWait() {
+    if (state.waitEl && state.waitEl.parentNode) {
+      state.waitEl.parentNode.removeChild(state.waitEl);
+    }
+    state.waitEl = null;
   }
 
   function setError(msg) {
@@ -96,6 +109,7 @@
     }
 
     setError("");
+    clearWait();
     appendTurn("user", message);
     setBusy(true);
 
@@ -108,6 +122,8 @@
       setBusy(false);
       return { reply: null, stub: true };
     }
+
+    state.waitEl = appendTurn("system", WAIT_COPY);
 
     var body = {
       sessionId: getSessionId(),
@@ -125,6 +141,7 @@
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       });
+      clearWait();
       if (!res.ok) {
         appendTurn("system", "the channel wavered — try again in a moment");
         setError("couldn’t reach the elements just now");
@@ -149,6 +166,7 @@
       setBusy(false);
       return data;
     } catch (e) {
+      clearWait();
       appendTurn("system", "the channel wavered — try again in a moment");
       setError("network quiet — try again shortly");
       setBusy(false);
