@@ -7,7 +7,7 @@
  *   <script type="module" src="…/assets/auth.js"></script>
  *
  * API (window.ElementalAuth): user() · signIn(email) · signOut() · open() ·
- *   onChange(cb) · saveReading(sessionId,title,phiChain) ·
+ *   onChange(cb) · getAccessToken() · saveReading(sessionId,title,phiChain) ·
  *   saveProgress(trackId,chapter,completed) · getProgress() · ready (Promise)
  */
 import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
@@ -92,6 +92,15 @@ if (!cfg || !cfg.url) {
     open: () => { panel.classList.add("open"); input.focus(); },
     signIn: (email) => { input.value = email || ""; api.open(); },
     signOut: async () => { await sb.auth.signOut(); },
+    /** Session access_token for backend calls, or null when signed out / unavailable. */
+    getAccessToken: async () => {
+      try {
+        const { data } = await sb.auth.getSession();
+        return (data && data.session && data.session.access_token) || null;
+      } catch (e) {
+        return null;
+      }
+    },
     // a completed/advancing relay attaches to the person (upsert: one row per session)
     saveReading: async (sessionId, title, phiChain) => {
       if (!user || !sessionId) return false;

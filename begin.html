@@ -70,13 +70,36 @@
     padding: 0.2em 1em; cursor: pointer; margin: 0 0 1.2em; }
   .copybtn:hover { color: var(--ink); border-color: var(--ink); }
   .carry a { font-family: "EB Garamond", serif; font-style: italic;
-    font-size: calc(var(--body-size) * 1.18); color: var(--ochre); text-decoration: none;
-    border-bottom: 1px solid var(--ochre); padding-bottom: 2px; }
-  .carry a:hover { color: var(--ink); border-bottom-color: var(--ink); }
-  .carry-where { font-size: 0.74em; opacity: 0.5; font-style: italic; margin-left: 0.5em; }
-  .gpt-note { font-size: 0.84em; opacity: 0.62; line-height: 1.55; margin: 1em 0 0; max-width: 46ch; }
+    font-size: calc(var(--body-size) * 0.95); color: var(--ochre); text-decoration: none;
+    border-bottom: 1px solid rgba(var(--accent-rgb),0.45); padding-bottom: 2px; opacity: 0.72; }
+  .carry a:hover { color: var(--ink); border-bottom-color: var(--ink); opacity: 1; }
+  .carry-where { font-size: 0.74em; opacity: 0.45; font-style: italic; margin-left: 0.5em; }
+  .gpt-note { font-size: 0.84em; opacity: 0.55; line-height: 1.55; margin: 1em 0 0; max-width: 46ch; }
   .gpt-note a { color: var(--ochre); text-decoration: none; border-bottom: 1px solid var(--ochre); }
   .gpt-note a:hover { color: var(--ink); border-bottom-color: var(--ink); }
+  /* On-site begin chat — quiet thread, no bubble chrome */
+  .begin-chat { margin: 1.6em 0 0.4em; max-width: var(--measure); }
+  .begin-chat-thread { max-height: 28vh; overflow-y: auto; padding: 0.4em 0 0.8em;
+    border-top: 1px solid rgba(var(--ink-rgb),0.1); }
+  .begin-chat-turn { margin: 0.55em 0; line-height: 1.5; font-size: 0.95em; }
+  .begin-chat-turn--user { color: var(--ink); }
+  .begin-chat-turn--reply { font-style: italic; opacity: 0.88; }
+  .begin-chat-turn--system { font-style: italic; opacity: 0.55; font-size: 0.9em; }
+  .begin-chat-compose { display: flex; flex-direction: column; align-items: flex-start; gap: 0.7em;
+    padding-top: 0.6em; border-top: 1px solid rgba(var(--ink-rgb),0.1); }
+  .begin-chat-input { width: 100%; resize: vertical; min-height: 2.6em; max-height: 8em;
+    background: transparent; border: 0; border-bottom: 1px solid rgba(var(--ink-rgb),0.22);
+    padding: 0.35em 0.1em; font-family: inherit; font-size: 1em; font-style: italic;
+    color: var(--ink); line-height: 1.45; outline: none; }
+  .begin-chat-input:focus { border-bottom-color: var(--ochre); }
+  .begin-chat-input:disabled { opacity: 0.55; }
+  button.begin-chat-send.door, .begin-chat-send.door {
+    font-family: inherit; font-size: 0.95em; font-style: italic; color: var(--ochre);
+    background: none; border: 0; border-bottom: 1px solid var(--ochre);
+    padding: 0 0 1px; cursor: pointer; }
+  button.begin-chat-send.door:hover:not(:disabled) { color: var(--ink); border-bottom-color: var(--ink); }
+  button.begin-chat-send.door:disabled { opacity: 0.45; cursor: default; }
+  .begin-chat-err { font-size: 0.82em; font-style: italic; opacity: 0.6; margin: 0.5em 0 0; }
   ::selection { background: rgba(var(--accent-rgb),0.22); }
   @media (max-width: 640px) { :root { --body-size: 18px; } main { padding: 0 22px; }
     .back { top: 20px; left: 22px; } .head h1 { font-size: calc(var(--body-size) * 1.85); }
@@ -121,7 +144,7 @@
 <main>
   <header class="head">
     <h1>What's most pressing?</h1>
-    <p class="orientation">Find the one that's truest right now. You'll be handed a small mark to carry into the conversation — the elements will meet you there. You can always come back and choose another.</p>
+    <p class="orientation">Find the one that's truest right now. You'll be handed a small mark — then you can talk with the elements here on this page. You can always come back and choose another.</p>
   </header>
 
   <section class="beat">
@@ -193,22 +216,28 @@
   <main>
     <p class="lead">Carry this to the elements:</p>
     <p class="seed" id="seedText"></p>
-    <p class="seed-hint">Copy it and paste it into the conversation. The glyph sets where to begin; the line in quotes is what you're bringing.</p>
+    <p class="seed-hint">Speak with them here — the glyph sets where to begin; the line in quotes is what you're bringing. You can still copy the seed if you want it elsewhere.</p>
     <p><button id="copyBtn" class="copybtn" type="button">copy</button></p>
-    <p class="carry"><a id="carryLink" href="https://chatgpt.com/g/g-6a2c0fe6d3b081918f80d27b775715f9-elemental-sensemaker" rel="noopener" target="_blank"><em>Sit with the elements →</em></a> <span class="carry-where">opens the Elemental Sensemaker in ChatGPT</span></p>
-    <p class="gpt-note">Sit with it there. When you're ready, ask for your <em>nemetic.φ</em> — a single line the elements hand back. Copy that line and bring it to <a href="transform.html"><em>transform →</em></a> to carry the working forward.</p>
+    <div id="begin-chat" class="begin-chat" hidden></div>
+    <p class="carry"><a id="carryLink" href="https://chatgpt.com/g/g-6a2c0fe6d3b081918f80d27b775715f9-elemental-sensemaker" rel="noopener" target="_blank"><em>or sit with them in ChatGPT →</em></a> <span class="carry-where">quieter alternate</span></p>
+    <p class="gpt-note">If you sit with it there instead: when you're ready, ask for your <em>nemetic.φ</em> — a single line the elements hand back. Copy that line and bring it to <a href="transform.html"><em>transform →</em></a> to carry the working forward.</p>
   </main>
 </div>
 
+<script src="assets/supabase-config.js"></script>
+<script type="module" src="assets/auth.js"></script>
+<script src="assets/chat-config.js"></script>
+<script src="assets/chat.js"></script>
 <script>
   // Concern -> seed (element-level "concern seed"): operator + scale-sigil + beat-sigil.
-  // The maneuver itself is resolved by the GPT in conversation (concern->maneuver routing).
+  // The maneuver itself is resolved in conversation (concern->maneuver routing).
   // See system/GLYPH_SEED.md. Scale here is personal (⟡).
   var BEAT_SIGIL = { now: "◐", pattern: "◑", becoming: "●" };
   var SCALE = "⟡"; // personal
   var panel = document.getElementById('seedPanel');
   var seedText = document.getElementById('seedText');
   var copyBtn = document.getElementById('copyBtn');
+  var chatMount = document.getElementById('begin-chat');
   var currentSeed = '';
   document.querySelectorAll('.concern').forEach(function (b) {
     b.addEventListener('click', function () {
@@ -222,6 +251,10 @@
         '<br><span class="concern-echo">"' + concern + '"</span>';
       copyBtn.textContent = 'copy';
       panel.classList.add('show');
+      if (window.ElementalBeginChat) {
+        window.ElementalBeginChat.setSeed({ glyph: op, line: concern, seedText: currentSeed });
+        window.ElementalBeginChat.mount(chatMount);
+      }
       panel.scrollIntoView({ behavior: 'smooth', block: 'end' });
     });
   });
