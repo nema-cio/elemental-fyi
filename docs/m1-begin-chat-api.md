@@ -8,13 +8,16 @@ Thin Pages↔backend contract for the on-site chat on `begin.html`.
 
 ```js
 window.ELEMENTAL_CHAT = {
-  endpoint: "", // empty = stub/offline UI
+  endpoint: "https://chat.srv1338664.hstgr.cloud/api/chat",
   channelName: "elemental-fyi-begin",
   mouth: "Coordinator"
 };
 ```
 
-Set `endpoint` when Hermes wires the site backend. Never put `nsec`, `BUZZ_PRIVATE_KEY`, NIP-OA tags, or other Buzz secrets in Pages or client files.
+Also accepted by the backend: `/api/begin-chat`. Health: `https://chat.srv1338664.hstgr.cloud/health`.
+Custom domain `chat.elemental.fyi` is not set yet — use the `hstgr.cloud` host for now.
+
+Never put `nsec`, `BUZZ_PRIVATE_KEY`, NIP-OA tags, or other Buzz secrets in Pages or client files. site-router secrets stay on the Hostinger VPS only.
 
 ## Request
 
