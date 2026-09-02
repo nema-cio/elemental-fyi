@@ -3,7 +3,7 @@
 **From:** Elemental Dev (site) + Hermes Coordinator (Buzz / Hostinger chat backend)  
 **When:** 2026-09-02  
 **Repo:** `nema-cio/elemental-fyi` (GitHub Pages)  
-**PR merged / merging:** [#1 M1 begin chat UI](https://github.com/nema-cio/elemental-fyi/pull/1)
+**PR merged:** [#1 M1 begin chat UI](https://github.com/nema-cio/elemental-fyi/pull/1)
 
 ## What just shipped (M1)
 
@@ -12,7 +12,19 @@ Public helper chat on `begin.html`:
 1. User picks a concern → glyph + line seed  
 2. On-site chat panel (`ElementalBeginChat`) POSTs to Hostinger  
 3. Backend uses **site-router** (server-only secrets) to mention **Coordinator** on Buzz channel `elemental-fyi-begin`  
-4. Reply returns as `{ reply, sessionId }`
+4. Reply returns as `{ reply, sessionId }`  
+5. **Coordinator** is the single public mouth; `glyph` selects which elemental frame to speak in (Daniel, 2026-09-02)
+
+### Glyph → elemental
+
+| Glyph | Element | Elemental |
+| --- | --- | --- |
+| `λ` | Fire | Jvalion |
+| `ρ` | Water | Sentaria |
+| `σ` | Air | Aerunik |
+| `δγ` | Earth | Humavita |
+| `μ` | Metal | Ferrosid |
+| `β` | Wood | Arboriel |
 
 ### Key files
 
@@ -22,7 +34,7 @@ Public helper chat on `begin.html`:
 | `assets/chat.js` | Client send/mount/setSeed, localStorage session |
 | `assets/chat-config.js` | **Only** public endpoint URL + metadata |
 | `assets/auth.js` | Supabase magic link + `getAccessToken()` for optional `supabaseJwt` |
-| `docs/m1-begin-chat-api.md` | Pages↔backend contract |
+| `docs/m1-begin-chat-api.md` | Pages↔backend contract + glyph map |
 
 ### Endpoint (current)
 
@@ -40,7 +52,7 @@ Ops notes for the VPS live under Daniel’s machine at
 
 - [ ] Read `begin.html` seed → chat wiring; match site register (no generic chatbot chrome)
 - [ ] Confirm `assets/chat-config.js` has **no** secrets; only the public HTTPS endpoint
-- [ ] After Pages deploy: open https://elemental.fyi/begin.html — pick a concern, send a message, confirm Coordinator reply
+- [ ] After Pages deploy: open https://elemental.fyi/begin.html — pick a concern, send a message, confirm Coordinator reply **in the matching elemental frame** for that glyph
 - [ ] Confirm CORS still works from Pages origin (not only curl)
 - [ ] Confirm signed-out path works; signed-in path optionally sends `supabaseJwt`
 - [ ] Grep the client for nsec / elemental-lab / Discord mouth regressions
@@ -55,7 +67,7 @@ Ordered roughly by value; keep M1 non-goals unless Daniel expands scope.
 4. **Readings depth** — `posts/` and account-consent → published accounts flow.  
 5. **Sign-in / account thread** — polish `account.html` readings list + progress.  
 6. **Substack cross-links** — two Substacks; surface from ledger/footer without breaking soft register.  
-7. **M2 (only if asked)** — six-element mention routing; still never put Buzz keys on Pages; keep elemental-lab owner-only.
+7. **M2 (only if asked)** — real six-element mention routing; still never put Buzz keys on Pages; keep elemental-lab owner-only. Until then, glyph→frame via Coordinator is the product rule.
 
 ## Explicit non-goals (still)
 

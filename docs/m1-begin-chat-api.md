@@ -31,6 +31,21 @@ Never put `nsec`, `BUZZ_PRIVATE_KEY`, NIP-OA tags, or other Buzz secrets in Page
 | `line` | string? | Quoted concern text |
 | `supabaseJwt` | string? | From `ElementalAuth.getAccessToken()` when signed in |
 
+## Glyph → elemental (Daniel, 2026-09-02)
+
+Coordinator is the **single public Buzz mouth**. When `glyph` is present, answer in that elemental’s frame (not six separate ACP speakers; not elemental-lab):
+
+| Glyph | Element | Elemental |
+| --- | --- | --- |
+| `λ` | Fire | Jvalion |
+| `ρ` | Water | Sentaria |
+| `σ` | Air | Aerunik |
+| `δγ` | Earth | Humavita |
+| `μ` | Metal | Ferrosid |
+| `β` | Wood | Arboriel |
+
+`begin.html` already attaches the matching glyph from each concern’s `data-op`.
+
 ## Response
 
 JSON:
@@ -51,5 +66,6 @@ When `endpoint` is empty, the UI stays quiet: send shows an italic system line t
 - No Discord bridge in the client
 - No six-angle / Sunday synthesis wiring here
 - No `nsec` / Buzz private keys / elemental-lab UUIDs in client files
+- No multi-mouth mention routing (Coordinator only; glyph selects voice/frame)
 
 Buzz channel `elemental-fyi-begin` stays **behind the backend**. Pages only talk to the configurable HTTP endpoint.
