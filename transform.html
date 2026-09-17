@@ -357,7 +357,7 @@
 
     <div class="field">
       <label for="discord">Discord username <span style="opacity:0.55;">(optional)</span>
-        <span class="hint">Stored with the submission if you add it. No Discord invite or thanks are promised from this page.</span>
+        <span class="hint">Included in the submission request if provided. No Discord invite or thanks are promised from this page.</span>
       </label>
       <input type="text" id="discord" name="discord" placeholder="your_discord_username">
     </div>
@@ -376,10 +376,14 @@
 
   </form>
 
-  <!-- Shown after submit attempt. Browser cannot verify Apps Script save (no-cors). -->
+  <!-- Shown after submit attempt. Opaque no-cors cannot verify save; fetch reject is a known network failure. -->
   <section class="received" id="received" aria-live="polite">
-    <p>Your lines were sent from this browser.</p>
-    <p>This page cannot tell whether they were saved. Keep a local copy of your φ and its plain reading — we do not confirm a composed scene, a site post, a Discord announce, or an email from this submit. <span id="creditNote"></span></p>
+    <p id="receivedLead">A submission was attempted from this browser.</p>
+    <p>
+      <span id="receivedVerify">This page cannot tell whether it was saved.</span>
+      Keep a local copy of your φ and its plain reading — we do not confirm a composed scene, a site post, a Discord announce, or an email from this submit.
+      <span id="creditNote"></span>
+    </p>
     <div class="keep-local">
       <button type="button" id="copyLocal">Copy φ &amp; reading</button>
       <button type="button" id="downloadLocal">Download .txt</button>
@@ -413,8 +417,9 @@
   // submissions Sheet (see system/google_apps_script_intake.gs). The local cron
   // (system/sheet_ingest.py) may pull new rows → intake.py GATE 2 → observation file.
   // mode:'no-cors' + text/plain avoids a CORS preflight Apps Script won't answer.
-  // The browser cannot read the response, so a successful fetch (or a catch) does
-  // NOT prove the row landed. UI must not claim save/delivery.
+  // An opaque (unreadable) no-cors response does not prove the row landed. A
+  // thrown fetch rejection is an observable network failure, not a verified send.
+  // UI must not claim save/delivery.
   // Payload shape matches intake.py: { phi, translation, email, name, credit, discord, subscribe, ... }.
   const ENDPOINT = "https://script.google.com/macros/s/AKfycbxArMD_riaWpEeTZdjcX6VHVWpOZPtcQaAayk68K_B3DiQUJk7Z2iimv-EnlxAS7g0/exec";
 
@@ -506,6 +511,7 @@
     lastTranslation = translation;
     lastName = name;
 
+    var networkFailed = false;
     try {
       if (ENDPOINT && ENDPOINT.indexOf('http') === 0) {
         await fetch(ENDPOINT, {
@@ -516,13 +522,25 @@
         });
       }
     } catch (_) {
-      // Network failure is invisible to no-cors either way; keep honesty copy.
+      // Observable rejection (offline / TypeError / failed fetch). Distinct from
+      // an unreadable no-cors opaque response, which resolves without a readable body.
+      networkFailed = true;
+    }
+
+    var receivedLead = document.getElementById('receivedLead');
+    var receivedVerify = document.getElementById('receivedVerify');
+    if (networkFailed) {
+      if (receivedLead) receivedLead.textContent = 'The submission request did not complete from this browser (network failure).';
+      if (receivedVerify) receivedVerify.textContent = 'Save is unverified.';
+    } else {
+      if (receivedLead) receivedLead.textContent = 'A submission was attempted from this browser.';
+      if (receivedVerify) receivedVerify.textContent = 'This page cannot tell whether it was saved.';
     }
 
     const creditNote = document.getElementById('creditNote');
     if (creditNote) {
       creditNote.textContent = credit
-        ? 'If a scene is later made from these lines, your preferred credit name was included in the submission.'
+        ? 'If a scene is later made from these lines, your preferred credit name was included in the submission request.'
         : '';
     }
 
