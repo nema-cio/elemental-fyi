@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Bring it back</title>
-<meta name="description" content="Bring the encoded line from your session with the elements, and they will compose something longer back to you.">
+<meta name="description" content="Bring the encoded line from your session with the elements. This form does not confirm a composed page, a post, or a letter back.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -214,6 +214,20 @@
   .received .glyph-line span {
     width: 5px; height: 5px; border-radius: 50%; display: inline-block;
   }
+  .received .keep-local {
+    display: flex; flex-wrap: wrap; gap: 0.9em 1.4em; margin: 1.6em 0 0.4em;
+  }
+  .received .keep-local button {
+    font-family: "EB Garamond", serif; font-style: italic;
+    font-size: calc(var(--body-size) * 1.05); color: var(--ochre);
+    background: none; border: 0; border-bottom: 1px solid var(--ochre);
+    padding: 0 0 2px; cursor: pointer;
+  }
+  .received .keep-local button:hover { color: var(--ink); border-bottom-color: var(--ink); }
+  .received .keep-status {
+    font-size: calc(var(--body-size) * 0.88); opacity: 0.7; font-style: italic;
+    margin: 0.4em 0 0; min-height: 1.2em;
+  }
 
   /* Hairline */
   .hairline {
@@ -300,15 +314,16 @@
   <header class="head">
     <h1>Bring it back</h1>
     <p class="orientation">When you sit with the elements, the session ends with a short line — a <em>nemetic.φ</em> — and a plain reading of it.</p>
-    <p class="orientation">Bring both back here. The six elements will take what you noticed and compose something longer from it — a page written back to you, from six angles at once.</p>
+    <p class="orientation">Bring both back here. The lines can be held for the elements — six angles on one sitting. This form does not confirm a composed page, a post, or a letter back.</p>
   </header>
 
   <!--
-    PIPELINE (see FUNNEL_ARCHITECTURE.md):
-    submit → queue → Nema routes to the six named Guides in one Discord channel →
-    Guides hand off to each other (no human interaction) → Nema assembles →
-    a dynamic page is generated and emailed to the address below.
-    TODO: set ENDPOINT below to the real submission endpoint.
+    INTAKE: browser POSTs to Apps Script (ENDPOINT below) → Submissions sheet.
+    Downstream automation (Discord routing, composed page, email delivery) is
+    UNVERIFIED from this page — not proven absent, not promised in UI copy.
+    See FUNNEL_ARCHITECTURE.md for intended funnel notes; treat as aspirational.
+    mode:no-cors means the browser cannot read a receipt. Never use "Saved"
+    language unless a readable receipt exists.
   -->
   <form id="transform-form" novalidate>
 
@@ -329,22 +344,22 @@
     </div>
 
     <div class="field">
-      <label for="email">Where should it find you?
-        <span class="hint">We send the composed page here. Nothing else.</span>
+      <label for="email">Email
+        <span class="hint">Collected with the submission.</span>
       </label>
       <input type="email" id="email" name="email" required placeholder="you@somewhere">
     </div>
 
     <div class="field">
       <label for="name">Your name <span style="opacity:0.55;">(optional)</span>
-        <span class="hint">Give a name to be credited on the scene as <em>“scene seed via [name]”</em>. Leave blank to stay anonymous — every scene is shared anonymously by default.</span>
+        <span class="hint">A name to prefer if a scene is later credited as <em>“scene seed via [name]”</em>. Leave blank to stay unnamed. This form does not confirm a scene will be posted.</span>
       </label>
       <input type="text" id="name" name="name" placeholder="how you'd like to be credited">
     </div>
 
     <div class="field">
       <label for="discord">Discord username <span style="opacity:0.55;">(optional)</span>
-        <span class="hint">In the <a href="https://discord.gg/4XJWnjnP" target="_blank" rel="noopener" style="color:var(--ochre);">Elemental Sensemaking Discord</a>? Add your username and Jake will thank you in <strong>#the-tally</strong> when your scene goes live.</span>
+        <span class="hint">Optional. Included with the submission if you add it.</span>
       </label>
       <input type="text" id="discord" name="discord" placeholder="your_discord_username">
     </div>
@@ -352,21 +367,26 @@
     <div class="field" style="padding-bottom:4vh;">
       <label for="subscribe" style="display:flex; gap:0.6em; align-items:flex-start; font-style:normal; cursor:pointer; margin:0;">
         <input type="checkbox" id="subscribe" style="margin-top:0.4em;">
-        <span style="font-size:0.9em; opacity:0.82;">Notify me — send a short weekly note when new scenes go live on elemental.fyi. <em>Just the titles and their nemetic.φ, nothing else; unsubscribe anytime.</em></span>
+        <span style="font-size:0.9em; opacity:0.82;">If a weekly note of new scenes is sent later, include me. <em>A preference only — not a delivery from this submit.</em></span>
       </label>
       <p style="font-size:0.78em; opacity:0.55; margin:0.9em 0 0;"><a href="data-policy.html" style="color:var(--ochre); text-decoration:none; border-bottom:1px solid currentColor;">How your φ, name &amp; email are handled →</a></p>
     </div>
 
     <div class="submit-row">
-      <button type="submit" class="door-btn"><em>Let the elements compose →</em></button>
+      <button type="submit" class="door-btn"><em>Hand it forward →</em></button>
     </div>
 
   </form>
 
-  <!-- Shown in place of the form after a successful submit -->
+  <!-- Shown after submit attempt. Browser cannot verify Apps Script save (no-cors). -->
   <section class="received" id="received" aria-live="polite">
-    <p>It's with the elements now.</p>
-    <p>They will take their time. What comes back is a scene composed from the elements — read, heard, and seen — posted on elemental.fyi, announced in the Discord, and sent to your inbox. <span id="creditNote">If you gave a name, the scene is credited to you; otherwise it's posted anonymously.</span> Read it as weather, not instruction.</p>
+    <p id="receiveLead">We could not verify that this was saved.</p>
+    <p>Keep a copy of your φ and its plain reading. This page does not confirm a composed scene, a post, or an email from this submit. <span id="creditNote"></span></p>
+    <div class="keep-local">
+      <button type="button" id="copyLocal">Copy φ &amp; reading</button>
+      <button type="button" id="downloadLocal">Download .txt</button>
+    </div>
+    <p class="keep-status" id="keepStatus" aria-live="polite"></p>
     <div class="glyph-line" aria-hidden="true">
       <span style="background:var(--c-air)"></span>
       <span style="background:var(--c-water)"></span>
@@ -375,7 +395,9 @@
       <span style="background:var(--c-earth)"></span>
       <span style="background:var(--c-metal)"></span>
     </div>
-    <p style="margin-top:2.4em;"><a href="guides.html" style="font-family:'EB Garamond',serif; font-style:italic; font-size:calc(var(--body-size)*1.12); color:var(--ochre); text-decoration:none; border-bottom:1px solid var(--ochre); padding-bottom:2px;"><em>Meet the elements who'll compose your scene →</em></a></p>
+    <p style="margin-top:2.4em;"><a href="guides.html" style="font-family:'EB Garamond',serif; font-style:italic; font-size:calc(var(--body-size)*1.12); color:var(--ochre); text-decoration:none; border-bottom:1px solid var(--ochre); padding-bottom:2px;"><em>Meet the six →</em></a>
+    &nbsp;·&nbsp;
+    <a href="index.html" style="font-family:'EB Garamond',serif; font-style:italic; font-size:calc(var(--body-size)*1.12); color:var(--ochre); text-decoration:none; border-bottom:1px solid var(--ochre); padding-bottom:2px;"><em>Home ledger →</em></a></p>
   </section>
 
   <p class="honest">This is a way of looking, not a verdict. The framework is a generative practice, not a proven science — hold what returns lightly.</p>
@@ -391,14 +413,105 @@
 <script>
   // Where submissions go. POSTs to a Google Apps Script web app bound to the
   // submissions Sheet (see system/google_apps_script_intake.gs). The local cron
-  // (system/sheet_ingest.py) pulls new rows → intake.py GATE 2 → observation file.
-  // mode:'no-cors' + text/plain avoids a CORS preflight Apps Script won't answer; the
-  // row still lands. We confirm optimistically (can't read a no-cors response).
-  // Payload shape matches intake.py: { phi, translation, email, name, consent, ... }.
+  // (system/sheet_ingest.py) may pull new rows → intake.py GATE 2 → observation file.
+  // Downstream Discord / compose / email automation is UNVERIFIED from this page.
+  // mode:'no-cors' + text/plain avoids a CORS preflight Apps Script won't answer.
+  // The browser cannot read the response, so a completed fetch does NOT prove
+  // the row landed. A thrown fetch means the request did not leave cleanly.
+  // UI must not claim save, composition, publication, or delivery.
+  // Payload shape matches intake.py: { phi, translation, email, name, credit, discord, subscribe, ... }.
   const ENDPOINT = "https://script.google.com/macros/s/AKfycbxArMD_riaWpEeTZdjcX6VHVWpOZPtcQaAayk68K_B3DiQUJk7Z2iimv-EnlxAS7g0/exec";
 
   const form = document.getElementById('transform-form');
   const received = document.getElementById('received');
+  let lastPhi = '';
+  let lastTranslation = '';
+  let lastName = '';
+
+  function localBundle() {
+    var parts = [];
+    parts.push('nemetic.φ');
+    parts.push(lastPhi);
+    parts.push('');
+    parts.push('Plain reading');
+    parts.push(lastTranslation);
+    if (lastName) {
+      parts.push('');
+      parts.push('Name (optional credit preference): ' + lastName);
+    }
+    parts.push('');
+    parts.push('Kept locally from elemental.fyi/transform.html — this browser could not verify server receipt.');
+    return parts.join('\n');
+  }
+
+  function setKeepStatus(msg, ok) {
+    var el = document.getElementById('keepStatus');
+    if (!el) return;
+    el.textContent = msg || '';
+    el.style.opacity = ok === false ? '0.9' : '0.7';
+  }
+
+  function copyViaTextarea(text) {
+    return new Promise(function (resolve, reject) {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed';
+      ta.style.left = '-9999px';
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        var ok = document.execCommand('copy');
+        document.body.removeChild(ta);
+        if (ok) resolve();
+        else reject(new Error('copy failed'));
+      } catch (err) {
+        if (ta.parentNode) document.body.removeChild(ta);
+        reject(err);
+      }
+    });
+  }
+
+  function copyText(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      return navigator.clipboard.writeText(text).catch(function () {
+        return copyViaTextarea(text);
+      });
+    }
+    return copyViaTextarea(text);
+  }
+
+  var copyBtn = document.getElementById('copyLocal');
+  var dlBtn = document.getElementById('downloadLocal');
+  if (copyBtn) {
+    copyBtn.addEventListener('click', async function () {
+      try {
+        await copyText(localBundle());
+        setKeepStatus('Copied to clipboard.', true);
+      } catch (err) {
+        setKeepStatus('Copy failed — try Download .txt instead.', false);
+      }
+    });
+  }
+  if (dlBtn) {
+    dlBtn.addEventListener('click', function () {
+      try {
+        var text = localBundle();
+        var blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = 'nemetic-phi.txt';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+        setKeepStatus('Download started.', true);
+      } catch (err) {
+        setKeepStatus('Download failed.', false);
+      }
+    });
+  }
 
   form.addEventListener('submit', async function (e) {
     e.preventDefault();
@@ -407,7 +520,6 @@
     const email = document.getElementById('email').value.trim();
 
     if (!phi || !translation || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
-      // Quiet nudge: focus the first empty/invalid field.
       if (!phi) return document.getElementById('phi').focus();
       if (!translation) return document.getElementById('translation').focus();
       return document.getElementById('email').focus();
@@ -419,6 +531,15 @@
     const credit = name.length > 0;
     const payload = { phi, translation, email, name, credit, discord, subscribe, submitted_at: new Date().toISOString() };
 
+    lastPhi = phi;
+    lastTranslation = translation;
+    lastName = name;
+
+    var lead = document.getElementById('receiveLead');
+    var unverified = 'We could not verify that this was saved.';
+    var failed = 'The submission did not go through from this browser.';
+    var outcome = 'unverified';
+
     try {
       if (ENDPOINT && ENDPOINT.indexOf('http') === 0) {
         await fetch(ENDPOINT, {
@@ -429,19 +550,21 @@
         });
       }
     } catch (_) {
-      // Even if the network call fails, we don't strand the person — the pipeline
-      // can also be fed from a logged submission. Confirm gracefully.
+      outcome = 'failed';
     }
+
+    if (lead) lead.textContent = outcome === 'failed' ? failed : unverified;
 
     const creditNote = document.getElementById('creditNote');
     if (creditNote) {
       creditNote.textContent = credit
-        ? 'You gave a name, so the scene will be credited to you as “scene seed via ' + name + '.”'
-        : 'You didn’t give a name, so the scene is posted anonymously.';
+        ? 'A preferred credit name was included with the submission, if a scene is later made.'
+        : '';
     }
 
     form.style.display = 'none';
     received.classList.add('show');
+    setKeepStatus('', true);
   });
 </script>
 
